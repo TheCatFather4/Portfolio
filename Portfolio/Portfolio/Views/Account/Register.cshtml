@@ -1,0 +1,37 @@
+﻿@using Portfolio.Models.Identity
+@model RegisterUser
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Register User";
+}
+
+<div class="row">
+    <div class="text-center my-3">
+        <h2>Register a New Account</h2>
+        <p>If you need a management account, please contact the Cafe management team.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 mx-auto border border-info rounded p-3">
+        <form asp-controller="Account" asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Password" class="form-control" />
+                <label asp-for="Password">Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary me-3">Register</button>
+            <a asp-controller="Cafe" asp-action="Index">Go Back</a>
+        </form>
+    </div>
+</div>

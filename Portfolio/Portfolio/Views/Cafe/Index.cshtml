@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "4th Wall Cafe";
+}
+
+<div class="row">
+    <div class="text-center my-3">
+        <h1>Welcome to the 4th Wall Cafe!</h1>
+        <div class="m-3">
+            <img src="~/img/cafe.png" class="img-fluid rounded" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 text-center">
+        <div class="my-3">
+            <h3>
+                <a asp-controller="Cafe" asp-action="Menu">Our Menu</a>
+            </h3>
+        </div>
+        <div class="m-3">
+            <img src="~/img/menu.png" class="img-fluid rounded" />
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="my-3">
+            <h3>
+                <a asp-controller="Management" asp-action="Index">Management Area</a>
+            </h3>
+        </div>
+        <div class="m-3">
+            <img src="~/img/management.png" class="img-fluid rounded" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 text-center">
+        <div class="my-3">
+            <h3>
+                <a asp-controller="Reports" asp-action="Index">Sales Reports</a>
+            </h3>
+        </div>
+        <div class="m-3">
+            <img src="~/img/sales.png" class="img-fluid rounded" />
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="my-3">
+            <h3>
+                <a asp-controller="Cafe" asp-action="OrderAPI">Online Ordering API</a>
+            </h3>
+        </div>
+        <div class="m-3">
+            <img src="~/img/orderapi.png" class="img-fluid rounded" />
+        </div>
+    </div>
+</div>
+
+
+

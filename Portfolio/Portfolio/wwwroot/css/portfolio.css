@@ -1,0 +1,20 @@
+﻿body {
+    background: linear-gradient(to right, #4738ac, #b0a5f6);
+}
+
+nav {
+    background-color: #7b7da7;
+}
+
+#contactForm {
+    background-color: #bdb7e5;
+}
+
+#skillsList div {
+    background-color: orange;
+    font-weight: bold;
+    border: 0.5rem outset blue;
+    border-radius: 12px;
+    text-align: center;
+    margin: 0px 10px 10px 10px;
+}

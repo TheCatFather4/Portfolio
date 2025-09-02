@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Sales Reports";
+}
+
+<div class="row">
+    <div class="text-center my-3">
+        <h1>Welcome accountants and sales managers!</h1>
+        <h5>Please select the appropriate sales report from the following options:</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="text-center">
+        <div class="mb-3">
+            <div class="m-3">
+                <h3><a asp-controller="Reports" asp-action="Orders">Order Date Sales Reports</a></h3>
+            </div>
+            <div>
+                <img src="~/img/report1.png" class="img-fluid rounded" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="m-3">
+                <h3><a asp-controller="Reports" asp-action="Items">Item and Category Sales Reports</a></h3>
+            </div>
+            <div>
+                <img src="~/img/report2.png" class="img-fluid rounded" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="text-center">
+        <div class="my-3">
+            <h4>Back to <a asp-controller="Cafe" asp-action="Index">Cafe Area</a></h4>
+        </div>
+    </div>
+</div>

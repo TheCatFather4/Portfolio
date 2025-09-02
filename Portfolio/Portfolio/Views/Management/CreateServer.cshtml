@@ -1,0 +1,35 @@
+﻿@model ServerForm
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Add Server";
+}
+
+<div class="container">
+    <div class="text-center my-3">
+        <h2>Add a server</h2>
+        <h6>You may add a server to the cafe by simply filling out the fields and clicking the submit button.</h6>
+        <h6>If you wish to return to the server management page, click on the link next to the submit button that says "Go Back".</h6>
+    </div>
+    <div class="border border-info border-3 rounded p-3" id="serverForm">
+        <form class="mb-3" asp-controller="Management" asp-action="CreateServer" method="post">
+            <div asp-validation-summary="All"></div>
+            @Html.AntiForgeryToken()
+            <div class="my-3">
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input type="text" asp-for="FirstName" class="form-control" />
+            </div>
+            <div class="my-3">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input type="text" asp-for="LastName" class="form-control" />
+            </div>
+            <div class="my-3">
+                <label asp-for="DoB" class="form-label">Date of Birth</label>
+                <input type="date" asp-for="DoB" class="form-control" />
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary me-3">Submit</button>
+                <a asp-controller="Management" asp-action="Server">Go Back</a>
+            </div>
+        </form>
+    </div>
+</div>

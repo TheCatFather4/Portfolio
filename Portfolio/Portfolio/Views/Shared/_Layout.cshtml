@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/portfolio.css" rel="stylesheet" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white">Portfolio</a>
+                <ul class="nav">
+                    <li class="nav-link">
+                        <a class="text-white link-underline link-underline-opacity-0" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Projects
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Cafe" asp-action="Index">4th Wall Cafe</a></li>
+                            <li><a class="dropdown-item" asp-controller="Cafe" asp-action="OrderAPI">Cafe API</a></li>
+                            <li><a class="dropdown-item" href="https://www.github.com/thecatfather4/cafepos">Cafe Point-of-Sale</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-link">
+                        <a class="text-white link-underline link-underline-opacity-0" href="https://www.github.com/TheCatFather4">GitHub</a>
+                    </li>
+                    <li class="nav-link">
+                        <a class="text-white link-underline link-underline-opacity-0" asp-controller="Home" asp-action="Contact">Contact Me</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

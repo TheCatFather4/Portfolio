@@ -1,0 +1,54 @@
+﻿@model ServerList
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Server Manager";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <h2 class="my-3">Server Manager</h2>
+        </div>
+        <div class="text-center">
+            <h5 class="mb-3">Click on the 'Edit' link at the end of any row to make adjustments</h5>
+            <p>Hired a new server? Go to the <a asp-controller="Management" asp-action="CreateServer">add server</a> portal.</p>
+            <p>All finished? Go back to management <a asp-controller="Management" asp-action="Index">main menu</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-info table-striped table-hover table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Hire Date</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model.AvailableServers)
+                {
+                    <tr>
+                        <td>@s.FirstName</td>
+                        <td>@s.LastName</td>
+                        <td>@s.DoB.ToShortDateString()</td>
+                        <td>@s.HireDate.ToShortDateString()</td>
+                        @if (s.TermDate == null)
+                        {
+                            <td class="text-success">Active</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">Inactive</td>
+                        }
+                        <td>
+                            <a asp-controller="Management" asp-action="EditServer" asp-route-id="@s.ServerID">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

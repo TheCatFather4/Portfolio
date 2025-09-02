@@ -1,0 +1,72 @@
+﻿@model MenuList
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Menu";
+}
+
+<div class="row">
+    <div class="text-center my-3">
+        <h2>Our menu is sure to have something that piques your interest!</h2>
+        <div class="m-3"">
+            <img src="~/item/menu.png" class="img-fluid rounded" />
+        </div>
+        <h5><u>Use the form below to filter how the menu is displayed.</u></h5>
+        <p>Note: If you would like to see the entire menu without filters, set the form to its default setting and click the button.</p>
+        <p><a asp-controller="Cafe" asp-action="Index">Go back</a> to Cafe Home page</p>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="mx-3">
+            <div class="col-md-6 offset-md-3 bg-info bg-opacity-10 border border-info rounded p-3 mb-3">
+                <form asp-controller="Cafe" asp-action="Menu" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-4 offset-md-4 mb-3">
+                        <label asp-for="SelectedCategoryID" class="form-label">Category</label>
+                        <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control">
+                            <option value="" class="text-center">---Select---</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 offset-md-4 mb-3">
+                        <label asp-for="SelectedTimeOfDayID" class="form-label">Time of Day</label>
+                        <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimesOfDays" class="form-control">
+                            <option value="" class="text-center">---Select---</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 offset-md-4 mb-3">
+                        <label asp-for="Date" class="form-label">Date  (mm/dd/yyyy)</label>
+                        <input type="text" class="form-control" asp-for="Date" />
+                    </div>
+                    <div class="d-grid col-3 mx-auto">
+                        <button type="submit" class="btn btn-primary">View Menu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-center">
+    <div class="row">
+        @if (Model.Items != null)
+        {
+            @foreach (var i in Model.Items)
+            {
+                <div class="col-sm-4 mb-3 d-flex justify-content-center">
+                    <div class="card text-bg-info bg-opacity-10" style="width: 18rem;">
+                        <img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">@i.ItemName</h5>
+                            <p class="card-text">@i.ItemDescription</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var p in i.Prices)
+                            {
+                                <li class="list-group-item border border-info">$@p.Price</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

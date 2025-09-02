@@ -1,0 +1,44 @@
+﻿@model ServerForm
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Edit Server";
+}
+
+<div class="container">
+    <div class="text-center my-3">
+        <h1>Edit a server</h1>
+        <h6>Adjust the information in the appropriate fields to edit or update. When finished editing, click the "Save" button.</h6>
+        <h6>If you would like to re-activate a server, simply delete the information in the "Termination Date" field so that it reads "mm/dd/yyyy".</h6>
+    </div>
+    <div class="border border-info p-3 border-3 rounded" id="serverForm">
+        <form class="mb-3" asp-controller="Management" asp-action="EditServer" asp-route-id="@Model.ServerID" method="post">
+            <div asp-validation-summary="All"></div>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="ServerID" />
+            <div>
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" asp-for="FirstName" />
+            </div>
+            <div>
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" asp-for="LastName" />
+            </div>
+            <div>
+                <label asp-for="DoB" class="form-label">Date of Birth</label>
+                <input type="text" class="form-control" asp-for="DoB" />
+            </div>
+            <div>
+                <label asp-for="HireDate" class="form-label">Hire Date</label>
+                <input type="date" class="form-control" asp-for="HireDate" />
+            </div>
+            <div>
+                <label asp-for="TermDate" class="form-label">Termination Date</label>
+                <input type="date" class="form-control" asp-for="TermDate" />
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary me-3">Save</button>
+                <a asp-controller="Management" asp-action="Server">Go Back</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model List<MenuItem>
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Menu Management";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <h2 class="my-3">Menu Management</h2>
+            <h5>Want to spice up or cool down the selection? Add a <a asp-controller="Management" asp-action="CreateItem">new item</a> to the menu!</h5>
+            <p><a asp-controller="Management" asp-action="Index">Go back</a> to management area.</p>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <table class="table table-secondary table-striped table-hover table-bordered border-info">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <td>@i.ItemName</td>
+                            <td>@i.ItemDescription</td>
+                            <td>
+                                <a asp-controller="Management" asp-action="EditMenu" asp-route-id="@i.ItemID">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
