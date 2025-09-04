@@ -1,9 +1,6 @@
 ﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Portfolio.ApiControllers
 {
@@ -26,7 +23,7 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Gets entire menu including pricing information (Authentication required)
+        /// Gets entire menu including pricing information
         /// </summary>
         /// <returns></returns>
         [HttpGet]

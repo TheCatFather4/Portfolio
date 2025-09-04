@@ -27,6 +27,7 @@ namespace Portfolio.Models
             item.CategoryID = SelectedCategoryID;
             item.ItemName = Name;
             item.ItemDescription = Description;
+            item.ItemStatusID = 1;
             item.Prices = new List<ItemPrice>();
 
             var itemPrice = new ItemPrice();

@@ -2,9 +2,7 @@
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Portfolio.ApiControllers
 {
@@ -32,10 +30,10 @@ namespace Portfolio.ApiControllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         [HttpPost("process")]
         [ProducesResponseType(typeof(PaymentResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public IActionResult ProcessPayment([FromBody] PaymentRequest dto)
         {
             var result = _paymentService.ProcessPayment(dto);

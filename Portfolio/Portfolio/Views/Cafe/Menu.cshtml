@@ -53,7 +53,14 @@
             {
                 <div class="col-sm-4 mb-3 d-flex justify-content-center">
                     <div class="card text-bg-info bg-opacity-10" style="width: 18rem;">
-                        <img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="card-img-top" />
+                        @if (i.ItemStatusID != 1)
+                        {
+                            <img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="card-img-top" />
+                        }
+                        else
+                        {
+                            <img src="~/item/newitem.png" class="card-img-top" />
+                        }
                         <div class="card-body">
                             <h5 class="card-title">@i.ItemName</h5>
                             <p class="card-text">@i.ItemDescription</p>

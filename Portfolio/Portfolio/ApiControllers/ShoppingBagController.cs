@@ -33,6 +33,7 @@ namespace Portfolio.ApiControllers
         /// <returns></returns>
         [HttpGet("{customerId}")]
         [ProducesResponseType(typeof(ShoppingBag), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetShoppingBag(int customerId)
         {
@@ -57,6 +58,7 @@ namespace Portfolio.ApiControllers
         [HttpPost("{customerId}/items")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItem itemDto)
         {
             var result = await _shoppingBagService.AddItemToBagAsync(customerId, itemDto.ItemId, itemDto.Quantity);
@@ -80,6 +82,7 @@ namespace Portfolio.ApiControllers
         [HttpDelete("{customerId}/items/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RemoveItemFromBag(int customerId, int shoppingBagItemId)
         {
             var result = await _shoppingBagService.RemoveItemFromBagAsync(customerId, shoppingBagItemId);
@@ -104,6 +107,7 @@ namespace Portfolio.ApiControllers
         [HttpPut("{customerId}/items/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantity quantity)
         {
             var result = await _shoppingBagService.UpdateItemQuantityAsync(customerId, shoppingBagItemId, quantity.NewQuantity);
@@ -126,6 +130,7 @@ namespace Portfolio.ApiControllers
         [HttpDelete("{customerId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> ClearShoppingBag(int customerId)
         {
             var result = await _shoppingBagService.ClearShoppingBagAsync(customerId);

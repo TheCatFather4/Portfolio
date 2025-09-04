@@ -1,4 +1,8 @@
-﻿#menuForm {
+﻿body {
+    background: repeating-linear-gradient(rgba(0, 195, 255, 0.25)) 50px, rgb(0, 195, 255, 0.50) 56px;
+}
+
+#menuForm {
     background: linear-gradient(to right, #b6c7ca, #dbeef1);
 }
 

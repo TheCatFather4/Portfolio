@@ -22,6 +22,7 @@ namespace Cafe.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<PaymentStatus> PaymentStatus { get; set; }
+        public DbSet<ItemStatus> ItemStatus { get; set; }
 
         public CafeContext(string connectionString)
         {

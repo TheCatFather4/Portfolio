@@ -2,9 +2,7 @@
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Portfolio.ApiControllers
 {
@@ -36,8 +34,9 @@ namespace Portfolio.ApiControllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest request)
         {
             if (!ModelState.IsValid)
@@ -52,7 +51,7 @@ namespace Portfolio.ApiControllers
             if (result.Ok)
             {
                 _logger.LogInformation($"Order {result.Data?.OrderID} created successfully for customer {request.CustomerId}");
-                return StatusCode((int)HttpStatusCode.Created, result.Data);
+                return Created(string.Empty, result.Data);
             }
             else
             {
@@ -68,6 +67,7 @@ namespace Portfolio.ApiControllers
         /// <returns></returns>
         [HttpGet("{orderId}")]
         [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetOrderDetails(int orderId)
         {
@@ -93,6 +93,7 @@ namespace Portfolio.ApiControllers
         [HttpGet("customer/{customerId}")]
         [ProducesResponseType(typeof(List<CafeOrderResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetOrderHistory(int customerId)
         {
             _logger.LogInformation($"Attempting to retrieve orders for customer ID: {customerId}");
