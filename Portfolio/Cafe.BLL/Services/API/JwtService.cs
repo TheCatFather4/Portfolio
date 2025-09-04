@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 
-namespace Cafe.BLL.Services
+namespace Cafe.BLL.Services.API
 {
     public class JwtService : IJwtService
     {

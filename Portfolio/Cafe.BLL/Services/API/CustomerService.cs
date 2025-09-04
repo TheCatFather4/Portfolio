@@ -5,7 +5,7 @@ using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Cafe.BLL.Services
+namespace Cafe.BLL.Services.API
 {
     public class CustomerService : ICustomerService
     {

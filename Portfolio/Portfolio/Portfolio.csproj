@@ -22,10 +22,6 @@
     <ProjectReference Include="..\Cafe.Core\Cafe.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>	

@@ -25,6 +25,19 @@ namespace Cafe.Data.Repositories.EF
             _dbContext.SaveChanges();
         }
 
+        public bool IsDuplicateItem(string itemName)
+        {
+            var item = _dbContext.Item
+                .FirstOrDefault(i => i.ItemName == itemName);
+
+            if (item != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public Item GetMenuItemById(int itemID)
         {
             return _dbContext.Item

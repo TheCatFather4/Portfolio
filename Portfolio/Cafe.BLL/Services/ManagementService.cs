@@ -16,6 +16,13 @@ namespace Cafe.BLL.Services
 
         public Result AddItem(Item item)
         {
+            var duplicateItem = _managementRepository.IsDuplicateItem(item.ItemName);
+
+            if (duplicateItem)
+            {
+                return ResultFactory.Fail("This item already exists on the menu.");
+            }
+
             try
             {
                 _managementRepository.AddItem(item);

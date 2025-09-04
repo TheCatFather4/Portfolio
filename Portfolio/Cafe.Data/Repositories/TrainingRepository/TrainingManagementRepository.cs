@@ -55,6 +55,11 @@ namespace Cafe.Data.Repositories.TrainingRepository
             return servers;
         }
 
+        public bool IsDuplicateItem(string itemName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateMenu(Item item)
         {
             var existingItem = FakeCafeDb.Items

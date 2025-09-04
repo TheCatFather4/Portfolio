@@ -11,5 +11,6 @@ namespace Cafe.Core.Interfaces.Repositories
         Item GetMenuItemById(int itemID);
         void UpdateMenu(Item item);
         void AddItem(Item item);
+        bool IsDuplicateItem(string itemName);
     }
 }
