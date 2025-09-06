@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Cafe.Core.Interfaces.Services.MVC;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.Models;
 using Portfolio.Models.Identity;
 
 namespace Portfolio.Controllers
@@ -8,11 +10,13 @@ namespace Portfolio.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IMVCustomerService _customerService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMVCustomerService customerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _customerService = customerService;
         }
 
         [HttpGet]
@@ -30,7 +34,15 @@ namespace Portfolio.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var customerResult = await _customerService.RegisterCustomerAsync(model.Email, user.Id);
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    if (customerResult.Ok)
+                    {
+                        TempData["Alert"] = Alert.CreateSuccess(customerResult.Message);
+                    }
+
                     return RedirectToAction("Index", "Cafe");
                 }
                 foreach (var error in result.Errors)
@@ -45,6 +57,7 @@ namespace Portfolio.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["Alert"] = Alert.CreateSuccess("You have successfully logged out.");
             return RedirectToAction("Index", "Cafe");
         }
 

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="text-center my-3">
-        <h1>Welcome to the 4th Wall Cafe!</h1>
+        <h1 id="cafeTitle">Welcome to the 4th Wall Cafe!</h1>
         <div class="m-3">
             <img src="~/img/cafe.png" class="img-fluid rounded border border-5 border-info" />
         </div>
@@ -15,7 +15,7 @@
     <div class="col-md-6 text-center">
         <div class="my-3">
             <h3>
-                <a asp-controller="Cafe" asp-action="Menu">Our Menu</a>
+                <a asp-controller="Cafe" asp-action="Menu" id="titleSection">Our Menu</a>
             </h3>
         </div>
         <div class="m-3">
@@ -25,7 +25,7 @@
     <div class="col-md-6 text-center">
         <div class="my-3">
             <h3>
-                <a asp-controller="Management" asp-action="Index">Management Area</a>
+                <a asp-controller="Management" asp-action="Index" id="titleSection">Management Area</a>
             </h3>
         </div>
         <div class="m-3">
@@ -37,7 +37,7 @@
     <div class="col-md-6 text-center">
         <div class="my-3">
             <h3>
-                <a asp-controller="Reports" asp-action="Index">Sales Reports</a>
+                <a asp-controller="Reports" asp-action="Index" id="titleSection">Sales Reports</a>
             </h3>
         </div>
         <div class="m-3">
@@ -47,7 +47,7 @@
     <div class="col-md-6 text-center">
         <div class="my-3">
             <h3>
-                <a asp-controller="Cafe" asp-action="OrderAPI">Online Ordering API</a>
+                <a asp-controller="Cafe" asp-action="OrderAPI" id="titleSection">Online Ordering API</a>
             </h3>
         </div>
         <div class="m-3">

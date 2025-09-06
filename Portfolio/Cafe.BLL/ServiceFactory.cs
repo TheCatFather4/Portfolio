@@ -1,8 +1,10 @@
 ﻿using Cafe.BLL.Services;
 using Cafe.BLL.Services.API;
+using Cafe.BLL.Services.MVC;
 using Cafe.Core.Enums;
 using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
+using Cafe.Core.Interfaces.Services.MVC;
 using Cafe.Data.Repositories.EF;
 using Cafe.Data.Repositories.TrainingRepository;
 using Microsoft.Extensions.Configuration;
@@ -109,6 +111,11 @@ namespace Cafe.BLL
             return new PaymentService(
                 new PaymentRepository(_config.GetConnectionString()), 
                 logger);
+        }
+
+        public IMVCustomerService CreateMVCustomerService()
+        {
+            return new MVCustomerService(new CustomerRepository(_config.GetConnectionString()));
         }
     }
 }

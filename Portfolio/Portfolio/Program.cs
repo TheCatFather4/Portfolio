@@ -1,14 +1,15 @@
 using Cafe.BLL;
-using Portfolio;
-using Portfolio.Utilities;
 using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
+using Cafe.Core.Interfaces.Services.MVC;
 using Cafe.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Portfolio;
+using Portfolio.Utilities;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -87,6 +88,12 @@ builder.Services.AddScoped<IPaymentService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreatePaymentService();
+});
+
+builder.Services.AddScoped<IMVCustomerService>(provider =>
+{
+    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
+    return serviceFactory.CreateMVCustomerService();
 });
 
 builder.Services.AddScoped<ISelectListBuilder, SelectListBuilder>();

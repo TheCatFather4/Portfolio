@@ -94,7 +94,8 @@ namespace Portfolio.Controllers
                                 CategoryID = item.CategoryID,
                                 ItemName = item.ItemName,
                                 ItemDescription = item.ItemDescription,
-                                Prices = filteredPrices
+                                Prices = filteredPrices,
+                                ItemStatusID = item.ItemStatusID
                             });
                         }
                     }
@@ -140,7 +141,8 @@ namespace Portfolio.Controllers
                                 CategoryID = item.CategoryID,
                                 ItemName = item.ItemName,
                                 ItemDescription = item.ItemDescription,
-                                Prices= filteredDatePrices
+                                Prices= filteredDatePrices,
+                                ItemStatusID = item.ItemStatusID
                             });
                         }
                     }

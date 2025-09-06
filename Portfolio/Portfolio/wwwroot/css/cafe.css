@@ -2,6 +2,34 @@
     background: repeating-linear-gradient(rgba(0, 195, 255, 0.25)) 50px, rgb(0, 195, 255, 0.50) 56px;
 }
 
+#cafeTitle {
+    font-family: cursive;
+}
+
+#cardBody {
+    border-left: solid;
+    border-right: solid;
+    background-color: rgb(113, 233, 215);
+}
+
+    #cardBody h5 {
+        font-family: Papyrus;
+    }
+
+    #cardBody p {
+        font-family: Georgia;
+    }
+
+#cardPrice {
+    border: solid;
+    background-color: rgb(164, 246, 218);
+    font-family: 'Lucida Bright';
+}
+
+#cardTop {
+    border: solid;
+}
+
 #menuForm {
     background: linear-gradient(to right, #b6c7ca, #dbeef1);
 }
@@ -16,4 +44,8 @@
 
 #serverForm {
     background: linear-gradient(to right, #80e3f1, #cceaee);
+}
+
+#titleSection {
+    font-family: Comic Sans MS;
 }
