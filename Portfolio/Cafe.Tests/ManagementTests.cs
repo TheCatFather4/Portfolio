@@ -45,5 +45,25 @@ namespace Cafe.Tests
 
             Assert.That(result.Ok, Is.True);
         }
+
+        [Test]
+        public void ServerNotFound()
+        {
+            ManagementService service = new ManagementService(new MockManagementRepository());
+
+            var result = service.GetServerById(4);
+
+            Assert.That(result.Ok, Is.False);
+        }
+
+        [Test]
+        public void ServerFound()
+        {
+            ManagementService service = new ManagementService(new MockManagementRepository());
+
+            var result = service.GetServerById(1);
+
+            Assert.That(result.Ok, Is.True);
+        }
     }
 }

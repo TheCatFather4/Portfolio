@@ -34,7 +34,19 @@ namespace Cafe.Tests.MockRepositories
 
         public Server GetServerById(int serverID)
         {
-            throw new NotImplementedException();
+            if (serverID == 4)
+            {
+                return null;
+            }
+
+            return new Server
+            {
+                ServerID = 1,
+                FirstName = "John",
+                LastName = "Smith",
+                HireDate = DateTime.Now,
+                DoB = DateTime.Today.AddYears(-25)
+            };
         }
 
         public List<Server> GetServers()
