@@ -1,5 +1,6 @@
 ﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
@@ -22,6 +23,12 @@ namespace Cafe.Data.Repositories.EF
         {
             _dbContext.ShoppingBag.Add(shoppingBag);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Customer> GetCustomerByEmailAsync(string identityName)
+        {
+            return await _dbContext.Customer
+                .FirstOrDefaultAsync(c => c.Email == identityName);
         }
 
         public async Task UpdateCustomerAsync(Customer customer)

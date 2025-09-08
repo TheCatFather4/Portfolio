@@ -14,6 +14,25 @@ namespace Cafe.BLL.Services.MVC
             _customerRepository = customerRepository;
         }
 
+        public async Task<Result<Customer>> GetCustomerByEmailAsync(string identityId)
+        {
+            try
+            {
+                var customer = await _customerRepository.GetCustomerByEmailAsync(identityId);
+
+                if (customer == null)
+                {
+                    return ResultFactory.Fail<Customer>("Customer not found.");
+                }
+
+                return ResultFactory.Success(customer);
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail<Customer>(ex.Message);
+            }
+        }
+
         public async Task<Result> RegisterCustomerAsync(string email, string identityId)
         {
 
@@ -50,6 +69,19 @@ namespace Cafe.BLL.Services.MVC
             catch (Exception ex)
             {
                 return ResultFactory.Fail($"An unexpected error ocurred: {ex.Message}");
+            }
+        }
+
+        public async Task<Result> UpdateCustomerAsync(Customer entity)
+        {
+            try
+            {
+                await _customerRepository.UpdateCustomerAsync(entity);
+                return ResultFactory.Success("Your customer information is successfully updated!");
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail($"{ex.Message}");
             }
         }
     }
