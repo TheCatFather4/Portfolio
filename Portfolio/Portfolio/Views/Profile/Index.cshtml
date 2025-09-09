@@ -4,23 +4,30 @@
     ViewData["Title"] = "Profile";
 }
 
-<h1>@Model.FirstName's Profile</h1>
-<p>Update your customer information on this page</p>
-<form asp-controller="Profile" asp-action="Index" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="CustomerID" />
-    <div>
-        <label asp-for="FirstName" class="form-label">First Name</label>
-        <input type="text" asp-for="FirstName" class="form-control" />
+<div class="container">
+    <div class="row">
+        <h1>@Model.FirstName's Profile</h1>
+        <p>Update your customer information on this page</p>
     </div>
-    <div>
-        <label asp-for="LastName" class="form-label">Last Name</label>
-        <input type="text" asp-for="LastName" class="form-control" />
+    <div class="row">
+        <form asp-controller="Profile" asp-action="Index" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="CustomerID" />
+            <div>
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input type="text" asp-for="FirstName" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input type="text" asp-for="LastName" class="form-control" />
+            </div>
+            <input type="hidden" asp-for="Email" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ShoppingBagId" />
+            <div>
+                <button class="btn btn-primary">Save</button>
+                <a asp-controller="Cafe" asp-action="Index">Go Back to Cafe</a>
+            </div>
+        </form>
     </div>
-    <input type="hidden" asp-for="Email" />
-    <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="ShoppingBagId" />
-    <div>
-        <button class="btn btn-primary">Save</button>
-    </div>
-</form>
+</div>
