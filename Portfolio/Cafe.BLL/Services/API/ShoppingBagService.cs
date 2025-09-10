@@ -72,6 +72,25 @@ namespace Cafe.BLL.Services.API
             }
         }
 
+        public async Task<Result<Item>> GetItemWithPriceAsync(int itemId)
+        {
+            try
+            {
+                var item = await _menuRepository.GetItemWithPriceAsync(itemId);
+
+                if (item != null)
+                {
+                    return ResultFactory.Success(item);
+                }
+
+                return ResultFactory.Fail<Item>("Item not found");
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail<Item>(ex.Message);
+            }
+        }
+
         public async Task<Result<ShoppingBag>> GetShoppingBagAsync(int customerId)
         {
             try
@@ -89,6 +108,28 @@ namespace Cafe.BLL.Services.API
             {
                 _logger.LogError("An unexpected error occurred when retrieving the shopping bag.");
                 return ResultFactory.Fail<ShoppingBag>(ex.Message);
+            }
+        }
+
+        public async Task<Result> MVCAddItemToBagAsync(int shoppingBagId, int itemId, string itemName, decimal price, byte quantity)
+        {
+            var bagItem = new ShoppingBagItem
+            {
+                ShoppingBagID = shoppingBagId,
+                ItemID = itemId,
+                Quantity = quantity,
+                ItemName = itemName,
+                Price = price
+            };
+
+            try
+            {
+                await _shoppingBagRepository.MVCAddItemAsync(bagItem);
+                return ResultFactory.Success("Item successfully added to cart!");
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail($"{ex.Message}");
             }
         }
 

@@ -56,6 +56,13 @@ namespace Cafe.Data.Repositories.EF
                 .ToList();
         }
 
+        public async Task<Item> GetItemWithPriceAsync(int itemId)
+        {
+            return await _dbContext.Item
+               .Include(i => i.Prices)
+               .FirstOrDefaultAsync(i => i.ItemID == itemId);
+        }
+
         public List<Item> GetMenu()
         {
             return _dbContext.Item

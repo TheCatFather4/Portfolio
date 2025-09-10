@@ -17,13 +17,16 @@
                 <div class="collapse navbar-collapse" id="navbar02">
                     <a class="navbar-brand">4th Wall Cafe</a>
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cafe" asp-action="Index">Cafe Home</a>
-                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a asp-controller="Profile" asp-action="Index" class="nav-link">Hello, @User.Identity.Name!</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello, @User.Identity.Name!
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">Customer Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <form class="form-line" asp-controller="Account" asp-action="Logout" method="post">
@@ -40,6 +43,9 @@
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Cafe" asp-action="Index">Cafe Home</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Portfolio

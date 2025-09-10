@@ -9,5 +9,6 @@ namespace Cafe.Core.Interfaces.Repositories
         Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId);
         Task UpdateItemQuantityAsync(int shoppingBagId, int shoppingBagItemId, byte quantity);
         Task ClearShoppingBag(int shoppingBagId);
+        Task MVCAddItemAsync(ShoppingBagItem item);
     }
 }

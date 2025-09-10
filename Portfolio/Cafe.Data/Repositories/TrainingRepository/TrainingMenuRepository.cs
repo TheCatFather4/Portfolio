@@ -64,5 +64,10 @@ namespace Cafe.Data.Repositories.TrainingRepository
         {
             throw new NotImplementedException();
         }
+
+        public Task<Item> GetItemWithPriceAsync(int itemId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
