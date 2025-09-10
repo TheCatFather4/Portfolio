@@ -71,6 +71,14 @@
                                 <li class="list-group-item" id="cardPrice">$@p.Price</li>
                             }
                         </ul>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div id="cardAdd" class="py-2">
+                                <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-itemId="@i.ItemID">
+                                    Add to Cart
+                                </a>
+                            </div>
+                        }
                     </div>
                 </div>
             }

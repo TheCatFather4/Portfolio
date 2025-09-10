@@ -6,6 +6,13 @@
     font-family: cursive;
 }
 
+#cardAdd {
+    border-left: solid;
+    border-right: solid;
+    border-bottom: solid;
+    background-color: aquamarine;
+}
+
 #cardBody {
     border-left: solid;
     border-right: solid;

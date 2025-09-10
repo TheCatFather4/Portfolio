@@ -1,0 +1,48 @@
+﻿@using Portfolio.Models.Ordering
+@model ShoppingCart
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="text-center">
+    <h1>Shopping Cart</h1>
+</div>
+@if (Model.Items.Any())
+{
+    <div class="container">
+        <table class="table table-secondary table-striped">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Items)
+                {
+                    <tr>
+                        <td><img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-thumbnail me-3" style="width:6rem" />@i.ItemName</td>
+                        <td>@i.Quantity</td>
+                        <td>@i.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="text-center">
+            <h3>Want to add more items? Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
+        </div>
+    </div>
+}
+else
+{
+    <p>There are currently no items in your shopping cart.</p>
+    <div class="row">
+        <div class="text-center">
+            <h3>Want to add some items to your cart? Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
+        </div>
+    </div>
+}
