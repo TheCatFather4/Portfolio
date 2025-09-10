@@ -83,9 +83,9 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (model.Quantity <= 0)
+                if (model.Quantity <= 0 || model.Quantity > 10)
                 {
-                    TempData["Alert"] = Alert.CreateError("Quantity must be at least 1.");
+                    TempData["Alert"] = Alert.CreateError("Quantity must be atleast 1 and no more than 10.");
                     return View(model);
                 }
 
