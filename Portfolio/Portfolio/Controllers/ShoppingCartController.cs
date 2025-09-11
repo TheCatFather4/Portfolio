@@ -68,6 +68,7 @@ namespace Portfolio.Controllers
                         ItemName = result.Data.ItemName,
                         Quantity = 0,
                         Price = result.Data.Prices.FirstOrDefault(p => p.ItemID == itemId).Price,
+                        ItemStatusID = result.Data.ItemStatusID
                     };
 
                     return View(model);

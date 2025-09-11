@@ -23,7 +23,14 @@
                 @foreach (var i in Model.Items)
                 {
                     <tr>
-                        <td><img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-thumbnail me-3" style="width:6rem" />@i.ItemName</td>
+                        @if (i.ItemStatusID != 1)
+                        {
+                            <td><img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-thumbnail me-3" style="width: 6rem" />@i.ItemName</td>
+                        }
+                        else
+                        {
+                            <td><img src="~/item/newitem.png" class="img-thumbnail me-3" style="width: 6rem" />@i.ItemName</td>
+                        }
                         <td>@i.Quantity</td>
                         <td>@i.Price</td>
                     </tr>
