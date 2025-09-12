@@ -12,5 +12,6 @@ namespace Cafe.Core.Interfaces.Services
         Task<Result> ClearShoppingBagAsync(int customerId);
         Task<Result> MVCAddItemToBagAsync(int shoppingBagId, int itemId, string itemName, decimal price, byte quantity);
         Task<Result<Item>> GetItemWithPriceAsync(int itemId);
+        Task<Result<ShoppingBagItem>> GetShoppingBagItemByIdAsync(int shoppingBagItemId);
     }
 }

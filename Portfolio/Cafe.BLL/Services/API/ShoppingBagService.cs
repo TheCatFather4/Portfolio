@@ -193,5 +193,17 @@ namespace Cafe.BLL.Services.API
                 return ResultFactory.Fail($"An error occurred while updating item quantity {ex.Message}");
             }
         }
+
+        public async Task<Result<ShoppingBagItem>> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
+        {
+            var item = await _shoppingBagRepository.GetShoppingBagItemByIdAsync(shoppingBagItemId);
+
+            if (item != null)
+            {
+                return ResultFactory.Success(item);
+            }
+
+            return ResultFactory.Fail<ShoppingBagItem>("Item not found in shopping bag.");
+        }
     }
 }

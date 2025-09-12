@@ -57,6 +57,12 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(sb => sb.CustomerID == customerId);
         }
 
+        public async Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
+        {
+            return await _dbContext.ShoppingBagItem
+                .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId);
+        }
+
         public async Task MVCAddItemAsync(ShoppingBagItem item)
         {
             var existingItem = await _dbContext.ShoppingBagItem

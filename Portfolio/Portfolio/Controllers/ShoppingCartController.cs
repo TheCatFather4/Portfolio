@@ -42,15 +42,15 @@ namespace Portfolio.Controllers
                         return View(model);
                     }
 
-                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the administrator.");
+                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
                     return RedirectToAction("Index", "Cafe");
                 }
 
-                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the administrator.");
+                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
                 return RedirectToAction("Index", "Cafe");
             }
 
-            return View(model);
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
@@ -75,7 +75,7 @@ namespace Portfolio.Controllers
                 }
             }
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -102,15 +102,69 @@ namespace Portfolio.Controllers
                         return RedirectToAction("Index", "ShoppingCart");
                     }
 
-                    TempData["Alert"] = Alert.CreateError("An error ocurred.");
+                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
                     return RedirectToAction("Index", "Cafe");
                 }
 
-                TempData["Alert"] = Alert.CreateError("An error ocurred.");
+                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
                 return RedirectToAction("Index", "ShoppingCart");
             }
 
-            return View();
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveItem(int shoppingBagItemId)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _customerService.GetCustomerByEmailAsync(User.Identity.Name);
+
+                if (result.Ok)
+                {
+                    var itemResult = await _shoppingBagService.GetShoppingBagItemByIdAsync(shoppingBagItemId);
+
+                    if (itemResult.Ok)
+                    {
+                        var model = new ItemUpdate()
+                        {
+                            CustomerID = result.Data.CustomerID,
+                            ShoppingBagItemID = shoppingBagItemId,
+                            Quantity = itemResult.Data.Quantity,
+                            ItemName = itemResult.Data.ItemName,
+                            Price = (decimal)itemResult.Data.Price
+                        };
+
+                        return View(model);
+                    }
+
+                    TempData["Alert"] = Alert.CreateError("An error ocurred. Please contact our management team.");
+                    return RedirectToAction("Index", "ShoppingCart");
+                }
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveItem(ItemUpdate model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var updateResult = await _shoppingBagService.RemoveItemFromBagAsync(model.CustomerID, model.ShoppingBagItemID);
+
+                if (updateResult.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess("Item successfully removed from shopping cart.");
+                    return RedirectToAction("Index", "ShoppingCart");
+                }
+
+                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team.");
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
+            return RedirectToAction("Login", "Account");
         }
     }
 }

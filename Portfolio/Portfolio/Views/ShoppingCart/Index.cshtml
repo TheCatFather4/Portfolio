@@ -17,6 +17,7 @@
                     <th>Item</th>
                     <th>Quantity</th>
                     <th>Price</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@
                         }
                         <td>@i.Quantity</td>
                         <td>@i.Price</td>
+                        <td><a asp-controller="ShoppingCart" asp-action="RemoveItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID">Delete</a></td>
                     </tr>
                 }
             </tbody>
@@ -46,7 +48,7 @@
 }
 else
 {
-    <p>There are currently no items in your shopping cart.</p>
+    <p class="text-center">There are currently no items in your shopping cart.</p>
     <div class="row">
         <div class="text-center">
             <h3>Want to add some items to your cart? Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
