@@ -1,0 +1,211 @@
+#buttonArea {
+    border-bottom: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+    #buttonArea span {
+        font-size: 1.2rem;
+        color: midnightblue;
+    }
+
+#cardBody1 {
+    background: white;
+    border-left: 3px double hotpink;
+    border-right: 3px double hotpink;
+    border-bottom: 3px double hotpink;  
+}
+
+#cardBody2 {
+    background: white;
+    border-left: 3px double hotpink;
+    border-right: 3px double hotpink;
+    border-bottom: 3px double hotpink;
+}
+
+#cardBody3 {
+    background: white;
+    border-left: 3px double hotpink;
+    border-right: 3px double hotpink;
+    border-bottom: 3px double hotpink;
+}
+
+#cardBody4 {
+    background: white;
+    border-left: 3px double hotpink;
+    border-right: 3px double hotpink;
+    border-bottom: 3px double hotpink;
+}
+
+#cardBody5 {
+    background: white;
+    border-left: 3px double hotpink;
+    border-right: 3px double hotpink;
+    border-bottom: 3px double hotpink;
+}
+
+#catName1 {
+    font-family: "Gill Sans";
+    font-size: 1.4rem;
+    color: midnightblue;
+}
+
+#catName2 {
+    font-family: "Gill Sans";
+    font-size: 1.4rem;
+    color: midnightblue;
+}
+
+#catName3 {
+    font-family: "Gill Sans";
+    font-size: 1.4rem;
+    color: midnightblue;
+}
+
+#catName4 {
+    font-family: "Gill Sans";
+    font-size: 1.4rem;
+    color: midnightblue;
+}
+
+#catName5 {
+    font-family: "Gill Sans";
+    font-size: 1.4rem;
+    color: midnightblue;
+}
+
+#catPic1 {
+    border: 5px double hotpink;
+}
+
+#catPic2 {
+    border: 5px double hotpink;
+}
+
+#catPic3 {
+    border: 5px double hotpink;
+}
+
+#catPic4 {
+    border: 5px double hotpink;
+}
+
+#catPic5 {
+    border: 5px double hotpink;
+}
+
+#catRoll1 {
+    font-size: 1.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color:midnightblue;
+    color: white;
+}
+
+#catRoll2 {
+    font-size: 1.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color:midnightblue;
+    color: white;
+}
+
+#catRoll3 {
+    font-size: 1.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color:midnightblue;
+    color: white;
+}
+
+#catRoll4 {
+    font-size: 1.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color:midnightblue;
+    color: white;
+}
+
+#catRoll5 {
+    font-size: 1.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color:midnightblue;
+    color: white;
+}
+
+#currentDisplay {
+    margin-right: 10px;
+}
+
+#currentScore {
+    border: 5px double white;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+#gameTitle {
+    color: midnightblue;
+    font-family: "Lucida Handwriting";
+    margin-top: 10px;
+}
+
+#highDisplay {
+    margin-left: 10px;
+}
+
+#highScore {
+    border: 5px double white;
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+#listRows li {
+    color: midnightblue;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#navbarCat {
+    background-color: midnightblue;
+}
+
+#playAgainArea {
+    border-top: 1px solid black;
+    padding-top: 20px;
+    margin-bottom: 25px;
+}
+
+#row1 {
+    background: linear-gradient(rgb(111, 255, 255), rgb(163, 253, 223));
+}
+
+#row2 {
+    background-color: rgb(163, 253, 223);
+}
+
+#row3 {
+    background: linear-gradient(rgb(163, 253, 223), rgb(111, 255, 255));
+}
+
+#row4 {
+    background-color: midnightblue;
+    color: white;
+}
+
+#row5 {
+    color: midnightblue;
+    font-size: 1.2rem;
+    background: repeating-linear-gradient(rgb(111, 255, 255), rgb(163, 253, 223), rgb(111, 255, 255));
+}
+
+#scoreBoardArea {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#scoringArea {
+    margin-top: 10px;
+}
