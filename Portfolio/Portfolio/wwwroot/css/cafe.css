@@ -1,10 +1,14 @@
-﻿body {
-    background: repeating-linear-gradient(rgba(0, 195, 255, 0.25)) 50px, rgb(0, 195, 255, 0.50) 56px;
+﻿#cafeTitle {
+    font-family: cursive;
+    margin-top: 10px;
 }
 
-#cafeTitle {
-    font-family: cursive;
-}
+    #cafeTitle span {
+        font-family: serif;
+        font-size: 3rem;
+        font-style: italic;
+        margin-top: 10px;
+    }
 
 #cardAdd {
     border-left: solid;
