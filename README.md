@@ -1,18 +1,25 @@
 # Portfolio
 
 ## About
-This is the code to my [portfolio website](https://www.jmarcello.dev/)
+This is the code to my [portfolio website](https://www.jmarcello.dev/) made with ASP.NET Core.
 
-The website was made with ASP.NET Core and features a full-stack web application; 4th Wall Cafe.
-There is also an API called Cafe API that can be used by clients for ordering items from the 4th Wall Cafe. 
-Check out the swagger documentation for [Cafe API](https://www.jmarcello.dev/swagger/)
+My website features a full-stack application; 4th Wall Cafe<br>
+An API built according to REST principles; Cafe API<br>
+and a front-end application; Cat Poker<br>
 
 ## Projects
 
 ### [4th Wall Cafe](https://www.jmarcello.dev/Cafe/)
-### [Cafe API](https://www.jmarcello.dev/Cafe/OrderAPI/)
-### More projects coming soon
+Made with ASP.NET Core (MVC), and ASP.NET Identity.
 
-### Coming Soon to the 4th Wall Cafe
-The website will have the ability to process orders like the API.
-Currently users can register an account, login, logout, manage their profile, and add/remove items to/from their shopping cart.
+### [Cafe API](https://www.jmarcello.dev/Cafe/OrderAPI/)
+Made with ASP.NET Core (Web API).
+
+### [Cat Poker](https://www.jmarcello.dev/cat-poker/index.html)
+Made with HTML, CSS, JavaScript, and Bootstrap.
+
+## More projects and features coming soon!
+
+>[!NOTE]
+>The 4th Wall Cafe website will have the ability to process orders like the API.<br>
+In the meantime, feel free to test out the account registration and shopping cart functionality.
