@@ -6,53 +6,50 @@
 
 <div class="row">
     <div class="text-center my-3">
-        <h2 id="titleSection">Our menu is sure to have something that piques your interest!</h2>
+        <h2 id="titleSection">Something for every time of the day</h2>
         <div class="m-3">
             <img src="~/item/menu.png" class="img-fluid rounded" />
         </div>
-        <h5><u>Use the form below to filter how the menu is displayed.</u></h5>
-        <p>Note: If you would like to see the entire menu without filters, set the form to its default setting and click the button.</p>
-        <p><a asp-controller="Cafe" asp-action="Index">Go back</a> to Cafe Home page</p>
+        <h5><u>Use the form to filter how the menu is displayed.</u></h5>
     </div>
 </div>
 <div class="row">
-    <div class="container">
-        <div class="mx-3">
-            <div class="col-md-6 offset-md-3 bg-info bg-opacity-10 border border-info rounded p-3 mb-3">
-                <form asp-controller="Cafe" asp-action="Menu" method="post">
-                    @Html.AntiForgeryToken()
-                    <div class="col-md-4 offset-md-4 mb-3">
-                        <label asp-for="SelectedCategoryID" class="form-label">Category</label>
-                        <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control">
-                            <option value="" class="text-center">---Select---</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 offset-md-4 mb-3">
-                        <label asp-for="SelectedTimeOfDayID" class="form-label">Time of Day</label>
-                        <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimesOfDays" class="form-control">
-                            <option value="" class="text-center">---Select---</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 offset-md-4 mb-3">
-                        <label asp-for="Date" class="form-label">Date  (mm/dd/yyyy)</label>
-                        <input type="text" class="form-control" asp-for="Date" />
-                    </div>
-                    <div class="d-grid col-3 mx-auto">
-                        <button type="submit" class="btn btn-primary">View Menu</button>
-                    </div>
-                </form>
-            </div>
+    <div class="container-fluid px-3">
+        <div class="col-md-6 mx-auto border border-5 border-info rounded p-3 bg-primary">
+            <form asp-controller="Cafe" asp-action="Menu" method="post">
+                @Html.AntiForgeryToken()
+                <div class="form-floating mb-3">
+                    <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="formInput">
+                        <option value=""></option>
+                    </select>
+                    <label asp-for="SelectedCategoryID">Category</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimesOfDays" class="form-control" id="formInput">
+                        <option value=""></option>
+                    </select>
+                    <label asp-for="SelectedTimeOfDayID">Time of Day</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" asp-for="Date" id="formInput" />
+                    <label asp-for="Date">Date  (mm/dd/yyyy)</label>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success me-3">Show Menu</button>
+                    <a asp-controller="Cafe" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go Back</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<div class="container text-center">
+<div class="container text-center mt-3">
     <div class="row">
         @if (Model.Items != null)
         {
             @foreach (var i in Model.Items)
             {
                 <div class="col-sm-4 mb-3 d-flex justify-content-center">
-                    <div class="card text-bg-info bg-opacity-10" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
                         @if (i.ItemStatusID != 1)
                         {
                             <img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="card-img-top" id="cardTop" />
@@ -74,7 +71,15 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div id="cardAdd" class="py-2">
-                                <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-itemId="@i.ItemID">
+                                <a class="btn btn-success" type="submit" asp-controller="ShoppingCart" asp-action="AddItem" asp-route-itemId="@i.ItemID">
+                                    Add to Cart
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="cardAdd" class="py-2">
+                                <a class="btn btn-success" type="submit" asp-controller="Account" asp-action="Login" asp-route-itemId="@i.ItemID">
                                     Add to Cart
                                 </a>
                             </div>

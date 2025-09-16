@@ -1,48 +1,91 @@
-﻿#cafeTitle {
-    font-family: cursive;
+﻿.form-check-input:checked {
+    background-color: rgb(7, 35, 144);
+}
+
+#bottomImages {
+    margin-top: 20px;
+}
+
+#cafeTitle {
+    font-family: serif;
+    font-size: 2.5rem;
     margin-top: 10px;
 }
 
     #cafeTitle span {
         font-family: serif;
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-style: italic;
         margin-top: 10px;
     }
 
 #cardAdd {
-    border-left: solid;
-    border-right: solid;
-    border-bottom: solid;
-    background-color: aquamarine;
+    border-left: solid 5px #ed19cf;
+    border-right: solid 5px #ed19cf;
+    border-bottom: solid 5px #ed19cf;
+    background-color: #033c73;
 }
 
 #cardBody {
-    border-left: solid;
-    border-right: solid;
-    background-color: rgb(113, 233, 215);
+    border-left: solid 5px #ed19cf;
+    border-right: solid 5px #ed19cf;
+    background-color: #033c73;
 }
 
     #cardBody h5 {
         font-family: Papyrus;
+        color: white;
     }
 
     #cardBody p {
         font-family: Georgia;
+        color: white;
     }
 
 #cardPrice {
-    border: solid;
-    background-color: rgb(164, 246, 218);
+    border: solid 5px #ed19cf;
+    background-color: #033c73;
     font-family: 'Lucida Bright';
+    color: white;
 }
 
 #cardTop {
-    border: solid;
+    border: solid 5px #ed19cf;
+}
+
+#formInput:focus {
+    box-shadow: 0px 0px 12px 4px #ed19cf;
+    outline: 0;
+}
+
+#menuButtonHome {
+    font-size: 1.5rem;
 }
 
 #menuForm {
     background: linear-gradient(to right, #b6c7ca, #dbeef1);
+}
+
+#menuTitle {
+    font-family: serif;
+    font-size: 2.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    #menuTitle span {
+        font-family: serif;
+        font-style: italic;
+        font-size: 2.5rem;
+    }
+
+#noteLogin {
+    font-size: 1.1rem;
+}
+
+#register1 {
+    font-size: 1.25rem;
+    margin-top: 5px;
 }
 
 #reportsForm {
@@ -58,5 +101,5 @@
 }
 
 #titleSection {
-    font-family: Comic Sans MS;
+    font-family: serif;
 }
