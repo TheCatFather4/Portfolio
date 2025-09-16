@@ -5,18 +5,19 @@
     ViewData["Title"] = "Shopping Cart";
 }
 
-<div class="text-center">
-    <h1>Shopping Cart</h1>
+<div class="text-center my-3">
+    <h1 id="titleSection">Shopping Cart</h1>
 </div>
 @if (Model.Items.Any())
 {
     <div class="container">
-        <table class="table table-secondary table-striped">
+        <table class="table table-primary table-striped border border-info">
             <thead>
                 <tr>
                     <th>Item</th>
-                    <th>Quantity</th>
                     <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,15 +27,16 @@
                     <tr>
                         @if (i.ItemStatusID != 1)
                         {
-                            <td><img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-thumbnail me-3" style="width: 6rem" />@i.ItemName</td>
+                            <td><img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
                         }
                         else
                         {
-                            <td><img src="~/item/newitem.png" class="img-thumbnail me-3" style="width: 6rem" />@i.ItemName</td>
+                            <td><img src="~/item/newitem.png" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
                         }
+                        <td>$@i.Price</td>
                         <td>@i.Quantity</td>
-                        <td>@i.Price</td>
-                        <td><a asp-controller="ShoppingCart" asp-action="RemoveItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID">Delete</a></td>
+                        <td>$@(@i.Price* @i.Quantity)</td>
+                        <td><a asp-controller="ShoppingCart" asp-action="RemoveItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-info link-opacity-50-hover link-underline-opacity-50-hover">Delete</a></td>
                     </tr>
                 }
             </tbody>
@@ -42,16 +44,16 @@
     </div>
     <div class="row">
         <div class="text-center">
-            <h3>Want to add more items? Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
+            <h3 id="titleSection">Want to add more items? Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
         </div>
     </div>
 }
 else
 {
-    <p class="text-center">There are currently no items in your shopping cart.</p>
+    <p class="text-center" id="titleSection">There are currently no items in your shopping cart.</p>
     <div class="row">
         <div class="text-center">
-            <h3>Want to add some items to your cart? Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
+            <h3 id="titleSection">Want to add some items to your cart? Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
         </div>
     </div>
 }
