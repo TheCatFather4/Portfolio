@@ -5,7 +5,7 @@ This is the code to my [portfolio website](https://www.jmarcello.dev/) made with
 
 My website features a full-stack application; 4th Wall Cafe<br>
 An API built according to REST principles; Cafe API<br>
-and a front-end application; Cat Poker<br>
+A front-end application; Cat Poker<br>
 
 ## Projects
 
