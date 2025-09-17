@@ -114,7 +114,7 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RemoveItem(int shoppingBagItemId)
+        public async Task<IActionResult> UpdateItem(int shoppingBagItemId)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -148,7 +148,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveItem(ItemUpdate model)
+        public async Task<IActionResult> UpdateItem(ItemUpdate model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -157,10 +157,69 @@ namespace Portfolio.Controllers
                 if (updateResult.Ok)
                 {
                     TempData["Alert"] = Alert.CreateSuccess("Item successfully removed from shopping cart.");
-                    return RedirectToAction("Index", "ShoppingCart");
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team.");
                 }
 
-                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team.");
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateQuantity(ItemUpdate model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _shoppingBagService.UpdateItemQuantityAsync(model.CustomerID, model.ShoppingBagItemID, model.Quantity);
+
+                if (result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess("Item quantity successfully updated!");
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team for assistance.");
+                }
+
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EmptyShoppingCart(int customerId)
+        {
+            var model = new EmptyCart
+            {
+                CustomerId = customerId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EmptyShoppingCart(EmptyCart model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _shoppingBagService.ClearShoppingBagAsync(model.CustomerId);
+
+                if (result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess("Shopping Cart cleared!");
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team for assistance.");
+                }
+
                 return RedirectToAction("Index", "ShoppingCart");
             }
 

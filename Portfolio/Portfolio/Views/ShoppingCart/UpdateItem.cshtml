@@ -1,0 +1,43 @@
+﻿@using Portfolio.Models.Ordering
+@model ItemUpdate
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Update Item";
+}
+
+<div class="row text-center">
+    <h1>Update Item</h1>
+    <h5>@Model.ItemName</h5>
+    <h5>Price: $@Model.Price</h5>
+    <h5>Quantity: @Model.Quantity</h5>
+    <h5>Total: $@(Model.Price* Model.Quantity)</h5>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Update item quantity?</h2>
+            <form asp-controller="ShoppingCart" asp-action="UpdateQuantity" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="CustomerID" />
+                <input type="hidden" asp-for="ShoppingBagItemID" />
+                <label asp-for="Quantity" class="form-label"></label>
+                <input type="text" asp-for="Quantity" class="form-control" />
+                <input type="hidden" asp-for="ItemName" />
+                <input type="hidden" asp-for="Price" />
+                <button class="btn btn-warning">Update</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <h2>Delete item from shopping cart?</h2>
+            <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="CustomerID" />
+                <input type="hidden" asp-for="ShoppingBagItemID" />
+                <input type="hidden" asp-for="Quantity" />
+                <input type="hidden" asp-for="ItemName" />
+                <input type="hidden" asp-for="Price" />
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
