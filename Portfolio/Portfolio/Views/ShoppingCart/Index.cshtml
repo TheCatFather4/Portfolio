@@ -11,7 +11,7 @@
 @if (Model.Items.Any())
 {
     <div class="container">
-        <table class="table table-primary table-striped border border-info">
+        <table class="table table-primary table-striped border border-3 border-info">
             <thead>
                 <tr>
                     <th>Item</th>
@@ -33,10 +33,10 @@
                         {
                             <td><img src="~/item/newitem.png" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
                         }
-                        <td>$@i.Price</td>
-                        <td>@i.Quantity</td>
-                        <td>$@(@i.Price* @i.Quantity)</td>
-                        <td><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-info link-opacity-50-hover link-underline-opacity-50-hover">Update Quantity | Delete</a></td>
+                        <td style="vertical-align: middle;">$@i.Price</td>
+                        <td style="vertical-align: middle;">@i.Quantity</td>
+                        <td style="vertical-align: middle;">$@(@i.Price* @i.Quantity)</td>
+                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-info link-opacity-50-hover link-underline-opacity-50-hover">Update Quantity or Delete</a></td>
                     </tr>
                 }
             </tbody>
@@ -47,10 +47,12 @@
             <h3 id="titleSection">Want to add more items? Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="text-center">
-            <h5 class="mb-3">Empty Shopping Cart</h5>
-            <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="EmptyShoppingCart" asp-route-customerId="@Model.CustomerID">Empty Cart</a>
+    <div class="container">
+        <div class="row p-3">
+            <div class="text-center border border-info border-2 rounded bg-primary">
+                <h5 class="my-3">Empty Shopping Cart</h5>
+                <a class="btn btn-danger mb-3" asp-controller="ShoppingCart" asp-action="EmptyShoppingCart" asp-route-customerId="@Model.CustomerID">Empty Cart</a>
+            </div>
         </div>
     </div>
 }

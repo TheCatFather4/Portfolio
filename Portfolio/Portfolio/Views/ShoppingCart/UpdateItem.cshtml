@@ -2,33 +2,36 @@
 @model ItemUpdate
 @{
     Layout = "_CafeLayout";
-    ViewData["Title"] = "Update Item";
+    ViewData["Title"] = "Update Cart";
 }
 
 <div class="row text-center">
-    <h1>Update Item</h1>
-    <h5>@Model.ItemName</h5>
-    <h5>Price: $@Model.Price</h5>
-    <h5>Quantity: @Model.Quantity</h5>
+    <h3>Update Cart: @Model.ItemName</h3>
+    <h5><span class="me-2">Price: $@Model.Price</span><span class="ms-2">Quantity: @Model.Quantity</span></h5>
     <h5>Total: $@(Model.Price* Model.Quantity)</h5>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Update item quantity?</h2>
+    <div class="row mb-3">
+        <div class="col-sm-4 border border-info border-3 rounded bg-primary p-3">
+            <h5 class="mb-3">Update item quantity?</h5>
             <form asp-controller="ShoppingCart" asp-action="UpdateQuantity" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="CustomerID" />
                 <input type="hidden" asp-for="ShoppingBagItemID" />
-                <label asp-for="Quantity" class="form-label"></label>
-                <input type="text" asp-for="Quantity" class="form-control" />
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="Quantity" class="form-control" />
+                    <label asp-for="Quantity"></label>
+                </div>
                 <input type="hidden" asp-for="ItemName" />
                 <input type="hidden" asp-for="Price" />
-                <button class="btn btn-warning">Update</button>
+                <button class="btn btn-warning mb-3">Update</button>
             </form>
         </div>
-        <div class="col-sm-6">
-            <h2>Delete item from shopping cart?</h2>
+        <div class="col-sm-4 my-5">
+            <h2 class="text-center">OR</h2>
+        </div>
+        <div class="col-sm-4 text-center border border-info border-3 rounded bg-primary p-3">
+            <h5>Delete item from cart?</h5>
             <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="CustomerID" />
@@ -36,8 +39,9 @@
                 <input type="hidden" asp-for="Quantity" />
                 <input type="hidden" asp-for="ItemName" />
                 <input type="hidden" asp-for="Price" />
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger my-3">Delete</button>
             </form>
+            <h6 class="mt-3">Note: Deleting the item will set its quantity to 0 and remove it from the cart entirely.</h6>
         </div>
     </div>
 </div>

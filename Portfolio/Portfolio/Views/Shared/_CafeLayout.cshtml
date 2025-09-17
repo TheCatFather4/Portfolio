@@ -72,7 +72,7 @@
         @if (TempData["Alert"] is string alertData)
         {
             var parts = alertData.Split("|");
-            <div class="mt-3 alert alert-@parts[1]">@parts[0]</div>
+            <div class="mt-3 alert alert-@parts[1] alert-dismissible fade show text-center">@parts[0] <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
         }
     </div>
     @RenderBody()
