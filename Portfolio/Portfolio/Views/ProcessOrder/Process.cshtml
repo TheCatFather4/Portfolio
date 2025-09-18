@@ -1,0 +1,56 @@
+﻿@using Portfolio.Models.Ordering
+@model OrderForm
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Process Order";
+}
+
+@if (Model.PaymentStatusId != 2)
+{
+    <div class="text-center my-3">
+        <h1>Order Process</h1>
+    </div>
+    <div class="container">
+        <form asp-controller="ProcessOrder" asp-action="Process" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="CustomerId" />
+            <input type="hidden" asp-for="PaymentTypeId" />
+            <input type="hidden" asp-for="SubTotal" />
+            <input type="hidden" asp-for="Tax" />
+            <div class="form-floating-mb-3">
+                <input type="text" class="form-control" asp-for="Tip" />
+                <label asp-for="Tip">Tip</label>
+            </div>
+            <input type="hidden" asp-for="FinalTotal" />
+            <input type="hidden" asp-for="PaymentStatusId" />
+            <div>
+                <button class="btn btn-primary">Process</button>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <h2>Order Summary</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sub Total</th>
+                <th>Tax</th>
+                <th>Tip</th>
+                <th>Final Total</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$@Model.SubTotal</td>
+                <td>$@Model.Tax</td>
+                <td>$@Model.Tip</td>
+                <td>$@Model.FinalTotal</td>
+                <td>Pending</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Checkout</h2>
+}

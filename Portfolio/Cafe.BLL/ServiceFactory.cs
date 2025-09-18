@@ -117,5 +117,10 @@ namespace Cafe.BLL
         {
             return new MVCustomerService(new CustomerRepository(_config.GetConnectionString()));
         }
+
+        public IMVOrderService CreateMVOrderService()
+        {
+            return new MVOrderService(CreateMenuService(), CreateShoppingBagService(), new OrderRepository(_config.GetConnectionString()));
+        }
     }
 }
