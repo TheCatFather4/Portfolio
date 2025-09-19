@@ -102,6 +102,12 @@ builder.Services.AddScoped<IMVOrderService>(provider =>
     return serviceFactory.CreateMVOrderService();
 });
 
+builder.Services.AddScoped<IMVPaymentService>(provider =>
+{
+    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
+    return serviceFactory.CreateMVPaymentService();
+});
+
 builder.Services.AddScoped<ISelectListBuilder, SelectListBuilder>();
 
 builder.Services.AddAuthentication(options =>

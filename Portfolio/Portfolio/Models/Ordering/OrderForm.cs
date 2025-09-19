@@ -9,5 +9,6 @@
         public decimal Tip { get; set; }
         public decimal FinalTotal { get; set; }
         public byte? PaymentStatusId { get; set; }
+        public int OrderId { get; set; }
     }
 }

@@ -122,5 +122,10 @@ namespace Cafe.BLL
         {
             return new MVOrderService(CreateMenuService(), CreateShoppingBagService(), new OrderRepository(_config.GetConnectionString()));
         }
+
+        public IMVPaymentService CreateMVPaymentService()
+        {
+            return new MVPaymentService(new PaymentRepository(_config.GetConnectionString()));
+        }
     }
 }

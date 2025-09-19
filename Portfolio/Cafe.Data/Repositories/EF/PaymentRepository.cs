@@ -1,6 +1,5 @@
 ﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
@@ -24,6 +23,11 @@ namespace Cafe.Data.Repositories.EF
             return _dbContext.CafeOrder
                 .FirstOrDefault(co => co.OrderID == orderId);
             
+        }
+
+        public List<PaymentType> GetPaymentTypes()
+        {
+            return _dbContext.PaymentType.ToList();
         }
 
         public void UpdateOrderStatus(CafeOrder order)

@@ -7,5 +7,6 @@ namespace Cafe.Core.Interfaces.Repositories
         void AddPayment(Payment payment);
         CafeOrder GetOrderById(int orderId);
         void UpdateOrderStatus(CafeOrder order);
+        List<PaymentType> GetPaymentTypes();
     }
 }

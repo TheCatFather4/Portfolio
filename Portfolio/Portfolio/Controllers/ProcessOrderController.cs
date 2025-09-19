@@ -45,6 +45,7 @@ namespace Portfolio.Controllers
                     model.Tax = result.Data.Tax;
                     model.FinalTotal = result.Data.FinalTotal;
                     model.PaymentStatusId = result.Data.PaymentStatusID;
+                    model.OrderId = result.Data.OrderID;
 
                     TempData["Alert"] = Alert.CreateSuccess("Order ready for payment!");
                     return View(model);
