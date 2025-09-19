@@ -1,0 +1,62 @@
+﻿@using Portfolio.Models.Ordering
+@model OrderDetails
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="row text-center my-3">
+    <h2>Details for Order: @Model.OrderId</h2>
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table border border-info">
+            <thead>
+                <tr>
+                    <th>Order Status</th>
+                    <th>Date</th>
+                    <th>Tax</th>
+                    <th>Tip</th>
+                    <th>Final Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @if (Model.PaymentStatusId == 2)
+                    {
+                        <td class="text-danger">Pending</td>
+                    }
+                    else
+                    {
+                        <td class="text-success">Paid</td>
+                    }
+                    <td>@Model.OrderDate</td>
+                    <td>@Model.Tax</td>
+                    <td>@Model.Tip</td>
+                    <td>@Model.FinalTotal</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table class="table border border-info">
+            <thead>
+                <tr>
+                    <th>Order Item ID</th>
+                    <th>Quantity</th>
+                    <th>Extended Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Items)
+                {
+                    <tr>
+                        <td>@i.OrderItemId</td>
+                        <td>@i.Quantity</td>
+                        <td>@i.ExtendedPrice</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

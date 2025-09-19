@@ -82,5 +82,29 @@ namespace Cafe.BLL.Services.MVC
                 return ResultFactory.Fail<CafeOrder>("An error occurred. Please contact our management team.");
             }
         }
+
+        public async Task<Result<CafeOrder>> GetOrderByIdAsync(int orderId)
+        {
+            var order = await _orderRepository.GetOrderByIdAsync(orderId);
+
+            if (order == null)
+            {
+                return ResultFactory.Fail<CafeOrder>("Order not found.");
+            }
+
+            return ResultFactory.Success(order);
+        }
+
+        public async Task<Result<List<CafeOrder>>> GetOrderHistoryAsync(int customerId)
+        {
+            var orders = await _orderRepository.GetOrdersByCustomerIdAsync(customerId);
+
+            if (orders == null || !orders.Any())
+            {
+                return ResultFactory.Fail<List<CafeOrder>>("No orders found.");
+            }
+
+            return ResultFactory.Success(orders);
+        }
     }
 }

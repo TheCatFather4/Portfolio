@@ -8,49 +8,60 @@
 @if (Model.PaymentStatusId != 2)
 {
     <div class="text-center my-3">
-        <h1>Order Process</h1>
+        <h3>Before we prepare your order for payment, would you like to add a tip?</h3>
     </div>
     <div class="container">
-        <form asp-controller="ProcessOrder" asp-action="Process" method="post">
-            @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="CustomerId" />
-            <input type="hidden" asp-for="PaymentTypeId" />
-            <input type="hidden" asp-for="SubTotal" />
-            <input type="hidden" asp-for="Tax" />
-            <div class="form-floating-mb-3">
-                <input type="text" class="form-control" asp-for="Tip" />
-                <label asp-for="Tip">Tip</label>
-            </div>
-            <input type="hidden" asp-for="FinalTotal" />
-            <input type="hidden" asp-for="PaymentStatusId" />
-            <div>
-                <button class="btn btn-primary">Process</button>
-            </div>
-        </form>
+        <div class="row">
+            <form asp-controller="ProcessOrder" asp-action="Process" method="post" class="border border-info border-3 rounded p-3 bg-primary">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="CustomerId" />
+                <input type="hidden" asp-for="PaymentTypeId" />
+                <input type="hidden" asp-for="SubTotal" />
+                <input type="hidden" asp-for="Tax" />
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" asp-for="Tip" value="0.00" />
+                    <label asp-for="Tip">Tip</label>
+                </div>
+                <input type="hidden" asp-for="FinalTotal" />
+                <input type="hidden" asp-for="PaymentStatusId" />
+                <div>
+                    <button class="btn btn-success me-2">Process</button>
+                    <a asp-controller="ShoppingCart" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Back to Shopping Cart</a>
+                </div>
+            </form>
+        </div>
     </div>
 }
 else
 {
-    <h2>Order Summary</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Sub Total</th>
-                <th>Tax</th>
-                <th>Tip</th>
-                <th>Final Total</th>
-                <th>Payment Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>$@Model.SubTotal</td>
-                <td>$@Model.Tax</td>
-                <td>$@Model.Tip</td>
-                <td>$@Model.FinalTotal</td>
-                <td>Pending</td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>Checkout</h2>
+    <div class="row text-center my-3">
+        <h2>Order Summary</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <table class="table table-info">
+                <thead>
+                    <tr>
+                        <th>Sub Total</th>
+                        <th>Tax</th>
+                        <th>Tip</th>
+                        <th>Final Total</th>
+                        <th>Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$@Model.SubTotal</td>
+                        <td>$@Model.Tax</td>
+                        <td>$@Model.Tip</td>
+                        <td>$@Model.FinalTotal</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row text-center my-2">
+        <h2>Checkout</h2>
+    </div>
 }

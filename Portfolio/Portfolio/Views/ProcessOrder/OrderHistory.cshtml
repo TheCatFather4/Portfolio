@@ -1,0 +1,50 @@
+﻿@using Portfolio.Models.Ordering
+@model List<OrderDetails>
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Order History";
+}
+
+<div class="text-center my-3">
+    <h2>Order History</h2>
+</div>
+@foreach (var o in Model)
+{
+    <div class="container">
+        <div class="row text-center">
+            <table class="table border border-info">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Payment Status</th>
+                        <th>Date</th>
+                        <th>Sub Total</th>
+                        <th>Tax</th>
+                        <th>Tip</th>
+                        <th>Final Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@o.OrderId</td>
+                        @if (o.PaymentStatusId == 2)
+                        {
+                            <td class="text-warning">Pending</td>
+                        }
+                        else
+                        {
+                            <td class="text-success">Paid</td>
+                        }
+                        <td>@o.OrderDate</td>
+                        <td>$@o.SubTotal</td>
+                        <td>$@o.Tax</td>
+                        <td>$@o.Tip</td>
+                        <td>$@o.FinalTotal</td>
+                        <td><a asp-controller="ProcessOrder" asp-action="OrderDetails" asp-route-orderId="@o.OrderId">Order Details</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
