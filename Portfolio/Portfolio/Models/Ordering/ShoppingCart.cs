@@ -7,5 +7,6 @@ namespace Portfolio.Models.Ordering
         public int? CustomerID { get; set; }
         public int? ShoppingBagID { get; set; }
         public List<ShoppingBagItem>? Items { get; set; }
+        public decimal Total { get; set; }
     }
 }

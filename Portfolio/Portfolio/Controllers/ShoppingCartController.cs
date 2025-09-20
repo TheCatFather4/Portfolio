@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
+using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
 {
@@ -38,6 +39,7 @@ namespace Portfolio.Controllers
                         model.CustomerID = customerResult.Data.CustomerID;
                         model.ShoppingBagID = cartResult.Data.ShoppingBagID;
                         model.Items = cartResult.Data.Items;
+                        model.Total = CalculateTotal.AddItems(cartResult.Data.Items);
 
                         return View(model);
                     }
