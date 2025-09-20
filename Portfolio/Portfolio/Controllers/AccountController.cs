@@ -30,6 +30,14 @@ namespace Portfolio.Controllers
         {
             if (ModelState.IsValid)
             {
+                var emailResult = await _customerService.GetCustomerByNewEmailAsync(model.Email);
+
+                if (!emailResult.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateError(emailResult.Message);
+                    return View(model);
+                }
+
                 var user = new IdentityUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

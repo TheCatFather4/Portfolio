@@ -33,6 +33,26 @@ namespace Cafe.BLL.Services.MVC
             }
         }
 
+        public async Task<Result> GetCustomerByNewEmailAsync(string email)
+        {
+            try
+            {
+                var currentCustomer = await _customerRepository.GetCustomerByNewEmailAsync(email);
+
+
+                if (currentCustomer == null)
+                {
+                    return ResultFactory.Success();
+                }
+
+                return ResultFactory.Fail($"Customer with email: {email} already exists.");
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail<Customer>(ex.Message);
+            }
+        }
+
         public async Task<Result> RegisterCustomerAsync(string email, string identityId)
         {
 

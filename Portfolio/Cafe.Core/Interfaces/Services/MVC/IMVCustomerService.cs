@@ -8,5 +8,6 @@ namespace Cafe.Core.Interfaces.Services.MVC
         Task<Result> RegisterCustomerAsync(string email, string identityId);
         Task<Result<Customer>> GetCustomerByEmailAsync(string identityId);
         Task<Result> UpdateCustomerAsync(Customer entity);
+        Task<Result> GetCustomerByNewEmailAsync(string email);
     }
 }

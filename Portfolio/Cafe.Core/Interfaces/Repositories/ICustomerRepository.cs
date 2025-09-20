@@ -8,5 +8,6 @@ namespace Cafe.Core.Interfaces.Repositories
         Task CreateShoppingBagAsync(ShoppingBag shoppingBag);
         Task UpdateCustomerAsync(Customer customer);
         Task<Customer> GetCustomerByEmailAsync(string identityName);
+        Task<Customer> GetCustomerByNewEmailAsync(string email);
     }
 }

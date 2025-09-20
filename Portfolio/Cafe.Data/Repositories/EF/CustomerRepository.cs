@@ -31,6 +31,12 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(c => c.Email == identityName);
         }
 
+        public async Task<Customer> GetCustomerByNewEmailAsync(string email)
+        {
+            return await _dbContext.Customer
+                .FirstOrDefaultAsync(c => c.Email == email);
+        }
+
         public async Task UpdateCustomerAsync(Customer customer)
         {
             _dbContext.Customer.Update(customer);
