@@ -20,10 +20,12 @@
                         <option value=""></option>
                     </select>
                     <label asp-for="PaymentTypeId">Payment Method</label>
+                    <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="text" asp-for="Amount" class="form-control" id="formInput" />
                     <label asp-for="Amount">Amount</label>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
                 </div>
                 <input type="hidden" asp-for="TransactionDate" />
                 <input type="hidden" asp-for="PaymentStatusId" />

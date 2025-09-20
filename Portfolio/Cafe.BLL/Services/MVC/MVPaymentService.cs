@@ -37,7 +37,7 @@ namespace Cafe.BLL.Services.MVC
             }
             else if (payment.Amount != order.FinalTotal)
             {
-                return ResultFactory.Fail<Payment>("Order amount does not match.");
+                return ResultFactory.Fail<Payment>($"You must pay the full amount due of: {order.FinalTotal:c}");
             }
             else if (order.PaymentStatusID == 1)
             {

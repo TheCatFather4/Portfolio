@@ -48,27 +48,32 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                model.PaymentTypes = _selectListBuilder.BuildPaymentTypes(TempData);
-
-                var payment = new Payment()
+                if (ModelState.IsValid)
                 {
-                    OrderID = model.OrderId,
-                    PaymentTypeID = model.PaymentTypeId,
-                    Amount = model.Amount,
-                };
+                    var payment = new Payment()
+                    {
+                        OrderID = model.OrderId,
+                        PaymentTypeID = (int)model.PaymentTypeId,
+                        Amount = (decimal)model.Amount,
+                    };
 
-                var result = _paymentService.ProcessPayment(payment);
+                    var result = _paymentService.ProcessPayment(payment);
 
-                if (result.Ok)
-                {
-                    model.TransactionDate = (DateTime)payment.TransactionDate;
-                    model.PaymentStatusId = payment.PaymentStatusID;
+                    if (result.Ok)
+                    {
+                        model.TransactionDate = (DateTime)payment.TransactionDate;
+                        model.PaymentStatusId = payment.PaymentStatusID;
 
+                        return View(model);
+                    }
+
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                    model.PaymentTypes = _selectListBuilder.BuildPaymentTypes(TempData);
                     return View(model);
                 }
 
-                TempData["Alert"] = Alert.CreateError($"An error ocurred: {result.Message}");
-                return RedirectToAction("Index", "Profile");
+                model.PaymentTypes = _selectListBuilder.BuildPaymentTypes(TempData);
+                return View(model);
             }
 
             return RedirectToAction("Login", "Account");

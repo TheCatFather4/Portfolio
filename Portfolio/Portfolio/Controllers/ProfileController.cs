@@ -42,25 +42,30 @@ namespace Portfolio.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CustomerProfile model)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                var entity = model.ToEntity();
-
-                var result = await _customerService.UpdateCustomerAsync(entity);
-
-                if (result.Ok)
+                if (ModelState.IsValid)
                 {
-                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                    return RedirectToAction("Index");
+                    var entity = model.ToEntity();
+
+                    var result = await _customerService.UpdateCustomerAsync(entity);
+
+                    if (result.Ok)
+                    {
+                        TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["Alert"] = Alert.CreateError("Unable to update your customer data. Please contact the administrator at 1-800-123-4567 for assistance.");
+                        return RedirectToAction("Index");
+                    }
                 }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError("Unable to update your customer data. Please contact the administrator at 1-800-123-4567 for assistance.");
-                    return RedirectToAction("Index");
-                }
+
+                return View(model);
             }
 
-            return View(model);
+            return RedirectToAction("login", "Account");
         }
     }
 }
