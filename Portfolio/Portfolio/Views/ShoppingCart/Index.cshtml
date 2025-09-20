@@ -36,7 +36,7 @@
                         <td style="vertical-align: middle;">$@i.Price</td>
                         <td style="vertical-align: middle;">@i.Quantity</td>
                         <td style="vertical-align: middle;">$@(@i.Price* @i.Quantity)</td>
-                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-info link-opacity-50-hover link-underline-opacity-50-hover">Update Quantity or Delete</a></td>
+                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-info link-opacity-50-hover link-underline-opacity-50-hover">Update or Delete</a></td>
                     </tr>
                 }
             </tbody>
@@ -44,7 +44,7 @@
     </div>
     <div class="row">
         <div class="text-center">
-            <h3 id="titleSection">Want to add more items? Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
+            <h3 id="titleSection">Want to add more items?<br />Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
             <h3>All done? Go to <a asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID">checkout</a></h3>
         </div>
     </div>
@@ -59,10 +59,10 @@
 }
 else
 {
-    <p class="text-center" id="titleSection">There are currently no items in your shopping cart.</p>
+    <p class="text-center" id="noItemsCart">There are currently no items in your shopping cart.</p>
     <div class="row">
         <div class="text-center">
-            <h3 id="titleSection">Want to add some items to your cart? Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
+            <h3 id="titleSection">Want to add some items to your cart?<br />Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
         </div>
     </div>
 }

@@ -6,7 +6,8 @@
 }
 
 <div class="row text-center">
-    <h3>Update Cart: @Model.ItemName</h3>
+    <h3>@Model.ItemName</h3>
+    <img src="~/item/@Model.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
     <h5><span class="me-2">Price: $@Model.Price</span><span class="ms-2">Quantity: @Model.Quantity</span></h5>
     <h5>Total: $@(Model.Price* Model.Quantity)</h5>
 </div>
@@ -14,13 +15,14 @@
     <div class="row mb-3">
         <div class="col-sm-4 border border-info border-3 rounded bg-primary p-3">
             <h5 class="mb-3">Update item quantity?</h5>
-            <form asp-controller="ShoppingCart" asp-action="UpdateQuantity" method="post">
+            <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="CustomerID" />
                 <input type="hidden" asp-for="ShoppingBagItemID" />
                 <div class="form-floating mb-3">
-                    <input type="text" asp-for="Quantity" class="form-control" />
+                    <input type="number" asp-for="Quantity" class="form-control" id="formInput" />
                     <label asp-for="Quantity"></label>
+                    <span asp-validation-for="Quantity" class="text-light"></span>
                 </div>
                 <input type="hidden" asp-for="ItemName" />
                 <input type="hidden" asp-for="Price" />
@@ -32,7 +34,7 @@
         </div>
         <div class="col-sm-4 text-center border border-info border-3 rounded bg-primary p-3">
             <h5>Delete item from cart?</h5>
-            <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
+            <form asp-controller="ShoppingCart" asp-action="DeleteItem" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="CustomerID" />
                 <input type="hidden" asp-for="ShoppingBagItemID" />
@@ -43,5 +45,11 @@
             </form>
             <h6 class="mt-3">Note: Deleting the item will set its quantity to 0 and remove it from the cart entirely.</h6>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="text-center">
+        <h3 class="mt-3">Changed your mind?</h3>
+        <a class="btn btn-success my-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Back to Shopping Cart</a>
     </div>
 </div>

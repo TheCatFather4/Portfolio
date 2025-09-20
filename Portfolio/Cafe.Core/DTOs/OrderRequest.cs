@@ -10,7 +10,7 @@ namespace Cafe.Core.DTOs
         [Required(ErrorMessage = "Payment Type ID is required.")]
         public int PaymentTypeId { get; set; }
 
-        [Range(0.00, 1000.00, ErrorMessage = "Tip amound must be between 0 and 1000.")]
+        [Range(0.00, 1000.00, ErrorMessage = "Tip amount must be between 0.00 and 1000.00.")]
         public decimal Tip { get; set; } = 0.00m;
     }
 }

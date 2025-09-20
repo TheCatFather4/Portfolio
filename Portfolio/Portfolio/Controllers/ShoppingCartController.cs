@@ -84,30 +84,29 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (model.Quantity <= 0 || model.Quantity > 10)
+                if (ModelState.IsValid)
                 {
-                    TempData["Alert"] = Alert.CreateError("Quantity must be atleast 1 and no more than 10.");
-                    return View(model);
-                }
+                    var customerResult = await _customerService.GetCustomerByEmailAsync(User.Identity.Name);
 
-                var customerResult = await _customerService.GetCustomerByEmailAsync(User.Identity.Name);
-
-                if (customerResult.Ok)
-                {
-                    var result = await _shoppingBagService.MVCAddItemToBagAsync((int)customerResult.Data.ShoppingBagID, model.ItemID, model.ItemName, (decimal)model.Price, model.Quantity);
-
-                    if (result.Ok)
+                    if (customerResult.Ok)
                     {
-                        TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                        return RedirectToAction("Index", "ShoppingCart");
+                        var result = await _shoppingBagService.MVCAddItemToBagAsync((int)customerResult.Data.ShoppingBagID, model.ItemID, model.ItemName, (decimal)model.Price, (byte)model.Quantity);
+
+                        if (result.Ok)
+                        {
+                            TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                            return RedirectToAction("Index", "ShoppingCart");
+                        }
+
+                        TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
+                        return RedirectToAction("Index", "Cafe");
                     }
 
                     TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
-                    return RedirectToAction("Index", "Cafe");
+                    return RedirectToAction("Index", "ShoppingCart");
                 }
 
-                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
-                return RedirectToAction("Index", "ShoppingCart");
+                return View(model);
             }
 
             return RedirectToAction("Login", "Account");
@@ -152,6 +151,34 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                if (ModelState.IsValid)
+                {
+                    var result = await _shoppingBagService.UpdateItemQuantityAsync(model.CustomerID, model.ShoppingBagItemID, (byte)model.Quantity);
+
+                    if (result.Ok)
+                    {
+                        TempData["Alert"] = Alert.CreateSuccess("Item quantity successfully updated!");
+                    }
+                    else
+                    {
+                        TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team for assistance.");
+                    }
+
+                    return RedirectToAction("Index", "ShoppingCart");
+                }
+
+                return View(model);
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteItem(ItemUpdate model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
                 var updateResult = await _shoppingBagService.RemoveItemFromBagAsync(model.CustomerID, model.ShoppingBagItemID);
 
                 if (updateResult.Ok)
@@ -161,29 +188,6 @@ namespace Portfolio.Controllers
                 else
                 {
                     TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team.");
-                }
-
-                return RedirectToAction("Index", "ShoppingCart");
-            }
-
-            return RedirectToAction("Login", "Account");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateQuantity(ItemUpdate model)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var result = await _shoppingBagService.UpdateItemQuantityAsync(model.CustomerID, model.ShoppingBagItemID, model.Quantity);
-
-                if (result.Ok)
-                {
-                    TempData["Alert"] = Alert.CreateSuccess("Item quantity successfully updated!");
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team for assistance.");
                 }
 
                 return RedirectToAction("Index", "ShoppingCart");

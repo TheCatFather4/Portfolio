@@ -37,22 +37,27 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _orderService.CreateNewOrderAsync(model.CustomerId, model.PaymentTypeId, model.Tip);
-
-                if (result.Ok)
+                if (ModelState.IsValid)
                 {
-                    model.SubTotal = result.Data.SubTotal;
-                    model.Tax = result.Data.Tax;
-                    model.FinalTotal = result.Data.FinalTotal;
-                    model.PaymentStatusId = result.Data.PaymentStatusID;
-                    model.OrderId = result.Data.OrderID;
+                    var result = await _orderService.CreateNewOrderAsync(model.CustomerId, model.PaymentTypeId, (decimal)model.Tip);
 
-                    TempData["Alert"] = Alert.CreateSuccess("Order ready for payment!");
-                    return View(model);
+                    if (result.Ok)
+                    {
+                        model.SubTotal = result.Data.SubTotal;
+                        model.Tax = result.Data.Tax;
+                        model.FinalTotal = result.Data.FinalTotal;
+                        model.PaymentStatusId = result.Data.PaymentStatusID;
+                        model.OrderId = result.Data.OrderID;
+
+                        TempData["Alert"] = Alert.CreateSuccess("Order ready for payment!");
+                        return View(model);
+                    }
+
+                    TempData["Alert"] = Alert.CreateError("Unable to process order.");
+                    return RedirectToAction("Index", "ShoppingCart");
                 }
 
-                TempData["Alert"] = Alert.CreateError("Unable to process order.");
-                return RedirectToAction("Index", "ShoppingCart");
+                return View(model);
             }
 
             return RedirectToAction("Login", "Account");
