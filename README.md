@@ -21,5 +21,4 @@ Made with HTML, CSS, JavaScript, and Bootstrap.
 ## More projects and features coming soon!
 
 >[!NOTE]
->The 4th Wall Cafe website can now process orders like the API.<br>
-Mock payment functionality coming soon.
+>The 4th Wall Cafe website can now process orders and simulate payment like the API.
