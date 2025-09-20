@@ -44,7 +44,7 @@ else
     </div>
     <div class="container">
         <div class="row">
-            <table class="table">
+            <table class="table table-bordered border-info table-success table-striped">
                 <thead>
                     <tr>
                         <th>Order ID</th>
@@ -60,7 +60,14 @@ else
                         <td>@Model.PaymentTypeId</td>
                         <td>@Model.Amount</td>
                         <td>@Model.TransactionDate</td>
-                        <td>@Model.PaymentStatusId</td>
+                        @if (Model.PaymentStatusId == 1)
+                        {
+                            <td class="text-success">Paid</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">Declined</td>
+                        }
                     </tr>
                 </tbody>
             </table>

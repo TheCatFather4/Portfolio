@@ -44,13 +44,13 @@
     </div>
     <div class="row">
         <div class="text-center">
-            <h3 id="titleSection">Want to add more items?<br />Return to the <a asp-controller="Cafe" asp-action="Menu">menu</a> page!</h3>
-            <h3>All done? Go to <a asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID">checkout</a></h3>
+            <h3 id="titleSection">Want to add more items?<br />Return to the <a asp-controller="Cafe" asp-action="Menu" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">menu</a> page!</h3>
+            <h3>All done? Go to <a asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">checkout</a></h3>
         </div>
     </div>
     <div class="container">
         <div class="row p-3">
-            <div class="text-center border border-info border-2 rounded bg-primary">
+            <div class="text-center border border-info border-2 rounded bg-warningbg-warning-subtle">
                 <h5 class="my-3">Empty Shopping Cart</h5>
                 <a class="btn btn-danger mb-3" asp-controller="ShoppingCart" asp-action="EmptyShoppingCart" asp-route-customerId="@Model.CustomerID">Empty Cart</a>
             </div>

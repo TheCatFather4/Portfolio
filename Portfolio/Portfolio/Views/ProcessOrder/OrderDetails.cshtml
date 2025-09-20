@@ -10,7 +10,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <table class="table border border-info">
+        <table class="table border border-info table-warning table-striped">
             <thead>
                 <tr>
                     <th>Order Status</th>
@@ -24,22 +24,22 @@
                 <tr>
                     @if (Model.PaymentStatusId == 2)
                     {
-                        <td class="text-danger">Pending <a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId">Go to checkout</a></td>
+                        <td class="text-warning">Pending <a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId">Go to checkout</a></td>
                     }
                     else
                     {
                         <td class="text-success">Paid</td>
                     }
                     <td>@Model.OrderDate</td>
-                    <td>@Model.Tax</td>
-                    <td>@Model.Tip</td>
-                    <td>@Model.FinalTotal</td>
+                    <td>$@Model.Tax</td>
+                    <td>$@Model.Tip</td>
+                    <td>$@Model.FinalTotal</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="row">
-        <table class="table border border-info">
+        <table class="table border border-info table-warning table-striped">
             <thead>
                 <tr>
                     <th>Order Item ID</th>
@@ -53,10 +53,13 @@
                     <tr>
                         <td>@i.OrderItemId</td>
                         <td>@i.Quantity</td>
-                        <td>@i.ExtendedPrice</td>
+                        <td>$@i.ExtendedPrice</td>
                     </tr>
                 }
             </tbody>
         </table>
+    </div>
+    <div class="text-center my-3">
+        <a asp-controller="Profile" asp-action="Index" class="btn btn-primary" type="submit">Back to Customer profile</a>
     </div>
 </div>
