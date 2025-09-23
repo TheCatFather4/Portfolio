@@ -4,35 +4,37 @@
 }
 
 <div class="row">
-    <div class="text-center my-3">
-        <h1>Welcome accountants and sales managers!</h1>
-        <h5>Please select the appropriate sales report from the following options:</h5>
+    <div class="text-center my-3" id="titleSection">
+        <h2>Welcome accountants and sales managers!</h2>
+        <h4>Please select the appropriate sales report form:</h4>
+    </div>
+</div>
+<div class="row bg-info">
+    <div class="container-fluid d-flex">
+        <div class="col-md-6 text-center">
+            <div class="mt-3 mb-4" id="titleSection">
+                <h3>
+                    <a class="link-light link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Reports" asp-action="Orders">Sales by Order</a>
+                </h3>
+            </div>
+            <div class="mb-5 mx-3">
+                <img src="~/img/report1.png" class="img-fluid img-thumbnail" />
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="mt-3 mb-4" id="titleSection">
+                <h3>
+                    <a class="link-light link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Reports" asp-action="Items">Sales by Item or Category</a>
+                </h3>
+            </div>
+            <div class="mb-5 mx-3">
+                <img src="~/img/report2.png" class="img-fluid img-thumbnail" />
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
-    <div class="text-center">
-        <div class="mb-3">
-            <div class="m-3">
-                <h3><a asp-controller="Reports" asp-action="Orders">Order Date Sales Reports</a></h3>
-            </div>
-            <div>
-                <img src="~/img/report1.png" class="img-fluid rounded border border-5 border-info" />
-            </div>
-        </div>
-        <div class="mb-3">
-            <div class="m-3">
-                <h3><a asp-controller="Reports" asp-action="Items">Item and Category Sales Reports</a></h3>
-            </div>
-            <div>
-                <img src="~/img/report2.png" class="img-fluid rounded border border-5 border-info" />
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="text-center">
-        <div class="my-3">
-            <h4>Back to <a asp-controller="Cafe" asp-action="Index">Cafe Area</a></h4>
-        </div>
+    <div class="my-3 text-center" id="titleSection">
+        <h3>Back to <a asp-controller="Cafe" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">Cafe</a></h3>
     </div>
 </div>

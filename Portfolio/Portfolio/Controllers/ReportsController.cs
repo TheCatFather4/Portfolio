@@ -54,7 +54,10 @@ namespace Portfolio.Controllers
 
                     foreach (var o in orders)
                     {
-                        revenue += o.SubTotal;
+                        if (o.PaymentStatusID == 1)
+                        {
+                            revenue += o.SubTotal;
+                        }
                     }
 
                     model.TotalRevenue = revenue;
