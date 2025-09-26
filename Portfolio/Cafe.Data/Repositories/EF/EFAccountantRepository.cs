@@ -13,6 +13,12 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
+        public ItemPrice GetItemPriceByItemId(int itemId)
+        {
+            return _dbContext.ItemPrice
+                .FirstOrDefault(ip => ip.ItemID == itemId);
+        }
+
         public List<ItemPrice> GetItemPrices()
         {
             return _dbContext.ItemPrice
@@ -25,6 +31,14 @@ namespace Cafe.Data.Repositories.EF
             return _dbContext.Item
                 .Where(i => i.CategoryID == categoryID)
                 .ToList();
+        }
+
+        public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
+        {
+            return _dbContext.OrderItem
+               .Include(co => co.CafeOrder)
+               .Where(co => co.CafeOrder.PaymentStatusID == 1 && co.ItemPriceID == itemPriceId)
+               .ToList();
         }
 
         public List<CafeOrder> GetOrders()

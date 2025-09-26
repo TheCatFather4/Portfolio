@@ -14,6 +14,25 @@ namespace Cafe.BLL.Services
             _accountantRepository = accountantRepository;
         }
 
+        public Result<ItemPrice> GetItemPriceByItemId(int itemId)
+        {
+            try
+            {
+                var itemPrice = _accountantRepository.GetItemPriceByItemId(itemId);
+
+                if (itemPrice == null)
+                {
+                    return ResultFactory.Fail<ItemPrice>("Item price not found.");
+                }
+
+                return ResultFactory.Success(itemPrice);
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail<ItemPrice>(ex.Message);
+            }
+        }
+
         public Result<List<ItemPrice>> GetItemPrices()
         {
             try
@@ -49,6 +68,25 @@ namespace Cafe.BLL.Services
             catch (Exception ex)
             {
                 return ResultFactory.Fail<List<Item>>(ex.Message);
+            }
+        }
+
+        public Result<List<OrderItem>> GetOrderItemsByItemPriceId(int itemPriceId)
+        {
+            try
+            {
+                var orderItems = _accountantRepository.GetOrderItemsByItemPriceId(itemPriceId);
+
+                if (orderItems.Count() == 0)
+                {
+                    return ResultFactory.Fail<List<OrderItem>>("Error getting order items.");
+                }
+
+                return ResultFactory.Success(orderItems);
+            }
+            catch (Exception ex)
+            {
+                return ResultFactory.Fail<List<OrderItem>>(ex.Message);
             }
         }
 
