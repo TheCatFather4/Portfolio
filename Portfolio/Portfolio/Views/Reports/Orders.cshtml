@@ -11,8 +11,6 @@
             <h2>Order Revenue</h2>
             <h5>Select or enter a date to display a corresponding sales report.</h5>
             <p>If you cannot find a sales report, try an example date: <b>09/19/25</b></p>
-            <h5>Try out the online ordering with this account to see more data persistence in action!</h5>
-            <p><b>Note:</b> only orders with a status of <span class="text-success">Paid</span> will display below.<a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a></p>
         </div>
     </div>
     <div class="border border-info p-3 border-3 rounded bg-primary">
@@ -60,8 +58,13 @@
                     </tbody>
                 </table>
             </div>
-            <div class="text-center">
+            <div class="mb-3 text-center">
                 <h3>The total revenue for @Model.OrderDate.Value.ToShortDateString() is $<span class="text-success">@Model.TotalRevenue</span>.</h3>
+            </div>
+            <div class="text-center">
+                <h5 class="mt-2 text-info">Try out the online ordering with this account to see more data persistence in action!</h5>
+                <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
+                <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>
             </div>
         </div>
     }

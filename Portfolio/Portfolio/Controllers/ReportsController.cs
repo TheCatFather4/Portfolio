@@ -121,8 +121,8 @@ namespace Portfolio.Controllers
                         return View(model);
                     }
 
-                    TempData["Alert"] = Alert.CreateError("An error occurred.");
-                    return RedirectToAction("Index");
+                    TempData["Alert"] = Alert.CreateInfo("There is no revenue for this item.");
+                    return View(model);
                 }
 
                 TempData["Alert"] = Alert.CreateError("An error occurred.");
@@ -133,11 +133,13 @@ namespace Portfolio.Controllers
                 // 1. Get items
                 var itemsResult = _accountantService.GetItemsByCategoryID((int)model.SelectedCategoryID);
 
-                // 2. if successful continue
+                // 2a. if successful continue
                 if (itemsResult.Ok)
                 {
                     // 3. new CategoryReports List - this is the list of lists
                     var categoryReportList = new List<CategoryReport>();
+
+                    int orderItems = 0;
 
                     // 4. loop through each item (from step 1)
                     foreach (var item in itemsResult.Data)
@@ -151,23 +153,28 @@ namespace Portfolio.Controllers
                         categoryReport.ItemName = item.ItemName;
 
                         // 7. get item price
-                        var itemPriceResult2 = _accountantService.GetItemPriceByItemId((int)item.ItemID);
+                        var itemPriceResult2 = _accountantService.GetItemPriceByItemId((int)item.ItemID); // add a variable to help
 
-                        // 8. if item price retrival is successful
+                        // 8a. if item price retrival is successful
                         if (itemPriceResult2.Ok)
                         {
                             // 9. get sold order items
                             var orderItemsResult2 = _accountantService.GetOrderItemsByItemPriceId((int)itemPriceResult2.Data.ItemPriceID);
 
-                            // 10. if sold item retrieval is successful
+                            // 10a. if sold item retrieval is successful
                             if (orderItemsResult2.Ok)
                             {
+                                orderItems++;
+
                                 // 11. create a new item date report - first report of many for the item
                                 var dateReportList2 = new List<ItemDateReport>();
 
                                 // 12. loop through sold items
                                 foreach (var orderItem2 in orderItemsResult2.Data)
                                 {
+                                    model.TotalQuantity += orderItem2.Quantity;
+                                    model.TotalRevenue += orderItem2.ExtendedPrice;
+
                                     // 13. map each sold item's data to a corresponding item date report - many ItemDateReports for ONE CategoryReport
                                     dateReportList2.Add(new ItemDateReport
                                     {
@@ -183,14 +190,24 @@ namespace Portfolio.Controllers
                             }
                             else
                             {
-                                // || 10. sold items not found
-                                TempData["Alert"] = Alert.CreateError("An error occurred.");
-                                return RedirectToAction("Index");
+
+                                // 10b. atleast one sold item in category
+                                if (orderItems > 0)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    // 10c. no sold items in category
+                                    model.CategoryReports = categoryReportList;
+                                    TempData["Alert"] = Alert.CreateInfo("There is no revenue for this category.");
+                                    return View(model);
+                                }
                             }
                         }
                         else
                         {
-                            // || 8. item prices not found
+                            // 8b. item prices not found
                             TempData["Alert"] = Alert.CreateError("An error occurred.");
                             return RedirectToAction("Index");
                         }
@@ -206,7 +223,7 @@ namespace Portfolio.Controllers
                     return View(model);
                 }
 
-                // || 2. items not found
+                // 2b. items not found
                 TempData["Alert"] = Alert.CreateError("An error occurred.");
                 return RedirectToAction("Index");
             }

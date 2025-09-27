@@ -104,6 +104,11 @@
     margin-top: 5px;
 }
 
+#revenueResult {
+    font-family: serif;
+    font-size: 1.5rem;
+}
+
 #serverForm {
     background: linear-gradient(to right, #80e3f1, #cceaee);
 }

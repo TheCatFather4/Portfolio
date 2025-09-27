@@ -8,85 +8,116 @@
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <h1 class="mt-3">Sales Reports by Item or Category</h1>
-            <h5>Select the appropriate form to view a sales report in accord with the selected option</h5>
-            <p class="mb-3">Back to <a asp-controller="Reports" asp-action="Index">reports area</a></p>
+            <h2 class="mt-3">Item and Category Revenue</h2>
+            <h5>Select the appropriate form to view a corresponding sales report.</h5>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="border border-primary p-3 border-3 rounded" id="reportsForm2">
+            <div class="border border-info p-3 border-3 rounded bg-primary my-2">
                 <form asp-controller="Reports" asp-action="Items" method="post">
                     @Html.AntiForgeryToken()
-                    <div>
-                        <label asp-for="SelectedItemID" class="form-label">Items</label>
-                        <select asp-for="SelectedItemID" asp-items="Model.Items" class="form-control">
-                            <option value="">---Select---</option>
+                    <div class="form-floating mb-3">
+                        <select asp-for="SelectedItemID" asp-items="Model.Items" class="form-control" id="formInput">
+                            <option value=""></option>
                         </select>
+                        <label asp-for="SelectedItemID">Items</label>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary my-3">View Item Report</button>
+                    <div>
+                        <button type="submit" class="btn btn-success me-2">Show Item Report</button>
+                        <a asp-controller="Reports" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go Back</a>
                     </div>
                 </form>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="border border-primary p-3 border-3 rounded" id="reportsForm2">
+            <div class="border border-info p-3 border-3 rounded bg-primary my-2">
                 <form asp-controller="Reports" asp-action="Items" method="post">
                     @Html.AntiForgeryToken()
-                    <div>
-                        <label asp-for="SelectedCategoryID" class="form-label">Categories</label>
-                        <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control">
-                            <option value="">---Select---</option>
+                    <div class="form-floating mb-3">
+                        <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="formInput">
+                            <option value=""></option>
                         </select>
+                        <label asp-for="SelectedCategoryID">Categories</label>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary my-3">View Category Report</button>
+                    <div>
+                        <button type="submit" class="btn btn-success me-2">Show Category Report</button>
+                        <a asp-controller="Reports" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go Back</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="row">
-        @if (Model.Prices != null)
+        @if (Model.SelectedItemID.HasValue && Model.TotalRevenue != 0)
         {
-            <div class="my-3">
-                <table class="table table-primary table-striped table-bordered border-info">
+            <table class="table table-striped table-success table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Extended Price</th>
+                        <th>Date Sold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model.Dates)
+                    {
+                        <tr>
+                            <td>$@d.Price</td>
+                            <td>@d.Quantity</td>
+                            <td>$@d.ExtendedPrice</td>
+                            <td>@d.DateSold</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center" id="revenueResult">
+                <div>Total Quantity Sold: <span class="text-success">@Model.TotalQuantity</span></div>
+                <div>Total Revenue: <span class="text-success">$@Model.TotalRevenue</span></div>
+            </div>
+            <div class="text-center">
+                <h5 class="mt-2 text-info">Try out the online ordering with this account to see more data persistence in action!</h5>
+                <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
+                <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>
+            </div>
+        }
+        else if (Model.SelectedCategoryID.HasValue && Model.TotalRevenue != 0)
+        {
+            @foreach (var report in Model.CategoryReports)
+            {
+                <p id="revenueResult">Item: <span class="text-success">@report.ItemName</span></p>
+                <table class="table table-striped table-success table-bordered">
                     <thead>
                         <tr>
-                            @if (Model.SelectedItemID == null)
-                            {
-                                <th>Item Name</th>
-                            }
-                            <th>Price Per Item</th>
-                            <th>Quantity Sold</th>
-                            <th>Total</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Extended Price</th>
+                            <th>Date Sold</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var p in Model.Prices)
+                        @foreach (var idr in report.ItemDateReports)
                         {
-                            @if (p.TotalQuantity != 0)
-                            {
-                                <tr>
-                                    @if (Model.SelectedItemID == null)
-                                    {
-                                        <td>@p.Item.ItemName</td>
-                                    }
-                                    <td>$@p.ItemPrice.Price</td>
-                                    <td>@p.TotalQuantity</td>
-                                    <td>$@p.TotalExtendedPrice</td>
-                                </tr>
-                            }
+                            <tr>
+                                <td>$@idr.Price</td>
+                                <td>@idr.Quantity</td>
+                                <td>$@idr.ExtendedPrice</td>
+                                <td>@idr.DateSold</td>
+                            </tr>
                         }
                     </tbody>
                 </table>
+            }
+            <div class="text-center mb-3" id="revenueResult">
+                <div>Total Quantity Sold: <span class="text-success">@Model.TotalQuantity</span></div>
+                <div>Total Revenue: <span class="text-success">$@Model.TotalRevenue</span></div>
             </div>
             <div class="text-center">
-                <h3>Total Revenue: $<span class="text-success">@Model.TotalRevenue</span></h3>
+                <h5 class="mt-2 text-info">Try out the online ordering with this account to see more data persistence in action!</h5>
+                <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
+                <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>
             </div>
         }
     </div>
 </div>
-
-
