@@ -7,14 +7,27 @@ namespace Portfolio.Models
     public class AddItem : IValidatableObject
     {
         public SelectList? Categories { get; set; }
+
+        [Required(ErrorMessage = "A category for the item is required.")]
         public int? SelectedCategoryID { get; set; }
+
+        [Required(ErrorMessage = "A name for the item is required.")]
         public string? Name { get; set; }
+
+        [Required(ErrorMessage = "A description of the item is required.")]
         public string? Description { get; set; }
+
         public SelectList? TimeOfDays { get; set; }
+
+        [Required(ErrorMessage = "A time of day is required.")]
         public int? SelectedTimeOfDayID { get; set; }
+
+        [Required(ErrorMessage = "A price for the item is required.")]
+        [Range(1.00, 20.00, ErrorMessage = "Item price must be between 1.00 and 20.00.")]
         public decimal? Price { get; set; }
 
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "A start date is required")]
         public DateTime? Start { get; set; }
 
         [DataType(DataType.Date)]
@@ -46,14 +59,9 @@ namespace Portfolio.Models
         {
             var errors = new List<ValidationResult>();
 
-            if (string.IsNullOrWhiteSpace(Name))
+            if (Start.HasValue && End.HasValue && Start.Value > End.Value)
             {
-                errors.Add(new ValidationResult("An item name is required."));
-            }
-
-            if (string.IsNullOrWhiteSpace(Description))
-            {
-                errors.Add(new ValidationResult("An item description is required."));
+                errors.Add(new ValidationResult("The Start Date cannot be later than the End Date.", [nameof(Start), nameof(End)]));
             }
 
             return errors;
