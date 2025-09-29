@@ -6,39 +6,42 @@
 
 <div class="container">
     <div class="text-center my-3">
-        <h1>Edit @Model.ItemName</h1>
-        <h5>When finished editing, click the "Save" button.</h5>
+        <h2>Edit @Model.ItemName</h2>
+        <p>Use the form below to make adjustments.</p>
     </div>
-    <div class="border border-secondary p-3 border-3 rounded" id="menuForm">
+    <div class="border border-info p-3 border-5 rounded bg-primary">
         <form asp-controller="Management" asp-action="EditMenu" method="post" asp-route-id="@Model.ItemID">
+            <div asp-validation-summary="ModelOnly"></div>
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="ItemID" />
             <input type="hidden" asp-for="CategoryID" />
-            <div>
-                <label asp-for="ItemName" class="form-label">Item Name</label>
-                <input type="text" class="form-control" asp-for="ItemName" />
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" asp-for="ItemName" id="formInput" />
+                <label asp-for="ItemName">Item Name</label>
+                <span asp-validation-for="ItemName" class="text-light"></span>
             </div>
-            <div class="mt-3">
-                <label asp-for="ItemDescription" class="form-label">Description</label>
-                <input type="text" class="form-control" asp-for="ItemDescription" />
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" asp-for="ItemDescription" id="formInput" />
+                <label asp-for="ItemDescription">Description</label>
+                <span asp-validation-for="ItemDescription" class="text-light"></span>
             </div>
             @for (int i = 0; i < Model.Prices.Count; i++)
             {
                 <input type="hidden" asp-for="Prices[i].ItemPriceID" />
                 <input type="hidden" asp-for="Prices[i].ItemID" />
                 <input type="hidden" asp-for="Prices[i].TimeOfDayID" />
-                <div class="mt-3">
-                    <label asp-for="Prices[i].Price" class="form-label">Price</label>
-                    <input type="text" class="form-control" asp-for="Prices[i].Price" />
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" asp-for="Prices[i].Price" id="formInput" />
+                    <label asp-for="Prices[i].Price">Price</label>
+                    <span asp-validation-for="Prices[i].Price" class="text-light"></span>
                 </div>
                 <input type="hidden" asp-for="Prices[i].StartDate" />
                 <input type="hidden" asp-for="Prices[i].EndDate" />
             }
-            <div class="mt-3">
-                <button type="submit" class="btn btn-primary me-3">Save</button>
-                <a asp-controller="Management" asp-action="Menu">Go back</a>
+            <div>
+                <button type="submit" class="btn btn-success me-3">Save</button>
+                <a asp-controller="Management" asp-action="Menu" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go back</a>
             </div>
         </form>
     </div>
 </div>
-
