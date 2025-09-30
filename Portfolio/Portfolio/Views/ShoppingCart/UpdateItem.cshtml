@@ -7,7 +7,14 @@
 
 <div class="row text-center">
     <h3>@Model.ItemName</h3>
-    <img src="~/item/@Model.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+    @if (Model.ItemImgPath != null)
+    {
+        <img src="~/item/@Model.ItemImgPath" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+    }
+    else
+    {
+        <img src="~/item/newitem.jpg" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+    }
     <h5><span class="me-2">Price: $@Model.Price</span><span class="ms-2">Quantity: @Model.Quantity</span></h5>
     <h5>Total: $@(Model.Price* Model.Quantity)</h5>
 </div>
@@ -25,6 +32,7 @@
                     <span asp-validation-for="Quantity" class="text-light"></span>
                 </div>
                 <input type="hidden" asp-for="ItemName" />
+                <input type="hidden" asp-for="ItemImgPath" />
                 <input type="hidden" asp-for="Price" />
                 <button class="btn btn-warning mb-3">Update</button>
             </form>
@@ -40,6 +48,7 @@
                 <input type="hidden" asp-for="ShoppingBagItemID" />
                 <input type="hidden" asp-for="Quantity" />
                 <input type="hidden" asp-for="ItemName" />
+                <input type="hidden" asp-for="ItemImgPath" />
                 <input type="hidden" asp-for="Price" />
                 <button class="btn btn-danger my-3">Delete</button>
             </form>

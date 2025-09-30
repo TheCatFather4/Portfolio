@@ -25,9 +25,9 @@
                 @foreach (var i in Model.Items)
                 {
                     <tr>
-                        @if (i.ItemStatusID != 1)
+                        @if (i.ItemImgPath != null)
                         {
-                            <td><img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
+                            <td><img src="~/item/@i.ItemImgPath" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
                         }
                         else
                         {

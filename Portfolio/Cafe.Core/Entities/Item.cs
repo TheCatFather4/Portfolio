@@ -12,6 +12,7 @@ namespace Cafe.Core.Entities
         public string? ItemName { get; set; }
         public string? ItemDescription { get; set; }
         public byte? ItemStatusID { get; set; }
+        public string? ItemImgPath { get; set; }
 
         public List<ItemPrice>? Prices { get; set; }
     }

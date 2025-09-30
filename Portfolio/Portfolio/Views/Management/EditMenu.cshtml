@@ -25,6 +25,7 @@
                 <label asp-for="ItemDescription">Description</label>
                 <span asp-validation-for="ItemDescription" class="text-light"></span>
             </div>
+            <input type="hidden" asp-for="ItemImgPath" />
             @for (int i = 0; i < Model.Prices.Count; i++)
             {
                 <input type="hidden" asp-for="Prices[i].ItemPriceID" />

@@ -70,7 +70,8 @@ namespace Portfolio.Controllers
                         ItemName = result.Data.ItemName,
                         Quantity = 0,
                         Price = result.Data.Prices.FirstOrDefault(p => p.ItemID == itemId).Price,
-                        ItemStatusID = result.Data.ItemStatusID
+                        ItemStatusID = result.Data.ItemStatusID,
+                        ItemImgPath = result.Data.ItemImgPath
                     };
 
                     return View(model);
@@ -92,7 +93,8 @@ namespace Portfolio.Controllers
 
                     if (customerResult.Ok)
                     {
-                        var result = await _shoppingBagService.MVCAddItemToBagAsync((int)customerResult.Data.ShoppingBagID, model.ItemID, model.ItemName, (decimal)model.Price, (byte)model.Quantity);
+                        var result = await _shoppingBagService
+                            .MVCAddItemToBagAsync((int)customerResult.Data.ShoppingBagID, model.ItemID, model.ItemName, (decimal)model.Price, (byte)model.Quantity, model.ItemImgPath);
 
                         if (result.Ok)
                         {
@@ -133,7 +135,8 @@ namespace Portfolio.Controllers
                             ShoppingBagItemID = shoppingBagItemId,
                             Quantity = itemResult.Data.Quantity,
                             ItemName = itemResult.Data.ItemName,
-                            Price = (decimal)itemResult.Data.Price
+                            Price = (decimal)itemResult.Data.Price,
+                            ItemImgPath = itemResult.Data.ItemImgPath
                         };
 
                         return View(model);

@@ -50,9 +50,9 @@
             {
                 <div class="col-sm-4 mb-3 d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">
-                        @if (i.ItemStatusID != 1)
+                        @if (i.ItemImgPath != null)
                         {
-                            <img src="~/item/@i.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="card-img-top" id="cardTop" />
+                            <img src="~/item/@i.ItemImgPath" class="card-img-top" id="cardTop" />
                         }
                         else
                         {

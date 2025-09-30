@@ -8,9 +8,9 @@
 <div class="container">
     <div class="d-flex justify-content-center">
         <div class="mt-3">
-            @if (Model.ItemStatusID != 1)
+            @if (Model.ItemImgPath != null)
             {
-                <img src="~/item/@Model.ItemName.Substring(0, 3).Insert(3, ".png").ToLower()" class="img-thumbnail img-fluid" style="width: 10rem" />
+                <img src="~/item/@Model.ItemImgPath" class="img-thumbnail img-fluid" style="width: 10rem" />
             }
             else
             {
@@ -31,6 +31,7 @@
                 </div>
                 <input type="hidden" asp-for="Price" />
                 <input type="hidden" asp-for="ItemStatusID" />
+                <input type="hidden" asp-for="ItemImgPath" />
                 <div class="mt-3">
                     <button class="btn btn-success me-3">Add to Cart</button>
                     <a asp-controller="Cafe" asp-action="Menu" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Back to Menu</a>

@@ -111,7 +111,7 @@ namespace Cafe.BLL.Services.API
             }
         }
 
-        public async Task<Result> MVCAddItemToBagAsync(int shoppingBagId, int itemId, string itemName, decimal price, byte quantity)
+        public async Task<Result> MVCAddItemToBagAsync(int shoppingBagId, int itemId, string itemName, decimal price, byte quantity, string imgPath)
         {
             var bagItem = new ShoppingBagItem
             {
@@ -119,7 +119,8 @@ namespace Cafe.BLL.Services.API
                 ItemID = itemId,
                 Quantity = quantity,
                 ItemName = itemName,
-                Price = price
+                Price = price,
+                ItemImgPath = imgPath
             };
 
             try

@@ -14,6 +14,8 @@ namespace Portfolio.Models
         [Required(ErrorMessage = "A description for the item is required.")]
         public string? ItemDescription { get; set; }
 
+        public string? ItemImgPath { get; set; }
+
         public List<ItemPrice>? Prices { get; set; }
 
         public ItemForm()
@@ -27,6 +29,7 @@ namespace Portfolio.Models
             CategoryID = entity.CategoryID;
             ItemName = entity.ItemName;
             ItemDescription = entity.ItemDescription;
+            ItemImgPath = entity.ItemImgPath;
             Prices = entity.Prices;
         }
 
@@ -38,6 +41,7 @@ namespace Portfolio.Models
                 CategoryID = CategoryID,
                 ItemName = ItemName,
                 ItemDescription = ItemDescription,
+                ItemImgPath = ItemImgPath,
                 Prices = Prices
             };
         }
