@@ -3,9 +3,9 @@
     ViewData["Title"] = "Cafe Management";
 }
 
-<div class="row">
-    <div class="text-center my-3">
-        <h1>Welcome cafe managers!</h1>
+<div class="row bg-info">
+    <div class="text-center my-3" id="titleSection">
+        <h2>Welcome Cafe Managers!</h2>
         <h5>Please select one of the following areas you would like to manage</h5>
     </div>
 </div>
@@ -17,7 +17,7 @@
                     <a asp-controller="Management" asp-action="Server">Server Management</a>
                 </h3>
             </div>
-            <div>
+            <div class="pb-3">
                 <img src="~/img/servermg.png" class="img-fluid rounded border border-5 border-info" />
             </div>
         </div>
@@ -29,16 +29,16 @@
                     <a asp-controller="Management" asp-action="Menu">Menu Management</a>
                 </h3>
             </div>
-            <div>
+            <div class="pb-3">
                 <img src="~/img/menumg.png" class="img-fluid rounded border border-5 border-info" />
             </div>
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row bg-info">
     <div class="text-center">
-        <div class="mt-3">
-            <h4>Back to <a asp-controller="Cafe" asp-action="Index">Cafe Area</a></h4>
+        <div class="my-5" id="titleSection">
+            <h3>Back to <a asp-controller="Cafe" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Cafe Area</a></h3>
         </div>
     </div>
 </div>

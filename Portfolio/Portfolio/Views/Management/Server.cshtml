@@ -10,13 +10,13 @@
             <h2 class="my-3">Server Manager</h2>
         </div>
         <div class="text-center">
-            <h5 class="mb-3">Click on the 'Edit' link at the end of any row to make adjustments</h5>
-            <p>Hired a new server? Go to the <a asp-controller="Management" asp-action="CreateServer">add server</a> portal.</p>
-            <p>All finished? Go back to management <a asp-controller="Management" asp-action="Index">main menu</a></p>
+            <h5 class="mb-3">Click on the <b class="text-info">Edit</b> link to make adjustments</h5>
+            <h5>Hired a new server? Go to the <a asp-controller="Management" asp-action="CreateServer" class="text-success">add server</a> portal.</h5>
+            <p>All finished? <a asp-controller="Management" asp-action="Index">Go back</a></p>
         </div>
     </div>
     <div class="row">
-        <table class="table table-info table-striped table-hover table-bordered border-primary">
+        <table class="table table-dark table-striped table-hover table-bordered border-primary">
             <thead>
                 <tr>
                     <th>First Name</th>

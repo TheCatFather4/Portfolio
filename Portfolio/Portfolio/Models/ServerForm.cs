@@ -56,7 +56,12 @@ namespace Portfolio.Models
 
             if (DoB.Date > DateTime.Today.AddYears(-18))
             {
-                errors.Add(new ValidationResult("Servers must be over 18 years of age", ["DoB"]));
+                errors.Add(new ValidationResult("Servers must be atleast 18 years of age", ["DoB"]));
+            }
+
+            if (TermDate.HasValue && TermDate.Value < HireDate)
+            {
+                errors.Add(new ValidationResult("Termination Date must come after Hire Date", ["TermDate"]));
             }
 
             return errors;
