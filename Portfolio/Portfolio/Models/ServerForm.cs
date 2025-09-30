@@ -6,7 +6,11 @@ namespace Portfolio.Models
     public class ServerForm : IValidatableObject
     {
         public int? ServerID { get; set; }
+
+        [Required(ErrorMessage = "A First Name is required.")]
         public string? FirstName { get; set; }
+
+        [Required(ErrorMessage = "A Last Name is required.")]
         public string? LastName { get; set; }
 
         [DataType(DataType.Date)]
@@ -53,16 +57,6 @@ namespace Portfolio.Models
             if (DoB.Date > DateTime.Today.AddYears(-18))
             {
                 errors.Add(new ValidationResult("Servers must be over 18 years of age", ["DoB"]));
-            }
-
-            if (string.IsNullOrEmpty(FirstName))
-            {
-                errors.Add(new ValidationResult("A first name is required"));
-            }
-
-            if (string.IsNullOrEmpty(LastName))
-            {
-                errors.Add(new ValidationResult("A last name is required"));
             }
 
             return errors;
