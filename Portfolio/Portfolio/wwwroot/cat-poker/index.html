@@ -9,9 +9,30 @@
     </head>
     <body>
         <header>
-            <nav class="navbar" id="navbarCat">
+            <nav class="navbar navbar-expand-lg" id="navbarCat">
                 <div class="container-fluid">
-                    <a class="navbar-brand text-white">Cat Poker</a>
+                    <button class="navbar-toggler my-2" type="button" id="toggleIcon" data-bs-toggle="collapse" data-bs-target="#navbar03" aria-controls="navbar03" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar03">
+                        <a class="navbar-brand text-white">Cat Poker</a>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="https://www.jmarcello.dev/Home/Index">Home</a></li>
+                                    <li><a class="dropdown-item" href="https://www.jmarcello.dev/Cafe">4th Wall Cafe</a></li>
+                                    <li><a class="dropdown-item" href="https://www.jmarcello.dev/Cafe/OrderAPI">Cafe API</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-light link-opacity-50-hover" href="https://www.github.com/TheCatFather4">GitHub</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-light link-opacity-50-hover" href="https://www.jmarcello.dev/Home/Contact">Contact Me</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </header>

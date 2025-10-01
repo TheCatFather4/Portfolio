@@ -209,3 +209,8 @@
 #scoringArea {
     margin-top: 10px;
 }
+
+#toggleIcon {
+    border: 0.5px solid white;
+    color: white;
+}
