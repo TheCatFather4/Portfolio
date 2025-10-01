@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <StaticWebAssetBasePath>wwwroot</StaticWebAssetBasePath>
-    <UserSecretsId>458891e2-7ecf-4333-9cc2-4537b4163351</UserSecretsId>
+    <UserSecretsId>user-secrets-id-goes-here</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
