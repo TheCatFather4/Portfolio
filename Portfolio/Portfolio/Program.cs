@@ -3,7 +3,6 @@ using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
 using Cafe.Core.Interfaces.Services.MVC;
 using Cafe.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

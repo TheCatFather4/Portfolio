@@ -45,17 +45,6 @@ namespace Cafe.Data.Repositories.EF
                 .ToList();
         }
 
-        public List<Item> GetItemsByCategory(string categoryName)
-        {
-            var category = _dbContext.Category
-                .FirstOrDefault(c =>  c.CategoryName == categoryName);
-
-            return _dbContext.Item
-                .Include(i => i.Prices)
-                .Where(i => i.CategoryID == category.CategoryID)
-                .ToList();
-        }
-
         public async Task<Item> GetItemWithPriceAsync(int itemId)
         {
             return await _dbContext.Item

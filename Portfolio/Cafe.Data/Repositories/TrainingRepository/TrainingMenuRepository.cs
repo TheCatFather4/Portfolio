@@ -45,11 +45,6 @@ namespace Cafe.Data.Repositories.TrainingRepository
             throw new NotImplementedException();
         }
 
-        public List<Item> GetItemsByCategory(string categoryName)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Item> GetItems()
         {
             throw new NotImplementedException();

@@ -3,6 +3,6 @@
     public enum DatabaseMode
     {
         ORM,
-        TrainingMode
+        Dapper
     }
 }

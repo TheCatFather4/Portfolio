@@ -10,7 +10,6 @@ namespace Cafe.Core.Interfaces.Services
         Result<List<TimeOfDay>> GetTimeOfDays();
         Result<List<Item>> GetItems();
         Result<Item> GetItem(int id);
-        Result<List<Item>> GetItemsByCatetegory(string catetegoryName);
         Task<Result<ItemPrice>> GetItemPriceByIdAsync(int itemId);
     }
 }

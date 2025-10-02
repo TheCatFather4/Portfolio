@@ -5,6 +5,7 @@ using Cafe.Core.Enums;
 using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
 using Cafe.Core.Interfaces.Services.MVC;
+using Cafe.Data.Repositories.Dapper;
 using Cafe.Data.Repositories.EF;
 using Cafe.Data.Repositories.TrainingRepository;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +40,7 @@ namespace Cafe.BLL
             {
                 return new MenuService(
                     logger,
-                    new TrainingMenuRepository());
+                    new DapperMenuRepository(_config.GetConnectionString()));
             }
         }
 

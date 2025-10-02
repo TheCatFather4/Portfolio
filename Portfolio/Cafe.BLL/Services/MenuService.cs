@@ -25,14 +25,16 @@ namespace Cafe.BLL.Services
 
                 if (categories.Count() == 0)
                 {
-                    return ResultFactory.Fail<List<Category>>("Error getting categories.");
+                    _logger.LogError("No categories were found. Check the database connection.");
+                    return ResultFactory.Fail<List<Category>>("An error occurred. Please wait a few minutes and try again.");
                 }
 
                 return ResultFactory.Success(categories);
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<List<Category>>(ex.Message);
+                _logger.LogError($"An error occurred in attempting to get categories: {ex.Message}");
+                return ResultFactory.Fail<List<Category>>("An error occurred. Please contact our management team.");
             }
         }
 
@@ -44,14 +46,16 @@ namespace Cafe.BLL.Services
 
                 if (times.Count() == 0)
                 {
-                    return ResultFactory.Fail<List<TimeOfDay>>("Error getting times.");
+                    _logger.LogError("No times of day were found. Check the database connection.");
+                    return ResultFactory.Fail<List<TimeOfDay>>("An error occurred. Please wait a few minutes and try again.");
                 }
 
                 return ResultFactory.Success(times);
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<List<TimeOfDay>>(ex.Message);
+                _logger.LogError($"An error occurred in attempting to get times of day: {ex.Message}");
+                return ResultFactory.Fail<List<TimeOfDay>>("An error occurred. Please contact our management team.");
             }
         }
 
@@ -63,16 +67,16 @@ namespace Cafe.BLL.Services
 
                 if (!items.Any())
                 {
-                    _logger.LogWarning("No menu items were found in the repository.");
-                    return ResultFactory.Fail<List<Item>>("No menu items found.");
+                    _logger.LogError("No menu items were found. Check the database connection.");
+                    return ResultFactory.Fail<List<Item>>("An error occurred. Please wait a few minutes and try again.");
                 }
 
                 return ResultFactory.Success(items);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error occurred while retrieving the menu.");
-                return ResultFactory.Fail<List<Item>>("An unexpected error occurred.");
+                _logger.LogError($"An unexpected error occurred in retrieving the menu: {ex.Message}");
+                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
             }
         }
 
@@ -94,25 +98,6 @@ namespace Cafe.BLL.Services
             {
                 _logger.LogError(ex, "An unexpected error occurred while retrieving an item.");
                 return ResultFactory.Fail<Item>("An unexpected error occurred.");
-            }
-        }
-
-        public Result<List<Item>> GetItemsByCatetegory(string catetegoryName)
-        {
-            try
-            {
-                var items = _menuRepository.GetItemsByCategory(catetegoryName);
-
-                if (items.Count() == 0)
-                {
-                    return ResultFactory.Fail<List<Item>>("There are no items for that category");
-                }
-                
-                return ResultFactory.Success(items);
-            }
-            catch (Exception ex)
-            {
-                return ResultFactory.Fail<List<Item>>(ex.Message);
             }
         }
 

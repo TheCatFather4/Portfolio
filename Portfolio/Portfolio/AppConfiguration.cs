@@ -1,6 +1,5 @@
 ﻿using Cafe.Core.Enums;
 using Cafe.Core.Interfaces.Application;
-using Microsoft.Extensions.Configuration;
 
 namespace Portfolio
 {
@@ -29,8 +28,8 @@ namespace Portfolio
             {
                 case "ORM":
                     return DatabaseMode.ORM;
-                case "TrainingMode":
-                    return DatabaseMode.TrainingMode;
+                case "Dapper":
+                    return DatabaseMode.Dapper;
                 default:
                     throw new Exception("DatabaseMode configuration key invalid.");
             }
