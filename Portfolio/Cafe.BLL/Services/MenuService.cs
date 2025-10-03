@@ -88,16 +88,16 @@ namespace Cafe.BLL.Services
 
                 if (item == null)
                 {
-                    _logger.LogWarning("Item was not found in the repository.");
-                    return ResultFactory.Fail<Item>("");
+                    _logger.LogError($"Item with ID: {id} was not found. Check the database connection.");
+                    return ResultFactory.Fail<Item>("An error occurred. Please try again in a few minutes.");
                 }
 
                 return ResultFactory.Success(item);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error occurred while retrieving an item.");
-                return ResultFactory.Fail<Item>("An unexpected error occurred.");
+                _logger.LogError($"An unexpected error occurred in attempting to retrieve an item: {ex.Message}");
+                return ResultFactory.Fail<Item>("An error occurred. Please contact our management team.");
             }
         }
 
@@ -109,26 +109,38 @@ namespace Cafe.BLL.Services
 
                 if (items.Count() == 0)
                 {
-                    return ResultFactory.Fail<List<Item>>("Error getting items.");
+                    _logger.LogError("Items not found in database. Check the database connection.");
+                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
                 }
 
                 return ResultFactory.Success(items);
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<List<Item>>(ex.Message);
+                _logger.LogError($"An unexpected error occurred in retrieving meun items: {ex.Message}");
+                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
             }
         }
 
         public async Task<Result<ItemPrice>> GetItemPriceByIdAsync(int itemId)
         {
-            var itemPrice = await _menuRepository.GetItemPriceByIdAsync(itemId);
-            if (itemPrice == null)
+            try
             {
-                return ResultFactory.Fail<ItemPrice>($"Item price for item {itemId} not found.");
-            }
+                var itemPrice = await _menuRepository.GetItemPriceByIdAsync(itemId);
 
-            return ResultFactory.Success(itemPrice);
+                if (itemPrice == null)
+                {
+                    _logger.LogError($"Item price not found for Item ID: {itemId}. Check the database connection.");
+                    return ResultFactory.Fail<ItemPrice>("An error occurred. Please try again in a few minutes.");
+                }
+
+                return ResultFactory.Success(itemPrice);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred: {ex.Message}");
+                return ResultFactory.Fail<ItemPrice>("An error occurred. Please contact our management team.");
+            }
         }
     }
 }

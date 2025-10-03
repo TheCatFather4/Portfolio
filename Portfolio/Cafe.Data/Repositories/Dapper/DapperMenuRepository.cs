@@ -37,9 +37,23 @@ namespace Cafe.Data.Repositories.Dapper
             throw new NotImplementedException();
         }
 
-        public Task<ItemPrice> GetItemPriceByIdAsync(int itemId)
+        public async Task<ItemPrice> GetItemPriceByIdAsync(int itemId)
         {
-            throw new NotImplementedException();
+            ItemPrice price = new ItemPrice();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM ItemPrice AS ip WHERE ip.ItemID = @ItemID;";
+
+                var parameter = new
+                {
+                    ItemID = itemId
+                };
+
+                price = await cn.QueryFirstOrDefaultAsync<ItemPrice>(sql, parameter);
+            }
+
+            return price;
         }
 
         public List<Item> GetItems()
@@ -55,9 +69,31 @@ namespace Cafe.Data.Repositories.Dapper
             return items;
         }
 
-        public Task<Item> GetItemWithPriceAsync(int itemId)
+        public async Task<Item> GetItemWithPriceAsync(int itemId)
         {
-            throw new NotImplementedException();
+            Item item = new Item();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM Item AS i 
+                            WHERE i.ItemID = @ItemID;
+
+                            SELECT * FROM ItemPrice AS ip 
+                            WHERE ip.ItemID = @ItemID;";
+
+                var parameters = new
+                {
+                    ItemID = itemId
+                };
+
+                using (var multi = cn.QueryMultiple(sql, parameters))
+                {
+                    item = multi.ReadFirst<Item>();
+                    item.Prices = multi.Read<ItemPrice>().ToList();
+                }
+            }
+
+            return item;
         }
 
         public List<Item> GetMenu()
