@@ -57,17 +57,21 @@ namespace Cafe.BLL
             }
         }
 
-        public IAccountantService CreateAccountantService()
+        public IMVCAccountantService CreateAccountantService()
         {
+            var logger = _loggerFactory.CreateLogger<MVCAccountantService>();
+
             if (_config.GetDatabaseMode() == DatabaseMode.ORM)
             {
-                return new AccountantService(
+                return new MVCAccountantService(
+                    logger,
                     new EFAccountantRepository(_config.GetConnectionString()));
             }
             else
             {
-                //add mock repo
-                return null;
+                return new MVCAccountantService(
+                    logger,
+                    new DapperAccountantRepository(_config.GetConnectionString()));
             }
         }
 

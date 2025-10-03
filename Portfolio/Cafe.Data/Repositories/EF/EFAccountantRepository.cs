@@ -19,13 +19,6 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefault(ip => ip.ItemID == itemId);
         }
 
-        public List<ItemPrice> GetItemPrices()
-        {
-            return _dbContext.ItemPrice
-                .Include(ip => ip.OrderItems)
-                .ToList();
-        }
-
         public List<Item> GetItemsByCategoryID(int categoryID)
         {
             return _dbContext.Item

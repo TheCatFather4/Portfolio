@@ -1,4 +1,4 @@
-﻿using Cafe.Core.Interfaces.Services;
+﻿using Cafe.Core.Interfaces.Services.MVC;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
@@ -10,10 +10,10 @@ namespace Portfolio.Controllers
     [Authorize(Roles = "Accountant")]
     public class ReportsController : Controller
     {
-        private readonly IAccountantService _accountantService;
+        private readonly IMVCAccountantService _accountantService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(IAccountantService accountantService, ISelectListBuilder selectListBuilder)
+        public ReportsController(IMVCAccountantService accountantService, ISelectListBuilder selectListBuilder)
         {
             _accountantService = accountantService;
             _selectListBuilder = selectListBuilder;

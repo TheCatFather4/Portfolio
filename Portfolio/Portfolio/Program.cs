@@ -53,7 +53,7 @@ builder.Services.AddScoped<IManagementService>(provider =>
     return serviceFactory.CreateManagementService();
 });
 
-builder.Services.AddScoped<IAccountantService>(provider =>
+builder.Services.AddScoped<IMVCAccountantService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreateAccountantService();
