@@ -6,7 +6,7 @@ namespace Cafe.Data.Repositories.EF
 {
     public class EFMenuRepository : IMenuRepository
     {
-        private CafeContext _dbContext;
+        private readonly CafeContext _dbContext;
 
         public EFMenuRepository(string connectionString)
         {

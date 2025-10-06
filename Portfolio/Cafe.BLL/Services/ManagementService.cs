@@ -2,15 +2,18 @@
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
     public class ManagementService : IManagementService
     {
+        private readonly ILogger _logger;
         private readonly IManagementRepository _managementRepository;
 
-        public ManagementService(IManagementRepository managementRepository)
+        public ManagementService(ILogger<ManagementService> logger, IManagementRepository managementRepository)
         {
+            _logger = logger;
             _managementRepository = managementRepository;
         }
 
@@ -20,7 +23,7 @@ namespace Cafe.BLL.Services
 
             if (duplicateItem)
             {
-                return ResultFactory.Fail("This item already exists on the menu.");
+                return ResultFactory.Fail("The menu already has an item with this name.");
             }
 
             try
@@ -30,7 +33,8 @@ namespace Cafe.BLL.Services
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail(ex.Message);
+                _logger.LogError($"An error occurred when attempting to add an item to the menu: {ex.Message}");
+                return ResultFactory.Fail("An error ocurred. Please contact the administrator.");
             }
         }
 
@@ -43,7 +47,8 @@ namespace Cafe.BLL.Services
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail(ex.Message);
+                _logger.LogError($"An error occurred when attempting to add a server: {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact the administrator.");
             }
         }
 
@@ -55,14 +60,16 @@ namespace Cafe.BLL.Services
 
                 if (item == null)
                 {
-                    return ResultFactory.Fail<Item>("Item not found.");
+                    _logger.LogError($"Item with id: {itemID} not found.");
+                    return ResultFactory.Fail<Item>("An error occurred. Please try again in a few minutes.");
                 }
 
                 return ResultFactory.Success(item);
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<Item>(ex.Message);
+                _logger.LogError($"An error occurred when retrieving a menu item: {ex.Message}");
+                return ResultFactory.Fail<Item>("An error occurred. Please contact the administrator.");
             }
         }
 
@@ -74,14 +81,16 @@ namespace Cafe.BLL.Services
 
                 if (server == null)
                 {
-                    return ResultFactory.Fail<Server>("Server not found.");
+                    _logger.LogError($"Server with id: {serverID} not found.");
+                    return ResultFactory.Fail<Server>("An error occurred. Please try again in a few minutes.");
                 }
 
                 return ResultFactory.Success(server);
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<Server>(ex.Message);
+                _logger.LogError($"An error occurred when retrieving a server: {ex.Message}");
+                return ResultFactory.Fail<Server>("An error occurred. Please contact the administrator.");
             }
         }
 
@@ -93,14 +102,16 @@ namespace Cafe.BLL.Services
 
                 if (servers.Count() == 0)
                 {
-                    return ResultFactory.Fail<List<Server>>("Error gettting servers.");
+                    _logger.LogError("No servers were found upon attempting to retrieve.");
+                    return ResultFactory.Fail<List<Server>>("An error occurred. Please try again in a few minutes.");
                 }
 
                 return ResultFactory.Success(servers);
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<List<Server>>(ex.Message);
+                _logger.LogError($"An error occurred when retrieving list of servers: {ex.Message}");
+                return ResultFactory.Fail<List<Server>>("An error occurred. Please contact the site administrator.");
             }
         }
 
@@ -109,11 +120,12 @@ namespace Cafe.BLL.Services
             try
             {
                 _managementRepository.UpdateMenu(item);
-                return ResultFactory.Success();
+                return ResultFactory.Success("Item successfully updated!");
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail(ex.Message);
+                _logger.LogError("An error occurred when attempting to update item.");
+                return ResultFactory.Fail("An error occurred. Please contact the site administrator.");
             }
         }
 
@@ -126,7 +138,8 @@ namespace Cafe.BLL.Services
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail(ex.Message);
+                _logger.LogError("An error occurred when attempting to update server.");
+                return ResultFactory.Fail("An error occurred. Please contact the site administrator.");
             }
         }
     }

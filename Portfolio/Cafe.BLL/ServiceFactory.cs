@@ -7,7 +7,6 @@ using Cafe.Core.Interfaces.Services;
 using Cafe.Core.Interfaces.Services.MVC;
 using Cafe.Data.Repositories.Dapper;
 using Cafe.Data.Repositories.EF;
-using Cafe.Data.Repositories.TrainingRepository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -46,14 +45,19 @@ namespace Cafe.BLL
 
         public IManagementService CreateManagementService()
         {
+            var logger = _loggerFactory.CreateLogger<ManagementService>();
+
             if (_config.GetDatabaseMode() == DatabaseMode.ORM)
             {
                 return new ManagementService(
+                    logger,
                     new EFManagementRepository(_config.GetConnectionString()));
             }
             else
             {
-                return new ManagementService(new TrainingManagementRepository());
+                return new ManagementService(
+                    logger,
+                    new DapperManagementRepository(_config.GetConnectionString()));
             }
         }
 

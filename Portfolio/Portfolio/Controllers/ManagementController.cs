@@ -112,7 +112,7 @@ namespace Portfolio.Controllers
 
                 if (result.Ok)
                 {
-                    TempData["Alert"] = Alert.CreateSuccess($"Server created with id {entity.ServerID}");
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
                     return RedirectToAction("Index");
                 }
                 else
@@ -183,7 +183,7 @@ namespace Portfolio.Controllers
 
                 if (result.Ok)
                 {
-                    TempData["Alert"] = Alert.CreateSuccess($"{model.ItemName} successfully updated on menu.");
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
                     return RedirectToAction("Index");
                 }
                 else
@@ -206,7 +206,7 @@ namespace Portfolio.Controllers
 
             if (model.Categories == null || model.TimeOfDays == null)
             {
-                TempData["Alert"] = Alert.CreateError("Error getting lists for item addition");
+                TempData["Alert"] = Alert.CreateError("An error occurred. Please try again in a few minutes.");
                 return RedirectToAction("Index");
             }
 
@@ -228,7 +228,7 @@ namespace Portfolio.Controllers
 
                 if (result.Ok)
                 {
-                    TempData["Alert"] = Alert.CreateSuccess($"{model.Name} successfully added!");
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
                     return RedirectToAction("Index");
                 }
                 else

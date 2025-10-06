@@ -6,7 +6,7 @@ namespace Cafe.Data.Repositories.EF
 {
     public class EFAccountantRepository : IAccountantRepository
     {
-        private CafeContext _dbContext;
+        private readonly CafeContext _dbContext;
 
         public EFAccountantRepository(string connectionString)
         {

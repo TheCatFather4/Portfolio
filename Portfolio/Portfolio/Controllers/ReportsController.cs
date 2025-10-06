@@ -64,7 +64,7 @@ namespace Portfolio.Controllers
                 }
                 else
                 {
-                    TempData["Alert"] = Alert.CreateError("Error getting orders");
+                    TempData["Alert"] = Alert.CreateError(result.Message);
                     return RedirectToAction("Index", "Reports");
                 }
             }
@@ -121,11 +121,11 @@ namespace Portfolio.Controllers
                         return View(model);
                     }
 
-                    TempData["Alert"] = Alert.CreateInfo("There is no revenue for this item.");
+                    TempData["Alert"] = Alert.CreateInfo(orderItemsResult.Message);
                     return View(model);
                 }
 
-                TempData["Alert"] = Alert.CreateError("An error occurred.");
+                TempData["Alert"] = Alert.CreateError(itemPriceResult.Message);
                 return RedirectToAction("Index");
             }
             else if (model.SelectedCategoryID.HasValue)
@@ -200,7 +200,7 @@ namespace Portfolio.Controllers
                                 {
                                     // 10c. no sold items in category
                                     model.CategoryReports = categoryReportList;
-                                    TempData["Alert"] = Alert.CreateInfo("There is no revenue for this category.");
+                                    TempData["Alert"] = Alert.CreateInfo(orderItemsResult2.Message);
                                     return View(model);
                                 }
                             }
@@ -208,7 +208,7 @@ namespace Portfolio.Controllers
                         else
                         {
                             // 8b. item prices not found
-                            TempData["Alert"] = Alert.CreateError("An error occurred.");
+                            TempData["Alert"] = Alert.CreateError(itemPriceResult2.Message);
                             return RedirectToAction("Index");
                         }
 
@@ -224,7 +224,7 @@ namespace Portfolio.Controllers
                 }
 
                 // 2b. items not found
-                TempData["Alert"] = Alert.CreateError("An error occurred.");
+                TempData["Alert"] = Alert.CreateError(itemsResult.Message);
                 return RedirectToAction("Index");
             }
 

@@ -33,7 +33,7 @@ namespace Portfolio.Controllers
 
             if (model.Categories == null || model.TimesOfDays == null)
             {
-                TempData["Alert"] = Alert.CreateError("Error getting list information");
+                TempData["Alert"] = Alert.CreateError("An error occurred. Please try again in a few minutes.");
                 return RedirectToAction("Index");
             }
 
