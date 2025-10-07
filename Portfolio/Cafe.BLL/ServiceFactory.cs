@@ -45,23 +45,23 @@ namespace Cafe.BLL
 
         public IManagementService CreateManagementService()
         {
-            var logger = _loggerFactory.CreateLogger<ManagementService>();
+            var logger = _loggerFactory.CreateLogger<MVCManagementService>();
 
             if (_config.GetDatabaseMode() == DatabaseMode.ORM)
             {
-                return new ManagementService(
+                return new MVCManagementService(
                     logger,
                     new EFManagementRepository(_config.GetConnectionString()));
             }
             else
             {
-                return new ManagementService(
+                return new MVCManagementService(
                     logger,
                     new DapperManagementRepository(_config.GetConnectionString()));
             }
         }
 
-        public IMVCAccountantService CreateAccountantService()
+        public IAccountantService CreateAccountantService()
         {
             var logger = _loggerFactory.CreateLogger<MVCAccountantService>();
 
@@ -90,9 +90,9 @@ namespace Cafe.BLL
 
         public IOrderService CreateOrderService()
         {
-            var logger = _loggerFactory.CreateLogger<OrderService>();
+            var logger = _loggerFactory.CreateLogger<APIOrderService>();
 
-            return new OrderService(
+            return new APIOrderService(
                 new OrderRepository(_config.GetConnectionString()), 
                 CreateShoppingBagService(), 
                 CreateMenuService(), 
@@ -101,40 +101,53 @@ namespace Cafe.BLL
 
         public ICustomerService CreateCustomerService()
         {
-            var logger = _loggerFactory.CreateLogger<CustomerService>();
+            var logger = _loggerFactory.CreateLogger<APICustomerService>();
 
-            return new CustomerService(
-                new CustomerRepository(_config.GetConnectionString()), 
+            return new APICustomerService(
+                new EFCustomerRepository(_config.GetConnectionString()), 
                 logger);
         }
 
         public IJwtService CreateJwtService()
         {
-            return new JwtService(_jwtConfig);
+            return new APIJwtService(_jwtConfig);
         }
 
         public IPaymentService CreatePaymentService()
         {
-            var logger = _loggerFactory.CreateLogger<PaymentService>();
+            var logger = _loggerFactory.CreateLogger<APIPaymentService>();
 
-            return new PaymentService(
+            return new APIPaymentService(
                 new PaymentRepository(_config.GetConnectionString()), 
                 logger);
         }
 
-        public IMVCustomerService CreateMVCustomerService()
+        public IMVCCustomerService CreateMVCCustomerService()
         {
-            return new MVCustomerService(new CustomerRepository(_config.GetConnectionString()));
+            var logger = _loggerFactory.CreateLogger<MVCCustomerService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new MVCCustomerService(
+                    logger,
+                    new EFCustomerRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new MVCCustomerService(
+                    logger,
+                    new DapperCustomerRepository(_config.GetConnectionString()));
+            }
         }
 
         public IMVOrderService CreateMVOrderService()
         {
-            return new MVOrderService(CreateMenuService(), CreateShoppingBagService(), new OrderRepository(_config.GetConnectionString()));
+            return new MVCOrderService(CreateMenuService(), CreateShoppingBagService(), new OrderRepository(_config.GetConnectionString()));
         }
 
         public IMVPaymentService CreateMVPaymentService()
         {
-            return new MVPaymentService(new PaymentRepository(_config.GetConnectionString()));
+            return new MVCPaymentService(new PaymentRepository(_config.GetConnectionString()));
         }
     }
 }

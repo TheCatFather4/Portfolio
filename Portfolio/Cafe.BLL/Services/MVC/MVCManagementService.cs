@@ -4,14 +4,14 @@ using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Cafe.BLL.Services
+namespace Cafe.BLL.Services.MVC
 {
-    public class ManagementService : IManagementService
+    public class MVCManagementService : IManagementService
     {
         private readonly ILogger _logger;
         private readonly IManagementRepository _managementRepository;
 
-        public ManagementService(ILogger<ManagementService> logger, IManagementRepository managementRepository)
+        public MVCManagementService(ILogger<MVCManagementService> logger, IManagementRepository managementRepository)
         {
             _logger = logger;
             _managementRepository = managementRepository;

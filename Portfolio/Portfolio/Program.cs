@@ -53,7 +53,7 @@ builder.Services.AddScoped<IManagementService>(provider =>
     return serviceFactory.CreateManagementService();
 });
 
-builder.Services.AddScoped<IMVCAccountantService>(provider =>
+builder.Services.AddScoped<IAccountantService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreateAccountantService();
@@ -89,10 +89,10 @@ builder.Services.AddScoped<IPaymentService>(provider =>
     return serviceFactory.CreatePaymentService();
 });
 
-builder.Services.AddScoped<IMVCustomerService>(provider =>
+builder.Services.AddScoped<IMVCCustomerService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMVCustomerService();
+    return serviceFactory.CreateMVCCustomerService();
 });
 
 builder.Services.AddScoped<IMVOrderService>(provider =>

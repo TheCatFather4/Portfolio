@@ -1,4 +1,4 @@
-﻿using Cafe.BLL.Services;
+﻿using Cafe.BLL.Services.MVC;
 using Cafe.Core.Entities;
 using Cafe.Tests.MockRepositories;
 using NUnit.Framework;
@@ -11,7 +11,7 @@ namespace Cafe.Tests
         [Test]
         public void DuplicateItemCannotAdd()
         {
-            ManagementService service = new ManagementService(new MockManagementRepository());
+            MVCManagementService service = new ManagementService(new MockManagementRepository());
 
             Item toAdd = new Item
             {
@@ -29,7 +29,7 @@ namespace Cafe.Tests
         [Test]
         public void MenuItemNotFound()
         {
-            ManagementService service = new ManagementService(new MockManagementRepository());
+            MVCManagementService service = new ManagementService(new MockManagementRepository());
 
             var result = service.GetMenuItemById(3);
 
@@ -39,7 +39,7 @@ namespace Cafe.Tests
         [Test]
         public void MenuItemFound()
         {
-            ManagementService service = new ManagementService(new MockManagementRepository());
+            MVCManagementService service = new ManagementService(new MockManagementRepository());
 
             var result = service.GetMenuItemById(1);
 
@@ -49,7 +49,7 @@ namespace Cafe.Tests
         [Test]
         public void ServerNotFound()
         {
-            ManagementService service = new ManagementService(new MockManagementRepository());
+            MVCManagementService service = new ManagementService(new MockManagementRepository());
 
             var result = service.GetServerById(4);
 
@@ -59,7 +59,7 @@ namespace Cafe.Tests
         [Test]
         public void ServerFound()
         {
-            ManagementService service = new ManagementService(new MockManagementRepository());
+            MVCManagementService service = new ManagementService(new MockManagementRepository());
 
             var result = service.GetServerById(1);
 

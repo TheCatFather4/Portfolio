@@ -1,12 +1,12 @@
 ﻿using Cafe.Core.DTOs;
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
-using Cafe.Core.Interfaces.Services.MVC;
+using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services.MVC
 {
-    public class MVCAccountantService : IMVCAccountantService
+    public class MVCAccountantService : IAccountantService
     {
         private readonly ILogger _logger;
         private readonly IAccountantRepository _accountantRepository;

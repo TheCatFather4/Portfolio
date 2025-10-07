@@ -5,11 +5,11 @@ using Cafe.Core.Interfaces.Services.MVC;
 
 namespace Cafe.BLL.Services.MVC
 {
-    public class MVPaymentService : IMVPaymentService
+    public class MVCPaymentService : IMVPaymentService
     {
         private readonly IPaymentRepository _paymentRepository;
 
-        public MVPaymentService(IPaymentRepository paymentRepository)
+        public MVCPaymentService(IPaymentRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
         }

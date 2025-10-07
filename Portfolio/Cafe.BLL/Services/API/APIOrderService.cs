@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services.API
 {
-    public class OrderService : IOrderService
+    public class APIOrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IShoppingBagService _shoppingBagService;
         private readonly IMenuService _menuService;
         private readonly ILogger _logger;
 
-        public OrderService(IOrderRepository orderRepository, IShoppingBagService shoppingBagService, IMenuService menuService, ILogger logger)
+        public APIOrderService(IOrderRepository orderRepository, IShoppingBagService shoppingBagService, IMenuService menuService, ILogger logger)
         {
             _orderRepository = orderRepository;
             _shoppingBagService = shoppingBagService;

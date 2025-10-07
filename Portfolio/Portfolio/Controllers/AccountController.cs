@@ -10,9 +10,9 @@ namespace Portfolio.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IMVCustomerService _customerService;
+        private readonly IMVCCustomerService _customerService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMVCustomerService customerService)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMVCCustomerService customerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -30,7 +30,7 @@ namespace Portfolio.Controllers
         {
             if (ModelState.IsValid)
             {
-                var emailResult = await _customerService.GetCustomerByNewEmailAsync(model.Email);
+                var emailResult = await _customerService.GetDuplicateEmailAsync(model.Email);
 
                 if (!emailResult.Ok)
                 {
@@ -39,18 +39,22 @@ namespace Portfolio.Controllers
                 }
 
                 var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     var customerResult = await _customerService.RegisterCustomerAsync(model.Email, user.Id);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
                     if (customerResult.Ok)
                     {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+
                         TempData["Alert"] = Alert.CreateSuccess(customerResult.Message);
+                        return RedirectToAction("Index", "Cafe");
                     }
 
+                    TempData["Alert"] = Alert.CreateError(customerResult.Message);
                     return RedirectToAction("Index", "Cafe");
                 }
                 foreach (var error in result.Errors)

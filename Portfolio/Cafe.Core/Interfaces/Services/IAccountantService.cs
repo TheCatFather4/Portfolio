@@ -1,9 +1,9 @@
 ﻿using Cafe.Core.DTOs;
 using Cafe.Core.Entities;
 
-namespace Cafe.Core.Interfaces.Services.MVC
+namespace Cafe.Core.Interfaces.Services
 {
-    public interface IMVCAccountantService
+    public interface IAccountantService
     {
         Result<List<CafeOrder>> GetOrders();
         Result<List<Item>> GetItemsByCategoryID(int categoryID);

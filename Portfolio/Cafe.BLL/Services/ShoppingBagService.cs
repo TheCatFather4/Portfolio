@@ -4,7 +4,7 @@ using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Cafe.BLL.Services.API
+namespace Cafe.BLL.Services
 {
     public class ShoppingBagService : IShoppingBagService
     {

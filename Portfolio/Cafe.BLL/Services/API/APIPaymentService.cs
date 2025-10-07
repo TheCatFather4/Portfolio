@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services.API
 {
-    public class PaymentService : IPaymentService
+    public class APIPaymentService : IPaymentService
     {
         private readonly IPaymentRepository _paymentRepository;
         private readonly ILogger _logger;
 
-        public PaymentService(IPaymentRepository paymentRepository, ILogger logger)
+        public APIPaymentService(IPaymentRepository paymentRepository, ILogger logger)
         {
             _paymentRepository = paymentRepository;
             _logger = logger;

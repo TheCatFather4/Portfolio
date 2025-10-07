@@ -6,13 +6,13 @@ using Cafe.Core.Interfaces.Services.MVC;
 
 namespace Cafe.BLL.Services.MVC
 {
-    public class MVOrderService : IMVOrderService
+    public class MVCOrderService : IMVOrderService
     {
         private IMenuService _menuService;
         private IShoppingBagService _shoppingBagService;
         private IOrderRepository _orderRepository;
 
-        public MVOrderService(IMenuService menuService, IShoppingBagService shoppingBagService, IOrderRepository orderRepository)
+        public MVCOrderService(IMenuService menuService, IShoppingBagService shoppingBagService, IOrderRepository orderRepository)
         {
             _menuService = menuService;
             _shoppingBagService = shoppingBagService;

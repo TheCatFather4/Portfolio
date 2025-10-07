@@ -8,9 +8,9 @@ namespace Portfolio.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IMVCustomerService _customerService;
+        private readonly IMVCCustomerService _customerService;
 
-        public ProfileController(UserManager<IdentityUser> userManager, IMVCustomerService customerService)
+        public ProfileController(UserManager<IdentityUser> userManager, IMVCCustomerService customerService)
         {
             _userManager = userManager;
             _customerService = customerService;

@@ -7,12 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Cafe.BLL.Services.API
 {
-    public class CustomerService : ICustomerService
+    public class APICustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ILogger _logger;
 
-        public CustomerService(ICustomerRepository customerRepository, ILogger logger)
+        public APICustomerService(ICustomerRepository customerRepository, ILogger logger)
         {
             _customerRepository = customerRepository;
             _logger = logger;

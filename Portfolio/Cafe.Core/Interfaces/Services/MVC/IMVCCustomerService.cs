@@ -3,11 +3,11 @@ using Cafe.Core.Entities;
 
 namespace Cafe.Core.Interfaces.Services.MVC
 {
-    public interface IMVCustomerService
+    public interface IMVCCustomerService
     {
         Task<Result> RegisterCustomerAsync(string email, string identityId);
         Task<Result<Customer>> GetCustomerByEmailAsync(string identityId);
         Task<Result> UpdateCustomerAsync(Customer entity);
-        Task<Result> GetCustomerByNewEmailAsync(string email);
+        Task<Result> GetDuplicateEmailAsync(string email);
     }
 }

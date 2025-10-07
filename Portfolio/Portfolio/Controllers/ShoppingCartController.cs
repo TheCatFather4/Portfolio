@@ -12,9 +12,9 @@ namespace Portfolio.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IShoppingBagService _shoppingBagService;
-        private readonly IMVCustomerService _customerService;
+        private readonly IMVCCustomerService _customerService;
 
-        public ShoppingCartController(UserManager<IdentityUser> userManager, IShoppingBagService shoppingBagService, IMVCustomerService customerService)
+        public ShoppingCartController(UserManager<IdentityUser> userManager, IShoppingBagService shoppingBagService, IMVCCustomerService customerService)
         {
             _userManager = userManager;
             _shoppingBagService = shoppingBagService;

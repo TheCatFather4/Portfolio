@@ -9,11 +9,11 @@ using System.Text;
 
 namespace Cafe.BLL.Services.API
 {
-    public class JwtService : IJwtService
+    public class APIJwtService : IJwtService
     {
         private readonly IConfiguration _config;
 
-        public JwtService(IConfiguration config)
+        public APIJwtService(IConfiguration config)
         {
             _config = config;
         }
