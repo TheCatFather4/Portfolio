@@ -205,7 +205,8 @@ namespace Cafe.BLL.Services
                 return ResultFactory.Success(item);
             }
 
-            return ResultFactory.Fail<ShoppingBagItem>("Item not found in shopping bag.");
+            _logger.LogError($"An error occurred when attempting to retrieve a shopping bag item.");
+            return ResultFactory.Fail<ShoppingBagItem>("An error occurred. Please try again in a few minutes.");
         }
     }
 }

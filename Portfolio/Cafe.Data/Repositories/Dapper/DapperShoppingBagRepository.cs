@@ -29,9 +29,24 @@ namespace Cafe.Data.Repositories.Dapper
             throw new NotImplementedException();
         }
 
-        public Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
+        public async Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
         {
-            throw new NotImplementedException();
+            ShoppingBagItem sbi = new ShoppingBagItem();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM ShoppingBagItem 
+                            WHERE ShoppingBagItemID = @ShoppingBagItemID;";
+
+                var parameter = new
+                {
+                    shoppingBagItemId
+                };
+
+                sbi = await cn.QueryFirstOrDefaultAsync<ShoppingBagItem>(sql, parameter);
+            }
+
+            return sbi;
         }
 
         public async Task MVCAddItemAsync(ShoppingBagItem item)
