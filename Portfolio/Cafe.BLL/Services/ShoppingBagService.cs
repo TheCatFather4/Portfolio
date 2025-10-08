@@ -8,15 +8,15 @@ namespace Cafe.BLL.Services
 {
     public class ShoppingBagService : IShoppingBagService
     {
+        private readonly ILogger _logger;
         private readonly IShoppingBagRepository _shoppingBagRepository;
         private readonly IMenuRepository _menuRepository;
-        private readonly ILogger _logger;
 
-        public ShoppingBagService(IShoppingBagRepository shoppingBagRepository, IMenuRepository menuRepository, ILogger logger)
+        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository, IMenuRepository menuRepository)
         {
+            _logger = logger;
             _shoppingBagRepository = shoppingBagRepository;
             _menuRepository = menuRepository;
-            _logger = logger;
         }
 
         public async Task<Result> AddItemToBagAsync(int customerId, int itemId, byte quantity)
@@ -130,7 +130,8 @@ namespace Cafe.BLL.Services
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail($"{ex.Message}");
+                _logger.LogError($"An error occurred when attempting to add an item to the bag: {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact our management team for assistance.");
             }
         }
 

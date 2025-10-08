@@ -83,9 +83,20 @@ namespace Cafe.BLL
         {
             var logger = _loggerFactory.CreateLogger<ShoppingBagService>();
 
-            return new ShoppingBagService(
-                new ShoppingBagRepository(_config.GetConnectionString()), 
-                new EFMenuRepository(_config.GetConnectionString()), logger);
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new ShoppingBagService(
+                    logger,
+                    new EFShoppingBagRepository(_config.GetConnectionString()),
+                    new EFMenuRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new ShoppingBagService(
+                    logger,
+                    new DapperShoppingBagRepository(_config.GetConnectionString()),
+                    new DapperMenuRepository(_config.GetConnectionString()));
+            }
         }
 
         public IOrderService CreateOrderService()

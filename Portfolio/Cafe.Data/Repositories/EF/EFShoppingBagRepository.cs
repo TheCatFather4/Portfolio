@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
-    public class ShoppingBagRepository : IShoppingBagRepository
+    public class EFShoppingBagRepository : IShoppingBagRepository
     {
         private readonly CafeContext _dbContext;
 
-        public ShoppingBagRepository(string connectionString)
+        public EFShoppingBagRepository(string connectionString)
         {
             _dbContext = new CafeContext(connectionString);
         }
