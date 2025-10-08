@@ -1,7 +1,7 @@
 # Portfolio
 
 ## About
-This my [portfolio website](https://www.jmarcello.dev/) made with ASP.NET Core.
+This my [portfolio website](https://www.jmarcello.dev/) made with ASP.NET Core and ASP.NET Identity.
 
 ## Featured Projects
 
