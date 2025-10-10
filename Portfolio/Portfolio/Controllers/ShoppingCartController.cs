@@ -44,11 +44,11 @@ namespace Portfolio.Controllers
                         return View(model);
                     }
 
-                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
+                    TempData["Alert"] = Alert.CreateError(cartResult.Message);
                     return RedirectToAction("Index", "Cafe");
                 }
 
-                TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
+                TempData["Alert"] = Alert.CreateError(customerResult.Message);
                 return RedirectToAction("Index", "Cafe");
             }
 
@@ -102,11 +102,11 @@ namespace Portfolio.Controllers
                             return RedirectToAction("Index", "ShoppingCart");
                         }
 
-                        TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
+                        TempData["Alert"] = Alert.CreateError(result.Message);
                         return RedirectToAction("Index", "Cafe");
                     }
 
-                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact the management team.");
+                    TempData["Alert"] = Alert.CreateError(customerResult.Message);
                     return RedirectToAction("Index", "ShoppingCart");
                 }
 
@@ -142,7 +142,7 @@ namespace Portfolio.Controllers
                         return View(model);
                     }
 
-                    TempData["Alert"] = Alert.CreateError("An error ocurred. Please contact our management team.");
+                    TempData["Alert"] = Alert.CreateError(itemResult.Message);
                     return RedirectToAction("Index", "ShoppingCart");
                 }
             }
@@ -162,11 +162,11 @@ namespace Portfolio.Controllers
 
                     if (result.Ok)
                     {
-                        TempData["Alert"] = Alert.CreateSuccess("Item quantity successfully updated!");
+                        TempData["Alert"] = Alert.CreateSuccess(result.Message);
                     }
                     else
                     {
-                        TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team for assistance.");
+                        TempData["Alert"] = Alert.CreateError(result.Message);
                     }
 
                     return RedirectToAction("Index", "ShoppingCart");
@@ -188,11 +188,11 @@ namespace Portfolio.Controllers
 
                 if (updateResult.Ok)
                 {
-                    TempData["Alert"] = Alert.CreateSuccess("Item successfully removed from shopping cart.");
+                    TempData["Alert"] = Alert.CreateSuccess(updateResult.Message);
                 }
                 else
                 {
-                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team.");
+                    TempData["Alert"] = Alert.CreateError(updateResult.Message);
                 }
 
                 return RedirectToAction("Index", "ShoppingCart");
@@ -222,11 +222,11 @@ namespace Portfolio.Controllers
 
                 if (result.Ok)
                 {
-                    TempData["Alert"] = Alert.CreateSuccess("Shopping Cart cleared!");
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
                 }
                 else
                 {
-                    TempData["Alert"] = Alert.CreateError("An error occurred. Please contact our management team for assistance.");
+                    TempData["Alert"] = Alert.CreateError(result.Message);
                 }
 
                 return RedirectToAction("Index", "ShoppingCart");
