@@ -80,11 +80,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result<Item> GetItem(int id)
+        public async Task<Result<Item>> GetItem(int id)
         {
             try
             {
-                var item = _menuRepository.GetItem(id);
+                var item = await _menuRepository.GetItemWithPriceAsync(id);
 
                 if (item == null)
                 {

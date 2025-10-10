@@ -27,16 +27,6 @@ namespace Cafe.Data.Repositories.Dapper
             return categories;
         }
 
-        public Item GetItem(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Item> GetItemAsync(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ItemPrice> GetItemPriceByIdAsync(int itemId)
         {
             ItemPrice price = new ItemPrice();

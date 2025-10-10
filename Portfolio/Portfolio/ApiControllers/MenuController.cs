@@ -51,9 +51,9 @@ namespace Portfolio.ApiControllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Item), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public IActionResult GetItem(int id)
+        public async Task<IActionResult> GetItem(int id)
         {
-            var result = _menuService.GetItem(id);
+            var result = await _menuService.GetItem(id);
 
             if (result.Ok)
             {
