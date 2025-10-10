@@ -129,7 +129,7 @@ namespace Cafe.BLL
             var logger = _loggerFactory.CreateLogger<APIPaymentService>();
 
             return new APIPaymentService(
-                new PaymentRepository(_config.GetConnectionString()), 
+                new EFPaymentRepository(_config.GetConnectionString()), 
                 logger);
         }
 
@@ -151,7 +151,7 @@ namespace Cafe.BLL
             }
         }
 
-        public IMVOrderService CreateMVOrderService()
+        public IMVOrderService CreateMVCOrderService()
         {
             var logger = _loggerFactory.CreateLogger<MVCOrderService>();
 
@@ -173,9 +173,22 @@ namespace Cafe.BLL
             }
         }
 
-        public IMVPaymentService CreateMVPaymentService()
+        public IMVPaymentService CreateMVCPaymentService()
         {
-            return new MVCPaymentService(new PaymentRepository(_config.GetConnectionString()));
+            var logger = _loggerFactory.CreateLogger<MVCPaymentService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new MVCPaymentService(
+                    logger,
+                    new EFPaymentRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new MVCPaymentService(
+                    logger,
+                    new DapperPaymentRepository(_config.GetConnectionString()));
+            }
         }
     }
 }

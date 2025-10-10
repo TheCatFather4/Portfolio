@@ -98,13 +98,13 @@ builder.Services.AddScoped<IMVCCustomerService>(provider =>
 builder.Services.AddScoped<IMVOrderService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMVOrderService();
+    return serviceFactory.CreateMVCOrderService();
 });
 
 builder.Services.AddScoped<IMVPaymentService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMVPaymentService();
+    return serviceFactory.CreateMVCPaymentService();
 });
 
 builder.Services.AddScoped<ISelectListBuilder, SelectListBuilder>();

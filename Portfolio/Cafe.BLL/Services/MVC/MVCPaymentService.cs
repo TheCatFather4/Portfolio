@@ -2,15 +2,18 @@
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services.MVC;
+using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services.MVC
 {
     public class MVCPaymentService : IMVPaymentService
     {
+        private readonly ILogger _logger;
         private readonly IPaymentRepository _paymentRepository;
 
-        public MVCPaymentService(IPaymentRepository paymentRepository)
+        public MVCPaymentService(ILogger<MVCPaymentService> logger, IPaymentRepository paymentRepository)
         {
+            _logger = logger;
             _paymentRepository = paymentRepository;
         }
 
@@ -20,7 +23,8 @@ namespace Cafe.BLL.Services.MVC
 
             if (paymentTypes == null || paymentTypes.Count == 0)
             {
-                return ResultFactory.Fail<List<PaymentType>>("Payment types not found.");
+                _logger.LogError("An error occurred when attempting to retrieve payment types.");
+                return ResultFactory.Fail<List<PaymentType>>("An error occurred. Please try again in a few minutes.");
             }
 
             return ResultFactory.Success(paymentTypes);
@@ -33,7 +37,8 @@ namespace Cafe.BLL.Services.MVC
 
             if (order == null)
             {
-                return ResultFactory.Fail<Payment>("Order not found.");
+                _logger.LogError($"Order with ID: {payment.OrderID} not found.");
+                return ResultFactory.Fail<Payment>("An error occurred. Please try again in a few minutes.");
             }
             else if (payment.Amount != order.FinalTotal)
             {
@@ -41,7 +46,7 @@ namespace Cafe.BLL.Services.MVC
             }
             else if (order.PaymentStatusID == 1)
             {
-                return ResultFactory.Fail<Payment>("Order has already been paid.");
+                return ResultFactory.Fail<Payment>("This order has already been paid.");
             }
 
             var random = new Random();
@@ -61,7 +66,8 @@ namespace Cafe.BLL.Services.MVC
             }
             catch (Exception ex)
             {
-                return ResultFactory.Fail<Payment>("An error occurred.");
+                _logger.LogError($"An error occurred when attempting to process payment for Order ID: {payment.OrderID}");
+                return ResultFactory.Fail<Payment>("An error occurred. Please contact our management team for assistance.");
             }
         }
     }

@@ -3,11 +3,11 @@ using Cafe.Core.Interfaces.Repositories;
 
 namespace Cafe.Data.Repositories.EF
 {
-    public class PaymentRepository : IPaymentRepository
+    public class EFPaymentRepository : IPaymentRepository
     {
         private readonly CafeContext _dbContext;
 
-        public PaymentRepository(string connectionString)
+        public EFPaymentRepository(string connectionString)
         {
             _dbContext = new CafeContext(connectionString);
         }
