@@ -104,7 +104,7 @@ namespace Cafe.BLL
             var logger = _loggerFactory.CreateLogger<APIOrderService>();
 
             return new APIOrderService(
-                new OrderRepository(_config.GetConnectionString()), 
+                new EFOrderRepository(_config.GetConnectionString()), 
                 CreateShoppingBagService(), 
                 CreateMenuService(), 
                 logger);
@@ -153,7 +153,24 @@ namespace Cafe.BLL
 
         public IMVOrderService CreateMVOrderService()
         {
-            return new MVCOrderService(CreateMenuService(), CreateShoppingBagService(), new OrderRepository(_config.GetConnectionString()));
+            var logger = _loggerFactory.CreateLogger<MVCOrderService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new MVCOrderService(
+                    logger,
+                    CreateMenuService(),
+                    CreateShoppingBagService(),
+                    new EFOrderRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new MVCOrderService(
+                    logger,
+                    CreateMenuService(),
+                    CreateShoppingBagService(),
+                    new DapperOrderRepository(_config.GetConnectionString()));
+            }
         }
 
         public IMVPaymentService CreateMVPaymentService()

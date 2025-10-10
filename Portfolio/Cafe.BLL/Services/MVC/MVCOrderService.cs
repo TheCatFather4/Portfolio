@@ -3,17 +3,20 @@ using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Cafe.Core.Interfaces.Services.MVC;
+using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services.MVC
 {
     public class MVCOrderService : IMVOrderService
     {
-        private IMenuService _menuService;
-        private IShoppingBagService _shoppingBagService;
-        private IOrderRepository _orderRepository;
+        private readonly ILogger _logger;
+        private readonly IMenuService _menuService;
+        private readonly IShoppingBagService _shoppingBagService;
+        private readonly IOrderRepository _orderRepository;
 
-        public MVCOrderService(IMenuService menuService, IShoppingBagService shoppingBagService, IOrderRepository orderRepository)
+        public MVCOrderService(ILogger<MVCOrderService> logger, IMenuService menuService, IShoppingBagService shoppingBagService, IOrderRepository orderRepository)
         {
+            _logger = logger;
             _menuService = menuService;
             _shoppingBagService = shoppingBagService;
             _orderRepository = orderRepository;
@@ -27,7 +30,8 @@ namespace Cafe.BLL.Services.MVC
 
                 if (!shoppingBagResult.Ok || shoppingBagResult == null || !shoppingBagResult.Data.Items.Any())
                 {
-                    return ResultFactory.Fail<CafeOrder>("An error occurred. Please contact our management team.");
+                    _logger.LogError($"Shopping Bag not found. Customer ID: {customerId}");
+                    return ResultFactory.Fail<CafeOrder>("An error occurred. Please try again in a few minutes.");
                 }
 
                 var shoppingBag = shoppingBagResult.Data;
@@ -43,7 +47,8 @@ namespace Cafe.BLL.Services.MVC
 
                     if (!itemPriceResult.Ok || itemPriceResult.Data == null || itemPriceResult.Data.Price == null)
                     {
-                        return ResultFactory.Fail<CafeOrder>("An error occurred");
+                        _logger.LogError($"Item not found with Item ID: {item.ItemID}");
+                        return ResultFactory.Fail<CafeOrder>("An error occurred. Please try again in a few minutes.");
                     }
 
                     decimal extendedPrice = (decimal)(itemPriceResult.Data.Price * item.Quantity);
@@ -79,6 +84,7 @@ namespace Cafe.BLL.Services.MVC
             }
             catch (Exception ex)
             {
+                _logger.LogError("An error occurred when attempting to create a new order.");
                 return ResultFactory.Fail<CafeOrder>("An error occurred. Please contact our management team.");
             }
         }
@@ -89,7 +95,8 @@ namespace Cafe.BLL.Services.MVC
 
             if (order == null)
             {
-                return ResultFactory.Fail<CafeOrder>("Order not found.");
+                _logger.LogError($"Order not found with Order ID: {orderId}");
+                return ResultFactory.Fail<CafeOrder>("An error occurred. Please try again in a few minutes.");
             }
 
             return ResultFactory.Success(order);
