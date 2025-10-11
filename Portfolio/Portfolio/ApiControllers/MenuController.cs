@@ -1,4 +1,4 @@
-﻿using Cafe.Core.Entities;
+﻿using Cafe.Core.DTOs;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,45 +23,55 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Gets entire menu including pricing information
+        /// Retrieves the entire menu including pricing information for each item
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(List<Item>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<ItemResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public IActionResult GetMenu()
         {
-            var result = _menuService.GetMenu();
+            var result = _menuService.GetMenuAPI();
 
             if (result.Ok)
             {
                 return Ok(result.Data);
             }
+            else if (result.Data == null)
+            {
+                return StatusCode(503, result.Message);
+            }
             else
             {
-                return NotFound("Menu not found.");
+                return StatusCode(500, result.Message);
             }
         }
 
         /// <summary>
-        /// Get a menu item by ID, including pricing information
+        /// Retrieves an individual item including its pricing information
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="itemId"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Item), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetItem(int id)
+        [HttpGet("{itemId}")]
+        [ProducesResponseType(typeof(ItemResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
+        public async Task<IActionResult> GetItem(int itemId)
         {
-            var result = await _menuService.GetItem(id);
+            var result = await _menuService.GetItemAPIAsync(itemId);
 
             if (result.Ok)
             {
                 return Ok(result.Data);
             }
+            else if (result.Data == null)
+            {
+                return StatusCode(503, result.Message);
+            }
             else
             {
-                return NotFound("Item not found.");
+                return StatusCode(500, result.Message);
             }
         }
     }

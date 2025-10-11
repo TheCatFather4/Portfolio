@@ -80,27 +80,6 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public async Task<Result<Item>> GetItem(int id)
-        {
-            try
-            {
-                var item = await _menuRepository.GetItemWithPriceAsync(id);
-
-                if (item == null)
-                {
-                    _logger.LogError($"Item with ID: {id} was not found. Check the database connection.");
-                    return ResultFactory.Fail<Item>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(item);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred in attempting to retrieve an item: {ex.Message}");
-                return ResultFactory.Fail<Item>("An error occurred. Please contact our management team.");
-            }
-        }
-
         public Result<List<Item>> GetItems()
         {
             try
@@ -140,6 +119,93 @@ namespace Cafe.BLL.Services
             {
                 _logger.LogError($"An unexpected error occurred: {ex.Message}");
                 return ResultFactory.Fail<ItemPrice>("An error occurred. Please contact our management team.");
+            }
+        }
+
+        public Result<List<ItemResponse>> GetMenuAPI()
+        {
+            try
+            {
+                var menu = _menuRepository.GetMenu();
+
+                if (menu != null)
+                {
+                    var items = new List<ItemResponse>();
+
+                    foreach (var item in menu)
+                    {
+                        var ir = new ItemResponse();
+                        ir.ItemID = (int)item.ItemID;
+                        ir.CategoryID = (int)item.CategoryID;
+                        ir.ItemName = item.ItemName;
+                        ir.ItemDescription = item.ItemDescription;
+                        ir.Prices = new List<ItemPriceResponse>();
+
+                        foreach (var price in item.Prices)
+                        {
+                            var ipr = new ItemPriceResponse();
+                            ipr.ItemPriceID = (int)price.ItemPriceID;
+                            ipr.TimeOfDayID = (int)price.TimeOfDayID;
+                            ipr.Price = (decimal)price.Price;
+                            ipr.StartDate = (DateTime)price.StartDate;
+                            ipr.EndDate = price.EndDate;
+
+                            ir.Prices.Add(ipr);
+                        }
+
+                        items.Add(ir);
+                    }
+
+                    return ResultFactory.Success(items);
+                }
+
+                _logger.LogError("The menu was not found. Check database connection.");
+                return ResultFactory.Fail<List<ItemResponse>>("An error occurred. Please try again in a few minutes.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred when attempting to retrieve the menu.");
+                return ResultFactory.Fail<List<ItemResponse>>("An error occurred. Please contact the customer assistance team.");
+            }
+        }
+
+        public async Task<Result<ItemResponse>> GetItemAPIAsync(int itemId)
+        {
+            try
+            {
+                var item = await _menuRepository.GetItemWithPriceAsync(itemId);
+
+                if (item == null)
+                {
+                    _logger.LogError($"Item with ID: {itemId} was not found. Check the database connection.");
+                    return ResultFactory.Fail<ItemResponse>("An error occurred. Please try again in a few minutes.");
+                }
+
+                var ir = new ItemResponse();
+                ir.ItemID = (int)item.ItemID;
+                ir.CategoryID = (int)item.CategoryID;
+                ir.ItemName = item.ItemName;
+                ir.ItemDescription = item.ItemDescription;
+                ir.Prices = new List<ItemPriceResponse>();
+
+                foreach (var price in item.Prices)
+                {
+                    var ipr = new ItemPriceResponse();
+                    ipr.ItemPriceID = (int)price.ItemPriceID;
+                    ipr.TimeOfDayID = (int)price.TimeOfDayID;
+                    ipr.Price = (decimal)price.Price;
+                    ipr.StartDate = (DateTime)price.StartDate;
+                    ipr.EndDate = price.EndDate;
+
+                    ir.Prices.Add(ipr);
+                }
+
+                return ResultFactory.Success(ir);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred in attempting to retrieve an item: {ex.Message}");
+                return ResultFactory.Fail<ItemResponse>("An error occurred. Please contact our management team.");
             }
         }
     }
