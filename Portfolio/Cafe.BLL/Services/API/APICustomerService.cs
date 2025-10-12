@@ -3,7 +3,6 @@ using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Cafe.BLL.Services.API
 {
@@ -18,7 +17,7 @@ namespace Cafe.BLL.Services.API
             _logger = logger;
         }
 
-        public async Task<Result> Register(RegisterUser dto, string identityId)
+        public async Task<Result> Register(RegisterRequest dto, string identityId)
         {
             if (string.IsNullOrEmpty(identityId))
             {
@@ -34,20 +33,46 @@ namespace Cafe.BLL.Services.API
                 Id = identityId
             };
 
-            await _customerRepository.AddCustomerAsync(customer);
-
-            var shoppingBag = new ShoppingBag
+            try
             {
-                CustomerID = customer.CustomerID
-            };
+                var customerId = await _customerRepository.AddCustomerAsync(customer);
 
-            await _customerRepository.CreateShoppingBagAsync(shoppingBag);
+                if (customerId == 0)
+                {
+                    _logger.LogError($"Customer id returned with a value of: {customerId} ");
+                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+                }
 
-            customer.ShoppingBagID = shoppingBag.ShoppingBagID;
+                var shoppingBag = new ShoppingBag
+                {
+                    CustomerID = customerId
+                };
 
-            await _customerRepository.UpdateCustomerAsync(customer);
+                var bagId = await _customerRepository.CreateShoppingBagAsync(shoppingBag);
 
-            return ResultFactory.Success("User registered successfully");
+                if (bagId == 0)
+                {
+                    _logger.LogError($"Shopping bag id returned with a value of: {bagId}");
+                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+                }
+
+                customer.ShoppingBagID = bagId;
+
+                // If using Dapper database mode
+                if (customer.CustomerID == 0)
+                {
+                    customer.CustomerID = customerId;
+                }
+
+                await _customerRepository.UpdateCustomerAsync(customer);
+
+                return ResultFactory.Success("User registered successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred when registering a new user: {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact our customer assistance team.");
+            }
         }
     }
 }

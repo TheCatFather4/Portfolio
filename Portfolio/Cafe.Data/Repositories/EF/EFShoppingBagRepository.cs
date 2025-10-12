@@ -13,7 +13,7 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
-        public async Task AddItemAsync(int customerId, ShoppingBagItem item)
+        public async Task APIAddItemAsync(int customerId, ShoppingBagItem item)
         {
             var shoppingBag = await _dbContext.ShoppingBag
                 .Include(sb => sb.Items)

@@ -27,41 +27,46 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Retrieves a customer's shopping bag and the items inside it
+        /// Retrieves a customer's shopping bag and any items inside it
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
         [HttpGet("{customerId}")]
-        [ProducesResponseType(typeof(ShoppingBag), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ShoppingBagResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> GetShoppingBag(int customerId)
         {
-            var result = await _shoppingBagService.GetShoppingBagAsync(customerId);
+            var result = await _shoppingBagService.APIGetShoppingBagAsync(customerId);
 
             if (result.Ok)
             {
                 return Ok(result.Data);
             }
+            else if (result.Data == null)
+            {
+                return StatusCode(503, result.Message);
+            }
             else
             {
-                return NotFound(result.Message);
+                return StatusCode(500, result.Message);
             }
         }
 
         /// <summary>
-        /// Adds an item to customer's shopping bag
+        /// Adds an item to a customer's shopping bag
         /// </summary>
         /// <param name="customerId"></param>
-        /// <param name="itemDto"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("{customerId}/items")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItem itemDto)
+        public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItemRequest dto)
         {
-            var result = await _shoppingBagService.AddItemToBagAsync(customerId, itemDto.ItemId, itemDto.Quantity);
+            var result = await _shoppingBagService.APIAddItemToBagAsync(customerId, dto);
 
             if (result.Ok)
             {

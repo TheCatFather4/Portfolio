@@ -15,7 +15,7 @@ namespace Cafe.Data.Repositories.Dapper
         }
 
         // API Controller
-        public Task AddItemAsync(int customerId, ShoppingBagItem item)
+        public Task APIAddItemAsync(int customerId, ShoppingBagItem item)
         {
             throw new NotImplementedException();
         }

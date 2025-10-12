@@ -2,7 +2,7 @@
 
 namespace Cafe.Core.DTOs
 {
-    public class RegisterUser
+    public class LoginRequest
     {
         [Required]
         [EmailAddress]
@@ -10,11 +10,5 @@ namespace Cafe.Core.DTOs
 
         [Required]
         public string Password { get; set; }
-
-        [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
     }
 }

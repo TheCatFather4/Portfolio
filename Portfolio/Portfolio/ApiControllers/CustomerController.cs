@@ -33,14 +33,15 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Registers a new customer
+        /// Registers a new customer with the cafe and a new identity user
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("register")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Register([FromBody] RegisterUser dto)
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest dto)
         {
             if (!ModelState.IsValid)
             {
@@ -48,23 +49,26 @@ namespace Portfolio.ApiControllers
             }
 
             var user = new IdentityUser { UserName = dto.Email, Email = dto.Email };
+
             var result = await _userManager.CreateAsync(user, dto.Password);
 
             if (result.Succeeded)
             {
-                var newCustomerResult =  await _customerService.Register(dto, user.Id);
+                var newCustomerResult = await _customerService.Register(dto, user.Id);
 
                 if (newCustomerResult.Ok)
                 {
                     return Ok("User registered successfully");
                 }
+
+                return StatusCode(500, newCustomerResult.Message);
             }
 
-            return BadRequest("Error registering user.");
+            return StatusCode(500, "An error occurred. Please try again later.");
         }
 
         /// <summary>
-        /// Logs in a registered customer and returns a token for authentication
+        /// Checks if a user's credentials are valid and if so, returns a JSON web token for authorization
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
@@ -72,13 +76,14 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Login([FromBody] LoginUser dto)
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Login([FromBody] LoginRequest dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
 
             if (user == null)
             {
-                return NotFound("User not found.");
+                return NotFound("Invalid user name.");
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, lockoutOnFailure: false);
@@ -86,15 +91,22 @@ namespace Portfolio.ApiControllers
             if (result.Succeeded)
             {
                 var token = await _jwtService.GenerateTokenAsync(user);
+
+                if (token == null)
+                {
+                    return StatusCode(500, "An error occurred. Please try again in a few minutes.");
+                }
+
                 return Ok(new { token });
             }
-
-            if (result.IsLockedOut)
+            else if (result.IsLockedOut)
             {
-                return Unauthorized("Account locked out.");
+                return Unauthorized("There have been too many login attempts for this user. Please try again later.");
             }
-
-            return Unauthorized("Invalid credentials.");
+            else
+            {
+                return NotFound("Invalid password.");
+            }
         }
     }
 }

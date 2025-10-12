@@ -19,30 +19,34 @@ namespace Cafe.BLL.Services
             _menuRepository = menuRepository;
         }
 
-        public async Task<Result> AddItemToBagAsync(int customerId, int itemId, byte quantity)
+        public async Task<Result> APIAddItemToBagAsync(int customerId, AddItemRequest dto)
         {
-            if (quantity <= 0)
+            if (dto.Quantity <= 0)
             {
                 return ResultFactory.Fail("Quantity must be greater than zero.");
             }
 
-            var item = await _menuRepository.GetItemWithPriceAsync(itemId);
+            var item = await _menuRepository.GetItemWithPriceAsync(dto.ItemId);
 
             if (item == null)
             {
-                _logger.LogError($"Item with ID: {itemId} not found.");
+                _logger.LogError($"Item with ID: {dto.ItemId} not found.");
                 return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
             }
 
             var shoppingBagItem = new ShoppingBagItem
             {
-                ItemID = itemId,
-                Quantity = quantity
+                ShoppingBagID = dto.ShoppingBagId,
+                ItemID = dto.ItemId,
+                Quantity = dto.Quantity,
+                ItemName = item.ItemName,
+                Price = item.Prices[0].Price,
+                ItemImgPath = item.ItemImgPath
             };
 
             try
             {
-                await _shoppingBagRepository.AddItemAsync(customerId, shoppingBagItem);
+                await _shoppingBagRepository.APIAddItemAsync(customerId, shoppingBagItem);
 
                 return ResultFactory.Success("Item successfully added to shopping bag.");
             }
@@ -217,6 +221,44 @@ namespace Cafe.BLL.Services
 
             _logger.LogError($"An error occurred when attempting to retrieve a shopping bag item.");
             return ResultFactory.Fail<ShoppingBagItem>("An error occurred. Please try again in a few minutes.");
+        }
+
+        public async Task<Result<ShoppingBagResponse>> APIGetShoppingBagAsync(int customerId)
+        {
+            try
+            {
+                var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
+
+                if (shoppingBag == null)
+                {
+                    _logger.LogError("Shopping Bag not found.");
+                    return ResultFactory.Fail<ShoppingBagResponse>("An error occurred. Please try again in a few minutes.");
+                }
+
+                var sbr = new ShoppingBagResponse();
+                sbr.ShoppingBagID = shoppingBag.ShoppingBagID;
+                sbr.CustomerID = shoppingBag.CustomerID;
+                sbr.Items = new List<ShoppingBagItemResponse>();
+
+                foreach (var item in shoppingBag.Items)
+                {
+                    var sbri = new ShoppingBagItemResponse();
+                    sbri.ShoppingBagItemID = item.ShoppingBagItemID;
+                    sbri.ItemID = item.ItemID;
+                    sbri.ItemName = item.ItemName;
+                    sbri.Quantity = item.Quantity;
+                    sbri.Price = (decimal)item.Price;
+
+                    sbr.Items.Add(sbri);
+                }
+
+                return ResultFactory.Success(sbr);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred when retrieving the shopping bag: {ex.Message}");
+                return ResultFactory.Fail<ShoppingBagResponse>("An error occurred. Please contact our management team.");
+            }
         }
     }
 }
