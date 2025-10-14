@@ -107,15 +107,15 @@ namespace Portfolio.ApiControllers
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="shoppingBagItemId"></param>
-        /// <param name="quantity"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("{customerId}/items/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantity quantity)
+        public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantityRequest dto)
         {
-            var result = await _shoppingBagService.UpdateItemQuantityAsync(customerId, shoppingBagItemId, quantity.NewQuantity);
+            var result = await _shoppingBagService.UpdateItemQuantityAsync(customerId, shoppingBagItemId, dto.Quantity);
 
             if (result.Ok)
             {

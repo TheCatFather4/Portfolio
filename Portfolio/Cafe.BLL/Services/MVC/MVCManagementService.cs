@@ -29,7 +29,7 @@ namespace Cafe.BLL.Services.MVC
             try
             {
                 _managementRepository.AddItem(item);
-                return ResultFactory.Success();
+                return ResultFactory.Success($"{item.ItemName} successfully added to the menu!");
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace Cafe.BLL.Services.MVC
             try
             {
                 _managementRepository.AddServer(server);
-                return ResultFactory.Success();
+                return ResultFactory.Success("New server successfully added!");
             }
             catch (Exception ex)
             {
