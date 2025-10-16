@@ -11,7 +11,7 @@
 @if (Model.Items.Any())
 {
     <div class="container">
-        <table class="table table-primary table-striped border border-3 border-info">
+        <table class="table table-dark table-striped table-hover table-bordered border-primary">
             <thead>
                 <tr>
                     <th>Item</th>
@@ -36,7 +36,7 @@
                         <td style="vertical-align: middle;">$@i.Price</td>
                         <td style="vertical-align: middle;">@i.Quantity</td>
                         <td style="vertical-align: middle;">$@(@i.Price* @i.Quantity)</td>
-                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-info link-opacity-50-hover link-underline-opacity-50-hover">Update or Delete</a></td>
+                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Update Quantity or Delete</a></td>
                     </tr>
                 }
             </tbody>
@@ -65,7 +65,7 @@ else
     <p class="text-center" id="noItemsCart">There are currently no items in your shopping cart.</p>
     <div class="row">
         <div class="text-center">
-            <h3 id="titleSection">Want to add some items to your cart?<br />Go to our <a asp-controller="Cafe" asp-action="Menu">menu</a> page to browse our available items!</h3>
+            <h3 id="titleSection">Want to add some items to your cart?<br />Go to our <a asp-controller="Cafe" asp-action="Menu" class="link-success link-opacity-50-hover link-underline-opacity-50">menu</a> page to browse our available items!</h3>
         </div>
     </div>
 }
