@@ -19,18 +19,17 @@ namespace Cafe.BLL.Services.API
 
         public Result<PaymentResponse> ProcessPayment(PaymentRequest dto)
         {
-            _logger.LogInformation("Attempting to retrieve order details...");
             var order = _paymentRepository.GetOrderById(dto.OrderID);
 
             if (order == null)
             {
                 _logger.LogWarning($"Order not found for ID: {dto.OrderID}.");
-                return ResultFactory.Fail<PaymentResponse>("Order not found.");
+                return ResultFactory.Fail<PaymentResponse>("An error occurred. Please try again in a few minutes.");
             }
             else if (dto.Amount != order.FinalTotal)
             {
                 _logger.LogWarning($"Amount of {dto.Amount:c} does not match order total of {order.FinalTotal:c}.");
-                return ResultFactory.Fail<PaymentResponse>("Order amount does not match.");
+                return ResultFactory.Fail<PaymentResponse>($"The amount to be paid must be {order.FinalTotal:c}");
             }
             else if (order.PaymentStatusID == 1)
             {
@@ -52,7 +51,6 @@ namespace Cafe.BLL.Services.API
             
             try
             {
-                _logger.LogInformation("Atttempting to process payment...");
                 _paymentRepository.AddPayment(payment);
 
                 order.PaymentStatusID = payment.PaymentStatusID;
@@ -69,7 +67,7 @@ namespace Cafe.BLL.Services.API
             catch (Exception ex)
             {
                 _logger.LogError($"An unexpected error occurred: {ex.Message}");
-                return ResultFactory.Fail<PaymentResponse>("An unexpected error occurred.");
+                return ResultFactory.Fail<PaymentResponse>("An error occurred. Please contact our customer assistance team.");
             }
         }
     }

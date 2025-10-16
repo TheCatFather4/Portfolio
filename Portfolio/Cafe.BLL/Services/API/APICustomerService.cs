@@ -22,7 +22,7 @@ namespace Cafe.BLL.Services.API
             if (string.IsNullOrEmpty(identityId))
             {
                 _logger.LogWarning("Identity key missing for new customer.");
-                return ResultFactory.Fail("Unable to retrieve id for new user.");
+                return ResultFactory.Fail("An error occurred, please contact our customer service team.");
             }
 
             var customer = new Customer

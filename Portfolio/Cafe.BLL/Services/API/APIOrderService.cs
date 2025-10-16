@@ -28,7 +28,8 @@ namespace Cafe.BLL.Services.API
                 var result = await _shoppingBagService.GetShoppingBagAsync(customerId);
                 if (!result.Ok || result.Data == null || !result.Data.Items.Any())
                 {
-                    return ResultFactory.Fail<CafeOrderResponse>("Shopping bag is empty or could not be found.");
+                    _logger.LogError("Shopping bag did not have any items in it.");
+                    return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please try again in a few minutes.");
                 }
 
                 var shoppingBag = result.Data;
@@ -43,7 +44,8 @@ namespace Cafe.BLL.Services.API
                     var itemPriceResult = await _menuService.GetItemPriceByIdAsync(item.ItemID);
                     if (!itemPriceResult.Ok || itemPriceResult.Data == null || itemPriceResult.Data.Price == null)
                     {
-                        return ResultFactory.Fail<CafeOrderResponse>($"Could not find price for item with ID: {item.ItemID}");
+                        _logger.LogError($"Could not find price for item with ID: {item.ItemID}");
+                        return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please try again in a few minutes.");
                     }
 
                     decimal extendedPrice = (decimal)(itemPriceResult.Data.Price * item.Quantity);
@@ -106,7 +108,7 @@ namespace Cafe.BLL.Services.API
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"An error occurred while creating an order for customer {customerId}");
-                return ResultFactory.Fail<CafeOrderResponse>("An unexpected error occurred while creating the order.");
+                return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please contact our customer assistance team.");
             }
         }
 
@@ -115,7 +117,8 @@ namespace Cafe.BLL.Services.API
             var order = await _orderRepository.GetOrderByIdAsync(orderId);
             if (order == null)
             {
-                return ResultFactory.Fail<CafeOrderResponse>($"Order with ID {orderId} not found.");
+                _logger.LogError($"Order with ID {orderId} not found.");
+                return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please try again in a few minutes.");
             }
 
             var response = new CafeOrderResponse
@@ -149,7 +152,8 @@ namespace Cafe.BLL.Services.API
             var orders = await _orderRepository.GetOrdersByCustomerIdAsync(customerId);
             if (orders == null || !orders.Any())
             {
-                return ResultFactory.Fail<List<CafeOrderResponse>>($"No orders found for customer {customerId}.");
+                _logger.LogError($"No orders found for customer {customerId}.");
+                return ResultFactory.Fail<List<CafeOrderResponse>>("An error occurred. Please try again in a few minutes.");
             }
 
             var response = orders.Select(order => new CafeOrderResponse
