@@ -7,22 +7,34 @@ namespace Cafe.Tests.MockRepositories
     {
         public void AddItem(Item item)
         {
-            throw new NotImplementedException();
+            List<Item> items = new List<Item>();
+            items.Add(item);
         }
 
         public void AddServer(Server server)
         {
-            throw new NotImplementedException();
+            List<Server> servers = new List<Server>();
+            servers.Add(server);
+        }
+
+        public bool IsDuplicateItem(string itemName)
+        {
+            if (itemName == "Tuna Sub")
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public Item GetMenuItemById(int itemID)
         {
-            if (itemID == 3)
+            if (itemID != 1)
             {
-                return null;
+                return new Item();
             }
 
-            return new Item()
+            return new Item
             {
                 ItemID = 1,
                 CategoryID = 1,
@@ -34,9 +46,9 @@ namespace Cafe.Tests.MockRepositories
 
         public Server GetServerById(int serverID)
         {
-            if (serverID == 4)
+            if (serverID != 1)
             {
-                return null;
+                return new Server();
             }
 
             return new Server
@@ -51,27 +63,21 @@ namespace Cafe.Tests.MockRepositories
 
         public List<Server> GetServers()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool IsDuplicateItem(string itemName)
-        {
-            if (itemName == "Tuna Sub")
-            {
-                return true;
-            }
-
-            return false;
+            var servers = new List<Server>();
+            servers.Add(new Server());
+            return servers;
         }
 
         public void UpdateMenu(Item item)
         {
-            throw new NotImplementedException();
+            var item2 = new Item();
+            item2 = item;
         }
 
         public void UpdateServer(Server server)
         {
-            throw new NotImplementedException();
+            var server2 = new Server();
+            server2 = server;
         }
     }
 }
