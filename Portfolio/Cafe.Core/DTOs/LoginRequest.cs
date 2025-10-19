@@ -4,11 +4,11 @@ namespace Cafe.Core.DTOs
 {
     public class LoginRequest
     {
-        [Required]
+        [Required(ErrorMessage = "A valid email address is required.")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A valid password is required.")]
         public string Password { get; set; }
     }
 }
