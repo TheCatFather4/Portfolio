@@ -1,17 +1,18 @@
 ﻿using Cafe.BLL.Services.MVC;
 using Cafe.Core.Entities;
+using Cafe.Tests.MockLoggers;
 using Cafe.Tests.MockRepositories;
 using NUnit.Framework;
 
-namespace Cafe.Tests
+namespace Cafe.Tests.MVCServiceTests
 {
     [TestFixture]
-    public class ManagementTests
+    public class MVCManagementTests
     {
         [Test]
         public void AddItem_Fail()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -30,7 +31,7 @@ namespace Cafe.Tests
         [Test]
         public void AddItem_Success()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -49,7 +50,7 @@ namespace Cafe.Tests
         [Test]
         public void AddServer_Success()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -69,7 +70,7 @@ namespace Cafe.Tests
         [Test]
         public void GetAllServers_Success()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -81,7 +82,7 @@ namespace Cafe.Tests
         [Test]
         public void MenuItem_Found()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -93,7 +94,7 @@ namespace Cafe.Tests
         [Test]
         public void MenuItem_NotFound()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -105,7 +106,7 @@ namespace Cafe.Tests
         [Test]
         public void Server_Found()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -117,7 +118,7 @@ namespace Cafe.Tests
         [Test]
         public void Server_NotFound()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -129,7 +130,7 @@ namespace Cafe.Tests
         [Test]
         public void UpdateServer_Success()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -143,7 +144,7 @@ namespace Cafe.Tests
         [Test]
         public void UpdateMenu_Success()
         {
-            MVCManagementService service = new MVCManagementService(
+            var service = new MVCManagementService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
