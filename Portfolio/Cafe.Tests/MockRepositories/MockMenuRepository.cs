@@ -37,20 +37,47 @@ namespace Cafe.Tests.MockRepositories
             return items;
         }
 
-        public Task<Item> GetItemWithPriceAsync(int itemId)
+        public async Task<Item> GetItemWithPriceAsync(int itemId)
         {
-            throw new NotImplementedException();
+            var item = new Item
+            {
+                ItemID = itemId
+            };
+
+            var prices = new List<ItemPrice>();
+
+            var price = new ItemPrice();
+            prices.Add(price);
+
+            item.Prices = prices;
+
+            return item;
         }
 
         public List<Item> GetMenu()
         {
             var items = new List<Item>();
 
-            items.Add(new Item
+            var item = new Item
             {
                 ItemID = 1,
-                ItemName = "Food"
-            });
+                ItemName = "Food",
+                ItemDescription = "Tasty",
+                CategoryID = 1,
+                Prices = new List<ItemPrice>()
+            };
+
+            var price = new ItemPrice
+            {
+                ItemID = 1,
+                TimeOfDayID = 1,
+                Price = (decimal)2.50,
+                StartDate = DateTime.Now,
+                ItemPriceID = 1
+            };
+
+            item.Prices.Add(price);
+            items.Add(item);
 
             return items;
         }

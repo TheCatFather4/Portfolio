@@ -35,6 +35,19 @@ namespace Cafe.Tests.MVCServiceTests
         }
 
         [Test]
+        public void GetItems_Success()
+        {
+            var service = new MenuService(
+                new MockMenuLogger(),
+                new MockMenuRepository());
+
+            var result = service.GetItems();
+
+            Assert.That(result.Ok, Is.True);
+            Assert.That(result.Data.Count(), Is.GreaterThan(0));
+        }
+
+        [Test]
         public void GetTimeOfDays_Success()
         {
             var service = new MenuService(
