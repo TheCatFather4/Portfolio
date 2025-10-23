@@ -35,6 +35,19 @@ namespace Cafe.Tests.MVCServiceTests
         }
 
         [Test]
+        public void GetItemWithPrice_Async_Success()
+        {
+            var service = new ShoppingBagService(
+                new MockShoppingBagLogger(),
+                new MockShoppingBagRepository(),
+                new MockMenuRepository());
+
+            var result = service.GetItemWithPriceAsync(1);
+
+            Assert.That(result.IsCompleted);
+        }
+
+        [Test]
         public void GetShoppinmgBag_Async_Success()
         {
             var service = new ShoppingBagService(
@@ -43,6 +56,45 @@ namespace Cafe.Tests.MVCServiceTests
                 new MockMenuRepository());
 
             var result = service.GetShoppingBagAsync(1);
+
+            Assert.That(result.IsCompleted);
+        }
+
+        [Test]
+        public void GetShoppingBagItem_Async_Success()
+        {
+            var service = new ShoppingBagService(
+                new MockShoppingBagLogger(),
+                new MockShoppingBagRepository(),
+                new MockMenuRepository());
+
+            var result = service.GetShoppingBagItemByIdAsync(1);
+
+            Assert.That(result.IsCompleted);
+        }
+
+        [Test]
+        public void RemoveItem_Async_Success()
+        {
+            var service = new ShoppingBagService(
+                new MockShoppingBagLogger(),
+                new MockShoppingBagRepository(),
+                new MockMenuRepository());
+
+            var result = service.RemoveItemFromBagAsync(1, 1);
+
+            Assert.That(result.IsCompleted);
+        }
+
+        [Test]
+        public void UpdateQuantity_Async_Success()
+        {
+            var service = new ShoppingBagService(
+                new MockShoppingBagLogger(),
+                new MockShoppingBagRepository(),
+                new MockMenuRepository());
+
+            var result = service.UpdateItemQuantityAsync(1, 1, 3);
 
             Assert.That(result.IsCompleted);
         }
