@@ -40,7 +40,7 @@ namespace Portfolio.Utilities
 
         public SelectList BuildItems(ITempDataDictionary tempData)
         {
-            var itemsResult = _menuService.GetItems();
+            var itemsResult = _menuService.GetAllItems();
 
             if (itemsResult.Ok)
             {

@@ -5,56 +5,7 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockMenuRepository : IMenuRepository
     {
-        public List<Category> GetCategories()
-        {
-            var categories = new List<Category>();
-
-            categories.Add(new Category
-            {
-                CategoryID = 1,
-                CategoryName = "Beverages"
-            });
-
-            return categories;
-        }
-
-        public async Task<ItemPrice> GetItemPriceByIdAsync(int itemId)
-        {
-            var price = new ItemPrice();
-            return price;
-        }
-
-        public List<Item> GetItems()
-        {
-            var items = new List<Item>();
-
-            items.Add(new Item
-            {
-                ItemID = 1,
-                ItemName = "Food"
-            });
-
-            return items;
-        }
-
-        public async Task<Item> GetItemWithPriceAsync(int itemId)
-        {
-            var item = new Item
-            {
-                ItemID = itemId
-            };
-
-            var prices = new List<ItemPrice>();
-
-            var price = new ItemPrice();
-            prices.Add(price);
-
-            item.Prices = prices;
-
-            return item;
-        }
-
-        public List<Item> GetMenu()
+        public List<Item> GetAllItems()
         {
             var items = new List<Item>();
 
@@ -80,6 +31,42 @@ namespace Cafe.Tests.MockRepositories
             items.Add(item);
 
             return items;
+        }
+
+        public List<Category> GetCategories()
+        {
+            var categories = new List<Category>();
+
+            categories.Add(new Category
+            {
+                CategoryID = 1,
+                CategoryName = "Beverages"
+            });
+
+            return categories;
+        }
+
+        public async Task<Item> GetItemByIdAsync(int itemId)
+        {
+            var item = new Item
+            {
+                ItemID = itemId
+            };
+
+            var prices = new List<ItemPrice>();
+
+            var price = new ItemPrice();
+            prices.Add(price);
+
+            item.Prices = prices;
+
+            return item;
+        }
+
+        public async Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId)
+        {
+            var price = new ItemPrice();
+            return price;
         }
 
         public List<TimeOfDay> GetTimeOfDays()

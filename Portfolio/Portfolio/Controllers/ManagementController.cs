@@ -130,7 +130,7 @@ namespace Portfolio.Controllers
         {
             var model = new List<MenuItem>();
 
-            var result = _menuService.GetMenu();
+            var result = _menuService.GetAllItems();
 
             if (result.Ok)
             {

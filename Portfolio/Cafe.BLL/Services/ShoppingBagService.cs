@@ -26,7 +26,7 @@ namespace Cafe.BLL.Services
                 return ResultFactory.Fail("Quantity must be greater than zero.");
             }
 
-            var item = await _menuRepository.GetItemWithPriceAsync(dto.ItemId);
+            var item = await _menuRepository.GetItemByIdAsync(dto.ItemId);
 
             if (item == null)
             {
@@ -193,7 +193,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var item = await _menuRepository.GetItemWithPriceAsync(itemId);
+                var item = await _menuRepository.GetItemByIdAsync(itemId);
 
                 if (item != null)
                 {

@@ -14,79 +14,7 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public List<Category> GetCategories()
-        {
-            List<Category> categories = new List<Category>();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = "SELECT * FROM Category";
-                categories = cn.Query<Category>(sql).ToList();
-            }
-
-            return categories;
-        }
-
-        public async Task<ItemPrice> GetItemPriceByIdAsync(int itemId)
-        {
-            ItemPrice price = new ItemPrice();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"SELECT * FROM ItemPrice AS ip WHERE ip.ItemID = @ItemID;";
-
-                var parameter = new
-                {
-                    ItemID = itemId
-                };
-
-                price = await cn.QueryFirstOrDefaultAsync<ItemPrice>(sql, parameter);
-            }
-
-            return price;
-        }
-
-        public List<Item> GetItems()
-        {
-            List<Item> items = new List<Item>();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = "SELECT * FROM Item";
-                items = cn.Query<Item>(sql).ToList();
-            }
-
-            return items;
-        }
-
-        public async Task<Item> GetItemWithPriceAsync(int itemId)
-        {
-            Item item = new Item();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"SELECT * FROM Item AS i 
-                            WHERE i.ItemID = @ItemID;
-
-                            SELECT * FROM ItemPrice AS ip 
-                            WHERE ip.ItemID = @ItemID;";
-
-                var parameters = new
-                {
-                    ItemID = itemId
-                };
-
-                using (var multi = cn.QueryMultiple(sql, parameters))
-                {
-                    item = multi.ReadFirst<Item>();
-                    item.Prices = multi.Read<ItemPrice>().ToList();
-                }
-            }
-
-            return item;
-        }
-
-        public List<Item> GetMenu()
+        public List<Item> GetAllItems()
         {
             var itemDictionary = new Dictionary<int, Item>();
 
@@ -122,6 +50,65 @@ namespace Cafe.Data.Repositories.Dapper
             }
 
             return itemDictionary.Values.ToList();
+        }
+
+        public List<Category> GetCategories()
+        {
+            List<Category> categories = new List<Category>();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = "SELECT * FROM Category";
+                categories = cn.Query<Category>(sql).ToList();
+            }
+
+            return categories;
+        }
+
+        public async Task<Item> GetItemByIdAsync(int itemId)
+        {
+            Item item = new Item();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM Item AS i 
+                            WHERE i.ItemID = @ItemID;
+
+                            SELECT * FROM ItemPrice AS ip 
+                            WHERE ip.ItemID = @ItemID;";
+
+                var parameters = new
+                {
+                    ItemID = itemId
+                };
+
+                using (var multi = cn.QueryMultiple(sql, parameters))
+                {
+                    item = multi.ReadFirst<Item>();
+                    item.Prices = multi.Read<ItemPrice>().ToList();
+                }
+            }
+
+            return item;
+        }
+
+        public async Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId)
+        {
+            ItemPrice price = new ItemPrice();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM ItemPrice AS ip WHERE ip.ItemID = @ItemID;";
+
+                var parameter = new
+                {
+                    ItemID = itemId
+                };
+
+                price = await cn.QueryFirstOrDefaultAsync<ItemPrice>(sql, parameter);
+            }
+
+            return price;
         }
 
         public List<TimeOfDay> GetTimeOfDays()

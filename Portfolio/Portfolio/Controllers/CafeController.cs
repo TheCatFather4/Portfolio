@@ -48,7 +48,7 @@ namespace Portfolio.Controllers
             model.Categories = _selectListBuilder.BuildCategories(TempData);
             model.TimesOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
 
-            var result = _menuService.GetMenu();
+            var result = _menuService.GetAllItems();
 
             if (result.Ok)
             {

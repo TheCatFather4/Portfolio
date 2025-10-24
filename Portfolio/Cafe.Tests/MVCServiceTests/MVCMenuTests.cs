@@ -22,26 +22,13 @@ namespace Cafe.Tests.MVCServiceTests
         }
 
         [Test]
-        public void GetMenu_Success()
+        public void GetAllItems_Success()
         {
             var service = new MenuService(
                 new MockMenuLogger(),
                 new MockMenuRepository());
 
-            var result = service.GetMenu();
-
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data.Count(), Is.GreaterThan(0));
-        }
-
-        [Test]
-        public void GetItems_Success()
-        {
-            var service = new MenuService(
-                new MockMenuLogger(),
-                new MockMenuRepository());
-
-            var result = service.GetItems();
+            var result = service.GetAllItems();
 
             Assert.That(result.Ok, Is.True);
             Assert.That(result.Data.Count(), Is.GreaterThan(0));

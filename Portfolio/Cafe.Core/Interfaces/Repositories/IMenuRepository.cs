@@ -4,11 +4,10 @@ namespace Cafe.Core.Interfaces.Repositories
 {
     public interface IMenuRepository
     {
-        List<Item> GetMenu();
+        List<Item> GetAllItems();
         List<Category> GetCategories();
+        Task<Item> GetItemByIdAsync(int itemId);
+        Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId);
         List<TimeOfDay> GetTimeOfDays();
-        List<Item> GetItems();
-        Task<ItemPrice> GetItemPriceByIdAsync(int itemId);
-        Task<Item> GetItemWithPriceAsync(int itemId);
     }
 }

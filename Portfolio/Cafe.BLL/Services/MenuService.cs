@@ -59,53 +59,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result<List<Item>> GetMenu()
-        {
-            try
-            {
-                var items = _menuRepository.GetMenu();
-
-                if (!items.Any())
-                {
-                    _logger.LogError("No menu items were found. Check the database connection.");
-                    return ResultFactory.Fail<List<Item>>("An error occurred. Please wait a few minutes and try again.");
-                }
-
-                return ResultFactory.Success(items);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred in retrieving the menu: {ex.Message}");
-                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public Result<List<Item>> GetItems()
-        {
-            try
-            {
-                var items = _menuRepository.GetItems();
-
-                if (items.Count() == 0)
-                {
-                    _logger.LogError("Items not found in database. Check the database connection.");
-                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(items);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred in retrieving meun items: {ex.Message}");
-                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
-            }
-        }
-
         public async Task<Result<ItemPrice>> GetItemPriceByIdAsync(int itemId)
         {
             try
             {
-                var itemPrice = await _menuRepository.GetItemPriceByIdAsync(itemId);
+                var itemPrice = await _menuRepository.GetItemPriceByItemIdAsync(itemId);
 
                 if (itemPrice == null)
                 {
@@ -126,7 +84,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var menu = _menuRepository.GetMenu();
+                var menu = _menuRepository.GetAllItems();
 
                 if (menu != null)
                 {
@@ -173,7 +131,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var item = await _menuRepository.GetItemWithPriceAsync(itemId);
+                var item = await _menuRepository.GetItemByIdAsync(itemId);
 
                 if (item == null)
                 {
@@ -206,6 +164,27 @@ namespace Cafe.BLL.Services
             {
                 _logger.LogError($"An unexpected error occurred in attempting to retrieve an item: {ex.Message}");
                 return ResultFactory.Fail<ItemResponse>("An error occurred. Please contact our management team.");
+            }
+        }
+
+        public Result<List<Item>> GetAllItems()
+        {
+            try
+            {
+                var items = _menuRepository.GetAllItems();
+
+                if (items.Count() == 0)
+                {
+                    _logger.LogError("Items not found in database. Check the database connection.");
+                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
+                }
+
+                return ResultFactory.Success(items);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred in retrieving menu items: {ex.Message}");
+                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
             }
         }
     }

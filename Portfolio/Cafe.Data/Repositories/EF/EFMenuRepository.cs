@@ -13,36 +13,30 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
+        public List<Item> GetAllItems()
+        {
+            return _dbContext.Item
+                .Include(i => i.Prices)
+                .ToList();
+        }
+
         public List<Category> GetCategories()
         {
             return _dbContext.Category
                 .ToList();
         }
 
-        public async Task<ItemPrice> GetItemPriceByIdAsync(int itemId)
+        public async Task<Item> GetItemByIdAsync(int itemId)
+        {
+            return await _dbContext.Item
+                .Include(i => i.Prices)
+                .FirstOrDefaultAsync(i => i.ItemID == itemId);
+        }
+
+        public async Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId)
         {
             return await _dbContext.ItemPrice
                 .FirstOrDefaultAsync(ip => ip.ItemID == itemId);
-        }
-
-        public List<Item> GetItems()
-        {
-            return _dbContext.Item
-                .ToList();
-        }
-
-        public async Task<Item> GetItemWithPriceAsync(int itemId)
-        {
-            return await _dbContext.Item
-               .Include(i => i.Prices)
-               .FirstOrDefaultAsync(i => i.ItemID == itemId);
-        }
-
-        public List<Item> GetMenu()
-        {
-            return _dbContext.Item
-                .Include(i => i.Prices)
-                .ToList();
         }
 
         public List<TimeOfDay> GetTimeOfDays()
