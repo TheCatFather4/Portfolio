@@ -8,7 +8,6 @@ namespace Cafe.Core.Interfaces.Repositories
         Server GetServerById(int serverID);
         void UpdateServer(Server server);
         void AddServer(Server server);
-        Item GetMenuItemById(int itemID);
         void UpdateMenu(Item item);
         void AddItem(Item item);
         bool IsDuplicateItem(string itemName);

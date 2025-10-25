@@ -130,7 +130,7 @@ namespace Portfolio.Controllers
         {
             var model = new List<MenuItem>();
 
-            var result = _menuService.GetAllItems();
+            var result = _menuService.GetAllItemsMVC();
 
             if (result.Ok)
             {
@@ -150,9 +150,9 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditMenu(int id)
+        public async Task<IActionResult> EditMenu(int id)
         {
-            var result = _managementService.GetMenuItemById(id);
+            var result = await _menuService.GetItemByIdAsyncMVC(id);
 
             if (result.Ok)
             {

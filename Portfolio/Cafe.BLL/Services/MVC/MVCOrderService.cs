@@ -43,7 +43,7 @@ namespace Cafe.BLL.Services.MVC
 
                 foreach (var item in shoppingBagItems)
                 {
-                    var itemPriceResult = await _menuService.GetItemPriceByIdAsync(item.ItemID);
+                    var itemPriceResult = await _menuService.GetItemPriceByItemIdAsync(item.ItemID);
 
                     if (!itemPriceResult.Ok || itemPriceResult.Data == null || itemPriceResult.Data.Price == null)
                     {

@@ -80,30 +80,6 @@ namespace Cafe.Tests.MVCServiceTests
         }
 
         [Test]
-        public void MenuItem_Found()
-        {
-            var service = new MVCManagementService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
-
-            var result = service.GetMenuItemById(1);
-
-            Assert.That(result.Ok, Is.True);
-        }
-
-        [Test]
-        public void MenuItem_NotFound()
-        {
-            var service = new MVCManagementService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
-
-            var result = service.GetMenuItemById(3);
-
-            Assert.That(result.Data.ItemID, Is.Null);
-        }
-
-        [Test]
         public void Server_Found()
         {
             var service = new MVCManagementService(

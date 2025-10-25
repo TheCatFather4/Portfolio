@@ -1,6 +1,5 @@
 ﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
@@ -36,13 +35,6 @@ namespace Cafe.Data.Repositories.EF
             }
 
             return false;
-        }
-
-        public Item GetMenuItemById(int itemID)
-        {
-            return _dbContext.Item
-                .Include(i => i.Prices)
-                .FirstOrDefault(i => i.ItemID == itemID);
         }
 
         public Server GetServerById(int serverID)

@@ -41,7 +41,7 @@ namespace Cafe.BLL.Services.API
 
                 foreach (var item in shoppingBagItems)
                 {
-                    var itemPriceResult = await _menuService.GetItemPriceByIdAsync(item.ItemID);
+                    var itemPriceResult = await _menuService.GetItemPriceByItemIdAsync(item.ItemID);
                     if (!itemPriceResult.Ok || itemPriceResult.Data == null || itemPriceResult.Data.Price == null)
                     {
                         _logger.LogError($"Could not find price for item with ID: {item.ItemID}");

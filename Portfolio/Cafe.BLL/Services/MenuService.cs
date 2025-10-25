@@ -17,70 +17,7 @@ namespace Cafe.BLL.Services
             _menuRepository = menuRepository;
         }
 
-        public Result<List<Category>> GetCategories()
-        {
-            try
-            {
-                var categories = _menuRepository.GetCategories();
-
-                if (categories.Count() == 0)
-                {
-                    _logger.LogError("No categories were found. Check the database connection.");
-                    return ResultFactory.Fail<List<Category>>("An error occurred. Please wait a few minutes and try again.");
-                }
-
-                return ResultFactory.Success(categories);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred in attempting to get categories: {ex.Message}");
-                return ResultFactory.Fail<List<Category>>("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public Result<List<TimeOfDay>> GetTimeOfDays()
-        {
-            try
-            {
-                var times = _menuRepository.GetTimeOfDays();
-
-                if (times.Count() == 0)
-                {
-                    _logger.LogError("No times of day were found. Check the database connection.");
-                    return ResultFactory.Fail<List<TimeOfDay>>("An error occurred. Please wait a few minutes and try again.");
-                }
-
-                return ResultFactory.Success(times);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred in attempting to get times of day: {ex.Message}");
-                return ResultFactory.Fail<List<TimeOfDay>>("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public async Task<Result<ItemPrice>> GetItemPriceByIdAsync(int itemId)
-        {
-            try
-            {
-                var itemPrice = await _menuRepository.GetItemPriceByItemIdAsync(itemId);
-
-                if (itemPrice == null)
-                {
-                    _logger.LogError($"Item price not found for Item ID: {itemId}. Check the database connection.");
-                    return ResultFactory.Fail<ItemPrice>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(itemPrice);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred: {ex.Message}");
-                return ResultFactory.Fail<ItemPrice>("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public Result<List<ItemResponse>> GetMenuAPI()
+        public Result<List<ItemResponse>> GetAllItemsAPI()
         {
             try
             {
@@ -127,7 +64,49 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public async Task<Result<ItemResponse>> GetItemAPIAsync(int itemId)
+        public Result<List<Item>> GetAllItemsMVC()
+        {
+            try
+            {
+                var items = _menuRepository.GetAllItems();
+
+                if (items.Count() == 0)
+                {
+                    _logger.LogError("Items not found in database. Check the database connection.");
+                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
+                }
+
+                return ResultFactory.Success(items);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred in retrieving menu items: {ex.Message}");
+                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
+            }
+        }
+
+        public Result<List<Category>> GetCategories()
+        {
+            try
+            {
+                var categories = _menuRepository.GetCategories();
+
+                if (categories.Count() == 0)
+                {
+                    _logger.LogError("No categories were found. Check the database connection.");
+                    return ResultFactory.Fail<List<Category>>("An error occurred. Please wait a few minutes and try again.");
+                }
+
+                return ResultFactory.Success(categories);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred in attempting to get categories: {ex.Message}");
+                return ResultFactory.Fail<List<Category>>("An error occurred. Please contact our management team.");
+            }
+        }
+
+        public async Task<Result<ItemResponse>> GetItemByIdAsyncAPI(int itemId)
         {
             try
             {
@@ -167,24 +146,66 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result<List<Item>> GetAllItems()
+        public async Task<Result<Item>> GetItemByIdAsyncMVC(int itemID)
         {
             try
             {
-                var items = _menuRepository.GetAllItems();
+                var item = await _menuRepository.GetItemByIdAsync(itemID);
 
-                if (items.Count() == 0)
+                if (item == null)
                 {
-                    _logger.LogError("Items not found in database. Check the database connection.");
-                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
+                    _logger.LogError($"Item with id: {itemID} not found.");
+                    return ResultFactory.Fail<Item>("An error occurred. Please try again in a few minutes.");
                 }
 
-                return ResultFactory.Success(items);
+                return ResultFactory.Success(item);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An unexpected error occurred in retrieving menu items: {ex.Message}");
-                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
+                _logger.LogError($"An error occurred when retrieving a menu item: {ex.Message}");
+                return ResultFactory.Fail<Item>("An error occurred. Please contact the administrator.");
+            }
+        }
+
+        public async Task<Result<ItemPrice>> GetItemPriceByItemIdAsync(int itemId)
+        {
+            try
+            {
+                var itemPrice = await _menuRepository.GetItemPriceByItemIdAsync(itemId);
+
+                if (itemPrice == null)
+                {
+                    _logger.LogError($"Item price not found for Item ID: {itemId}. Check the database connection.");
+                    return ResultFactory.Fail<ItemPrice>("An error occurred. Please try again in a few minutes.");
+                }
+
+                return ResultFactory.Success(itemPrice);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred: {ex.Message}");
+                return ResultFactory.Fail<ItemPrice>("An error occurred. Please contact our management team.");
+            }
+        }
+
+        public Result<List<TimeOfDay>> GetTimeOfDays()
+        {
+            try
+            {
+                var times = _menuRepository.GetTimeOfDays();
+
+                if (times.Count() == 0)
+                {
+                    _logger.LogError("No times of day were found. Check the database connection.");
+                    return ResultFactory.Fail<List<TimeOfDay>>("An error occurred. Please wait a few minutes and try again.");
+                }
+
+                return ResultFactory.Success(times);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred in attempting to get times of day: {ex.Message}");
+                return ResultFactory.Fail<List<TimeOfDay>>("An error occurred. Please contact our management team.");
             }
         }
     }

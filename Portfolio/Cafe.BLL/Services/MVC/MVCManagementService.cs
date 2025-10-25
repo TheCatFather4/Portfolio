@@ -52,27 +52,6 @@ namespace Cafe.BLL.Services.MVC
             }
         }
 
-        public Result<Item> GetMenuItemById(int itemID)
-        {
-            try
-            {
-                var item = _managementRepository.GetMenuItemById(itemID);
-
-                if (item == null)
-                {
-                    _logger.LogError($"Item with id: {itemID} not found.");
-                    return ResultFactory.Fail<Item>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(item);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred when retrieving a menu item: {ex.Message}");
-                return ResultFactory.Fail<Item>("An error occurred. Please contact the administrator.");
-            }
-        }
-
         public Result<Server> GetServerById(int serverID)
         {
             try

@@ -9,7 +9,6 @@ namespace Cafe.Core.Interfaces.Services
         Result<Server> GetServerById(int serverID);
         Result UpdateServer(Server server);
         Result AddServer(Server server);
-        Result<Item> GetMenuItemById(int itemID);
         Result UpdateMenu(Item item);
         Result AddItem (Item item);
     }

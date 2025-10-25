@@ -5,11 +5,12 @@ namespace Cafe.Core.Interfaces.Services
 {
     public interface IMenuService
     {
+        Result<List<ItemResponse>> GetAllItemsAPI();
+        Result<List<Item>> GetAllItemsMVC();
         Result<List<Category>> GetCategories();
+        Task<Result<ItemResponse>> GetItemByIdAsyncAPI(int itemId);
+        Task<Result<Item>> GetItemByIdAsyncMVC(int itemID);
+        Task<Result<ItemPrice>> GetItemPriceByItemIdAsync(int itemId);
         Result<List<TimeOfDay>> GetTimeOfDays();
-        Task<Result<ItemPrice>> GetItemPriceByIdAsync(int itemId);
-        Result<List<ItemResponse>> GetMenuAPI();
-        Task<Result<ItemResponse>> GetItemAPIAsync(int itemId);
-        Result<List<Item>> GetAllItems();
     }
 }

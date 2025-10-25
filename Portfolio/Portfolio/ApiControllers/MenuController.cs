@@ -32,7 +32,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public IActionResult GetMenu()
         {
-            var result = _menuService.GetMenuAPI();
+            var result = _menuService.GetAllItemsAPI();
 
             if (result.Ok)
             {
@@ -59,7 +59,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> GetItem(int itemId)
         {
-            var result = await _menuService.GetItemAPIAsync(itemId);
+            var result = await _menuService.GetItemByIdAsyncAPI(itemId);
 
             if (result.Ok)
             {
