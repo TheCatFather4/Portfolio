@@ -5,22 +5,6 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockAccountantRepository : IAccountantRepository
     {
-        public ItemPrice GetItemPriceByItemId(int itemId)
-        {
-            return new ItemPrice
-            {
-                ItemID = itemId
-            };
-        }
-
-        public List<Item> GetItemsByCategoryID(int categoryID)
-        {
-            var items = new List<Item>();
-            items.Add(new Item());
-
-            return items;
-        }
-
         public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
         {
             var items = new List<OrderItem>();

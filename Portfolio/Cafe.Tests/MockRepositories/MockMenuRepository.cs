@@ -95,6 +95,25 @@ namespace Cafe.Tests.MockRepositories
             return price;
         }
 
+        public List<Item> GetItemsByCategoryId(int categoryId)
+        {
+            var items = new List<Item>();
+
+            var item = new Item
+            {
+                ItemID = 1,
+                CategoryID = categoryId,
+                ItemStatusID = 1,
+                ItemName = "Soda",
+                ItemDescription = "Refreshing",
+                ItemImgPath = "soda.jpg"
+            };
+
+            items.Add(item);
+
+            return items;
+        }
+
         public List<TimeOfDay> GetTimeOfDays()
         {
             var timeOfDays = new List<TimeOfDay>();

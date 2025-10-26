@@ -27,23 +27,6 @@ namespace Cafe.Tests.MockRepositories
             return false;
         }
 
-        public Item GetMenuItemById(int itemID)
-        {
-            if (itemID != 1)
-            {
-                return new Item();
-            }
-
-            return new Item
-            {
-                ItemID = 1,
-                CategoryID = 1,
-                ItemName = "Food",
-                ItemDescription = "Yummy",
-                ItemStatusID = 1
-            };
-        }
-
         public Server GetServerById(int serverID)
         {
             if (serverID != 1)

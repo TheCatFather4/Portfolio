@@ -39,6 +39,13 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(ip => ip.ItemID == itemId);
         }
 
+        public List<Item> GetItemsByCategoryId(int categoryId)
+        {
+            return _dbContext.Item
+               .Where(i => i.CategoryID == categoryId)
+               .ToList();
+        }
+
         public List<TimeOfDay> GetTimeOfDays()
         {
             return _dbContext.TimeOfDay

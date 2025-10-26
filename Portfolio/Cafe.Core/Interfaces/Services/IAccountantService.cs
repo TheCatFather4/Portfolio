@@ -6,8 +6,6 @@ namespace Cafe.Core.Interfaces.Services
     public interface IAccountantService
     {
         Result<List<CafeOrder>> GetOrders();
-        Result<List<Item>> GetItemsByCategoryID(int categoryID);
         Result<List<OrderItem>> GetOrderItemsByItemPriceId(int itemPriceId);
-        Result<ItemPrice> GetItemPriceByItemId(int itemId);
     }
 }

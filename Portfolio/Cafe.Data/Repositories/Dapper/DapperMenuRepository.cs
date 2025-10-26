@@ -111,6 +111,25 @@ namespace Cafe.Data.Repositories.Dapper
             return price;
         }
 
+        public List<Item> GetItemsByCategoryId(int categoryId)
+        {
+            List<Item> items = new List<Item>();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM Item AS ip WHERE ip.CategoryID = @CategoryID;";
+
+                var parameter = new
+                {
+                    CategoryID = categoryId
+                };
+
+                items = cn.Query<Item>(sql, parameter).ToList();
+            }
+
+            return items;
+        }
+
         public List<TimeOfDay> GetTimeOfDays()
         {
             List<TimeOfDay> timeOfDays = new List<TimeOfDay>();

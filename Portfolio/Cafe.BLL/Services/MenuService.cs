@@ -188,6 +188,27 @@ namespace Cafe.BLL.Services
             }
         }
 
+        public Result<List<Item>> GetItemsByCategoryId(int categoryId)
+        {
+            try
+            {
+                var items = _menuRepository.GetItemsByCategoryId(categoryId);
+
+                if (items.Count() == 0)
+                {
+                    _logger.LogError($"Items with category id: {categoryId} not found.");
+                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
+                }
+
+                return ResultFactory.Success(items);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred in retrieving items by category: {ex.Message}");
+                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact the administrator.");
+            }
+        }
+
         public Result<List<TimeOfDay>> GetTimeOfDays()
         {
             try

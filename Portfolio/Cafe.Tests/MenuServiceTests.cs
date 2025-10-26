@@ -85,6 +85,17 @@ namespace Cafe.Tests
         }
 
         [Test]
+        public void GetItemsByCategoryId_Success()
+        {
+            var service = GetMenuService();
+
+            var result = service.GetItemsByCategoryId(1);
+
+            Assert.That(result.Ok, Is.True);
+            Assert.That(result.Data, Has.Count.EqualTo(1));
+        }
+
+        [Test]
         public void GetTimeOfDays_Success()
         {
             var service = GetMenuService();

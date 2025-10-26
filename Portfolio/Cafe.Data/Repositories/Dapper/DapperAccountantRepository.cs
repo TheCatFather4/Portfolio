@@ -14,44 +14,6 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public ItemPrice GetItemPriceByItemId(int itemId)
-        {
-            ItemPrice price = new ItemPrice();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"SELECT * FROM ItemPrice AS ip WHERE ip.ItemID = @ItemID;";
-
-                var parameter = new
-                {
-                    ItemID = itemId
-                };
-
-                price = cn.QueryFirstOrDefault<ItemPrice>(sql, parameter);
-            }
-
-            return price;
-        }
-
-        public List<Item> GetItemsByCategoryID(int categoryID)
-        {
-            List<Item> items = new List<Item>();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"SELECT * FROM Item AS ip WHERE ip.CategoryID = @CategoryID;";
-
-                var parameter = new
-                {
-                    CategoryID = categoryID
-                };
-
-                items = cn.Query<Item>(sql, parameter).ToList();
-            }
-
-            return items;
-        }
-
         public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
         {
             List<OrderItem> orderItems = new List<OrderItem>();

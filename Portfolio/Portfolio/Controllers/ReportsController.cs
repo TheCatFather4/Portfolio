@@ -11,11 +11,13 @@ namespace Portfolio.Controllers
     public class ReportsController : Controller
     {
         private readonly IAccountantService _accountantService;
+        private readonly IMenuService _menuService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(IAccountantService accountantService, ISelectListBuilder selectListBuilder)
+        public ReportsController(IAccountantService accountantService, IMenuService menuService, ISelectListBuilder selectListBuilder)
         {
             _accountantService = accountantService;
+            _menuService = menuService;
             _selectListBuilder = selectListBuilder;
         }
 
@@ -86,14 +88,14 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Items(ItemRevenue model)
+        public async Task<IActionResult> Items(ItemRevenue model)
         {
             model.Items = _selectListBuilder.BuildItems(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
 
             if (model.SelectedItemID.HasValue)
             {
-                var itemPriceResult = _accountantService.GetItemPriceByItemId((int)model.SelectedItemID);
+                var itemPriceResult = await _menuService.GetItemPriceByItemIdAsync((int)model.SelectedItemID);
 
                 if (itemPriceResult.Ok)
                 {
@@ -131,7 +133,7 @@ namespace Portfolio.Controllers
             else if (model.SelectedCategoryID.HasValue)
             {
                 // 1. Get items
-                var itemsResult = _accountantService.GetItemsByCategoryID((int)model.SelectedCategoryID);
+                var itemsResult = _menuService.GetItemsByCategoryId((int)model.SelectedCategoryID);
 
                 // 2a. if successful continue
                 if (itemsResult.Ok)
@@ -153,7 +155,7 @@ namespace Portfolio.Controllers
                         categoryReport.ItemName = item.ItemName;
 
                         // 7. get item price
-                        var itemPriceResult2 = _accountantService.GetItemPriceByItemId((int)item.ItemID); // add a variable to help
+                        var itemPriceResult2 = await _menuService.GetItemPriceByItemIdAsync((int)item.ItemID); 
 
                         // 8a. if item price retrival is successful
                         if (itemPriceResult2.Ok)

@@ -17,48 +17,6 @@ namespace Cafe.BLL.Services.MVC
             _accountantRepository = accountantRepository;
         }
 
-        public Result<ItemPrice> GetItemPriceByItemId(int itemId)
-        {
-            try
-            {
-                var itemPrice = _accountantRepository.GetItemPriceByItemId(itemId);
-
-                if (itemPrice == null)
-                {
-                    _logger.LogError($"Item price with item id: {itemId} not found.");
-                    return ResultFactory.Fail<ItemPrice>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(itemPrice);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred in retrieving item price: {ex.Message}");
-                return ResultFactory.Fail<ItemPrice>("An error occurred. Please contact the administrator.");
-            }
-        }
-
-        public Result<List<Item>> GetItemsByCategoryID(int categoryID)
-        {
-            try
-            {
-                var items = _accountantRepository.GetItemsByCategoryID(categoryID);
-
-                if (items.Count() == 0)
-                {
-                    _logger.LogError($"Items with category id: {categoryID} not found.");
-                    return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(items);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred in retrieving items by category: {ex.Message}");
-                return ResultFactory.Fail<List<Item>>("An error occurred. Please contact the administrator.");
-            }
-        }
-
         public Result<List<OrderItem>> GetOrderItemsByItemPriceId(int itemPriceId)
         {
             try
