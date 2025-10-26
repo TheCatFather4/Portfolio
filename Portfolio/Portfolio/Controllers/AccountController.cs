@@ -51,11 +51,11 @@ namespace Portfolio.Controllers
                         await _signInManager.SignInAsync(user, isPersistent: false);
 
                         TempData["Alert"] = Alert.CreateSuccess(customerResult.Message);
-                        return RedirectToAction("Index", "Cafe");
+                        return RedirectToAction("Cafe", "Home");
                     }
 
                     TempData["Alert"] = Alert.CreateError(customerResult.Message);
-                    return RedirectToAction("Index", "Cafe");
+                    return RedirectToAction("Cafe", "Home");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -70,7 +70,7 @@ namespace Portfolio.Controllers
         {
             await _signInManager.SignOutAsync();
             TempData["Alert"] = Alert.CreateSuccess("You have successfully logged out.");
-            return RedirectToAction("Index", "Cafe");
+            return RedirectToAction("Cafe", "Home");
         }
 
         [HttpGet]
@@ -90,7 +90,7 @@ namespace Portfolio.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Cafe");
+                    return RedirectToAction("Cafe", "Home");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }

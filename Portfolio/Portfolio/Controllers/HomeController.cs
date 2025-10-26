@@ -10,6 +10,16 @@ namespace Portfolio.Controllers
             return View();
         }
 
+        public IActionResult Cafe()
+        {
+            return View();
+        }
+
+        public IActionResult CafeAPI()
+        {
+            return View();
+        }
+
         public IActionResult Contact()
         {
             return View();

@@ -45,11 +45,11 @@ namespace Portfolio.Controllers
                     }
 
                     TempData["Alert"] = Alert.CreateError(cartResult.Message);
-                    return RedirectToAction("Index", "Cafe");
+                    return RedirectToAction("Cafe", "Home");
                 }
 
                 TempData["Alert"] = Alert.CreateError(customerResult.Message);
-                return RedirectToAction("Index", "Cafe");
+                return RedirectToAction("Cafe", "Home");
             }
 
             return RedirectToAction("Login", "Account");
@@ -103,7 +103,7 @@ namespace Portfolio.Controllers
                         }
 
                         TempData["Alert"] = Alert.CreateError(result.Message);
-                        return RedirectToAction("Index", "Cafe");
+                        return RedirectToAction("Cafe", "Home");
                     }
 
                     TempData["Alert"] = Alert.CreateError(customerResult.Message);

@@ -6,24 +6,19 @@ using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
 {
-    public class CafeController : Controller
+    public class CafeMenuController : Controller
     {
         private readonly IMenuService _menuService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public CafeController(IMenuService menuService, ISelectListBuilder selectListBuilder)
+        public CafeMenuController(IMenuService menuService, ISelectListBuilder selectListBuilder)
         {
             _menuService = menuService;
             _selectListBuilder = selectListBuilder;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
-        public IActionResult Menu()
+        public IActionResult Index()
         {
             var model = new MenuList();
 
@@ -34,7 +29,7 @@ namespace Portfolio.Controllers
             if (model.Categories == null || model.TimesOfDays == null)
             {
                 TempData["Alert"] = Alert.CreateError("An error occurred. Please try again in a few minutes.");
-                return RedirectToAction("Index");
+                return RedirectToAction("Cafe", "Home");
             }
 
             return View(model);
@@ -42,7 +37,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Menu(MenuList model)
+        public IActionResult Index(MenuList model)
         {
             // Reload select lists
             model.Categories = _selectListBuilder.BuildCategories(TempData);
@@ -57,7 +52,7 @@ namespace Portfolio.Controllers
             else
             {
                 TempData["Alert"] = Alert.CreateError(result.Message);
-                RedirectToAction("Index");
+                RedirectToAction("Cafe", "Home");
             }
 
             // filter by category
@@ -115,7 +110,7 @@ namespace Portfolio.Controllers
                 if (!converted)
                 {
                     TempData["Alert"] = Alert.CreateError("Date must be in MM/DD/YYYY format");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Cafe", "Home");
                 }
 
                 List<Item> filteredDateItems = new List<Item>();
@@ -154,11 +149,6 @@ namespace Portfolio.Controllers
             }
 
             return View(model);
-        }
-
-        public IActionResult OrderAPI()
-        {
-            return View();
         }
     }
 }
