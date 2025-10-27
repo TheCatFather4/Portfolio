@@ -47,6 +47,12 @@ builder.Services.AddScoped<IMenuService>(provider =>
     return serviceFactory.CreateMenuService();
 });
 
+builder.Services.AddScoped<IMenuManagerService>(provider =>
+{
+    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
+    return serviceFactory.CreateMenuManagerService();
+});
+
 builder.Services.AddScoped<IManagementService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();

@@ -1,4 +1,4 @@
-﻿using Cafe.Core.Entities;
+﻿using Cafe.Core.DTOs;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
@@ -8,19 +8,19 @@ namespace Portfolio.Controllers
 {
     public class CafeMenuController : Controller
     {
-        private readonly IMenuService _menuService;
+        private readonly IMenuManagerService _menuManagerService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public CafeMenuController(IMenuService menuService, ISelectListBuilder selectListBuilder)
+        public CafeMenuController(IMenuManagerService menuManagerService, ISelectListBuilder selectListBuilder)
         {
-            _menuService = menuService;
+            _menuManagerService = menuManagerService;
             _selectListBuilder = selectListBuilder;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new MenuList();
+            var model = new MenuForm();
 
             model.Categories = _selectListBuilder.BuildCategories(TempData);
 
@@ -37,115 +37,24 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(MenuList model)
+        public IActionResult Index(MenuForm model)
         {
             // Reload select lists
             model.Categories = _selectListBuilder.BuildCategories(TempData);
             model.TimesOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
 
-            var result = _menuService.GetAllItemsMVC();
+            var dto = new MenuFilter
+            {
+                CategoryID = model.SelectedCategoryID,
+                TimeOfDayID = model.SelectedTimeOfDayID,
+                Date = model.Date
+            };
+
+            var result = _menuManagerService.FilterMenu(dto);
 
             if (result.Ok)
             {
                 model.Items = result.Data;
-            }
-            else
-            {
-                TempData["Alert"] = Alert.CreateError(result.Message);
-                RedirectToAction("Cafe", "Home");
-            }
-
-            // filter by category
-            if (model.SelectedCategoryID != null)
-            {
-                model.Items = model.Items
-                    .Where(i => i.CategoryID == model.SelectedCategoryID)
-                    .ToList();
-            }
-
-            // filter by time of day
-            if (model.SelectedTimeOfDayID != null)
-            {
-                List<Item> filteredItems = new List<Item>();
-
-                foreach (var item in model.Items)
-                {
-                    if (item.Prices != null)
-                    {
-                        List<ItemPrice> filteredPrices = new List<ItemPrice>();
-                        foreach (var price in item.Prices)
-                        {
-                            if (price.TimeOfDayID == model.SelectedTimeOfDayID)
-                            {
-                                filteredPrices.Add(price);
-                            }
-                        }
-
-                        if (filteredPrices.Any())
-                        {
-                            filteredItems.Add(new Item
-                            {
-                                ItemID = item.ItemID,
-                                CategoryID = item.CategoryID,
-                                ItemName = item.ItemName,
-                                ItemDescription = item.ItemDescription,
-                                Prices = filteredPrices,
-                                ItemStatusID = item.ItemStatusID,
-                                ItemImgPath = item.ItemImgPath
-                            });
-                        }
-                    }
-                }
-
-                model.Items = filteredItems;
-            }
-
-            //filter by date
-            if (model.Date != null)
-            {
-                DateTime selectedDate = new DateTime();
-
-                var converted = DateTime.TryParse(model.Date, out selectedDate);
-
-                if (!converted)
-                {
-                    TempData["Alert"] = Alert.CreateError("Date must be in MM/DD/YYYY format");
-                    return RedirectToAction("Cafe", "Home");
-                }
-
-                List<Item> filteredDateItems = new List<Item>();
-
-                foreach (var item in model.Items)
-                {
-                    if (item.Prices != null)
-                    {
-                        List<ItemPrice> filteredDatePrices = new List<ItemPrice>();
-                        foreach (var price in item.Prices)
-                        {
-                            if ((price.StartDate <= selectedDate && price.EndDate == null) || 
-                                (price.StartDate <= selectedDate && price.EndDate >= selectedDate))
-                            {
-                                filteredDatePrices.Add(price);
-                            }
-                        }
-
-                        if (filteredDatePrices.Any())
-                        {
-                            filteredDateItems.Add(new Item
-                            {
-                                ItemID = item.ItemID,
-                                CategoryID = item.CategoryID,
-                                ItemName = item.ItemName,
-                                ItemDescription = item.ItemDescription,
-                                Prices= filteredDatePrices,
-                                ItemStatusID = item.ItemStatusID,
-                                ItemImgPath = item.ItemImgPath
-                            });
-                        }
-                    }
-                }
-
-                model.Items = filteredDateItems;
             }
 
             return View(model);

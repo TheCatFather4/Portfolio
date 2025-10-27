@@ -43,6 +43,24 @@ namespace Cafe.BLL
             }
         }
 
+        public IMenuManagerService CreateMenuManagerService()
+        {
+            var logger = _loggerFactory.CreateLogger<MenuManagerService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new MenuManagerService(
+                    logger,
+                    new EFMenuRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new MenuManagerService(
+                    logger,
+                    new DapperMenuRepository(_config.GetConnectionString()));
+            }
+        }
+
         public IManagementService CreateManagementService()
         {
             var logger = _loggerFactory.CreateLogger<MVCManagementService>();
