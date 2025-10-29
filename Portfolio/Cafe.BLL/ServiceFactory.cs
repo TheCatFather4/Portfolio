@@ -25,21 +25,21 @@ namespace Cafe.BLL
             _jwtConfig = jwtConfig;
         }
 
-        public IMenuService CreateMenuService()
+        public IMenuService CreateMenuRetrievalService()
         {
-            var logger = _loggerFactory.CreateLogger<MenuService>();
+            var logger = _loggerFactory.CreateLogger<MenuRetrievalService>();
 
             if (_config.GetDatabaseMode() == DatabaseMode.ORM)
             {
-                return new MenuService(
+                return new MenuRetrievalService(
                     logger,
-                    new EFMenuRepository(_config.GetConnectionString()));
+                    new EFMenuRetrievalRepository(_config.GetConnectionString()));
             }
             else
             {
-                return new MenuService(
+                return new MenuRetrievalService(
                     logger,
-                    new DapperMenuRepository(_config.GetConnectionString()));
+                    new DapperMenuRetrievalRepository(_config.GetConnectionString()));
             }
         }
 
@@ -51,33 +51,33 @@ namespace Cafe.BLL
             {
                 return new MenuManagerService(
                     logger,
-                    new EFManagementRepository(_config.GetConnectionString()),
-                    new EFMenuRepository(_config.GetConnectionString()));
+                    new EFMenuManagerRepository(_config.GetConnectionString()),
+                    new EFMenuRetrievalRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new MenuManagerService(
                     logger,
-                    new DapperManagementRepository(_config.GetConnectionString()),
-                    new DapperMenuRepository(_config.GetConnectionString()));
+                    new DapperMenuManagerRepository(_config.GetConnectionString()),
+                    new DapperMenuRetrievalRepository(_config.GetConnectionString()));
             }
         }
 
-        public IManagementService CreateManagementService()
+        public IServerManagerService CreateServerManagerService()
         {
-            var logger = _loggerFactory.CreateLogger<MVCManagementService>();
+            var logger = _loggerFactory.CreateLogger<ServerManagerService>();
 
             if (_config.GetDatabaseMode() == DatabaseMode.ORM)
             {
-                return new MVCManagementService(
+                return new ServerManagerService(
                     logger,
-                    new EFManagementRepository(_config.GetConnectionString()));
+                    new EFServerManagerRepository(_config.GetConnectionString()));
             }
             else
             {
-                return new MVCManagementService(
+                return new ServerManagerService(
                     logger,
-                    new DapperManagementRepository(_config.GetConnectionString()));
+                    new DapperServerManagerRepository(_config.GetConnectionString()));
             }
         }
 
@@ -108,14 +108,14 @@ namespace Cafe.BLL
                 return new ShoppingBagService(
                     logger,
                     new EFShoppingBagRepository(_config.GetConnectionString()),
-                    new EFMenuRepository(_config.GetConnectionString()));
+                    new EFMenuRetrievalRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new ShoppingBagService(
                     logger,
                     new DapperShoppingBagRepository(_config.GetConnectionString()),
-                    new DapperMenuRepository(_config.GetConnectionString()));
+                    new DapperMenuRetrievalRepository(_config.GetConnectionString()));
             }
         }
 

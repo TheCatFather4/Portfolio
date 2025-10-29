@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
-    public class EFMenuRepository : IMenuRepository
+    public class EFMenuRetrievalRepository : IMenuRetrievalRepository
     {
         private readonly CafeContext _dbContext;
 
-        public EFMenuRepository(string connectionString)
+        public EFMenuRetrievalRepository(string connectionString)
         {
             _dbContext = new CafeContext(connectionString);
         }

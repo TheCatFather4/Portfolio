@@ -4,24 +4,24 @@ using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Cafe.BLL.Services.MVC
+namespace Cafe.BLL.Services
 {
-    public class MVCManagementService : IManagementService
+    public class ServerManagerService : IServerManagerService
     {
         private readonly ILogger _logger;
-        private readonly IManagementRepository _managementRepository;
+        private readonly IServerManagerRepository _serverManagerRepository;
 
-        public MVCManagementService(ILogger<MVCManagementService> logger, IManagementRepository managementRepository)
+        public ServerManagerService(ILogger<ServerManagerService> logger, IServerManagerRepository serverManagerRepository)
         {
             _logger = logger;
-            _managementRepository = managementRepository;
+            _serverManagerRepository = serverManagerRepository;
         }
 
         public Result AddServer(Server server)
         {
             try
             {
-                _managementRepository.AddServer(server);
+                _serverManagerRepository.AddServer(server);
                 return ResultFactory.Success("New server successfully added!");
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace Cafe.BLL.Services.MVC
         {
             try
             {
-                var server = _managementRepository.GetServerById(serverID);
+                var server = _serverManagerRepository.GetServerById(serverID);
 
                 if (server == null)
                 {
@@ -56,7 +56,7 @@ namespace Cafe.BLL.Services.MVC
         {
             try
             {
-                var servers = _managementRepository.GetServers();
+                var servers = _serverManagerRepository.GetServers();
 
                 if (servers.Count() == 0)
                 {
@@ -77,7 +77,7 @@ namespace Cafe.BLL.Services.MVC
         {
             try
             {
-                _managementRepository.UpdateServer(server);
+                _serverManagerRepository.UpdateServer(server);
                 return ResultFactory.Success("Server successfully updated!");
             }
             catch (Exception ex)

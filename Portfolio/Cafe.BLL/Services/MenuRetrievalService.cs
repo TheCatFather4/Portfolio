@@ -6,22 +6,22 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
-    public class MenuService : IMenuService
+    public class MenuRetrievalService : IMenuService
     {
         private readonly ILogger _logger;
-        private readonly IMenuRepository _menuRepository;
+        private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
-        public MenuService(ILogger<MenuService> logger, IMenuRepository menuRepository)
+        public MenuRetrievalService(ILogger<MenuRetrievalService> logger, IMenuRetrievalRepository menuRetrievalRepository)
         {
             _logger = logger;
-            _menuRepository = menuRepository;
+            _menuRetrievalRepository = menuRetrievalRepository;
         }
 
         public Result<List<ItemResponse>> GetAllItemsAPI()
         {
             try
             {
-                var menu = _menuRepository.GetAllItems();
+                var menu = _menuRetrievalRepository.GetAllItems();
 
                 if (menu != null)
                 {
@@ -68,7 +68,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var items = _menuRepository.GetAllItems();
+                var items = _menuRetrievalRepository.GetAllItems();
 
                 if (items.Count() == 0)
                 {
@@ -89,7 +89,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var categories = _menuRepository.GetCategories();
+                var categories = _menuRetrievalRepository.GetCategories();
 
                 if (categories.Count() == 0)
                 {
@@ -110,7 +110,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var item = await _menuRepository.GetItemByIdAsync(itemId);
+                var item = await _menuRetrievalRepository.GetItemByIdAsync(itemId);
 
                 if (item == null)
                 {
@@ -150,7 +150,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var item = await _menuRepository.GetItemByIdAsync(itemID);
+                var item = await _menuRetrievalRepository.GetItemByIdAsync(itemID);
 
                 if (item == null)
                 {
@@ -171,7 +171,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var itemPrice = await _menuRepository.GetItemPriceByItemIdAsync(itemId);
+                var itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(itemId);
 
                 if (itemPrice == null)
                 {
@@ -192,7 +192,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var items = _menuRepository.GetItemsByCategoryId(categoryId);
+                var items = _menuRetrievalRepository.GetItemsByCategoryId(categoryId);
 
                 if (items.Count() == 0)
                 {
@@ -213,7 +213,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var times = _menuRepository.GetTimeOfDays();
+                var times = _menuRetrievalRepository.GetTimeOfDays();
 
                 if (times.Count() == 0)
                 {

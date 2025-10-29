@@ -44,7 +44,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddScoped<IMenuService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMenuService();
+    return serviceFactory.CreateMenuRetrievalService();
 });
 
 builder.Services.AddScoped<IMenuManagerService>(provider =>
@@ -53,10 +53,10 @@ builder.Services.AddScoped<IMenuManagerService>(provider =>
     return serviceFactory.CreateMenuManagerService();
 });
 
-builder.Services.AddScoped<IManagementService>(provider =>
+builder.Services.AddScoped<IServerManagerService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateManagementService();
+    return serviceFactory.CreateServerManagerService();
 });
 
 builder.Services.AddScoped<IAccountantService>(provider =>

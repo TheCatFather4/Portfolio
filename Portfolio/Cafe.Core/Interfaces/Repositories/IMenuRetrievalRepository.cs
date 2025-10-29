@@ -2,7 +2,7 @@
 
 namespace Cafe.Core.Interfaces.Repositories
 {
-    public interface IMenuRepository
+    public interface IMenuRetrievalRepository
     {
         List<Item> GetAllItems();
         List<Category> GetCategories();

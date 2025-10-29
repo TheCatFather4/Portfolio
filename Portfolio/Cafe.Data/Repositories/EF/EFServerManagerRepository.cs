@@ -3,19 +3,13 @@ using Cafe.Core.Interfaces.Repositories;
 
 namespace Cafe.Data.Repositories.EF
 {
-    public class EFManagementRepository : IManagementRepository
+    public class EFServerManagerRepository : IServerManagerRepository
     {
         private readonly CafeContext _dbContext;
 
-        public EFManagementRepository(string connectionString)
+        public EFServerManagerRepository(string connectionString)
         {
             _dbContext = new CafeContext(connectionString);
-        }
-
-        public void AddItem(Item item)
-        {
-            _dbContext.Item.Add(item);
-            _dbContext.SaveChanges();
         }
 
         public void AddServer(Server server)
@@ -34,12 +28,6 @@ namespace Cafe.Data.Repositories.EF
         {
             return _dbContext.Server
                 .ToList();
-        }
-
-        public void UpdateItem(Item item)
-        {
-            _dbContext.Update(item);
-            _dbContext.SaveChanges();
         }
 
         public void UpdateServer(Server server)

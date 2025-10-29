@@ -9,12 +9,12 @@ namespace Portfolio.Controllers
     [Authorize(Roles = "Manager")]
     public class ManagementController : Controller
     {
-        private readonly IManagementService _managementService;
+        private readonly IServerManagerService _managementService;
         private readonly IMenuService _menuService;
         private readonly IMenuManagerService _menuManagerService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ManagementController(IManagementService managementService, IMenuService menuService, IMenuManagerService menuManagerService, ISelectListBuilder selectListBuilder)
+        public ManagementController(IServerManagerService managementService, IMenuService menuService, IMenuManagerService menuManagerService, ISelectListBuilder selectListBuilder)
         {
             _managementService = managementService;
             _menuService = menuService;

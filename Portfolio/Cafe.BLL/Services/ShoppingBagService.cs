@@ -10,9 +10,9 @@ namespace Cafe.BLL.Services
     {
         private readonly ILogger _logger;
         private readonly IShoppingBagRepository _shoppingBagRepository;
-        private readonly IMenuRepository _menuRepository;
+        private readonly IMenuRetrievalRepository _menuRepository;
 
-        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository, IMenuRepository menuRepository)
+        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository, IMenuRetrievalRepository menuRepository)
         {
             _logger = logger;
             _shoppingBagRepository = shoppingBagRepository;

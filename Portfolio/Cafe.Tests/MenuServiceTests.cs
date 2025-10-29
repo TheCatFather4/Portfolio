@@ -11,7 +11,7 @@ namespace Cafe.Tests
     {
         public IMenuService GetMenuService()
         {
-            var service = new MenuService(
+            var service = new MenuRetrievalService(
                 new MockMenuLogger(),
                 new MockMenuRepository());
 

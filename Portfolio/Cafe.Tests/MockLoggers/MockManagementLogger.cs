@@ -1,9 +1,9 @@
-﻿using Cafe.BLL.Services.MVC;
+﻿using Cafe.BLL.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Cafe.Tests.MockLoggers
 {
-    public class MockManagementLogger : ILogger<MVCManagementService>
+    public class MockManagementLogger : ILogger<ServerManagerService>
     {
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {

@@ -5,11 +5,11 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
-    public class DapperManagementRepository : IManagementRepository
+    public class DapperServerManagerRepository : IServerManagerRepository
     {
         private readonly string _connectionString;
 
-        public DapperManagementRepository(string connectionString)
+        public DapperServerManagerRepository(string connectionString)
         {
             _connectionString = connectionString;
         }

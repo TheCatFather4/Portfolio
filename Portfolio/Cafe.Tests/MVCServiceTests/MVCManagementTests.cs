@@ -12,7 +12,7 @@ namespace Cafe.Tests.MVCServiceTests
         [Test]
         public void AddServer_Success()
         {
-            var service = new MVCManagementService(
+            var service = new ServerManagerService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -32,7 +32,7 @@ namespace Cafe.Tests.MVCServiceTests
         [Test]
         public void GetAllServers_Success()
         {
-            var service = new MVCManagementService(
+            var service = new ServerManagerService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -44,7 +44,7 @@ namespace Cafe.Tests.MVCServiceTests
         [Test]
         public void Server_Found()
         {
-            var service = new MVCManagementService(
+            var service = new ServerManagerService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -56,7 +56,7 @@ namespace Cafe.Tests.MVCServiceTests
         [Test]
         public void Server_NotFound()
         {
-            var service = new MVCManagementService(
+            var service = new ServerManagerService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 
@@ -68,7 +68,7 @@ namespace Cafe.Tests.MVCServiceTests
         [Test]
         public void UpdateServer_Success()
         {
-            var service = new MVCManagementService(
+            var service = new ServerManagerService(
                 new MockManagementLogger(),
                 new MockManagementRepository());
 

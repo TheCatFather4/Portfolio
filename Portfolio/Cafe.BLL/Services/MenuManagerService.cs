@@ -4,26 +4,26 @@ using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Cafe.BLL
+namespace Cafe.BLL.Services
 {
     public class MenuManagerService : IMenuManagerService
     {
         private readonly ILogger _logger;
-        private readonly IManagementRepository _managementRepository;
-        private readonly IMenuRepository _menuRepository;
+        private readonly IMenuManagerRepository _menuManagerRepository;
+        private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
-        public MenuManagerService(ILogger<MenuManagerService> logger, IManagementRepository managementRepository, IMenuRepository menuRepository)
+        public MenuManagerService(ILogger<MenuManagerService> logger, IMenuManagerRepository menuManagerRepository, IMenuRetrievalRepository menuRetrievalRepository)
         {
             _logger = logger;
-            _managementRepository = managementRepository;
-            _menuRepository = menuRepository;
+            _menuManagerRepository = menuManagerRepository;
+            _menuRetrievalRepository = menuRetrievalRepository;
         }
 
         public Result AddNewItem(Item item)
         {
             try
             {
-                _managementRepository.AddItem(item);
+                _menuManagerRepository.AddItem(item);
                 return ResultFactory.Success($"{item.ItemName} successfully added to the menu!");
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace Cafe.BLL
         {
             try
             {
-                var menu = _menuRepository.GetAllItems();
+                var menu = _menuRetrievalRepository.GetAllItems();
 
                 if (menu.Count() == 0)
                 {
@@ -101,8 +101,8 @@ namespace Cafe.BLL
 
                         foreach (var price in item.Prices)
                         {
-                            if ((price.StartDate <= dto.Date && price.EndDate == null) ||
-                                (price.StartDate <= dto.Date && price.EndDate >= dto.Date))
+                            if (price.StartDate <= dto.Date && price.EndDate == null ||
+                                price.StartDate <= dto.Date && price.EndDate >= dto.Date)
                             {
                                 pricesByDate.Add(price);
                             }
@@ -141,7 +141,7 @@ namespace Cafe.BLL
         {
             try
             {
-                _managementRepository.UpdateItem(item);
+                _menuManagerRepository.UpdateItem(item);
                 return ResultFactory.Success("Item successfully updated!");
             }
             catch (Exception ex)

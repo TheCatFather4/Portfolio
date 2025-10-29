@@ -3,7 +3,7 @@ using Cafe.Core.Interfaces.Repositories;
 
 namespace Cafe.Tests.MockRepositories
 {
-    public class MockManagementRepository : IManagementRepository
+    public class MockManagementRepository : IServerManagerRepository
     {
         public void AddItem(Item item)
         {

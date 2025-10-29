@@ -3,7 +3,7 @@ using Cafe.Core.Entities;
 
 namespace Cafe.Core.Interfaces.Services
 {
-    public interface IManagementService
+    public interface IServerManagerService
     {
         Result<List<Server>> GetServers();
         Result<Server> GetServerById(int serverID);
