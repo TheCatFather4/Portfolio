@@ -17,6 +17,11 @@ namespace Cafe.Tests.MockRepositories
             servers.Add(server);
         }
 
+        public List<Server> GetAllServers()
+        {
+            throw new NotImplementedException();
+        }
+
         public Server GetServerById(int serverId)
         {
             if (serverId != 1)

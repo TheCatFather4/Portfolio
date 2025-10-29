@@ -4,6 +4,6 @@ namespace Portfolio.Models
 {
     public class ServerList
     {
-        public List<Server>? AvailableServers { get; set; }
+        public List<Server>? Servers { get; set; }
     }
 }

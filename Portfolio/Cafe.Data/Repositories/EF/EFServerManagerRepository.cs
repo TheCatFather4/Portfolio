@@ -18,16 +18,16 @@ namespace Cafe.Data.Repositories.EF
             _dbContext.SaveChanges();
         }
 
+        public List<Server> GetAllServers()
+        {
+            return _dbContext.Server
+                .ToList();
+        }
+
         public Server GetServerById(int serverId)
         {
             return _dbContext.Server
                 .FirstOrDefault(s => s.ServerID == serverId);
-        }
-
-        public List<Server> GetServers()
-        {
-            return _dbContext.Server
-                .ToList();
         }
 
         public void UpdateServer(Server server)

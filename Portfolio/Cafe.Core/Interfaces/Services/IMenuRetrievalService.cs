@@ -3,7 +3,7 @@ using Cafe.Core.Entities;
 
 namespace Cafe.Core.Interfaces.Services
 {
-    public interface IMenuService
+    public interface IMenuRetrievalService
     {
         Result<List<ItemResponse>> GetAllItemsAPI();
         Result<List<Item>> GetAllItemsMVC();

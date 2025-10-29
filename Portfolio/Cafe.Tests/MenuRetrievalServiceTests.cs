@@ -7,13 +7,13 @@ using NUnit.Framework;
 namespace Cafe.Tests
 {
     [TestFixture]
-    public class MenuServiceTests
+    public class MenuRetrievalServiceTests
     {
-        public IMenuService GetMenuService()
+        public IMenuRetrievalService GetMenuService()
         {
             var service = new MenuRetrievalService(
-                new MockMenuLogger(),
-                new MockMenuRepository());
+                new MockMenuRetrievalLogger(),
+                new MockMenuRetrievalRepository());
 
             return service;
         }

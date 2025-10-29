@@ -11,13 +11,13 @@ namespace Portfolio.ApiControllers
     [ApiController]
     public class MenuController : ControllerBase
     {
-        private readonly IMenuService _menuService;
+        private readonly IMenuRetrievalService _menuService;
 
         /// <summary>
         /// Injects a service dependency for the menu
         /// </summary>
         /// <param name="menuService"></param>
-        public MenuController(IMenuService menuService)
+        public MenuController(IMenuRetrievalService menuService)
         {
             _menuService = menuService;
         }

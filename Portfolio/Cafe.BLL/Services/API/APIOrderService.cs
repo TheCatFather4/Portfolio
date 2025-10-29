@@ -10,10 +10,10 @@ namespace Cafe.BLL.Services.API
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IShoppingBagService _shoppingBagService;
-        private readonly IMenuService _menuService;
+        private readonly IMenuRetrievalService _menuService;
         private readonly ILogger _logger;
 
-        public APIOrderService(IOrderRepository orderRepository, IShoppingBagService shoppingBagService, IMenuService menuService, ILogger logger)
+        public APIOrderService(IOrderRepository orderRepository, IShoppingBagService shoppingBagService, IMenuRetrievalService menuService, ILogger logger)
         {
             _orderRepository = orderRepository;
             _shoppingBagService = shoppingBagService;

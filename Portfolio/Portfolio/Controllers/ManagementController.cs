@@ -9,17 +9,17 @@ namespace Portfolio.Controllers
     [Authorize(Roles = "Manager")]
     public class ManagementController : Controller
     {
-        private readonly IServerManagerService _managementService;
-        private readonly IMenuService _menuService;
         private readonly IMenuManagerService _menuManagerService;
+        private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly ISelectListBuilder _selectListBuilder;
+        private readonly IServerManagerService _serverManagerService;
 
-        public ManagementController(IServerManagerService managementService, IMenuService menuService, IMenuManagerService menuManagerService, ISelectListBuilder selectListBuilder)
+        public ManagementController(IMenuManagerService menuManagerService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder, IServerManagerService serverManagerService)
         {
-            _managementService = managementService;
-            _menuService = menuService;
             _menuManagerService = menuManagerService;
+            _menuRetrievalService = menuRetrievalService;
             _selectListBuilder = selectListBuilder;
+            _serverManagerService = serverManagerService;
         }
 
         public IActionResult Index()
@@ -28,15 +28,15 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult Server()
+        public IActionResult ServerIndex()
         {
             var model = new ServerList();
 
-            var result = _managementService.GetServers();
+            var result = _serverManagerService.GetAllServers();
 
             if (result.Ok)
             {
-                model.AvailableServers = result.Data;
+                model.Servers = result.Data;
             }
             else
             {
@@ -50,7 +50,7 @@ namespace Portfolio.Controllers
         [HttpGet]
         public IActionResult EditServer(int id)
         {
-            var result = _managementService.GetServerById(id);
+            var result = _serverManagerService.GetServerById(id);
 
             if (result.Ok)
             {
@@ -77,7 +77,7 @@ namespace Portfolio.Controllers
             {
                 var entity = model.ToEntity();
 
-                var result = _managementService.UpdateServer(entity);
+                var result = _serverManagerService.UpdateServer(entity);
 
                 if (result.Ok)
                 {
@@ -110,7 +110,7 @@ namespace Portfolio.Controllers
 
                 var entity = model.ToEntity();
 
-                var result = _managementService.AddServer(entity);
+                var result = _serverManagerService.AddServer(entity);
 
                 if (result.Ok)
                 {
@@ -132,7 +132,7 @@ namespace Portfolio.Controllers
         {
             var model = new List<MenuItem>();
 
-            var result = _menuService.GetAllItemsMVC();
+            var result = _menuRetrievalService.GetAllItemsMVC();
 
             if (result.Ok)
             {
@@ -154,7 +154,7 @@ namespace Portfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> EditMenu(int id)
         {
-            var result = await _menuService.GetItemByIdAsyncMVC(id);
+            var result = await _menuRetrievalService.GetItemByIdAsyncMVC(id);
 
             if (result.Ok)
             {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.Tests.MockLoggers
 {
-    public class MockMenuLogger : ILogger<MenuRetrievalService>
+    public class MockMenuRetrievalLogger : ILogger<MenuRetrievalService>
     {
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {

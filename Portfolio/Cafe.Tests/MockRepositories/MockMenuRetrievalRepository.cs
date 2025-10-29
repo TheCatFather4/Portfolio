@@ -3,7 +3,7 @@ using Cafe.Core.Interfaces.Repositories;
 
 namespace Cafe.Tests.MockRepositories
 {
-    public class MockMenuRepository : IMenuRetrievalRepository
+    public class MockMenuRetrievalRepository : IMenuRetrievalRepository
     {
         public List<Item> GetAllItems()
         {

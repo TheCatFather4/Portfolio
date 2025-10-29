@@ -15,10 +15,10 @@ namespace Portfolio.Utilities
 
     public class SelectListBuilder : ISelectListBuilder
     {
-        private readonly IMenuService _menuService;
+        private readonly IMenuRetrievalService _menuService;
         private readonly IMVPaymentService _paymentService;
 
-        public SelectListBuilder(IMenuService menuService, IMVPaymentService paymentService)
+        public SelectListBuilder(IMenuRetrievalService menuService, IMVPaymentService paymentService)
         {
             _menuService = menuService;
             _paymentService = paymentService;

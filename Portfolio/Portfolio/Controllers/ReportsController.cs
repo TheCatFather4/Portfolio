@@ -11,10 +11,10 @@ namespace Portfolio.Controllers
     public class ReportsController : Controller
     {
         private readonly IAccountantService _accountantService;
-        private readonly IMenuService _menuService;
+        private readonly IMenuRetrievalService _menuService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(IAccountantService accountantService, IMenuService menuService, ISelectListBuilder selectListBuilder)
+        public ReportsController(IAccountantService accountantService, IMenuRetrievalService menuService, ISelectListBuilder selectListBuilder)
         {
             _accountantService = accountantService;
             _menuService = menuService;

@@ -25,24 +25,6 @@ namespace Cafe.BLL
             _jwtConfig = jwtConfig;
         }
 
-        public IMenuService CreateMenuRetrievalService()
-        {
-            var logger = _loggerFactory.CreateLogger<MenuRetrievalService>();
-
-            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
-            {
-                return new MenuRetrievalService(
-                    logger,
-                    new EFMenuRetrievalRepository(_config.GetConnectionString()));
-            }
-            else
-            {
-                return new MenuRetrievalService(
-                    logger,
-                    new DapperMenuRetrievalRepository(_config.GetConnectionString()));
-            }
-        }
-
         public IMenuManagerService CreateMenuManagerService()
         {
             var logger = _loggerFactory.CreateLogger<MenuManagerService>();
@@ -59,6 +41,24 @@ namespace Cafe.BLL
                 return new MenuManagerService(
                     logger,
                     new DapperMenuManagerRepository(_config.GetConnectionString()),
+                    new DapperMenuRetrievalRepository(_config.GetConnectionString()));
+            }
+        }
+
+        public IMenuRetrievalService CreateMenuRetrievalService()
+        {
+            var logger = _loggerFactory.CreateLogger<MenuRetrievalService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new MenuRetrievalService(
+                    logger,
+                    new EFMenuRetrievalRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new MenuRetrievalService(
+                    logger,
                     new DapperMenuRetrievalRepository(_config.GetConnectionString()));
             }
         }
@@ -126,7 +126,7 @@ namespace Cafe.BLL
             return new APIOrderService(
                 new EFOrderRepository(_config.GetConnectionString()), 
                 CreateShoppingBagService(), 
-                CreateMenuService(), 
+                CreateMenuRetrievalService(), 
                 logger);
         }
 
@@ -179,7 +179,7 @@ namespace Cafe.BLL
             {
                 return new MVCOrderService(
                     logger,
-                    CreateMenuService(),
+                    CreateMenuRetrievalService(),
                     CreateShoppingBagService(),
                     new EFOrderRepository(_config.GetConnectionString()));
             }
@@ -187,7 +187,7 @@ namespace Cafe.BLL
             {
                 return new MVCOrderService(
                     logger,
-                    CreateMenuService(),
+                    CreateMenuRetrievalService(),
                     CreateShoppingBagService(),
                     new DapperOrderRepository(_config.GetConnectionString()));
             }

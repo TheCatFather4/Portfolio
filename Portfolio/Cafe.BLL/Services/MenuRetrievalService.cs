@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
-    public class MenuRetrievalService : IMenuService
+    public class MenuRetrievalService : IMenuRetrievalService
     {
         private readonly ILogger _logger;
         private readonly IMenuRetrievalRepository _menuRetrievalRepository;

@@ -15,7 +15,7 @@ namespace Cafe.Tests.APIServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var dto = new AddItemRequest();
 
@@ -30,7 +30,7 @@ namespace Cafe.Tests.APIServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.APIGetShoppingBagAsync(1);
 

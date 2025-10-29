@@ -41,7 +41,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<IdentityCafeContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IMenuService>(provider =>
+builder.Services.AddScoped<IMenuRetrievalService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreateMenuRetrievalService();

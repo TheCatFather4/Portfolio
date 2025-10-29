@@ -10,11 +10,11 @@ namespace Cafe.BLL.Services.MVC
     public class MVCOrderService : IMVOrderService
     {
         private readonly ILogger _logger;
-        private readonly IMenuService _menuService;
+        private readonly IMenuRetrievalService _menuService;
         private readonly IShoppingBagService _shoppingBagService;
         private readonly IOrderRepository _orderRepository;
 
-        public MVCOrderService(ILogger<MVCOrderService> logger, IMenuService menuService, IShoppingBagService shoppingBagService, IOrderRepository orderRepository)
+        public MVCOrderService(ILogger<MVCOrderService> logger, IMenuRetrievalService menuService, IShoppingBagService shoppingBagService, IOrderRepository orderRepository)
         {
             _logger = logger;
             _menuService = menuService;

@@ -5,8 +5,8 @@ namespace Cafe.Core.Interfaces.Repositories
     public interface IServerManagerRepository
     {
         void AddServer(Server server);
+        List<Server> GetAllServers();
         Server GetServerById(int serverId);
-        List<Server> GetServers();
         void UpdateServer(Server server);
     }
 }

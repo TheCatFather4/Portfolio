@@ -14,7 +14,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.MVCAddItemToBagAsync(1, 1, "food", (decimal)2.50, 1, "food.jpg");
 
@@ -27,7 +27,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.ClearShoppingBagAsync(1);
 
@@ -40,7 +40,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.GetItemWithPriceAsync(1);
 
@@ -53,7 +53,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.GetShoppingBagAsync(1);
 
@@ -66,7 +66,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.GetShoppingBagItemByIdAsync(1);
 
@@ -79,7 +79,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.RemoveItemFromBagAsync(1, 1);
 
@@ -92,7 +92,7 @@ namespace Cafe.Tests.MVCServiceTests
             var service = new ShoppingBagService(
                 new MockShoppingBagLogger(),
                 new MockShoppingBagRepository(),
-                new MockMenuRepository());
+                new MockMenuRetrievalRepository());
 
             var result = service.UpdateItemQuantityAsync(1, 1, 3);
 

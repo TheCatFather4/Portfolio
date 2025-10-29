@@ -1,4 +1,4 @@
-﻿using Cafe.BLL.Services.MVC;
+﻿using Cafe.BLL.Services;
 using Cafe.Core.Entities;
 using Cafe.Tests.MockLoggers;
 using Cafe.Tests.MockRepositories;
