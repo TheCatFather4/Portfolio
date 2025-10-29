@@ -17,27 +17,6 @@ namespace Cafe.BLL.Services.MVC
             _managementRepository = managementRepository;
         }
 
-        public Result AddItem(Item item)
-        {
-            var duplicateItem = _managementRepository.IsDuplicateItem(item.ItemName);
-
-            if (duplicateItem)
-            {
-                return ResultFactory.Fail("The menu already has an item with this name.");
-            }
-
-            try
-            {
-                _managementRepository.AddItem(item);
-                return ResultFactory.Success($"{item.ItemName} successfully added to the menu!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred when attempting to add an item to the menu: {ex.Message}");
-                return ResultFactory.Fail("An error ocurred. Please contact the administrator.");
-            }
-        }
-
         public Result AddServer(Server server)
         {
             try
@@ -91,20 +70,6 @@ namespace Cafe.BLL.Services.MVC
             {
                 _logger.LogError($"An error occurred when retrieving list of servers: {ex.Message}");
                 return ResultFactory.Fail<List<Server>>("An error occurred. Please contact the site administrator.");
-            }
-        }
-
-        public Result UpdateMenu(Item item)
-        {
-            try
-            {
-                _managementRepository.UpdateMenu(item);
-                return ResultFactory.Success("Item successfully updated!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("An error occurred when attempting to update item.");
-                return ResultFactory.Fail("An error occurred. Please contact the site administrator.");
             }
         }
 

@@ -71,7 +71,7 @@ namespace Cafe.Data.Repositories.Dapper
             }
         }
 
-        public Server GetServerById(int serverID)
+        public Server GetServerById(int serverId)
         {
             Server server = new Server();
 
@@ -81,7 +81,7 @@ namespace Cafe.Data.Repositories.Dapper
 
                 var parameter = new
                 {
-                    ServerID = serverID,
+                    ServerID = serverId,
                 };
 
                 server = cn.QueryFirstOrDefault<Server>(sql, parameter);
@@ -104,32 +104,7 @@ namespace Cafe.Data.Repositories.Dapper
             return servers;
         }
 
-        public bool IsDuplicateItem(string itemName)
-        {
-            bool result = false;
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"SELECT * FROM Item 
-                            WHERE ItemName = @ItemName;";
-
-                var parameter = new
-                {
-                    itemName,
-                };
-
-                var item = cn.QueryFirstOrDefault<Item>(sql, parameter);
-
-                if (item != null)
-                {
-                    result = true;
-                }
-            }
-
-            return result;
-        }
-
-        public void UpdateMenu(Item item)
+        public void UpdateItem(Item item)
         {
             using (var cn = new SqlConnection(_connectionString))
             {

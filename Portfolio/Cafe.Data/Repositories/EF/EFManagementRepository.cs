@@ -24,23 +24,10 @@ namespace Cafe.Data.Repositories.EF
             _dbContext.SaveChanges();
         }
 
-        public bool IsDuplicateItem(string itemName)
-        {
-            var item = _dbContext.Item
-                .FirstOrDefault(i => i.ItemName == itemName);
-
-            if (item != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public Server GetServerById(int serverID)
+        public Server GetServerById(int serverId)
         {
             return _dbContext.Server
-                .FirstOrDefault(s => s.ServerID == serverID);
+                .FirstOrDefault(s => s.ServerID == serverId);
         }
 
         public List<Server> GetServers()
@@ -49,7 +36,7 @@ namespace Cafe.Data.Repositories.EF
                 .ToList();
         }
 
-        public void UpdateMenu(Item item)
+        public void UpdateItem(Item item)
         {
             _dbContext.Update(item);
             _dbContext.SaveChanges();

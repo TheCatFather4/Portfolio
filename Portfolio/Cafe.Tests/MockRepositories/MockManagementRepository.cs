@@ -17,19 +17,9 @@ namespace Cafe.Tests.MockRepositories
             servers.Add(server);
         }
 
-        public bool IsDuplicateItem(string itemName)
+        public Server GetServerById(int serverId)
         {
-            if (itemName == "Tuna Sub")
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public Server GetServerById(int serverID)
-        {
-            if (serverID != 1)
+            if (serverId != 1)
             {
                 return new Server();
             }
@@ -51,7 +41,7 @@ namespace Cafe.Tests.MockRepositories
             return servers;
         }
 
-        public void UpdateMenu(Item item)
+        public void UpdateItem(Item item)
         {
             var item2 = new Item();
             item2 = item;

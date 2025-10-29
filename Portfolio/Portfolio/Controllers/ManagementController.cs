@@ -11,12 +11,14 @@ namespace Portfolio.Controllers
     {
         private readonly IManagementService _managementService;
         private readonly IMenuService _menuService;
+        private readonly IMenuManagerService _menuManagerService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ManagementController(IManagementService managementService, IMenuService menuService, ISelectListBuilder selectListBuilder)
+        public ManagementController(IManagementService managementService, IMenuService menuService, IMenuManagerService menuManagerService, ISelectListBuilder selectListBuilder)
         {
             _managementService = managementService;
             _menuService = menuService;
+            _menuManagerService = menuManagerService;
             _selectListBuilder = selectListBuilder;
         }
 
@@ -179,7 +181,7 @@ namespace Portfolio.Controllers
             {
                 var item = model.ToEntity();
 
-                var result = _managementService.UpdateMenu(item);
+                var result = _menuManagerService.UpdateItem(item);
 
                 if (result.Ok)
                 {
@@ -224,7 +226,7 @@ namespace Portfolio.Controllers
             {
                 var entity = model.ToEntity();
 
-                var result = _managementService.AddItem(entity);
+                var result = _menuManagerService.AddNewItem(entity);
 
                 if (result.Ok)
                 {

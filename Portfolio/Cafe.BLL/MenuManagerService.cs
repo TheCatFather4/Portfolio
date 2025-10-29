@@ -9,12 +9,28 @@ namespace Cafe.BLL
     public class MenuManagerService : IMenuManagerService
     {
         private readonly ILogger _logger;
+        private readonly IManagementRepository _managementRepository;
         private readonly IMenuRepository _menuRepository;
 
-        public MenuManagerService(ILogger<MenuManagerService> logger, IMenuRepository menuRepository)
+        public MenuManagerService(ILogger<MenuManagerService> logger, IManagementRepository managementRepository, IMenuRepository menuRepository)
         {
             _logger = logger;
+            _managementRepository = managementRepository;
             _menuRepository = menuRepository;
+        }
+
+        public Result AddNewItem(Item item)
+        {
+            try
+            {
+                _managementRepository.AddItem(item);
+                return ResultFactory.Success($"{item.ItemName} successfully added to the menu!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred when attempting to add an item to the menu: {ex.Message}");
+                return ResultFactory.Fail("An error ocurred. Please contact the administrator.");
+            }
         }
 
         public Result<List<Item>> FilterMenu(MenuFilter dto)
@@ -118,6 +134,20 @@ namespace Cafe.BLL
             {
                 _logger.LogError($"An unexpected error occurred when attempting to filter menu: {ex.Message}");
                 return ResultFactory.Fail<List<Item>>("An error occurred. Please contact our management team.");
+            }
+        }
+
+        public Result UpdateItem(Item item)
+        {
+            try
+            {
+                _managementRepository.UpdateItem(item);
+                return ResultFactory.Success("Item successfully updated!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred when attempting to update item.");
+                return ResultFactory.Fail("An error occurred. Please contact the site administrator.");
             }
         }
     }

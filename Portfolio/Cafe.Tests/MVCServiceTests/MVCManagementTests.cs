@@ -10,44 +10,6 @@ namespace Cafe.Tests.MVCServiceTests
     public class MVCManagementTests
     {
         [Test]
-        public void AddItem_Fail()
-        {
-            var service = new MVCManagementService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
-
-            Item toAdd = new Item
-            {
-                CategoryID = 1,
-                ItemName = "Tuna Sub",
-                ItemDescription = "Delicious"
-            };
-
-            var result = service.AddItem(toAdd);
-
-            Assert.That(result.Ok, Is.False);
-        }
-
-        [Test]
-        public void AddItem_Success()
-        {
-            var service = new MVCManagementService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
-
-            Item toAdd = new Item
-            {
-                CategoryID = 1,
-                ItemName = "Food",
-                ItemDescription = "Yummy",
-            };
-
-            var result = service.AddItem(toAdd);
-
-            Assert.That(result.Ok, Is.True);
-        }
-
-        [Test]
         public void AddServer_Success()
         {
             var service = new MVCManagementService(
@@ -113,20 +75,6 @@ namespace Cafe.Tests.MVCServiceTests
             var server = new Server();
 
             var result = service.UpdateServer(server);
-
-            Assert.That(result.Ok, Is.True);
-        }
-
-        [Test]
-        public void UpdateMenu_Success()
-        {
-            var service = new MVCManagementService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
-
-            var item = new Item();
-
-            var result = service.UpdateMenu(item);
 
             Assert.That(result.Ok, Is.True);
         }

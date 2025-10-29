@@ -51,12 +51,14 @@ namespace Cafe.BLL
             {
                 return new MenuManagerService(
                     logger,
+                    new EFManagementRepository(_config.GetConnectionString()),
                     new EFMenuRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new MenuManagerService(
                     logger,
+                    new DapperManagementRepository(_config.GetConnectionString()),
                     new DapperMenuRepository(_config.GetConnectionString()));
             }
         }
