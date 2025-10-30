@@ -1,4 +1,4 @@
-﻿@model ItemForm
+﻿@model EditItemForm
 @{
     Layout = "_CafeLayout";
     ViewData["Title"] = "Edit Menu";
@@ -10,7 +10,7 @@
         <p>Use the form below to make adjustments.</p>
     </div>
     <div class="border border-info p-3 border-5 rounded bg-primary">
-        <form asp-controller="Management" asp-action="EditMenu" method="post" asp-route-id="@Model.ItemID">
+        <form asp-controller="Management" asp-action="EditItem" method="post" asp-route-id="@Model.ItemID">
             <div asp-validation-summary="ModelOnly"></div>
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="ItemID" />
@@ -41,7 +41,7 @@
             }
             <div>
                 <button type="submit" class="btn btn-success me-3">Save</button>
-                <a asp-controller="Management" asp-action="Menu" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go back</a>
+                <a asp-controller="Management" asp-action="MenuIndex" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go back</a>
             </div>
         </form>
     </div>

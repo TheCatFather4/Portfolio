@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Portfolio.Models
 {
-    public class ItemForm : IValidatableObject
+    public class EditItemForm : IValidatableObject
     {
         public int? ItemID { get; set; }
         public int? CategoryID { get; set; }
@@ -18,12 +18,12 @@ namespace Portfolio.Models
 
         public List<ItemPrice>? Prices { get; set; }
 
-        public ItemForm()
+        public EditItemForm()
         {
 
         }
 
-        public ItemForm(Item entity)
+        public EditItemForm(Item entity)
         {
             ItemID = entity.ItemID;
             CategoryID = entity.CategoryID;

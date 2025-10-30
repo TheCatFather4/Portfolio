@@ -28,6 +28,122 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
+        public IActionResult MenuIndex()
+        {
+            var model = new List<MenuItem>();
+
+            var result = _menuRetrievalService.GetAllItemsMVC();
+
+            if (result.Ok)
+            {
+                foreach (var item in result.Data)
+                {
+                    var mapped = new MenuItem(item);
+                    model.Add(mapped);
+                }
+            }
+            else
+            {
+                TempData["Alert"] = Alert.CreateError(result.Message);
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult AddItem()
+        {
+            var model = new AddItemForm();
+
+            model.Categories = _selectListBuilder.BuildCategories(TempData);
+            model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
+
+            if (model.Categories == null || model.TimeOfDays == null)
+            {
+                TempData["Alert"] = Alert.CreateError("An error occurred. Please try again in a few minutes.");
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddItem(AddItemForm model)
+        {
+            model.Categories = _selectListBuilder.BuildCategories(TempData);
+            model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
+
+            if (ModelState.IsValid)
+            {
+                var entity = model.ToEntity();
+
+                var result = _menuManagerService.AddNewItem(entity);
+
+                if (result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditItem(int id)
+        {
+            var result = await _menuRetrievalService.GetItemByIdAsyncMVC(id);
+
+            if (result.Ok)
+            {
+                return View(new EditItemForm(result.Data));
+            }
+            else
+            {
+                TempData["Alert"] = Alert.CreateError(result.Message);
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditItem(int id, EditItemForm model)
+        {
+            if (id != model.ItemID)
+            {
+                TempData["Alert"] = Alert.CreateError("Route mismatch");
+                return RedirectToAction("Index");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var item = model.ToEntity();
+
+                var result = _menuManagerService.UpdateItem(item);
+
+                if (result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
         public IActionResult ServerIndex()
         {
             var model = new ServerList();
@@ -42,6 +158,39 @@ namespace Portfolio.Controllers
             {
                 TempData["Alert"] = Alert.CreateError(result.Message);
                 return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult AddServer()
+        {
+            return View(new ServerForm());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddServer(ServerForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.HireDate = DateTime.Now;
+
+                var entity = model.ToEntity();
+
+                var result = _serverManagerService.AddServer(entity);
+
+                if (result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                    return View(model);
+                }
             }
 
             return View(model);
@@ -78,155 +227,6 @@ namespace Portfolio.Controllers
                 var entity = model.ToEntity();
 
                 var result = _serverManagerService.UpdateServer(entity);
-
-                if (result.Ok)
-                {
-                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError(result.Message);
-                    return View(model);
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult CreateServer()
-        {
-            return View(new ServerForm());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateServer(ServerForm model)
-        {
-            if (ModelState.IsValid)
-            {
-                model.HireDate = DateTime.Now;
-
-                var entity = model.ToEntity();
-
-                var result = _serverManagerService.AddServer(entity);
-
-                if (result.Ok)
-                {
-                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError(result.Message);
-                    return View(model);
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult Menu()
-        {
-            var model = new List<MenuItem>();
-
-            var result = _menuRetrievalService.GetAllItemsMVC();
-
-            if (result.Ok)
-            {
-                foreach (var item in result.Data)
-                {
-                    var mapped = new MenuItem(item);
-                    model.Add(mapped);
-                }
-            }
-            else
-            {
-                TempData["Alert"] = Alert.CreateError(result.Message);
-                return RedirectToAction("Index");
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditMenu(int id)
-        {
-            var result = await _menuRetrievalService.GetItemByIdAsyncMVC(id);
-
-            if (result.Ok)
-            {
-                return View(new ItemForm(result.Data));
-            }
-            else
-            {
-                TempData["Alert"] = Alert.CreateError(result.Message);
-                return RedirectToAction("Index");
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditMenu(int id, ItemForm model)
-        {
-            if (id != model.ItemID)
-            {
-                TempData["Alert"] = Alert.CreateError("Route mismatch");
-                return RedirectToAction("Index");
-            }
-
-            if (ModelState.IsValid)
-            {
-                var item = model.ToEntity();
-
-                var result = _menuManagerService.UpdateItem(item);
-
-                if (result.Ok)
-                {
-                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError(result.Message);
-                    return View(model);
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult CreateItem()
-        {
-            var model = new AddItem();
-
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
-
-            if (model.Categories == null || model.TimeOfDays == null)
-            {
-                TempData["Alert"] = Alert.CreateError("An error occurred. Please try again in a few minutes.");
-                return RedirectToAction("Index");
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateItem(AddItem model)
-        {
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
-
-            if (ModelState.IsValid)
-            {
-                var entity = model.ToEntity();
-
-                var result = _menuManagerService.AddNewItem(entity);
 
                 if (result.Ok)
                 {

@@ -10,7 +10,7 @@
         <h5 class="text-success">You may add a server to the cafe by simply filling out the form and clicking submit.</h5>
     </div>
     <div class="border border-info border-5 rounded p-3 bg-primary">
-        <form class="mb-3" asp-controller="Management" asp-action="CreateServer" method="post">
+        <form class="mb-3" asp-controller="Management" asp-action="AddServer" method="post">
             <div asp-validation-summary="ModelOnly"></div>
             @Html.AntiForgeryToken()
             <div class="form-floating mb-3">

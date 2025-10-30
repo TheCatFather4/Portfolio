@@ -1,4 +1,4 @@
-﻿@model AddItem
+﻿@model AddItemForm
 @{
     Layout = "_CafeLayout";
     ViewData["Title"] = "Create Item";
@@ -10,7 +10,7 @@
         <p>Add items to the menu using the form below</p>
     </div>
     <div class="border border-info p-3 border-5 rounded bg-primary">
-        <form asp-controller="Management" asp-action="CreateItem" asp-method="post">
+        <form asp-controller="Management" asp-action="AddItem" asp-method="post">
             <div asp-validation-summary="ModelOnly"></div>
             @Html.AntiForgeryToken()
             <div class="form-floating mb-3">
@@ -54,7 +54,7 @@
             </div>
             <div>
                 <button class="btn btn-success me-3">Add</button>
-                <a asp-controller="Management" asp-action="Menu" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go back</a>
+                <a asp-controller="Management" asp-action="MenuIndex" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go back</a>
             </div>
         </form>
     </div>

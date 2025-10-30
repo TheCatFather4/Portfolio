@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Portfolio.Models
 {
-    public class AddItem : IValidatableObject
+    public class AddItemForm : IValidatableObject
     {
         public SelectList? Categories { get; set; }
 
