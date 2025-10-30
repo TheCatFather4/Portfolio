@@ -26,7 +26,7 @@ namespace Cafe.Tests
             var result = service.GetAllItemsAPI();
 
             Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Data, Has.Count.EqualTo(3));
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Cafe.Tests
             var result = service.GetAllItemsMVC();
 
             Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Data, Has.Count.EqualTo(3));
         }
 
         [Test]

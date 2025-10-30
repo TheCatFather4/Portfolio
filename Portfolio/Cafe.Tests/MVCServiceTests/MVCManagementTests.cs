@@ -13,8 +13,8 @@ namespace Cafe.Tests.MVCServiceTests
         public void AddServer_Success()
         {
             var service = new ServerManagerService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
+                new MockMenuManagerLogger(),
+                new MockServerManagerRepository());
 
             Server server = new Server
             {
@@ -33,8 +33,8 @@ namespace Cafe.Tests.MVCServiceTests
         public void GetAllServers_Success()
         {
             var service = new ServerManagerService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
+                new MockMenuManagerLogger(),
+                new MockServerManagerRepository());
 
             var result = service.GetServers();
 
@@ -45,8 +45,8 @@ namespace Cafe.Tests.MVCServiceTests
         public void Server_Found()
         {
             var service = new ServerManagerService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
+                new MockMenuManagerLogger(),
+                new MockServerManagerRepository());
 
             var result = service.GetServerById(1);
 
@@ -57,8 +57,8 @@ namespace Cafe.Tests.MVCServiceTests
         public void Server_NotFound()
         {
             var service = new ServerManagerService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
+                new MockMenuManagerLogger(),
+                new MockServerManagerRepository());
 
             var result = service.GetServerById(3);
 
@@ -69,8 +69,8 @@ namespace Cafe.Tests.MVCServiceTests
         public void UpdateServer_Success()
         {
             var service = new ServerManagerService(
-                new MockManagementLogger(),
-                new MockManagementRepository());
+                new MockMenuManagerLogger(),
+                new MockServerManagerRepository());
 
             var server = new Server();
 

@@ -31,8 +31,55 @@ namespace Cafe.Tests.MockRepositories
             };
 
             item.Prices.Add(price);
-
             items.Add(item);
+
+            var item2 = new Item
+            {
+                ItemID = 2,
+                CategoryID = 2,
+                ItemStatusID = 2,
+                ItemName = "Drink",
+                ItemDescription = "Refreshing",
+                ItemImgPath = "drink.jpg",
+                Prices = new List<ItemPrice>()
+            };
+
+            var price2 = new ItemPrice
+            {
+                ItemPriceID = 2,
+                ItemID = 2,
+                TimeOfDayID = 2,
+                Price = (decimal)3.50,
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Now.AddDays(3)
+            };
+
+            item2.Prices.Add(price2);
+            items.Add(item2);
+
+            var item3 = new Item
+            {
+                ItemID = 3,
+                CategoryID = 3,
+                ItemStatusID = 3,
+                ItemName = "Cake",
+                ItemDescription = "Sweet",
+                ItemImgPath = "cake.jpg",
+                Prices = new List<ItemPrice>()
+            };
+
+            var price3 = new ItemPrice
+            {
+                ItemPriceID = 3,
+                ItemID = 3,
+                TimeOfDayID = 3,
+                Price = (decimal)4.50,
+                StartDate = DateTime.Now.AddDays(3),
+                EndDate = DateTime.Now.AddDays(4)
+            };
+
+            item3.Prices.Add(price3);
+            items.Add(item3);
 
             return items;
         }
