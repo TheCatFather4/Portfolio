@@ -41,7 +41,7 @@ namespace Cafe.Tests.MockRepositories
 
         public Server GetServerById(int serverId)
         {
-            return new Server
+            var server = new Server
             {
                 ServerID = 1,
                 FirstName = "John",
@@ -49,6 +49,8 @@ namespace Cafe.Tests.MockRepositories
                 HireDate = DateTime.Now,
                 DoB = DateTime.Today.AddYears(-25)
             };
+
+            return server;
         }
 
         public void UpdateServer(Server server)
