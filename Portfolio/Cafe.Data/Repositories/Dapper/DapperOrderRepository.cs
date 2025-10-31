@@ -62,6 +62,20 @@ namespace Cafe.Data.Repositories.Dapper
             return order;
         }
 
+        public List<CafeOrder> GetAllOrders()
+        {
+            List<CafeOrder> orders = new List<CafeOrder>();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = "SELECT * FROM CafeOrder;";
+
+                orders = cn.Query<CafeOrder>(sql).ToList();
+            }
+
+            return orders;
+        }
+
         public async Task<CafeOrder> GetOrderByIdAsync(int orderId)
         {
             CafeOrder order = new CafeOrder();
@@ -85,6 +99,36 @@ namespace Cafe.Data.Repositories.Dapper
             }
 
             return order;
+        }
+
+        public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
+        {
+            List<OrderItem> orderItems = new List<OrderItem>();
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT oi.*, co.* FROM OrderItem AS oi 
+                            INNER JOIN CafeOrder AS co ON co.OrderID = oi.OrderID 
+                            WHERE co.PaymentStatusID = 1 AND oi.ItemPriceID = @ItemPriceID;";
+
+                var parameter = new
+                {
+                    ItemPriceID = itemPriceId
+                };
+
+                orderItems = cn.Query<OrderItem, CafeOrder, OrderItem>(
+                    sql,
+                    (orderItem, cafeOrder) =>
+                    {
+                        orderItem.CafeOrder = cafeOrder;
+                        return orderItem;
+                    },
+                    parameter,
+                    splitOn: "OrderID")
+                    .ToList();
+            }
+
+            return orderItems;
         }
 
         public async Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)

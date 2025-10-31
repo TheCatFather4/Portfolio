@@ -9,19 +9,19 @@ namespace Cafe.BLL.Services.MVC
     public class MVCAccountantService : IAccountantService
     {
         private readonly ILogger _logger;
-        private readonly IAccountantRepository _accountantRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public MVCAccountantService(ILogger<MVCAccountantService> logger, IAccountantRepository accountantRepository)
+        public MVCAccountantService(ILogger<MVCAccountantService> logger, IOrderRepository orderRepository)
         {
             _logger = logger;
-            _accountantRepository = accountantRepository;
+            _orderRepository = orderRepository;
         }
 
         public Result<List<OrderItem>> GetOrderItemsByItemPriceId(int itemPriceId)
         {
             try
             {
-                var orderItems = _accountantRepository.GetOrderItemsByItemPriceId(itemPriceId);
+                var orderItems = _orderRepository.GetOrderItemsByItemPriceId(itemPriceId);
 
                 if (orderItems.Count() == 0)
                 {
@@ -42,7 +42,7 @@ namespace Cafe.BLL.Services.MVC
         {
             try
             {
-                var orders = _accountantRepository.GetOrders();
+                var orders = _orderRepository.GetAllOrders();
 
                 if (orders.Count() == 0)
                 {

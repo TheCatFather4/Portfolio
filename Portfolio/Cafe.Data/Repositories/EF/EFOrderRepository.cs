@@ -28,11 +28,25 @@ namespace Cafe.Data.Repositories.EF
             return order;
         }
 
+        public List<CafeOrder> GetAllOrders()
+        {
+            return _dbContext.CafeOrder
+                .ToList();
+        }
+
         public async Task<CafeOrder> GetOrderByIdAsync(int orderId)
         {
             return await _dbContext.CafeOrder
                 .Include(co => co.OrderItems)
                 .FirstOrDefaultAsync(co => co.OrderID == orderId);
+        }
+
+        public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
+        {
+            return _dbContext.OrderItem
+                .Include(co => co.CafeOrder)
+                .Where(co => co.CafeOrder.PaymentStatusID == 1 && co.ItemPriceID == itemPriceId)
+                .ToList();
         }
 
         public async Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)

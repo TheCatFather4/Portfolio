@@ -89,13 +89,13 @@ namespace Cafe.BLL
             {
                 return new MVCAccountantService(
                     logger,
-                    new EFAccountantRepository(_config.GetConnectionString()));
+                    new EFOrderRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new MVCAccountantService(
                     logger,
-                    new DapperAccountantRepository(_config.GetConnectionString()));
+                    new DapperOrderRepository(_config.GetConnectionString()));
             }
         }
 

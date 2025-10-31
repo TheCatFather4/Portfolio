@@ -11,13 +11,13 @@ namespace Portfolio.Controllers
     public class ReportsController : Controller
     {
         private readonly IAccountantService _accountantService;
-        private readonly IMenuRetrievalService _menuService;
+        private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(IAccountantService accountantService, IMenuRetrievalService menuService, ISelectListBuilder selectListBuilder)
+        public ReportsController(IAccountantService accountantService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder)
         {
             _accountantService = accountantService;
-            _menuService = menuService;
+            _menuRetrievalService = menuRetrievalService;
             _selectListBuilder = selectListBuilder;
         }
 
@@ -95,7 +95,7 @@ namespace Portfolio.Controllers
 
             if (model.SelectedItemID.HasValue)
             {
-                var itemPriceResult = await _menuService.GetItemPriceByItemIdAsync((int)model.SelectedItemID);
+                var itemPriceResult = await _menuRetrievalService.GetItemPriceByItemIdAsync((int)model.SelectedItemID);
 
                 if (itemPriceResult.Ok)
                 {
@@ -133,7 +133,7 @@ namespace Portfolio.Controllers
             else if (model.SelectedCategoryID.HasValue)
             {
                 // 1. Get items
-                var itemsResult = _menuService.GetItemsByCategoryId((int)model.SelectedCategoryID);
+                var itemsResult = _menuRetrievalService.GetItemsByCategoryId((int)model.SelectedCategoryID);
 
                 // 2a. if successful continue
                 if (itemsResult.Ok)
@@ -155,7 +155,7 @@ namespace Portfolio.Controllers
                         categoryReport.ItemName = item.ItemName;
 
                         // 7. get item price
-                        var itemPriceResult2 = await _menuService.GetItemPriceByItemIdAsync((int)item.ItemID); 
+                        var itemPriceResult2 = await _menuRetrievalService.GetItemPriceByItemIdAsync((int)item.ItemID); 
 
                         // 8a. if item price retrival is successful
                         if (itemPriceResult2.Ok)
