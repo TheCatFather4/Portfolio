@@ -81,19 +81,19 @@ namespace Cafe.BLL
             }
         }
 
-        public IAccountantService CreateAccountantService()
+        public ISalesReportService CreateSalesReportService()
         {
-            var logger = _loggerFactory.CreateLogger<MVCAccountantService>();
+            var logger = _loggerFactory.CreateLogger<SalesReportService>();
 
             if (_config.GetDatabaseMode() == DatabaseMode.ORM)
             {
-                return new MVCAccountantService(
+                return new SalesReportService(
                     logger,
                     new EFOrderRepository(_config.GetConnectionString()));
             }
             else
             {
-                return new MVCAccountantService(
+                return new SalesReportService(
                     logger,
                     new DapperOrderRepository(_config.GetConnectionString()));
             }

@@ -3,9 +3,9 @@ using Cafe.Core.Entities;
 
 namespace Cafe.Core.Interfaces.Services
 {
-    public interface IAccountantService
+    public interface ISalesReportService
     {
-        Result<List<CafeOrder>> GetOrders();
+        Result<OrderDateFilter> FilterOrdersByDate(DateTime date);
         Result<List<OrderItem>> GetOrderItemsByItemPriceId(int itemPriceId);
     }
 }

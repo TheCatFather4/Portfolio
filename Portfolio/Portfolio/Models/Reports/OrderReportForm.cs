@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Portfolio.Models.Reports
 {
-    public class OrderRevenue
+    public class OrderReportForm
     {
         [Required(ErrorMessage = "A date is required to view reports.")]
         public DateTime? OrderDate { get; set; }

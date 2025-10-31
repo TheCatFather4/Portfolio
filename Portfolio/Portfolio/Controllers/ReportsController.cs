@@ -10,11 +10,11 @@ namespace Portfolio.Controllers
     [Authorize(Roles = "Accountant")]
     public class ReportsController : Controller
     {
-        private readonly IAccountantService _accountantService;
+        private readonly ISalesReportService _accountantService;
         private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(IAccountantService accountantService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder)
+        public ReportsController(ISalesReportService accountantService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder)
         {
             _accountantService = accountantService;
             _menuRetrievalService = menuRetrievalService;
@@ -29,38 +29,23 @@ namespace Portfolio.Controllers
         [HttpGet]
         public IActionResult Orders()
         {
-            var model = new OrderRevenue();
+            var model = new OrderReportForm();
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Orders(OrderRevenue model)
+        public IActionResult Orders(OrderReportForm model)
         {
             if (model.OrderDate != null)
             {
-                var result = _accountantService.GetOrders();
+                var result = _accountantService.FilterOrdersByDate((DateTime)model.OrderDate);
 
                 if (result.Ok)
                 {
-                    var orders = result.Data
-                        .Where(o => o.OrderDate.Date == model.OrderDate.Value.Date)
-                        .ToList();
-
-                    model.Orders = orders;
-
-                    decimal revenue = 0.00M;
-
-                    foreach (var o in orders)
-                    {
-                        if (o.PaymentStatusID == 1)
-                        {
-                            revenue += o.SubTotal;
-                        }
-                    }
-
-                    model.TotalRevenue = revenue;
+                    model.Orders = result.Data.Orders;
+                    model.TotalRevenue = result.Data.Revenue;
 
                     return View(model);
                 }

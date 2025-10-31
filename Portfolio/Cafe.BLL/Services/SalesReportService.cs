@@ -4,14 +4,14 @@ using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Cafe.BLL.Services.MVC
+namespace Cafe.BLL.Services
 {
-    public class MVCAccountantService : IAccountantService
+    public class SalesReportService : ISalesReportService
     {
         private readonly ILogger _logger;
         private readonly IOrderRepository _orderRepository;
 
-        public MVCAccountantService(ILogger<MVCAccountantService> logger, IOrderRepository orderRepository)
+        public SalesReportService(ILogger<SalesReportService> logger, IOrderRepository orderRepository)
         {
             _logger = logger;
             _orderRepository = orderRepository;
@@ -38,24 +38,44 @@ namespace Cafe.BLL.Services.MVC
             }
         }
 
-        public Result<List<CafeOrder>> GetOrders()
+        public Result<OrderDateFilter> FilterOrdersByDate(DateTime date)
         {
             try
             {
+                decimal revenue = 0.00M;
+
                 var orders = _orderRepository.GetAllOrders();
 
                 if (orders.Count() == 0)
                 {
                     _logger.LogError("Cafe orders not found.");
-                    return ResultFactory.Fail<List<CafeOrder>>("An error occurred. Please try again in a few minutes.");
+                    return ResultFactory.Fail<OrderDateFilter>("An error occurred. Please try again in a few minutes.");
                 }
 
-                return ResultFactory.Success(orders);
+                var filteredOrders = orders
+                    .Where(o => o.OrderDate.Date == date.Date)
+                    .ToList();
+
+                foreach (var o in filteredOrders)
+                {
+                    if (o.PaymentStatusID == 1)
+                    {
+                        revenue += o.SubTotal;
+                    }
+                }
+
+                var filter = new OrderDateFilter
+                {
+                    Orders = filteredOrders,
+                    Revenue = revenue
+                };
+
+                return ResultFactory.Success(filter);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"An unexpected error occurred in retrieving orders: {ex.Message}");
-                return ResultFactory.Fail<List<CafeOrder>>("An error occurred. Please contact the administrator.");
+                return ResultFactory.Fail<OrderDateFilter>("An error occurred. Please contact the administrator.");
             }
         }
     }

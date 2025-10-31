@@ -59,10 +59,10 @@ builder.Services.AddScoped<IServerManagerService>(provider =>
     return serviceFactory.CreateServerManagerService();
 });
 
-builder.Services.AddScoped<IAccountantService>(provider =>
+builder.Services.AddScoped<ISalesReportService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateAccountantService();
+    return serviceFactory.CreateSalesReportService();
 });
 
 builder.Services.AddScoped<IShoppingBagService>(provider =>
