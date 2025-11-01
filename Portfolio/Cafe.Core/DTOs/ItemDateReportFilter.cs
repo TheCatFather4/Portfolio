@@ -1,6 +1,6 @@
-﻿namespace Portfolio.Models.Reports
+﻿namespace Cafe.Core.DTOs
 {
-    public class ItemDateReport
+    public class ItemDateReportFilter
     {
         public decimal Price { get; set; }
         public byte Quantity { get; set; }

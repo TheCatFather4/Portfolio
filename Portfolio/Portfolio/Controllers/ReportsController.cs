@@ -10,13 +10,13 @@ namespace Portfolio.Controllers
     [Authorize(Roles = "Accountant")]
     public class ReportsController : Controller
     {
-        private readonly ISalesReportService _accountantService;
+        private readonly ISalesReportService _salesReportService;
         private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(ISalesReportService accountantService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder)
+        public ReportsController(ISalesReportService salesReportService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder)
         {
-            _accountantService = accountantService;
+            _salesReportService = salesReportService;
             _menuRetrievalService = menuRetrievalService;
             _selectListBuilder = selectListBuilder;
         }
@@ -40,7 +40,7 @@ namespace Portfolio.Controllers
         {
             if (model.OrderDate != null)
             {
-                var result = _accountantService.FilterOrdersByDate((DateTime)model.OrderDate);
+                var result = _salesReportService.FilterOrdersByDate((DateTime)model.OrderDate);
 
                 if (result.Ok)
                 {
@@ -62,7 +62,7 @@ namespace Portfolio.Controllers
         [HttpGet]
         public IActionResult Items()
         {
-            var model = new ItemRevenue();
+            var model = new ItemReportForm();
 
             model.Items = _selectListBuilder.BuildItems(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
@@ -73,46 +73,38 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Items(ItemRevenue model)
+        public async Task<IActionResult> Items(ItemReportForm model)
         {
             model.Items = _selectListBuilder.BuildItems(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
+            model.Dates = new List<ItemDateReport>();
 
             if (model.SelectedItemID.HasValue)
             {
-                var itemPriceResult = await _menuRetrievalService.GetItemPriceByItemIdAsync((int)model.SelectedItemID);
+                var filterItemResult = await _salesReportService.FilterItemsByItemIdAsync((int)model.SelectedItemID);
 
-                if (itemPriceResult.Ok)
+                if (filterItemResult.Ok)
                 {
-                    var orderItemsResult = _accountantService.GetOrderItemsByItemPriceId((int)itemPriceResult.Data.ItemPriceID);
+                    model.TotalQuantity = filterItemResult.Data.TotalQuantity;
+                    model.TotalRevenue = filterItemResult.Data.TotalRevenue;
 
-                    if (orderItemsResult.Ok)
+                    foreach (var idf in filterItemResult.Data.Dates)
                     {
-                        var dateReportList = new List<ItemDateReport>();
-
-                        foreach (var orderItem in orderItemsResult.Data)
+                        var idr = new ItemDateReport
                         {
-                            model.TotalQuantity += orderItem.Quantity;
-                            model.TotalRevenue += orderItem.ExtendedPrice;
+                            Price = idf.Price,
+                            Quantity = idf.Quantity,
+                            ExtendedPrice = idf.ExtendedPrice,
+                            DateSold = idf.DateSold
+                        };
 
-                            dateReportList.Add(new ItemDateReport
-                            {
-                                Price = (decimal)itemPriceResult.Data.Price,
-                                Quantity = orderItem.Quantity,
-                                ExtendedPrice = orderItem.ExtendedPrice,
-                                DateSold = orderItem.CafeOrder.OrderDate
-                            });
-                        }
-
-                        model.Dates = dateReportList;
-                        return View(model);
+                        model.Dates.Add(idr);
                     }
 
-                    TempData["Alert"] = Alert.CreateInfo(orderItemsResult.Message);
                     return View(model);
                 }
 
-                TempData["Alert"] = Alert.CreateError(itemPriceResult.Message);
+                TempData["Alert"] = Alert.CreateError(filterItemResult.Message);
                 return RedirectToAction("Index");
             }
             else if (model.SelectedCategoryID.HasValue)
@@ -146,7 +138,7 @@ namespace Portfolio.Controllers
                         if (itemPriceResult2.Ok)
                         {
                             // 9. get sold order items
-                            var orderItemsResult2 = _accountantService.GetOrderItemsByItemPriceId((int)itemPriceResult2.Data.ItemPriceID);
+                            var orderItemsResult2 = _salesReportService.GetOrderItemsByItemPriceId((int)itemPriceResult2.Data.ItemPriceID);
 
                             // 10a. if sold item retrieval is successful
                             if (orderItemsResult2.Ok)

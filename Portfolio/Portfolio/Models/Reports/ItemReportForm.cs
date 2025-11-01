@@ -1,9 +1,8 @@
-﻿using Cafe.Core.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Portfolio.Models.Reports
 {
-    public class ItemRevenue
+    public class ItemReportForm
     {
         public SelectList? Items { get; set; }
         public int? SelectedItemID { get; set; }

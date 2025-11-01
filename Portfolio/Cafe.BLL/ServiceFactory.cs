@@ -89,12 +89,14 @@ namespace Cafe.BLL
             {
                 return new SalesReportService(
                     logger,
+                    new EFMenuRetrievalRepository(_config.GetConnectionString()),
                     new EFOrderRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new SalesReportService(
                     logger,
+                    new DapperMenuRetrievalRepository(_config.GetConnectionString()),
                     new DapperOrderRepository(_config.GetConnectionString()));
             }
         }
