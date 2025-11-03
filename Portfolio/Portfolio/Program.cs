@@ -146,6 +146,7 @@ builder.Services.AddOpenApiDocument(c =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.Title = "Cafe API";
 });
 
 var app = builder.Build();
@@ -168,6 +169,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.UseOpenApi();
-app.UseSwaggerUi();
+app.UseSwaggerUi(o =>
+{
+    o.DocumentTitle = "Cafe API";
+});
 
 app.Run();

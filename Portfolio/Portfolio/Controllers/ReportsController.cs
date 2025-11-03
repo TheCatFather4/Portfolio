@@ -11,13 +11,11 @@ namespace Portfolio.Controllers
     public class ReportsController : Controller
     {
         private readonly ISalesReportService _salesReportService;
-        private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ReportsController(ISalesReportService salesReportService, IMenuRetrievalService menuRetrievalService, ISelectListBuilder selectListBuilder)
+        public ReportsController(ISalesReportService salesReportService, ISelectListBuilder selectListBuilder)
         {
             _salesReportService = salesReportService;
-            _menuRetrievalService = menuRetrievalService;
             _selectListBuilder = selectListBuilder;
         }
 
@@ -78,6 +76,7 @@ namespace Portfolio.Controllers
             model.Items = _selectListBuilder.BuildItems(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
             model.Dates = new List<ItemDateReport>();
+            model.CategoryReports = new List<CategoryReport>();
 
             if (model.SelectedItemID.HasValue)
             {
@@ -109,102 +108,42 @@ namespace Portfolio.Controllers
             }
             else if (model.SelectedCategoryID.HasValue)
             {
-                // 1. Get items
-                var itemsResult = _menuRetrievalService.GetItemsByCategoryId((int)model.SelectedCategoryID);
+                var filterCategoryResult = await _salesReportService.FilterItemsByCategoryId(model.SelectedCategoryID.Value);
 
-                // 2a. if successful continue
-                if (itemsResult.Ok)
+                if (filterCategoryResult.Ok)
                 {
-                    // 3. new CategoryReports List - this is the list of lists
-                    var categoryReportList = new List<CategoryReport>();
+                    model.TotalQuantity = filterCategoryResult.Data.TotalQuantity;
+                    model.TotalRevenue = filterCategoryResult.Data.TotalRevenue;
 
-                    int orderItems = 0;
-
-                    // 4. loop through each item (from step 1)
-                    foreach (var item in itemsResult.Data)
+                    foreach (var crf in filterCategoryResult.Data.Categories)
                     {
-                        // for the current item being iterated.....
+                        var cr = new CategoryReport();
+                        cr.ItemName = crf.ItemName;
+                        cr.ItemDateReports = new List<ItemDateReport>();
 
-                        // 5. new Category report
-                        var categoryReport = new CategoryReport();
-
-                        // 6. map item name to the new report
-                        categoryReport.ItemName = item.ItemName;
-
-                        // 7. get item price
-                        var itemPriceResult2 = await _menuRetrievalService.GetItemPriceByItemIdAsync((int)item.ItemID); 
-
-                        // 8a. if item price retrival is successful
-                        if (itemPriceResult2.Ok)
+                        foreach (var idrf in crf.ItemReports)
                         {
-                            // 9. get sold order items
-                            var orderItemsResult2 = _salesReportService.GetOrderItemsByItemPriceId((int)itemPriceResult2.Data.ItemPriceID);
-
-                            // 10a. if sold item retrieval is successful
-                            if (orderItemsResult2.Ok)
+                            var idr = new ItemDateReport
                             {
-                                orderItems++;
+                                Price = idrf.Price,
+                                Quantity = idrf.Quantity,
+                                ExtendedPrice = idrf.ExtendedPrice,
+                                DateSold = idrf.DateSold
+                            };
 
-                                // 11. create a new item date report - first report of many for the item
-                                var dateReportList2 = new List<ItemDateReport>();
-
-                                // 12. loop through sold items
-                                foreach (var orderItem2 in orderItemsResult2.Data)
-                                {
-                                    model.TotalQuantity += orderItem2.Quantity;
-                                    model.TotalRevenue += orderItem2.ExtendedPrice;
-
-                                    // 13. map each sold item's data to a corresponding item date report - many ItemDateReports for ONE CategoryReport
-                                    dateReportList2.Add(new ItemDateReport
-                                    {
-                                        Price = (decimal)itemPriceResult2.Data.Price,
-                                        Quantity = orderItem2.Quantity,
-                                        ExtendedPrice = orderItem2.ExtendedPrice,
-                                        DateSold = orderItem2.CafeOrder.OrderDate
-                                    });
-                                }
-
-                                // 14. map list of ItemDateReports to the Category report (that was instantiated at step 5)
-                                categoryReport.ItemDateReports = dateReportList2;
-                            }
-                            else
-                            {
-
-                                // 10b. atleast one sold item in category
-                                if (orderItems > 0)
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    // 10c. no sold items in category
-                                    model.CategoryReports = categoryReportList;
-                                    TempData["Alert"] = Alert.CreateInfo(orderItemsResult2.Message);
-                                    return View(model);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            // 8b. item prices not found
-                            TempData["Alert"] = Alert.CreateError(itemPriceResult2.Message);
-                            return RedirectToAction("Index");
+                            cr.ItemDateReports.Add(idr);
                         }
 
-                        // 15. add category report to list of category reports
-                        categoryReportList.Add(categoryReport);
+                        model.CategoryReports.Add(cr);
                     }
 
-                    // 16. After looping through each item, and all category reports are added to the list, map category list to model
-                    model.CategoryReports = categoryReportList;
-
-                    // 17. Return the model
                     return View(model);
                 }
-
-                // 2b. items not found
-                TempData["Alert"] = Alert.CreateError(itemsResult.Message);
-                return RedirectToAction("Index");
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(filterCategoryResult.Message);
+                    return RedirectToAction("Index");
+                }
             }
 
             TempData["Alert"] = Alert.CreateError("You must select an option.");
