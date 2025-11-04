@@ -1,6 +1,6 @@
 ﻿namespace Portfolio.Models.Reports
 {
-    public class ItemDateReport
+    public class ItemReport
     {
         public decimal Price { get; set; }
         public byte Quantity { get; set; }

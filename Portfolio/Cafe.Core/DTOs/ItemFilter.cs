@@ -1,6 +1,6 @@
 ﻿namespace Cafe.Core.DTOs
 {
-    public class ItemDateReportFilter
+    public class ItemFilter
     {
         public decimal Price { get; set; }
         public byte Quantity { get; set; }

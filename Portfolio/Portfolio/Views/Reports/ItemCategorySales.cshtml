@@ -1,5 +1,5 @@
 ﻿@using Portfolio.Models.Reports
-@model ItemReportForm
+@model ItemCategoryForm
 @{
     Layout = "_CafeLayout";
     ViewData["Title"] = "Item and Category Reports";
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="border border-info p-3 border-3 rounded bg-primary my-2">
-                <form asp-controller="Reports" asp-action="Items" method="post">
+                <form asp-controller="Reports" asp-action="ItemCategorySales" method="post">
                     @Html.AntiForgeryToken()
                     <div class="form-floating mb-3">
                         <select asp-for="SelectedItemID" asp-items="Model.Items" class="form-control" id="formInput">
@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-6">
             <div class="border border-info p-3 border-3 rounded bg-primary my-2">
-                <form asp-controller="Reports" asp-action="Items" method="post">
+                <form asp-controller="Reports" asp-action="ItemCategorySales" method="post">
                     @Html.AntiForgeryToken()
                     <div class="form-floating mb-3">
                         <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="formInput">

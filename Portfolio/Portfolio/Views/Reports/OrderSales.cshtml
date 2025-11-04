@@ -1,5 +1,5 @@
 ﻿@using Portfolio.Models.Reports
-@model OrderReportForm
+@model OrderForm
 @{
     Layout = "_CafeLayout";
     ViewData["Title"] = "Order Reports";
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="border border-info p-3 border-3 rounded bg-primary">
-        <form asp-controller="Reports" asp-action="Orders" method="post">
+        <form asp-controller="Reports" asp-action="OrderSales" method="post">
             @Html.AntiForgeryToken()
             <div class="form-floating mb-3">
                 <input type="date" class="form-control" asp-for="OrderDate" id="formInput" />

@@ -2,7 +2,7 @@
 
 namespace Cafe.Core.DTOs
 {
-    public class OrderReportFilter
+    public class OrderFilter
     {
         public List<CafeOrder> Orders { get; set; }
         public decimal Revenue { get; set; }

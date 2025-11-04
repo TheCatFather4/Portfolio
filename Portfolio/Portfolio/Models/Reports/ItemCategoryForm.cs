@@ -2,15 +2,15 @@
 
 namespace Portfolio.Models.Reports
 {
-    public class ItemReportForm
+    public class ItemCategoryForm
     {
         public SelectList? Items { get; set; }
         public int? SelectedItemID { get; set; }
+        public List<ItemReport>? ItemReports { get; set; }
         public SelectList? Categories { get; set; }
         public int? SelectedCategoryID { get; set; }
-        public List<ItemDateReport>? Dates { get; set; }
+        public List<CategoryReport> CategoryReports { get; set; }
         public int TotalQuantity { get; set; } = 0;
         public decimal TotalRevenue { get; set; } = 0;
-        public List<CategoryReport> CategoryReports { get; set; }
     }
 }

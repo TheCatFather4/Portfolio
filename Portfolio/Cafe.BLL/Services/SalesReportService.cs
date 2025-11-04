@@ -18,11 +18,11 @@ namespace Cafe.BLL.Services
             _orderRepository = orderRepository;
         }
 
-        public async Task<Result<ItemReportFilter>> FilterItemsByCategoryId(int categoryId)
+        public async Task<Result<ItemCategoryFilter>> FilterItemsByCategoryIdAsync(int categoryId)
         {
             try
             {
-                var dto = new ItemReportFilter
+                var dto = new ItemCategoryFilter
                 {
                     SelectedCategoryID = categoryId
                 };
@@ -34,11 +34,11 @@ namespace Cafe.BLL.Services
                 if (items.Count() == 0)
                 {
                     _logger.LogError($"No items were found for Category ID: {categoryId}.");
-                    return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator.");
+                    return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                 }
 
                 // 3. This is the list of lists
-                var categoryReports = new List<CategoryReportFilter>();
+                var categoryReports = new List<CategoryFilter>();
 
                 // 4. Loop through each item from step 1
                 foreach (var item in items)
@@ -46,7 +46,7 @@ namespace Cafe.BLL.Services
                     // for the current item being iterated....
 
                     // 5. New CategoryReport
-                    var categoryReport = new CategoryReportFilter();
+                    var categoryReport = new CategoryFilter();
 
                     // 6. Map item name to the new report
                     categoryReport.ItemName = item.ItemName;
@@ -58,7 +58,7 @@ namespace Cafe.BLL.Services
                     if (itemPrice == null)
                     {
                         _logger.LogError($"No item price was found for Item ID: {item.ItemID}");
-                        return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator.");
+                        return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                     }
 
                     // 9. Get sold order items
@@ -68,11 +68,11 @@ namespace Cafe.BLL.Services
                     if (soldOrderItems.Count() == 0)
                     {
                         _logger.LogError($"No order items were found for ItemPrice ID: {itemPrice.ItemPriceID}.");
-                        return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator.");
+                        return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                     }
 
                     // 11. Create new Item Date Report List - list of lists
-                    var itemDateReports = new List<ItemDateReportFilter>();
+                    var itemDateReports = new List<ItemFilter>();
 
                     // 12. Loop through sold items
                     foreach (var soi in soldOrderItems)
@@ -84,7 +84,7 @@ namespace Cafe.BLL.Services
                         dto.TotalRevenue += soi.ExtendedPrice;
 
                         // 13. Map each sold item's data to a corresponding Item Date Report - many ItemDateReports for ONE CategoryReport 
-                        var itemDateReport = new ItemDateReportFilter
+                        var itemDateReport = new ItemFilter
                         {
                             Price = (decimal)itemPrice.Price, // from step 7.
                             Quantity = soi.Quantity,
@@ -110,15 +110,15 @@ namespace Cafe.BLL.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred when attempting to filter items by Category ID {categoryId}: {ex.Message}");
-                return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator.");
+                return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
             }
         }
 
-        public async Task<Result<ItemReportFilter>> FilterItemsByItemIdAsync(int itemId)
+        public async Task<Result<ItemCategoryFilter>> FilterItemsByItemIdAsync(int itemId)
         {
             try
             {
-                var dto = new ItemReportFilter()
+                var dto = new ItemCategoryFilter()
                 {
                     SelectedItemID = itemId
                 };
@@ -128,7 +128,7 @@ namespace Cafe.BLL.Services
                 if (itemPrice == null)
                 {
                     _logger.LogError($"Item price not found for Item ID {itemId}.");
-                    return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator");
+                    return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator");
                 }
 
                 var orderItems = _orderRepository.GetOrderItemsByItemPriceId((int)itemPrice.ItemPriceID);
@@ -136,17 +136,17 @@ namespace Cafe.BLL.Services
                 if (orderItems.Count() == 0)
                 {
                     _logger.LogError($"No order items found for ItemPrice ID: {itemPrice.ItemPriceID}.");
-                    return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator");
+                    return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator");
                 }
 
-                var itemDateFilters = new List<ItemDateReportFilter>();
+                var itemDateFilters = new List<ItemFilter>();
 
                 foreach (var item in orderItems)
                 {
                     dto.TotalQuantity += item.Quantity;
                     dto.TotalRevenue += item.ExtendedPrice;
 
-                    var itemDateFilter = new ItemDateReportFilter
+                    var itemDateFilter = new ItemFilter
                     {
                         Price = (decimal)itemPrice.Price,
                         Quantity = item.Quantity,
@@ -157,18 +157,18 @@ namespace Cafe.BLL.Services
                     itemDateFilters.Add(itemDateFilter);
                 }
 
-                dto.Dates = itemDateFilters;
+                dto.Items = itemDateFilters;
 
                 return ResultFactory.Success(dto);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred when attempting to filter items by item Id {itemId}: {ex.Message}");
-                return ResultFactory.Fail<ItemReportFilter>("An error occurred. Please contact the site administrator.");
+                return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
             }
         }
 
-        public Result<OrderReportFilter> FilterOrdersByDate(DateTime date)
+        public Result<OrderFilter> FilterOrdersByDate(DateTime date)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace Cafe.BLL.Services
                 if (orders.Count() == 0)
                 {
                     _logger.LogError("Cafe orders not found.");
-                    return ResultFactory.Fail<OrderReportFilter>("An error occurred. Please try again in a few minutes.");
+                    return ResultFactory.Fail<OrderFilter>("An error occurred. Please try again in a few minutes.");
                 }
 
                 var filteredOrders = orders
@@ -194,7 +194,7 @@ namespace Cafe.BLL.Services
                     }
                 }
 
-                var filter = new OrderReportFilter
+                var filter = new OrderFilter
                 {
                     Orders = filteredOrders,
                     Revenue = revenue
@@ -205,7 +205,7 @@ namespace Cafe.BLL.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An unexpected error occurred in retrieving orders: {ex.Message}");
-                return ResultFactory.Fail<OrderReportFilter>("An error occurred. Please contact the administrator.");
+                return ResultFactory.Fail<OrderFilter>("An error occurred. Please contact the administrator.");
             }
         }
     }

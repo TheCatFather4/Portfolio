@@ -25,57 +25,24 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult Orders()
+        public IActionResult ItemCategorySales()
         {
-            var model = new OrderReportForm();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Orders(OrderReportForm model)
-        {
-            if (model.OrderDate != null)
-            {
-                var result = _salesReportService.FilterOrdersByDate((DateTime)model.OrderDate);
-
-                if (result.Ok)
-                {
-                    model.Orders = result.Data.Orders;
-                    model.TotalRevenue = result.Data.Revenue;
-
-                    return View(model);
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError(result.Message);
-                    return RedirectToAction("Index", "Reports");
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult Items()
-        {
-            var model = new ItemReportForm();
+            var model = new ItemCategoryForm();
 
             model.Items = _selectListBuilder.BuildItems(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.Dates = new List<ItemDateReport>();
+            model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Items(ItemReportForm model)
+        public async Task<IActionResult> ItemCategorySales(ItemCategoryForm model)
         {
             model.Items = _selectListBuilder.BuildItems(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.Dates = new List<ItemDateReport>();
+            model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();
 
             if (model.SelectedItemID.HasValue)
@@ -87,9 +54,9 @@ namespace Portfolio.Controllers
                     model.TotalQuantity = filterItemResult.Data.TotalQuantity;
                     model.TotalRevenue = filterItemResult.Data.TotalRevenue;
 
-                    foreach (var idf in filterItemResult.Data.Dates)
+                    foreach (var idf in filterItemResult.Data.Items)
                     {
-                        var idr = new ItemDateReport
+                        var idr = new ItemReport
                         {
                             Price = idf.Price,
                             Quantity = idf.Quantity,
@@ -97,7 +64,7 @@ namespace Portfolio.Controllers
                             DateSold = idf.DateSold
                         };
 
-                        model.Dates.Add(idr);
+                        model.ItemReports.Add(idr);
                     }
 
                     return View(model);
@@ -108,7 +75,7 @@ namespace Portfolio.Controllers
             }
             else if (model.SelectedCategoryID.HasValue)
             {
-                var filterCategoryResult = await _salesReportService.FilterItemsByCategoryId(model.SelectedCategoryID.Value);
+                var filterCategoryResult = await _salesReportService.FilterItemsByCategoryIdAsync(model.SelectedCategoryID.Value);
 
                 if (filterCategoryResult.Ok)
                 {
@@ -119,11 +86,11 @@ namespace Portfolio.Controllers
                     {
                         var cr = new CategoryReport();
                         cr.ItemName = crf.ItemName;
-                        cr.ItemDateReports = new List<ItemDateReport>();
+                        cr.ItemDateReports = new List<ItemReport>();
 
                         foreach (var idrf in crf.ItemReports)
                         {
-                            var idr = new ItemDateReport
+                            var idr = new ItemReport
                             {
                                 Price = idrf.Price,
                                 Quantity = idrf.Quantity,
@@ -147,6 +114,39 @@ namespace Portfolio.Controllers
             }
 
             TempData["Alert"] = Alert.CreateError("You must select an option.");
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult OrderSales()
+        {
+            var model = new OrderForm();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OrderSales(OrderForm model)
+        {
+            if (model.OrderDate != null)
+            {
+                var result = _salesReportService.FilterOrdersByDate((DateTime)model.OrderDate);
+
+                if (result.Ok)
+                {
+                    model.Orders = result.Data.Orders;
+                    model.TotalRevenue = result.Data.Revenue;
+
+                    return View(model);
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                    return RedirectToAction("Index", "Reports");
+                }
+            }
+
             return View(model);
         }
     }

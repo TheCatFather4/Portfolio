@@ -3,6 +3,6 @@
     public class CategoryReport
     {
         public string ItemName { get; set; }
-        public List<ItemDateReport> ItemDateReports { get; set; }
+        public List<ItemReport> ItemDateReports { get; set; }
     }
 }
