@@ -149,7 +149,7 @@ namespace Cafe.Tests.MockRepositories
             var item = new Item
             {
                 ItemID = 1,
-                CategoryID = categoryId,
+                CategoryID = 1,
                 ItemStatusID = 1,
                 ItemName = "Soda",
                 ItemDescription = "Refreshing",

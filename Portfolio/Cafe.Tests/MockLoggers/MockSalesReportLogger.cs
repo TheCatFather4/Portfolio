@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.Tests.MockLoggers
 {
-    public class MockAccountantLogger : ILogger<SalesReportService>
+    public class MockSalesReportLogger : ILogger<SalesReportService>
     {
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
