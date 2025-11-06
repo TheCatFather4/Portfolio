@@ -13,20 +13,10 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
-        public async Task APIAddItemAsync(int customerId, ShoppingBagItem item)
+        public async Task AddItemToShoppingBagAsync(ShoppingBagItem item)
         {
-            var shoppingBag = await _dbContext.ShoppingBag
-                .Include(sb => sb.Items)
-                .FirstOrDefaultAsync(sb => sb.CustomerID == customerId);
-
-            if (shoppingBag == null)
-            {
-                shoppingBag = new ShoppingBag { CustomerID = customerId };
-                await _dbContext.ShoppingBag.AddAsync(shoppingBag);
-                await _dbContext.SaveChangesAsync();
-            }
-
-            var existingItem = shoppingBag.Items.FirstOrDefault(i => i.ItemID == item.ItemID);
+            var existingItem = await _dbContext.ShoppingBagItem
+                .FirstOrDefaultAsync(sbi => sbi.ItemID == item.ItemID && sbi.ShoppingBagID == item.ShoppingBagID);
 
             if (existingItem != null)
             {
@@ -34,7 +24,7 @@ namespace Cafe.Data.Repositories.EF
             }
             else
             {
-                shoppingBag.Items.Add(item);
+                await _dbContext.ShoppingBagItem.AddAsync(item);
             }
 
             await _dbContext.SaveChangesAsync();
@@ -61,23 +51,6 @@ namespace Cafe.Data.Repositories.EF
         {
             return await _dbContext.ShoppingBagItem
                 .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId);
-        }
-
-        public async Task MVCAddItemAsync(ShoppingBagItem item)
-        {
-            var existingItem = await _dbContext.ShoppingBagItem
-                .FirstOrDefaultAsync(sbi => sbi.ItemID == item.ItemID && sbi.ShoppingBagID == item.ShoppingBagID);
-
-            if (existingItem != null)
-            {
-                existingItem.Quantity += item.Quantity;
-            }
-            else
-            {
-                await _dbContext.ShoppingBagItem.AddAsync(item);
-            }
-
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId)

@@ -10,49 +10,36 @@ namespace Cafe.BLL.Services
     {
         private readonly ILogger _logger;
         private readonly IShoppingBagRepository _shoppingBagRepository;
-        private readonly IMenuRetrievalRepository _menuRepository;
+        private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
-        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository, IMenuRetrievalRepository menuRepository)
+        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository, IMenuRetrievalRepository menuRetrievalRepository)
         {
             _logger = logger;
             _shoppingBagRepository = shoppingBagRepository;
-            _menuRepository = menuRepository;
+            _menuRetrievalRepository = menuRetrievalRepository;
         }
 
-        public async Task<Result> APIAddItemToBagAsync(int customerId, AddItemRequest dto)
+        public async Task<Result> AddItemToShoppingBagAsync(AddItemRequest dto)
         {
-            if (dto.Quantity <= 0)
-            {
-                return ResultFactory.Fail("Quantity must be greater than zero.");
-            }
-
-            var item = await _menuRepository.GetItemByIdAsync(dto.ItemId);
-
-            if (item == null)
-            {
-                _logger.LogError($"Item with ID: {dto.ItemId} not found.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            var shoppingBagItem = new ShoppingBagItem
+            var sbi = new ShoppingBagItem
             {
                 ShoppingBagID = dto.ShoppingBagId,
                 ItemID = dto.ItemId,
+                ItemStatusID = dto.ItemStatusId,
                 Quantity = dto.Quantity,
-                ItemName = item.ItemName,
-                Price = item.Prices[0].Price,
-                ItemImgPath = item.ItemImgPath
+                ItemName = dto.ItemName,
+                Price = dto.Price,
+                ItemImgPath = dto.ItemImgPath
             };
 
             try
             {
-                await _shoppingBagRepository.APIAddItemAsync(customerId, shoppingBagItem);
-
-                return ResultFactory.Success("Item successfully added to shopping bag.");
+                await _shoppingBagRepository.AddItemToShoppingBagAsync(sbi);
+                return ResultFactory.Success("Item successfully added to shopping bag!");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred when attempting to add an item: {ex.Message}");
+                _logger.LogError($"An error ocurred when attempting to add {dto.ItemName} to Shopping Bag {dto.ShoppingBagId}: {ex.Message}");
                 return ResultFactory.Fail("An error occurred. Please contact our management team.");
             }
         }
@@ -165,35 +152,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public async Task<Result> MVCAddItemToBagAsync(int shoppingBagId, int itemId, string itemName, decimal price, byte quantity, string imgPath)
-        {
-            var bagItem = new ShoppingBagItem
-            {
-                ShoppingBagID = shoppingBagId,
-                ItemID = itemId,
-                Quantity = quantity,
-                ItemName = itemName,
-                Price = price,
-                ItemImgPath = imgPath
-            };
-
-            try
-            {
-                await _shoppingBagRepository.MVCAddItemAsync(bagItem);
-                return ResultFactory.Success("Item successfully added to cart!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred when attempting to add an item to the bag: {ex.Message}");
-                return ResultFactory.Fail("An error occurred. Please contact our management team for assistance.");
-            }
-        }
-
         public async Task<Result<Item>> GetItemWithPriceAsync(int itemId)
         {
             try
             {
-                var item = await _menuRepository.GetItemByIdAsync(itemId);
+                var item = await _menuRetrievalRepository.GetItemByIdAsync(itemId);
 
                 if (item != null)
                 {

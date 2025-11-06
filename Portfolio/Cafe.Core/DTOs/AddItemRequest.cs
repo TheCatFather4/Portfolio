@@ -4,13 +4,19 @@ namespace Cafe.Core.DTOs
 {
     public class AddItemRequest
     {
-        [Required(ErrorMessage = "An Shopping Bag ID is required.")]
+        [Required(ErrorMessage = "A Shopping Bag ID is required.")]
         public int ShoppingBagId { get; set; }
 
         [Required(ErrorMessage = "An Item ID is required.")]
         public int ItemId { get; set; }
 
-        [Range(0, 10, ErrorMessage = "Quantity must be between 1 and 10.")]
+        public byte? ItemStatusId { get; set; }
+
+        [Range(0, 9, ErrorMessage = "Quantity must be between 1 and 9.")]
         public byte Quantity { get; set; }
+
+        public string ItemName { get; set; }
+        public decimal? Price { get; set; }
+        public string? ItemImgPath { get; set; }
     }
 }

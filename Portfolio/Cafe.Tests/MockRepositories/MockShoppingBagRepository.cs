@@ -5,7 +5,7 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockShoppingBagRepository : IShoppingBagRepository
     {
-        public Task APIAddItemAsync(int customerId, ShoppingBagItem item)
+        public Task AddItemToShoppingBagAsync(ShoppingBagItem item)
         {
             throw new NotImplementedException();
         }
@@ -21,11 +21,6 @@ namespace Cafe.Tests.MockRepositories
         }
 
         public Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task MVCAddItemAsync(ShoppingBagItem item)
         {
             throw new NotImplementedException();
         }

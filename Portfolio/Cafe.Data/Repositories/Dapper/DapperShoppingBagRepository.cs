@@ -14,43 +14,42 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public async Task APIAddItemAsync(int customerId, ShoppingBagItem item)
+        public async Task AddItemToShoppingBagAsync(ShoppingBagItem item)
         {
-            var sbi = new ShoppingBagItem();
-
             using (var cn = new SqlConnection(_connectionString))
             {
-                var checkSql = @"SELECT * FROM ShoppingBagItem 
-                                WHERE ShoppingBagID = @ShoppingBagID AND ItemID = @ItemID;";
+                var existingItemSql = @"SELECT * FROM ShoppingBagItem 
+                                        WHERE ShoppingBagID = @ShoppingBagID AND ItemID = @ItemID;";
 
-                var checkParameters = new
+                var existingItemParameters = new
                 {
                     item.ShoppingBagID,
                     item.ItemID
                 };
 
-                sbi = await cn.QueryFirstOrDefaultAsync<ShoppingBagItem>(checkSql, checkParameters);
+                var existingItem = cn.QueryFirstOrDefaultAsync<ShoppingBagItem>(existingItemSql, existingItemParameters);
 
-                if (sbi != null)
+                if (existingItem != null)
                 {
                     var updateSql = @"UPDATE ShoppingBagItem SET 
-                                        Quantity = @Quantity 
-                                      WHERE ShoppingBagItemID = @ShoppingBagItemID;";
+                                        Quantity = Quantity + @Quantity 
+                                        WHERE ShoppingBagID = @ShoppingBagID AND ItemID = @ItemID;";
 
                     var updateParameters = new
                     {
                         item.Quantity,
-                        sbi.ShoppingBagItemID
+                        item.ShoppingBagID,
+                        item.ItemID
                     };
 
                     await cn.ExecuteAsync(updateSql, updateParameters);
                 }
                 else
                 {
-                    var addSql = @"INSERT INTO ShoppingBagItem (ShoppingBagID, ItemID, Quantity, ItemName, Price, ItemStatusID, ItemImgPath) 
-                                   VALUES (@ShoppingBagID, @ItemID, @Quantity, @ItemName, @Price, @ItemStatusID, @ItemImgPath);";
+                    var sql = @"INSERT INTO ShoppingBagItem (ShoppingBagID, ItemID, Quantity, ItemName, Price, ItemStatusID, ItemImgPath) 
+                                VALUES (@ShoppingBagID, @ItemID, @Quantity, @ItemName, @Price, @ItemStatusID, @ItemImgPath);";
 
-                    var addParameters = new
+                    var parameters = new
                     {
                         item.ShoppingBagID,
                         item.ItemID,
@@ -61,7 +60,7 @@ namespace Cafe.Data.Repositories.Dapper
                         item.ItemImgPath
                     };
 
-                    await cn.ExecuteAsync(addSql, addParameters);
+                    await cn.ExecuteAsync(sql, parameters);
                 }
             }
         }
@@ -126,57 +125,6 @@ namespace Cafe.Data.Repositories.Dapper
             }
 
             return sbi;
-        }
-
-        public async Task MVCAddItemAsync(ShoppingBagItem item)
-        {
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var quantitySql = @"SELECT Quantity FROM ShoppingBagItem 
-                                WHERE ShoppingBagID = @ShoppingBagID AND ItemID = @ItemID;";
-
-                var parameter = new
-                {
-                    item.ShoppingBagID,
-                    item.ItemID
-                };
-
-                var quantity = await cn.ExecuteScalarAsync<byte>(quantitySql, parameter);
-
-                if (quantity > 0)
-                {
-                    var updateSql = @"UPDATE ShoppingBagItem SET 
-                                        Quantity = Quantity + @Quantity 
-                                        WHERE ShoppingBagID = @ShoppingBagID AND ItemID = @ItemID;";
-
-                    var quantityParameters = new
-                    {
-                        item.Quantity,
-                        item.ShoppingBagID,
-                        item.ItemID
-                    };
-
-                    await cn.ExecuteAsync(updateSql, quantityParameters);
-                }
-                else
-                {
-                    var sql = @"INSERT INTO ShoppingBagItem (ShoppingBagID, ItemID, Quantity, ItemName, Price, ItemStatusID, ItemImgPath) 
-                            VALUES (@ShoppingBagID, @ItemID, @Quantity, @ItemName, @Price, @ItemStatusID, @ItemImgPath);";
-
-                    var parameters = new
-                    {
-                        item.ShoppingBagID,
-                        item.ItemID,
-                        item.Quantity,
-                        item.ItemName,
-                        item.Price,
-                        item.ItemStatusID,
-                        item.ItemImgPath
-                    };
-
-                    await cn.ExecuteAsync(sql, parameters);
-                }
-            }
         }
 
         public async Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId)

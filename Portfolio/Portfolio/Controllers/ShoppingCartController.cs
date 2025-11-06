@@ -1,4 +1,5 @@
-﻿using Cafe.Core.Interfaces.Services;
+﻿using Cafe.Core.DTOs;
+using Cafe.Core.Interfaces.Services;
 using Cafe.Core.Interfaces.Services.MVC;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -93,8 +94,17 @@ namespace Portfolio.Controllers
 
                     if (customerResult.Ok)
                     {
-                        var result = await _shoppingBagService
-                            .MVCAddItemToBagAsync((int)customerResult.Data.ShoppingBagID, model.ItemID, model.ItemName, (decimal)model.Price, (byte)model.Quantity, model.ItemImgPath);
+                        var dto = new AddItemRequest
+                        {
+                            ShoppingBagId = (int)customerResult.Data.ShoppingBagID,
+                            ItemId = model.ItemID,
+                            Quantity = (byte)model.Quantity,
+                            ItemName = model.ItemName,
+                            Price = (decimal)model.Price,
+                            ItemImgPath = model.ItemImgPath
+                        };
+
+                        var result = await _shoppingBagService.AddItemToShoppingBagAsync(dto);
 
                         if (result.Ok)
                         {
