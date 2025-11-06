@@ -44,6 +44,50 @@ namespace Cafe.BLL.Services
             }
         }
 
+        public async Task<Result<ShoppingBagResponse>> GetShoppingBagByCustomerIdAsync(int customerId)
+        {
+            try
+            {
+                var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
+
+                if (shoppingBag == null)
+                {
+                    _logger.LogError($"Shopping bag for Customer ID: {customerId} not found.");
+                    return ResultFactory.Fail<ShoppingBagResponse>("An error occurred. Please try again in a few minutes.");
+                }
+
+                var dto = new ShoppingBagResponse
+                {
+                    ShoppingBagID = shoppingBag.ShoppingBagID,
+                    CustomerID = shoppingBag.CustomerID,
+                    Items = new List<ShoppingBagItemResponse>()
+                };
+
+                foreach (var item in shoppingBag.Items)
+                {
+                    var itemDto = new ShoppingBagItemResponse
+                    {
+                        ShoppingBagItemID = item.ShoppingBagItemID,
+                        ShoppingBagID = item.ShoppingBagID,
+                        ItemID = item.ItemID,
+                        Quantity = item.Quantity,
+                        ItemName = item.ItemName,
+                        Price = (decimal)item.Price,
+                        ItemImgPath = item.ItemImgPath
+                    };
+
+                    dto.Items.Add(itemDto);
+                }
+
+                return ResultFactory.Success(dto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred when attempting to retrieve shopping bag for Customer {customerId}: {ex.Message}");
+                return ResultFactory.Fail<ShoppingBagResponse>("An error occurred. Please contact our customer service team.");
+            }
+        }
+
         public async Task<Result> ClearShoppingBagAsync(int customerId)
         {
             var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
@@ -184,44 +228,6 @@ namespace Cafe.BLL.Services
 
             _logger.LogError($"An error occurred when attempting to retrieve a shopping bag item.");
             return ResultFactory.Fail<ShoppingBagItem>("An error occurred. Please try again in a few minutes.");
-        }
-
-        public async Task<Result<ShoppingBagResponse>> APIGetShoppingBagAsync(int customerId)
-        {
-            try
-            {
-                var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
-
-                if (shoppingBag == null)
-                {
-                    _logger.LogError("Shopping Bag not found.");
-                    return ResultFactory.Fail<ShoppingBagResponse>("An error occurred. Please try again in a few minutes.");
-                }
-
-                var sbr = new ShoppingBagResponse();
-                sbr.ShoppingBagID = shoppingBag.ShoppingBagID;
-                sbr.CustomerID = shoppingBag.CustomerID;
-                sbr.Items = new List<ShoppingBagItemResponse>();
-
-                foreach (var item in shoppingBag.Items)
-                {
-                    var sbri = new ShoppingBagItemResponse();
-                    sbri.ShoppingBagItemID = item.ShoppingBagItemID;
-                    sbri.ItemID = item.ItemID;
-                    sbri.ItemName = item.ItemName;
-                    sbri.Quantity = item.Quantity;
-                    sbri.Price = (decimal)item.Price;
-
-                    sbr.Items.Add(sbri);
-                }
-
-                return ResultFactory.Success(sbr);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred when retrieving the shopping bag: {ex.Message}");
-                return ResultFactory.Fail<ShoppingBagResponse>("An error occurred. Please contact our management team.");
-            }
         }
     }
 }

@@ -6,7 +6,9 @@ namespace Cafe.Core.Interfaces.Services
     public interface IShoppingBagService
     {
         Task<Result> AddItemToShoppingBagAsync(AddItemRequest dto);
-        Task<Result<ShoppingBagResponse>> APIGetShoppingBagAsync(int customerId);
+        Task<Result<ShoppingBagResponse>> GetShoppingBagByCustomerIdAsync(int customerId);
+
+        // Used by Order Service - refactor later
         Task<Result<ShoppingBag>> GetShoppingBagAsync(int customerId);
         Task<Result> RemoveItemFromBagAsync(int customerId, int shoppingBagItemId);
         Task<Result> UpdateItemQuantityAsync(int customerId, int shoppingBagItemId, byte quantity);

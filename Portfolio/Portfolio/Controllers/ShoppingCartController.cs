@@ -33,11 +33,11 @@ namespace Portfolio.Controllers
 
                 if (customerResult.Ok)
                 {
-                    var cartResult = await _shoppingBagService.GetShoppingBagAsync(customerResult.Data.CustomerID);
+                    var cartResult = await _shoppingBagService.GetShoppingBagByCustomerIdAsync(customerResult.Data.CustomerID);
 
                     if (cartResult.Ok)
                     {
-                        model.CustomerID = customerResult.Data.CustomerID;
+                        model.CustomerID = cartResult.Data.CustomerID;
                         model.ShoppingBagID = cartResult.Data.ShoppingBagID;
                         model.Items = cartResult.Data.Items;
                         model.Total = CalculateTotal.AddItems(cartResult.Data.Items);

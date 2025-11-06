@@ -1,10 +1,10 @@
-﻿using Cafe.Core.Entities;
+﻿using Cafe.Core.DTOs;
 
 namespace Portfolio.Utilities
 {
     public static class CalculateTotal
     {
-        public static decimal AddItems(List<ShoppingBagItem> items)
+        public static decimal AddItems(List<ShoppingBagItemResponse> items)
         {
             decimal total = 0;
 

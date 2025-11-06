@@ -37,7 +37,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> GetShoppingBag(int customerId)
         {
-            var result = await _shoppingBagService.APIGetShoppingBagAsync(customerId);
+            var result = await _shoppingBagService.GetShoppingBagByCustomerIdAsync(customerId);
 
             if (result.Ok)
             {
