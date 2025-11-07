@@ -30,6 +30,25 @@ namespace Cafe.Data.Repositories.EF
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
+        {
+            return await _dbContext.ShoppingBag
+                .Include(sb => sb.Items)
+                .FirstOrDefaultAsync(sb => sb.CustomerID == customerId);
+        }
+
+        public async Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
+        {
+            var itemToUpdate = await _dbContext.ShoppingBagItem
+                .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId);
+
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Quantity = quantity;
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
         public async Task ClearShoppingBag(int shoppingBagId)
         {
             var items = await _dbContext.ShoppingBagItem
@@ -38,13 +57,6 @@ namespace Cafe.Data.Repositories.EF
 
             _dbContext.ShoppingBagItem.RemoveRange(items);
             await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
-        {
-            return await _dbContext.ShoppingBag
-                .Include(sb => sb.Items)
-                .FirstOrDefaultAsync(sb => sb.CustomerID == customerId);
         }
 
         public async Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
@@ -61,18 +73,6 @@ namespace Cafe.Data.Repositories.EF
             if (itemToRemove != null)
             {
                 _dbContext.ShoppingBagItem.Remove(itemToRemove);
-                await _dbContext.SaveChangesAsync();
-            }
-        }
-
-        public async Task UpdateItemQuantityAsync(int shoppingBagId, int shoppingBagItemId, byte quantity)
-        {
-            var itemToUpdate = await _dbContext.ShoppingBagItem
-                .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId && sbi.ShoppingBagID == shoppingBagId);
-
-            if (itemToUpdate != null)
-            {
-                itemToUpdate.Quantity = quantity;
                 await _dbContext.SaveChangesAsync();
             }
         }

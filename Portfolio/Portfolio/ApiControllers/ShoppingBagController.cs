@@ -26,6 +26,30 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
+        /// Adds an item to a customer's shopping bag
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost("{customerId}/items")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItemRequest dto)
+        {
+            var result = await _shoppingBagService.AddItemToShoppingBagAsync(dto);
+
+            if (result.Ok)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+        /// <summary>
         /// Retrieves a customer's shopping bag and any items inside it
         /// </summary>
         /// <param name="customerId"></param>
@@ -54,18 +78,19 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Adds an item to a customer's shopping bag
+        /// Updates an item's quantity in customer's shopping bag
         /// </summary>
         /// <param name="customerId"></param>
+        /// <param name="shoppingBagItemId"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPost("{customerId}/items")]
+        [HttpPut("{customerId}/items/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItemRequest dto)
+        public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantityRequest dto)
         {
-            var result = await _shoppingBagService.AddItemToShoppingBagAsync(dto);
+            var result = await _shoppingBagService.UpdateItemQuantityAsync(shoppingBagItemId, dto.Quantity);
 
             if (result.Ok)
             {
@@ -90,31 +115,6 @@ namespace Portfolio.ApiControllers
         public async Task<IActionResult> RemoveItemFromBag(int customerId, int shoppingBagItemId)
         {
             var result = await _shoppingBagService.RemoveItemFromBagAsync(customerId, shoppingBagItemId);
-
-            if (result.Ok)
-            {
-                return Ok(result.Message);
-            }
-            else
-            {
-                return BadRequest(result.Message);
-            }
-        }
-
-        /// <summary>
-        /// Updates an item's quantity in customer's shopping bag
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="shoppingBagItemId"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut("{customerId}/items/{shoppingBagItemId}")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantityRequest dto)
-        {
-            var result = await _shoppingBagService.UpdateItemQuantityAsync(customerId, shoppingBagItemId, dto.Quantity);
 
             if (result.Ok)
             {

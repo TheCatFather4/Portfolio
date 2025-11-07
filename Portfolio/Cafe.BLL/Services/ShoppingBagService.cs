@@ -88,6 +88,20 @@ namespace Cafe.BLL.Services
             }
         }
 
+        public async Task<Result> UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
+        {
+            try
+            {
+                await _shoppingBagRepository.UpdateItemQuantityAsync(shoppingBagItemId, quantity);
+                return ResultFactory.Success("Item quantity successfully updated.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while attempting to update item quantity {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact our management team.");
+            }
+        }
+
         public async Task<Result> ClearShoppingBagAsync(int customerId)
         {
             var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
@@ -157,41 +171,6 @@ namespace Cafe.BLL.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while attempting to remove an item from the shopping bag: {ex.Message}");
-                return ResultFactory.Fail("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public async Task<Result> UpdateItemQuantityAsync(int customerId, int shoppingBagItemId, byte quantity)
-        {
-            if (quantity == 0)
-            {
-                return await RemoveItemFromBagAsync(customerId, shoppingBagItemId);
-            }
-
-            var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
-
-            if (shoppingBag == null)
-            {
-                _logger.LogError($"Shopping bag with Customer ID: {customerId} not found.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            var existingItem = shoppingBag.Items.FirstOrDefault(i => i.ShoppingBagItemID == shoppingBagItemId);
-
-            if (existingItem == null)
-            {
-                _logger.LogError("Item not found in shopping bag.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            try
-            {
-                await _shoppingBagRepository.UpdateItemQuantityAsync(shoppingBag.ShoppingBagID, shoppingBagItemId, quantity);
-                return ResultFactory.Success("Item quantity successfully updated.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred while attempting to update item quantity {ex.Message}");
                 return ResultFactory.Fail("An error occurred. Please contact our management team.");
             }
         }

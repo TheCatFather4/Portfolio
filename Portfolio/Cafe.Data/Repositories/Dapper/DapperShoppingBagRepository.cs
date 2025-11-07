@@ -65,22 +65,6 @@ namespace Cafe.Data.Repositories.Dapper
             }
         }
 
-        public async Task ClearShoppingBag(int shoppingBagId)
-        {
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"DELETE ShoppingBagItem 
-                            WHERE ShoppingBagID = @ShoppingBagID;";
-
-                var parameter = new
-                {
-                    ShoppingBagID = shoppingBagId
-                };
-
-                await cn.ExecuteAsync(sql, parameter);
-            }
-        }
-
         public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
         {
             ShoppingBag sb = new ShoppingBag();
@@ -105,6 +89,40 @@ namespace Cafe.Data.Repositories.Dapper
             }
 
             return sb;
+        }
+
+        public async Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"Update ShoppingBagItem SET 
+                            Quantity = @Quantity 
+                            WHERE ShoppingBagItemID = @ShoppingBagItemID;";
+
+                var parameters = new
+                {
+                    ShoppingBagItemID = shoppingBagItemId,
+                    Quantity = quantity
+                };
+
+                await cn.ExecuteAsync(sql, parameters);
+            }
+        }
+
+        public async Task ClearShoppingBag(int shoppingBagId)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"DELETE ShoppingBagItem 
+                            WHERE ShoppingBagID = @ShoppingBagID;";
+
+                var parameter = new
+                {
+                    ShoppingBagID = shoppingBagId
+                };
+
+                await cn.ExecuteAsync(sql, parameter);
+            }
         }
 
         public async Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
@@ -138,25 +156,6 @@ namespace Cafe.Data.Repositories.Dapper
                 {
                     ShoppingBagID = shoppingBagId,
                     ShoppingBagItemID = shoppingBagItemId,
-                };
-
-                await cn.ExecuteAsync(sql, parameters);
-            }
-        }
-
-        public async Task UpdateItemQuantityAsync(int shoppingBagId, int shoppingBagItemId, byte quantity)
-        {
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"Update ShoppingBagItem SET 
-                            Quantity = @Quantity 
-                            WHERE ShoppingBagItemID = @ShoppingBagItemID AND ShoppingBagID = @ShoppingBagID;";
-
-                var parameters = new
-                {
-                    ShoppingBagID = shoppingBagId,
-                    ShoppingBagItemID = shoppingBagItemId,
-                    Quantity = quantity
                 };
 
                 await cn.ExecuteAsync(sql, parameters);

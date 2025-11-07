@@ -168,7 +168,7 @@ namespace Portfolio.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var result = await _shoppingBagService.UpdateItemQuantityAsync(model.CustomerID, model.ShoppingBagItemID, (byte)model.Quantity);
+                    var result = await _shoppingBagService.UpdateItemQuantityAsync(model.ShoppingBagItemID, (byte)model.Quantity);
 
                     if (result.Ok)
                     {
