@@ -114,7 +114,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RemoveItemFromBag(int customerId, int shoppingBagItemId)
         {
-            var result = await _shoppingBagService.RemoveItemFromBagAsync(customerId, shoppingBagItemId);
+            var result = await _shoppingBagService.RemoveItemFromShoppingBagAsync(customerId, shoppingBagItemId);
 
             if (result.Ok)
             {

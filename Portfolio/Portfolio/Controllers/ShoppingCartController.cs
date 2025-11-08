@@ -194,7 +194,7 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var updateResult = await _shoppingBagService.RemoveItemFromBagAsync(model.CustomerID, model.ShoppingBagItemID);
+                var updateResult = await _shoppingBagService.RemoveItemFromShoppingBagAsync(model.CustomerID, model.ShoppingBagItemID);
 
                 if (updateResult.Ok)
                 {

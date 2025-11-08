@@ -88,6 +88,37 @@ namespace Cafe.BLL.Services
             }
         }
 
+        public async Task<Result> RemoveItemFromShoppingBagAsync(int customerId, int shoppingBagItemId)
+        {
+            var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
+
+            if (shoppingBag == null)
+            {
+                _logger.LogError("Shopping Bag not found.");
+                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+            }
+
+            var itemToRemove = shoppingBag.Items
+                .FirstOrDefault(i => i.ShoppingBagItemID == shoppingBagItemId);
+
+            if (itemToRemove == null)
+            {
+                _logger.LogError("Item to remove from bag not found.");
+                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+            }
+
+            try
+            {
+                await _shoppingBagRepository.RemoveItemFromShoppingBagAsync(itemToRemove);
+                return ResultFactory.Success("Item successfully removed from shopping bag.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while attempting to remove an item from the shopping bag: {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact our management team.");
+            }
+        }
+
         public async Task<Result> UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
         {
             try
@@ -142,36 +173,6 @@ namespace Cafe.BLL.Services
             {
                 _logger.LogError($"An unexpected error occurred when retrieving the shopping bag: {ex.Message}");
                 return ResultFactory.Fail<ShoppingBag>("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public async Task<Result> RemoveItemFromBagAsync(int customerId, int shoppingBagItemId)
-        {
-            var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
-
-            if (shoppingBag == null)
-            {
-                _logger.LogError("Shopping Bag not found.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            var itemToRemove = shoppingBag.Items.FirstOrDefault(i => i.ShoppingBagItemID == shoppingBagItemId);
-
-            if (itemToRemove == null)
-            {
-                _logger.LogError("Item to remove from bag not found.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            try
-            {
-                await _shoppingBagRepository.RemoveItemAsync(shoppingBag.ShoppingBagID, shoppingBagItemId);
-                return ResultFactory.Success("Item successfully removed from shopping bag.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred while attempting to remove an item from the shopping bag: {ex.Message}");
-                return ResultFactory.Fail("An error occurred. Please contact our management team.");
             }
         }
 

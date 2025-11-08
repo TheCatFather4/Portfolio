@@ -6,8 +6,8 @@ namespace Cafe.Core.Interfaces.Repositories
     {
         Task AddItemToShoppingBagAsync(ShoppingBagItem item);
         Task<ShoppingBag> GetShoppingBagAsync(int customerId);
+        Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item);
         Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity);
-        Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId);
         Task ClearShoppingBag(int shoppingBagId);
         Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId);
     }

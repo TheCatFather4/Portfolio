@@ -37,6 +37,12 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(sb => sb.CustomerID == customerId);
         }
 
+        public async Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
+        {
+            _dbContext.ShoppingBagItem.Remove(item);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
         {
             var itemToUpdate = await _dbContext.ShoppingBagItem
@@ -63,18 +69,6 @@ namespace Cafe.Data.Repositories.EF
         {
             return await _dbContext.ShoppingBagItem
                 .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId);
-        }
-
-        public async Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId)
-        {
-            var itemToRemove = await _dbContext.ShoppingBagItem
-                .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId && sbi.ShoppingBagID == shoppingBagId);
-
-            if (itemToRemove != null)
-            {
-                _dbContext.ShoppingBagItem.Remove(itemToRemove);
-                await _dbContext.SaveChangesAsync();
-            }
         }
     }
 }

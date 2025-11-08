@@ -91,6 +91,22 @@ namespace Cafe.Data.Repositories.Dapper
             return sb;
         }
 
+        public async Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"DELETE ShoppingBagItem 
+                            WHERE ShoppingBagItemID = @ShoppingBagItemID;";
+
+                var parameter = new
+                {
+                    item.ShoppingBagItemID
+                };
+
+                await cn.ExecuteAsync(sql, parameter);
+            }
+        }
+
         public async Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
         {
             using (var cn = new SqlConnection(_connectionString))
@@ -143,23 +159,6 @@ namespace Cafe.Data.Repositories.Dapper
             }
 
             return sbi;
-        }
-
-        public async Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId)
-        {
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"DELETE ShoppingBagItem 
-                            WHERE ShoppingBagID = @ShoppingBagID AND ShoppingBagItemID = @ShoppingBagItemID;";
-
-                var parameters = new
-                {
-                    ShoppingBagID = shoppingBagId,
-                    ShoppingBagItemID = shoppingBagItemId,
-                };
-
-                await cn.ExecuteAsync(sql, parameters);
-            }
         }
     }
 }
