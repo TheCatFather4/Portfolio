@@ -10,11 +10,13 @@ namespace Portfolio.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly IShoppingBagService _shoppingBagService;
         private readonly IMVCCustomerService _customerService;
 
-        public ShoppingCartController(IShoppingBagService shoppingBagService, IMVCCustomerService customerService)
+        public ShoppingCartController(IMenuRetrievalService menuRetrievalService, IShoppingBagService shoppingBagService, IMVCCustomerService customerService)
         {
+            _menuRetrievalService = menuRetrievalService;
             _shoppingBagService = shoppingBagService;
             _customerService = customerService;
         }
@@ -58,7 +60,7 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _shoppingBagService.GetItemWithPriceAsync(itemId);
+                var result = await _menuRetrievalService.GetItemByIdAsyncMVC(itemId);
 
                 if (result.Ok)
                 {
@@ -123,6 +125,63 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteItem(ItemUpdate model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var updateResult = await _shoppingBagService.RemoveItemFromShoppingBagAsync(model.CustomerID, model.ShoppingBagItemID);
+
+                if (updateResult.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess(updateResult.Message);
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(updateResult.Message);
+                }
+
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EmptyShoppingCart(int customerId)
+        {
+            var model = new EmptyCart
+            {
+                CustomerId = customerId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EmptyShoppingCart(EmptyCart model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _shoppingBagService.ClearShoppingBagAsync(model.CustomerId);
+
+                if (result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                }
+                else
+                {
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                }
+
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
+            return RedirectToAction("Login", "Account");
+        }
+
         [HttpGet]
         public async Task<IActionResult> UpdateItem(int shoppingBagItemId)
         {
@@ -180,63 +239,6 @@ namespace Portfolio.Controllers
                 }
 
                 return View(model);
-            }
-
-            return RedirectToAction("Login", "Account");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteItem(ItemUpdate model)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var updateResult = await _shoppingBagService.RemoveItemFromShoppingBagAsync(model.CustomerID, model.ShoppingBagItemID);
-
-                if (updateResult.Ok)
-                {
-                    TempData["Alert"] = Alert.CreateSuccess(updateResult.Message);
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError(updateResult.Message);
-                }
-
-                return RedirectToAction("Index", "ShoppingCart");
-            }
-
-            return RedirectToAction("Login", "Account");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EmptyShoppingCart(int customerId)
-        {
-            var model = new EmptyCart
-            {
-                CustomerId = customerId
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EmptyShoppingCart(EmptyCart model)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var result = await _shoppingBagService.ClearShoppingBagAsync(model.CustomerId);
-
-                if (result.Ok)
-                {
-                    TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                }
-                else
-                {
-                    TempData["Alert"] = Alert.CreateError(result.Message);
-                }
-
-                return RedirectToAction("Index", "ShoppingCart");
             }
 
             return RedirectToAction("Login", "Account");

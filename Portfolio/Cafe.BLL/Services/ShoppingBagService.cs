@@ -10,13 +10,11 @@ namespace Cafe.BLL.Services
     {
         private readonly ILogger _logger;
         private readonly IShoppingBagRepository _shoppingBagRepository;
-        private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
-        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository, IMenuRetrievalRepository menuRetrievalRepository)
+        public ShoppingBagService(ILogger<ShoppingBagService> logger, IShoppingBagRepository shoppingBagRepository)
         {
             _logger = logger;
             _shoppingBagRepository = shoppingBagRepository;
-            _menuRetrievalRepository = menuRetrievalRepository;
         }
 
         public async Task<Result> AddItemToShoppingBagAsync(AddItemRequest dto)
@@ -110,6 +108,19 @@ namespace Cafe.BLL.Services
             }
         }
 
+        public async Task<Result<ShoppingBagItem>> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
+        {
+            var item = await _shoppingBagRepository.GetShoppingBagItemByIdAsync(shoppingBagItemId);
+
+            if (item != null)
+            {
+                return ResultFactory.Success(item);
+            }
+
+            _logger.LogError($"An error occurred when attempting to retrieve a shopping bag item.");
+            return ResultFactory.Fail<ShoppingBagItem>("An error occurred. Please try again in a few minutes.");
+        }
+
         public async Task<Result> RemoveItemFromShoppingBagAsync(int customerId, int shoppingBagItemId)
         {
             var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
@@ -174,40 +185,6 @@ namespace Cafe.BLL.Services
                 _logger.LogError($"An unexpected error occurred when retrieving the shopping bag: {ex.Message}");
                 return ResultFactory.Fail<ShoppingBag>("An error occurred. Please contact our management team.");
             }
-        }
-
-        public async Task<Result<Item>> GetItemWithPriceAsync(int itemId)
-        {
-            try
-            {
-                var item = await _menuRetrievalRepository.GetItemByIdAsync(itemId);
-
-                if (item != null)
-                {
-                    return ResultFactory.Success(item);
-                }
-
-                _logger.LogError($"Item with id: {itemId} not found.");
-                return ResultFactory.Fail<Item>("An error occurred. Please try again in a few minutes.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred when attempting to retrieve an item: {ex.Message}");
-                return ResultFactory.Fail<Item>("An error occurred. Please contact our management team for assistance.");
-            }
-        }
-
-        public async Task<Result<ShoppingBagItem>> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
-        {
-            var item = await _shoppingBagRepository.GetShoppingBagItemByIdAsync(shoppingBagItemId);
-
-            if (item != null)
-            {
-                return ResultFactory.Success(item);
-            }
-
-            _logger.LogError($"An error occurred when attempting to retrieve a shopping bag item.");
-            return ResultFactory.Fail<ShoppingBagItem>("An error occurred. Please try again in a few minutes.");
         }
     }
 }
