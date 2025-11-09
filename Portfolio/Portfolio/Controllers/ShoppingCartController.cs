@@ -1,7 +1,6 @@
 ﻿using Cafe.Core.DTOs;
 using Cafe.Core.Interfaces.Services;
 using Cafe.Core.Interfaces.Services.MVC;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
@@ -11,13 +10,11 @@ namespace Portfolio.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly IShoppingBagService _shoppingBagService;
         private readonly IMVCCustomerService _customerService;
 
-        public ShoppingCartController(UserManager<IdentityUser> userManager, IShoppingBagService shoppingBagService, IMVCCustomerService customerService)
+        public ShoppingCartController(IShoppingBagService shoppingBagService, IMVCCustomerService customerService)
         {
-            _userManager = userManager;
             _shoppingBagService = shoppingBagService;
             _customerService = customerService;
         }

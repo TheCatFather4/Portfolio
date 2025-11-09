@@ -44,6 +44,28 @@ namespace Cafe.BLL.Services
             }
         }
 
+        public async Task<Result> ClearShoppingBagAsync(int customerId)
+        {
+            var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
+
+            if (shoppingBag == null)
+            {
+                _logger.LogError("Shopping Bag not found.");
+                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+            }
+
+            try
+            {
+                await _shoppingBagRepository.ClearShoppingBagAsync(shoppingBag.ShoppingBagID);
+                return ResultFactory.Success("Shopping bag successfully emptied.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred when attempting to clear the shopping bag: {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact our management team.");
+            }
+        }
+
         public async Task<Result<ShoppingBagResponse>> GetShoppingBagByCustomerIdAsync(int customerId)
         {
             try
@@ -129,28 +151,6 @@ namespace Cafe.BLL.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while attempting to update item quantity {ex.Message}");
-                return ResultFactory.Fail("An error occurred. Please contact our management team.");
-            }
-        }
-
-        public async Task<Result> ClearShoppingBagAsync(int customerId)
-        {
-            var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
-
-            if (shoppingBag == null)
-            {
-                _logger.LogError("Shopping Bag not found.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            try
-            {
-                await _shoppingBagRepository.ClearShoppingBag(shoppingBag.ShoppingBagID);
-                return ResultFactory.Success("Shopping bag successfully emptied.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred when attempting to clear the shopping bag: {ex.Message}");
                 return ResultFactory.Fail("An error occurred. Please contact our management team.");
             }
         }

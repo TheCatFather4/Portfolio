@@ -30,6 +30,16 @@ namespace Cafe.Data.Repositories.EF
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task ClearShoppingBagAsync(int shoppingBagId)
+        {
+            var items = await _dbContext.ShoppingBagItem
+                .Where(sbi => sbi.ShoppingBagID == shoppingBagId)
+                .ToListAsync();
+
+            _dbContext.ShoppingBagItem.RemoveRange(items);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
         {
             return await _dbContext.ShoppingBag
@@ -53,16 +63,6 @@ namespace Cafe.Data.Repositories.EF
                 itemToUpdate.Quantity = quantity;
                 await _dbContext.SaveChangesAsync();
             }
-        }
-
-        public async Task ClearShoppingBag(int shoppingBagId)
-        {
-            var items = await _dbContext.ShoppingBagItem
-                .Where(sbi => sbi.ShoppingBagID == shoppingBagId)
-                .ToListAsync();
-
-            _dbContext.ShoppingBagItem.RemoveRange(items);
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)

@@ -50,6 +50,29 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
+        /// Empties a customer's shopping bag
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        [HttpDelete("{customerId}")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> ClearShoppingBag(int customerId)
+        {
+            var result = await _shoppingBagService.ClearShoppingBagAsync(customerId);
+
+            if (result.Ok)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+        /// <summary>
         /// Retrieves a customer's shopping bag and any items inside it
         /// </summary>
         /// <param name="customerId"></param>
@@ -115,29 +138,6 @@ namespace Portfolio.ApiControllers
         public async Task<IActionResult> RemoveItemFromBag(int customerId, int shoppingBagItemId)
         {
             var result = await _shoppingBagService.RemoveItemFromShoppingBagAsync(customerId, shoppingBagItemId);
-
-            if (result.Ok)
-            {
-                return Ok(result.Message);
-            }
-            else
-            {
-                return BadRequest(result.Message);
-            }
-        }
-
-        /// <summary>
-        /// Empties a customer's shopping bag
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        [HttpDelete("{customerId}")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> ClearShoppingBag(int customerId)
-        {
-            var result = await _shoppingBagService.ClearShoppingBagAsync(customerId);
 
             if (result.Ok)
             {
