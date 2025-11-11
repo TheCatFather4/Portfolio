@@ -1,17 +1,17 @@
 ﻿using Cafe.Core.DTOs;
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
-using Cafe.Core.Interfaces.Services.MVC;
+using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Cafe.BLL.Services.MVC
+namespace Cafe.BLL.Services
 {
-    public class MVCCustomerService : IMVCCustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly ILogger _logger;
         private readonly ICustomerRepository _customerRepository;
 
-        public MVCCustomerService(ILogger<MVCCustomerService> logger, ICustomerRepository customerRepository)
+        public CustomerService(ILogger<CustomerService> logger, ICustomerRepository customerRepository)
         {
             _logger = logger;
             _customerRepository = customerRepository;
@@ -55,6 +55,64 @@ namespace Cafe.BLL.Services.MVC
             {
                 _logger.LogError($"An error occurred when checking for a duplicate email: {ex.Message}");
                 return ResultFactory.Fail<Customer>("An error occurred. Please contact our management team for assistance.");
+            }
+        }
+
+        public async Task<Result> Register(RegisterRequest dto, string identityId)
+        {
+            if (string.IsNullOrEmpty(identityId))
+            {
+                _logger.LogWarning("Identity key missing for new customer.");
+                return ResultFactory.Fail("An error occurred, please contact our customer service team.");
+            }
+
+            var customer = new Customer
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                Id = identityId
+            };
+
+            try
+            {
+                var customerId = await _customerRepository.AddCustomerAsync(customer);
+
+                if (customerId == 0)
+                {
+                    _logger.LogError($"Customer id returned with a value of: {customerId} ");
+                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+                }
+
+                var shoppingBag = new ShoppingBag
+                {
+                    CustomerID = customerId
+                };
+
+                var bagId = await _customerRepository.CreateShoppingBagAsync(shoppingBag);
+
+                if (bagId == 0)
+                {
+                    _logger.LogError($"Shopping bag id returned with a value of: {bagId}");
+                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+                }
+
+                customer.ShoppingBagID = bagId;
+
+                // If using Dapper database mode
+                if (customer.CustomerID == 0)
+                {
+                    customer.CustomerID = customerId;
+                }
+
+                await _customerRepository.UpdateCustomerAsync(customer);
+
+                return ResultFactory.Success("User registered successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred when registering a new user: {ex.Message}");
+                return ResultFactory.Fail("An error occurred. Please contact our customer assistance team.");
             }
         }
 

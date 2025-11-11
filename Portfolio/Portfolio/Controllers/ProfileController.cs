@@ -1,4 +1,4 @@
-﻿using Cafe.Core.Interfaces.Services.MVC;
+﻿using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
@@ -8,9 +8,9 @@ namespace Portfolio.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IMVCCustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public ProfileController(UserManager<IdentityUser> userManager, IMVCCustomerService customerService)
+        public ProfileController(UserManager<IdentityUser> userManager, ICustomerService customerService)
         {
             _userManager = userManager;
             _customerService = customerService;

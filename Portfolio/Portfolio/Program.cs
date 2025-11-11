@@ -41,10 +41,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<IdentityCafeContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IMenuRetrievalService>(provider =>
+builder.Services.AddScoped<ICustomerService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMenuRetrievalService();
+    return serviceFactory.CreateCustomerService();
 });
 
 builder.Services.AddScoped<IMenuManagerService>(provider =>
@@ -53,16 +53,22 @@ builder.Services.AddScoped<IMenuManagerService>(provider =>
     return serviceFactory.CreateMenuManagerService();
 });
 
-builder.Services.AddScoped<IServerManagerService>(provider =>
+builder.Services.AddScoped<IMenuRetrievalService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateServerManagerService();
+    return serviceFactory.CreateMenuRetrievalService();
 });
 
 builder.Services.AddScoped<ISalesReportService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreateSalesReportService();
+});
+
+builder.Services.AddScoped<IServerManagerService>(provider =>
+{
+    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
+    return serviceFactory.CreateServerManagerService();
 });
 
 builder.Services.AddScoped<IShoppingBagService>(provider =>
@@ -77,12 +83,6 @@ builder.Services.AddScoped<IOrderService>(provider =>
     return serviceFactory.CreateOrderService();
 });
 
-builder.Services.AddScoped<ICustomerService>(provider =>
-{
-    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateCustomerService();
-});
-
 builder.Services.AddScoped<IJwtService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
@@ -93,12 +93,6 @@ builder.Services.AddScoped<IPaymentService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreatePaymentService();
-});
-
-builder.Services.AddScoped<IMVCCustomerService>(provider =>
-{
-    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMVCCustomerService();
 });
 
 builder.Services.AddScoped<IMVOrderService>(provider =>

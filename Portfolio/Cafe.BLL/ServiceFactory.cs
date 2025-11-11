@@ -25,6 +25,24 @@ namespace Cafe.BLL
             _jwtConfig = jwtConfig;
         }
 
+        public ICustomerService CreateCustomerService()
+        {
+            var logger = _loggerFactory.CreateLogger<CustomerService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new CustomerService(
+                    logger,
+                    new EFCustomerRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new CustomerService(
+                    logger,
+                    new DapperCustomerRepository(_config.GetConnectionString()));
+            }
+        }
+
         public IMenuManagerService CreateMenuManagerService()
         {
             var logger = _loggerFactory.CreateLogger<MenuManagerService>();
@@ -63,24 +81,6 @@ namespace Cafe.BLL
             }
         }
 
-        public IServerManagerService CreateServerManagerService()
-        {
-            var logger = _loggerFactory.CreateLogger<ServerManagerService>();
-
-            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
-            {
-                return new ServerManagerService(
-                    logger,
-                    new EFServerManagerRepository(_config.GetConnectionString()));
-            }
-            else
-            {
-                return new ServerManagerService(
-                    logger,
-                    new DapperServerManagerRepository(_config.GetConnectionString()));
-            }
-        }
-
         public ISalesReportService CreateSalesReportService()
         {
             var logger = _loggerFactory.CreateLogger<SalesReportService>();
@@ -101,6 +101,24 @@ namespace Cafe.BLL
             }
         }
 
+        public IServerManagerService CreateServerManagerService()
+        {
+            var logger = _loggerFactory.CreateLogger<ServerManagerService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new ServerManagerService(
+                    logger,
+                    new EFServerManagerRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new ServerManagerService(
+                    logger,
+                    new DapperServerManagerRepository(_config.GetConnectionString()));
+            }
+        }
+
         public IShoppingBagService CreateShoppingBagService()
         {
             var logger = _loggerFactory.CreateLogger<ShoppingBagService>();
@@ -109,15 +127,13 @@ namespace Cafe.BLL
             {
                 return new ShoppingBagService(
                     logger,
-                    new EFShoppingBagRepository(_config.GetConnectionString()),
-                    new EFMenuRetrievalRepository(_config.GetConnectionString()));
+                    new EFShoppingBagRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new ShoppingBagService(
                     logger,
-                    new DapperShoppingBagRepository(_config.GetConnectionString()),
-                    new DapperMenuRetrievalRepository(_config.GetConnectionString()));
+                    new DapperShoppingBagRepository(_config.GetConnectionString()));
             }
         }
 
@@ -126,51 +142,26 @@ namespace Cafe.BLL
             var logger = _loggerFactory.CreateLogger<APIOrderService>();
 
             return new APIOrderService(
-                new EFOrderRepository(_config.GetConnectionString()), 
-                CreateShoppingBagService(), 
-                CreateMenuRetrievalService(), 
+                new EFOrderRepository(_config.GetConnectionString()),
+                CreateShoppingBagService(),
+                CreateMenuRetrievalService(),
                 logger);
         }
 
-        public ICustomerService CreateCustomerService()
-        {
-            var logger = _loggerFactory.CreateLogger<APICustomerService>();
-
-            return new APICustomerService(
-                new EFCustomerRepository(_config.GetConnectionString()), 
-                logger);
-        }
-
+        // API
         public IJwtService CreateJwtService()
         {
             return new APIJwtService(_jwtConfig);
         }
 
+        // API
         public IPaymentService CreatePaymentService()
         {
             var logger = _loggerFactory.CreateLogger<APIPaymentService>();
 
             return new APIPaymentService(
-                new EFPaymentRepository(_config.GetConnectionString()), 
+                new EFPaymentRepository(_config.GetConnectionString()),
                 logger);
-        }
-
-        public IMVCCustomerService CreateMVCCustomerService()
-        {
-            var logger = _loggerFactory.CreateLogger<MVCCustomerService>();
-
-            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
-            {
-                return new MVCCustomerService(
-                    logger,
-                    new EFCustomerRepository(_config.GetConnectionString()));
-            }
-            else
-            {
-                return new MVCCustomerService(
-                    logger,
-                    new DapperCustomerRepository(_config.GetConnectionString()));
-            }
         }
 
         public IMVOrderService CreateMVCOrderService()

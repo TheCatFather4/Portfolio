@@ -1,4 +1,4 @@
-﻿using Cafe.Core.Interfaces.Services.MVC;
+﻿using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
@@ -10,9 +10,9 @@ namespace Portfolio.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IMVCCustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMVCCustomerService customerService)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICustomerService customerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;

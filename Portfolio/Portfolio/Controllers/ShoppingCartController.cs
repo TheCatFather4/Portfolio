@@ -1,6 +1,5 @@
 ﻿using Cafe.Core.DTOs;
 using Cafe.Core.Interfaces.Services;
-using Cafe.Core.Interfaces.Services.MVC;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
@@ -10,15 +9,15 @@ namespace Portfolio.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        private readonly ICustomerService _customerService;
         private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly IShoppingBagService _shoppingBagService;
-        private readonly IMVCCustomerService _customerService;
 
-        public ShoppingCartController(IMenuRetrievalService menuRetrievalService, IShoppingBagService shoppingBagService, IMVCCustomerService customerService)
+        public ShoppingCartController(ICustomerService customerService, IMenuRetrievalService menuRetrievalService, IShoppingBagService shoppingBagService)
         {
+            _customerService = customerService;
             _menuRetrievalService = menuRetrievalService;
             _shoppingBagService = shoppingBagService;
-            _customerService = customerService;
         }
 
         [HttpGet]
