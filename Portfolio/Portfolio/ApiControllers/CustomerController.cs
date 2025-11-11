@@ -41,20 +41,33 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest dto)
+        public async Task<IActionResult> Register([FromBody] AddCustomerRequest dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new IdentityUser { UserName = dto.Email, Email = dto.Email };
+            var duplicateEmail = await _customerService.GetDuplicateEmailAsync(dto.Email);
+
+            if (!duplicateEmail.Ok)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new IdentityUser
+            {
+                UserName = dto.Email,
+                Email = dto.Email
+            };
 
             var result = await _userManager.CreateAsync(user, dto.Password);
 
             if (result.Succeeded)
             {
-                var newCustomerResult = await _customerService.Register(dto, user.Id);
+                dto.IdentityId = user.Id;
+
+                var newCustomerResult = await _customerService.AddCustomerAsync(dto);
 
                 if (newCustomerResult.Ok)
                 {

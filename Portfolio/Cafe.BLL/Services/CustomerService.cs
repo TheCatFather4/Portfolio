@@ -17,6 +17,49 @@ namespace Cafe.BLL.Services
             _customerRepository = customerRepository;
         }
 
+        public async Task<Result> AddCustomerAsync(AddCustomerRequest dto)
+        {
+            var customer = new Customer
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                Id = dto.IdentityId
+            };
+
+            var customerId = await _customerRepository.AddCustomerAsync(customer);
+
+            if (customerId == 0)
+            {
+                _logger.LogError($"Customer Id returned with a value of: {customerId} ");
+                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+            }
+
+            // If using Dapper database mode
+            if (customer.CustomerID == 0)
+            {
+                customer.CustomerID = customerId;
+            }
+
+            var shoppingBag = new ShoppingBag
+            {
+                CustomerID = customerId
+            };
+
+            var shoppingBagId = await _customerRepository.CreateShoppingBagAsync(shoppingBag);
+
+            if (shoppingBagId == 0)
+            {
+                _logger.LogError($"Shopping Bag Id returned with a value of: {shoppingBagId}");
+                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+            }
+
+            customer.ShoppingBagID = shoppingBagId;
+
+            await _customerRepository.UpdateCustomerAsync(customer);
+            return ResultFactory.Success("New customer successfully registered!");
+        }
+
         public async Task<Result<Customer>> GetCustomerByEmailAsync(string identityId)
         {
             try
@@ -55,122 +98,6 @@ namespace Cafe.BLL.Services
             {
                 _logger.LogError($"An error occurred when checking for a duplicate email: {ex.Message}");
                 return ResultFactory.Fail<Customer>("An error occurred. Please contact our management team for assistance.");
-            }
-        }
-
-        public async Task<Result> Register(RegisterRequest dto, string identityId)
-        {
-            if (string.IsNullOrEmpty(identityId))
-            {
-                _logger.LogWarning("Identity key missing for new customer.");
-                return ResultFactory.Fail("An error occurred, please contact our customer service team.");
-            }
-
-            var customer = new Customer
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Email = dto.Email,
-                Id = identityId
-            };
-
-            try
-            {
-                var customerId = await _customerRepository.AddCustomerAsync(customer);
-
-                if (customerId == 0)
-                {
-                    _logger.LogError($"Customer id returned with a value of: {customerId} ");
-                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-                }
-
-                var shoppingBag = new ShoppingBag
-                {
-                    CustomerID = customerId
-                };
-
-                var bagId = await _customerRepository.CreateShoppingBagAsync(shoppingBag);
-
-                if (bagId == 0)
-                {
-                    _logger.LogError($"Shopping bag id returned with a value of: {bagId}");
-                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-                }
-
-                customer.ShoppingBagID = bagId;
-
-                // If using Dapper database mode
-                if (customer.CustomerID == 0)
-                {
-                    customer.CustomerID = customerId;
-                }
-
-                await _customerRepository.UpdateCustomerAsync(customer);
-
-                return ResultFactory.Success("User registered successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred when registering a new user: {ex.Message}");
-                return ResultFactory.Fail("An error occurred. Please contact our customer assistance team.");
-            }
-        }
-
-        public async Task<Result> RegisterCustomerAsync(string email, string identityId)
-        {
-            if (string.IsNullOrEmpty(identityId))
-            {
-                _logger.LogError("Customer registration failed.");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-            }
-
-            var customer = new Customer
-            {
-                FirstName = "New",
-                LastName = "Customer",
-                Email = email,
-                Id = identityId
-            };
-
-            try
-            {
-                var customerId = await _customerRepository.AddCustomerAsync(customer);
-
-                if (customerId == 0)
-                {
-                    _logger.LogError($"Customer id returned with a value of: {customerId} ");
-                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-                }
-
-                var shoppingBag = new ShoppingBag
-                {
-                    CustomerID = customerId
-                };
-
-                var bagId = await _customerRepository.CreateShoppingBagAsync(shoppingBag);
-
-                if (bagId == 0)
-                {
-                    _logger.LogError($"Shopping bag id returned with a value of: {bagId}");
-                    return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
-                }
-
-                customer.ShoppingBagID = bagId;
-
-                // If using Dapper database mode
-                if (customer.CustomerID == 0)
-                {
-                    customer.CustomerID = customerId;
-                }
-
-                await _customerRepository.UpdateCustomerAsync(customer);
-
-                return ResultFactory.Success("New customer successfully created!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error ocurred when registering a customer: {ex.Message}");
-                return ResultFactory.Fail("An error occurred. Please contact our management team.");
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Cafe.Core.Interfaces.Services;
+﻿using Cafe.Core.DTOs;
+using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
@@ -38,13 +39,26 @@ namespace Portfolio.Controllers
                     return View(model);
                 }
 
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new IdentityUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    var customerResult = await _customerService.RegisterCustomerAsync(model.Email, user.Id);
+                    var dto = new AddCustomerRequest
+                    {
+                        FirstName = "New",
+                        LastName = "Customer",
+                        Email = model.Email,
+                        Password = model.Password,
+                        IdentityId = user.Id
+                    };
+
+                    var customerResult = await _customerService.AddCustomerAsync(dto);
 
                     if (customerResult.Ok)
                     {
@@ -62,6 +76,7 @@ namespace Portfolio.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
             return View(model);
         }
 
