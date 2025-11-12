@@ -33,13 +33,15 @@ namespace Cafe.BLL
             {
                 return new CustomerService(
                     logger,
-                    new EFCustomerRepository(_config.GetConnectionString()));
+                    new EFCustomerRepository(_config.GetConnectionString()),
+                    new EFShoppingBagRepository(_config.GetConnectionString()));
             }
             else
             {
                 return new CustomerService(
                     logger,
-                    new DapperCustomerRepository(_config.GetConnectionString()));
+                    new DapperCustomerRepository(_config.GetConnectionString()),
+                    new DapperShoppingBagRepository(_config.GetConnectionString()));
             }
         }
 

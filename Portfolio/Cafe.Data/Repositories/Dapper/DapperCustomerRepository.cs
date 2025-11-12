@@ -39,27 +39,6 @@ namespace Cafe.Data.Repositories.Dapper
             return id;
         }
 
-        public async Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
-        {
-            int id = 0;
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"INSERT INTO ShoppingBag (CustomerID) 
-                            VALUES (@CustomerID);
-                            SELECT SCOPE_IDENTITY();";
-
-                var parameter = new
-                {
-                    shoppingBag.CustomerID
-                };
-
-                id = await cn.ExecuteScalarAsync<int>(sql, parameter);
-            }
-
-            return id;
-        }
-
         public async Task<Customer> GetCustomerByEmailAsync(string email)
         {
             Customer customer = new Customer();

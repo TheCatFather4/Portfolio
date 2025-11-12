@@ -10,11 +10,13 @@ namespace Cafe.BLL.Services
     {
         private readonly ILogger _logger;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IShoppingBagRepository _shoppingBagRepository;
 
-        public CustomerService(ILogger<CustomerService> logger, ICustomerRepository customerRepository)
+        public CustomerService(ILogger<CustomerService> logger, ICustomerRepository customerRepository, IShoppingBagRepository shoppingBagRepository)
         {
             _logger = logger;
             _customerRepository = customerRepository;
+            _shoppingBagRepository = shoppingBagRepository;
         }
 
         public async Task<Result> AddCustomerAsync(AddCustomerRequest dto)
@@ -46,7 +48,7 @@ namespace Cafe.BLL.Services
                 CustomerID = customerId
             };
 
-            var shoppingBagId = await _customerRepository.CreateShoppingBagAsync(shoppingBag);
+            var shoppingBagId = await _shoppingBagRepository.CreateShoppingBagAsync(shoppingBag);
 
             if (shoppingBagId == 0)
             {

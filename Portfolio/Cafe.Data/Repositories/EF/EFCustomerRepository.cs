@@ -21,14 +21,6 @@ namespace Cafe.Data.Repositories.EF
             return customer.CustomerID;
         }
 
-        public async Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
-        {
-            _dbContext.ShoppingBag.Add(shoppingBag);
-            await _dbContext.SaveChangesAsync();
-
-            return shoppingBag.ShoppingBagID;
-        }
-
         public async Task<Customer> GetCustomerByEmailAsync(string email)
         {
             return await _dbContext.Customer

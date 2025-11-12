@@ -40,6 +40,14 @@ namespace Cafe.Data.Repositories.EF
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
+        {
+            _dbContext.ShoppingBag.Add(shoppingBag);
+            await _dbContext.SaveChangesAsync();
+
+            return shoppingBag.ShoppingBagID;
+        }
+
         public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
         {
             return await _dbContext.ShoppingBag
