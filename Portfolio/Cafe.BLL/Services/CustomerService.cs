@@ -62,15 +62,15 @@ namespace Cafe.BLL.Services
             return ResultFactory.Success("New customer successfully registered!");
         }
 
-        public async Task<Result<Customer>> GetCustomerByEmailAsync(string identityId)
+        public async Task<Result<Customer>> GetCustomerByEmailAsync(string email)
         {
             try
             {
-                var customer = await _customerRepository.GetCustomerByEmailAsync(identityId);
+                var customer = await _customerRepository.GetCustomerByEmailAsync(email);
 
                 if (customer == null)
                 {
-                    _logger.LogError($"Customer not found with email: {identityId}");
+                    _logger.LogError($"Customer not found with email: {email}");
                     return ResultFactory.Fail<Customer>("An error occurred. Please try again in a few minutes.");
                 }
 
@@ -103,11 +103,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public async Task<Result> UpdateCustomerAsync(Customer entity)
+        public async Task<Result> UpdateCustomerAsync(Customer customer)
         {
             try
             {
-                await _customerRepository.UpdateCustomerAsync(entity);
+                await _customerRepository.UpdateCustomerAsync(customer);
                 return ResultFactory.Success("Your customer information is successfully updated!");
             }
             catch (Exception ex)

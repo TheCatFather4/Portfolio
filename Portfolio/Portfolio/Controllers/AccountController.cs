@@ -80,14 +80,6 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            TempData["Alert"] = Alert.CreateSuccess("You have successfully logged out.");
-            return RedirectToAction("Cafe", "Home");
-        }
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -110,6 +102,66 @@ namespace Portfolio.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            TempData["Alert"] = Alert.CreateSuccess("You have successfully logged out.");
+            return RedirectToAction("Cafe", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var model = new CustomerProfile();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _customerService.GetCustomerByEmailAsync(User.Identity.Name);
+
+                if (result.Ok)
+                {
+                    model.CustomerID = result.Data.CustomerID;
+                    model.FirstName = result.Data.FirstName;
+                    model.LastName = result.Data.LastName;
+                    model.Email = result.Data.Email;
+                    model.Id = result.Data.Id;
+                    model.ShoppingBagId = result.Data.ShoppingBagID;
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(CustomerProfile model)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (ModelState.IsValid)
+                {
+                    var entity = model.ToEntity();
+
+                    var result = await _customerService.UpdateCustomerAsync(entity);
+
+                    if (result.Ok)
+                    {
+                        TempData["Alert"] = Alert.CreateSuccess(result.Message);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["Alert"] = Alert.CreateError("Unable to update your customer data. Please contact the administrator at 1-800-123-4567 for assistance.");
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                return View(model);
+            }
+
+            return RedirectToAction("login", "Account");
         }
 
         public IActionResult AccessDenied()

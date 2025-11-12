@@ -16,7 +16,7 @@
         <p>Update your customer information on this page</p>
     </div>
     <div class="row">
-        <form asp-controller="Profile" asp-action="Index" method="post" class="border border-info border-5 rounded p-3 bg-primary">
+        <form asp-controller="Account" asp-action="Profile" method="post" class="border border-info border-5 rounded p-3 bg-primary">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="CustomerID" />
             <div class="form-floating mb-3">
