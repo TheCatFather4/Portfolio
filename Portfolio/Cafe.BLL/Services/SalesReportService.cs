@@ -62,7 +62,7 @@ namespace Cafe.BLL.Services
                     }
 
                     // 9. Get sold order items
-                    var soldOrderItems = _orderRepository.GetOrderItemsByItemPriceId((int)itemPrice.ItemPriceID);
+                    var soldOrderItems = await _orderRepository.GetOrderItemsByItemPriceIdAsync((int)itemPrice.ItemPriceID);
 
                     // 10. If ok, continue
                     if (soldOrderItems.Count() == 0)
@@ -131,7 +131,7 @@ namespace Cafe.BLL.Services
                     return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator");
                 }
 
-                var orderItems = _orderRepository.GetOrderItemsByItemPriceId((int)itemPrice.ItemPriceID);
+                var orderItems = await _orderRepository.GetOrderItemsByItemPriceIdAsync((int)itemPrice.ItemPriceID);
 
                 if (orderItems.Count() == 0)
                 {

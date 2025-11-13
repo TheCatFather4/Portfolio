@@ -141,13 +141,24 @@ namespace Cafe.BLL
 
         public IOrderService CreateOrderService()
         {
-            var logger = _loggerFactory.CreateLogger<APIOrderService>();
+            var logger = _loggerFactory.CreateLogger<OrderService>();
 
-            return new APIOrderService(
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new OrderService(
                 new EFOrderRepository(_config.GetConnectionString()),
                 CreateShoppingBagService(),
                 CreateMenuRetrievalService(),
                 logger);
+            }
+            else
+            {
+                return new OrderService(
+                    new DapperOrderRepository(_config.GetConnectionString()),
+                    CreateShoppingBagService(),
+                    CreateMenuRetrievalService(),
+                    logger);
+            }
         }
 
         // API

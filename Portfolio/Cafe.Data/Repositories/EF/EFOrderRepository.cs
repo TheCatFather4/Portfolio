@@ -41,12 +41,12 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(co => co.OrderID == orderId);
         }
 
-        public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
+        public async Task<List<OrderItem>> GetOrderItemsByItemPriceIdAsync(int itemPriceId)
         {
-            return _dbContext.OrderItem
+            return await _dbContext.OrderItem
                 .Include(co => co.CafeOrder)
                 .Where(co => co.CafeOrder.PaymentStatusID == 1 && co.ItemPriceID == itemPriceId)
-                .ToList();
+                .ToListAsync();
         }
 
         public async Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)

@@ -70,7 +70,8 @@ namespace Cafe.Data.Repositories.Dapper
             {
                 var sql = "SELECT * FROM CafeOrder;";
 
-                orders = (await cn.QueryAsync<CafeOrder>(sql)).ToList();
+                orders = (await cn.QueryAsync<CafeOrder>(sql))
+                    .ToList();
             }
 
             return orders;
@@ -95,15 +96,16 @@ namespace Cafe.Data.Repositories.Dapper
                 var itemsSql = @"SELECT * FROM OrderItem 
                                 WHERE OrderID = @OrderID";
 
-                order.OrderItems = cn.Query<OrderItem>(itemsSql, orderParameter).ToList();
+                order.OrderItems = (await cn.QueryAsync<OrderItem>(itemsSql, orderParameter))
+                    .ToList();
             }
 
             return order;
         }
 
-        public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
+        public async Task<List<OrderItem>> GetOrderItemsByItemPriceIdAsync(int itemPriceId)
         {
-            List<OrderItem> orderItems = new List<OrderItem>();
+            var orderItems = new List<OrderItem>();
 
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -116,7 +118,7 @@ namespace Cafe.Data.Repositories.Dapper
                     ItemPriceID = itemPriceId
                 };
 
-                orderItems = cn.Query<OrderItem, CafeOrder, OrderItem>(
+                orderItems = (await cn.QueryAsync<OrderItem, CafeOrder, OrderItem>(
                     sql,
                     (orderItem, cafeOrder) =>
                     {
@@ -124,7 +126,7 @@ namespace Cafe.Data.Repositories.Dapper
                         return orderItem;
                     },
                     parameter,
-                    splitOn: "OrderID")
+                    splitOn: "OrderID"))
                     .ToList();
             }
 
@@ -133,7 +135,7 @@ namespace Cafe.Data.Repositories.Dapper
 
         public async Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)
         {
-            List<CafeOrder> orders = new List<CafeOrder>();
+            var orders = new List<CafeOrder>();
 
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -145,7 +147,8 @@ namespace Cafe.Data.Repositories.Dapper
                     CustomerID = customerId
                 };
 
-                orders = cn.Query<CafeOrder>(sql, parameter).ToList();
+                orders = (await cn.QueryAsync<CafeOrder>(sql, parameter))
+                    .ToList();
 
                 var itemSql = @"SELECT * FROM OrderItem
                                 WHERE OrderID = @OrderID;";
@@ -157,7 +160,8 @@ namespace Cafe.Data.Repositories.Dapper
                         order.OrderID,
                     };
 
-                    order.OrderItems = cn.Query<OrderItem>(itemSql, itemParameter).ToList();
+                    order.OrderItems = (await cn.QueryAsync<OrderItem>(itemSql, itemParameter))
+                        .ToList();
                 }
             }
 

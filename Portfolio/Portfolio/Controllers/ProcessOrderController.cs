@@ -1,4 +1,5 @@
-﻿using Cafe.Core.Interfaces.Services.MVC;
+﻿using Cafe.Core.Interfaces.Services;
+using Cafe.Core.Interfaces.Services.MVC;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
@@ -7,10 +8,12 @@ namespace Portfolio.Controllers
 {
     public class ProcessOrderController : Controller
     {
-        private readonly IMVOrderService _orderService;
+        private readonly IMVOrderService _mvOrderService;
+        private readonly IOrderService _orderService;
 
-        public ProcessOrderController(IMVOrderService orderService)
+        public ProcessOrderController(IMVOrderService mvOrderService, IOrderService orderService)
         {
+            _mvOrderService = mvOrderService;
             _orderService = orderService;
         }
 
@@ -39,7 +42,7 @@ namespace Portfolio.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var result = await _orderService.CreateNewOrderAsync(model.CustomerId, model.PaymentTypeId, (decimal)model.Tip);
+                    var result = await _mvOrderService.CreateNewOrderAsync(model.CustomerId, model.PaymentTypeId, (decimal)model.Tip);
 
                     if (result.Ok)
                     {
@@ -75,7 +78,7 @@ namespace Portfolio.Controllers
                     var model = result.Data.Select(o => new OrderDetails
                     {
                         OrderId = o.OrderID,
-                        PaymentStatusId = o.PaymentStatusID,
+                        PaymentStatusId = (byte?)o.PaymentStatusID,
                         OrderDate = o.OrderDate,
                         SubTotal = o.SubTotal,
                         Tax = o.Tax,
@@ -104,14 +107,14 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _orderService.GetOrderByIdAsync(orderId);
+                var result = await _orderService.GetOrderDetailsAsync(orderId);
 
                 if (result.Ok)
                 {
                     var model = new OrderDetails
                     {
                         OrderId = result.Data.OrderID,
-                        PaymentStatusId = result.Data.PaymentStatusID,
+                        PaymentStatusId = (byte?)result.Data.PaymentStatusID,
                         OrderDate = result.Data.OrderDate,
                         SubTotal = result.Data.SubTotal,
                         Tax = result.Data.Tax,

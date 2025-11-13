@@ -15,17 +15,15 @@ namespace Portfolio.ApiControllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        private readonly ILogger<OrderController> _logger;
 
         /// <summary>
-        /// Injects an order service and a logger
+        /// Injects an order service
         /// </summary>
         /// <param name="orderService"></param>
         /// <param name="logger"></param>
-        public OrderController(IOrderService orderService, ILogger<OrderController> logger)
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -41,21 +39,17 @@ namespace Portfolio.ApiControllers
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogWarning("Invalid model state for CreateOrder request.");
                 return BadRequest(ModelState);
             }
 
-            _logger.LogInformation($"Attempting to create order for Customer ID: {request.CustomerId}");
             var result = await _orderService.CreateOrderAsync(request.CustomerId, request.PaymentTypeId, request.Tip);
 
             if (result.Ok)
             {
-                _logger.LogInformation($"Order {result.Data?.OrderID} created successfully for customer {request.CustomerId}");
                 return Created(string.Empty, result.Data);
             }
             else
             {
-                _logger.LogError($"Failed to create order for customer {request.CustomerId}: {result.Message}");
                 return BadRequest(result.Message);
             }
         }
@@ -71,7 +65,6 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetOrderDetails(int orderId)
         {
-            _logger.LogInformation($"Attempting to retrieve details for order ID: {orderId}");
             var result = await _orderService.GetOrderDetailsAsync(orderId);
 
             if (result.Ok && result.Data != null)
@@ -80,7 +73,6 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                _logger.LogWarning($"Order with ID {orderId} not found or an error occurred: {result.Message}");
                 return NotFound(result.Message);
             }
         }
@@ -96,8 +88,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetOrderHistory(int customerId)
         {
-            _logger.LogInformation($"Attempting to retrieve orders for customer ID: {customerId}");
-            var result = await _orderService.GetOrdersAsync(customerId);
+            var result = await _orderService.GetOrderHistoryAsync(customerId);
 
             if (result.Ok)
             {
@@ -105,7 +96,6 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                _logger.LogWarning($"No orders found for customer ID {customerId} or an error occurred: {result.Message}");
                 return BadRequest(result.Message);
             }
         }
