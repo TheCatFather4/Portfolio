@@ -6,6 +6,6 @@ namespace Cafe.Core.Interfaces.Services
     {
         Task<Result<ItemCategoryFilter>> FilterItemsByCategoryIdAsync(int categoryId);
         Task<Result<ItemCategoryFilter>> FilterItemsByItemIdAsync(int itemId);
-        Result<OrderFilter> FilterOrdersByDate(DateTime date);
+        Task<Result<OrderFilter>> FilterOrdersByDateAsync(DateTime date);
     }
 }

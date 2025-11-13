@@ -62,15 +62,15 @@ namespace Cafe.Data.Repositories.Dapper
             return order;
         }
 
-        public List<CafeOrder> GetAllOrders()
+        public async Task<List<CafeOrder>> GetAllOrdersAsync()
         {
-            List<CafeOrder> orders = new List<CafeOrder>();
+            var orders = new List<CafeOrder>();
 
             using (var cn = new SqlConnection(_connectionString))
             {
                 var sql = "SELECT * FROM CafeOrder;";
 
-                orders = cn.Query<CafeOrder>(sql).ToList();
+                orders = (await cn.QueryAsync<CafeOrder>(sql)).ToList();
             }
 
             return orders;

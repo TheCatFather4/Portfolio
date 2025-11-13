@@ -127,11 +127,11 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult OrderSales(OrderForm model)
+        public async Task<IActionResult> OrderSales(OrderForm model)
         {
             if (model.OrderDate != null)
             {
-                var result = _salesReportService.FilterOrdersByDate((DateTime)model.OrderDate);
+                var result = await _salesReportService.FilterOrdersByDateAsync((DateTime)model.OrderDate);
 
                 if (result.Ok)
                 {

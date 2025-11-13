@@ -168,13 +168,13 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result<OrderFilter> FilterOrdersByDate(DateTime date)
+        public async Task<Result<OrderFilter>> FilterOrdersByDateAsync(DateTime date)
         {
             try
             {
                 decimal revenue = 0.00M;
 
-                var orders = _orderRepository.GetAllOrders();
+                var orders = await _orderRepository.GetAllOrdersAsync();
 
                 if (orders.Count() == 0)
                 {
