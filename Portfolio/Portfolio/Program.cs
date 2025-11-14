@@ -59,6 +59,12 @@ builder.Services.AddScoped<IMenuRetrievalService>(provider =>
     return serviceFactory.CreateMenuRetrievalService();
 });
 
+builder.Services.AddScoped<IOrderService>(provider =>
+{
+    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
+    return serviceFactory.CreateOrderService();
+});
+
 builder.Services.AddScoped<ISalesReportService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
@@ -77,28 +83,16 @@ builder.Services.AddScoped<IShoppingBagService>(provider =>
     return serviceFactory.CreateShoppingBagService();
 });
 
-builder.Services.AddScoped<IOrderService>(provider =>
+builder.Services.AddScoped<IWebTokenService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateOrderService();
-});
-
-builder.Services.AddScoped<IJwtService>(provider =>
-{
-    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateJwtService();
+    return serviceFactory.CreateWebTokenService();
 });
 
 builder.Services.AddScoped<IPaymentService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreatePaymentService();
-});
-
-builder.Services.AddScoped<IMVOrderService>(provider =>
-{
-    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMVCOrderService();
 });
 
 builder.Services.AddScoped<IMVPaymentService>(provider =>

@@ -167,27 +167,6 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public async Task<Result<ItemPrice>> GetItemPriceByItemIdAsync(int itemId)
-        {
-            try
-            {
-                var itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(itemId);
-
-                if (itemPrice == null)
-                {
-                    _logger.LogError($"Item price not found for Item ID: {itemId}. Check the database connection.");
-                    return ResultFactory.Fail<ItemPrice>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(itemPrice);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred: {ex.Message}");
-                return ResultFactory.Fail<ItemPrice>("An error occurred. Please contact our management team.");
-            }
-        }
-
         public Result<List<Item>> GetItemsByCategoryId(int categoryId)
         {
             try

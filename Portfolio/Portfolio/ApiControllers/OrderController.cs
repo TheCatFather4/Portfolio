@@ -20,7 +20,6 @@ namespace Portfolio.ApiControllers
         /// Injects an order service
         /// </summary>
         /// <param name="orderService"></param>
-        /// <param name="logger"></param>
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
@@ -29,20 +28,20 @@ namespace Portfolio.ApiControllers
         /// <summary>
         /// Creates a new order for a customer. Items are removed from the shopping bag and moved to the order.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateOrder([FromBody] OrderRequest request)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderRequest dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _orderService.CreateOrderAsync(request.CustomerId, request.PaymentTypeId, request.Tip);
+            var result = await _orderService.CreateNewOrderAsync(dto);
 
             if (result.Ok)
             {

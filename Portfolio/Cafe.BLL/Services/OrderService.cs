@@ -8,37 +8,33 @@ namespace Cafe.BLL.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly IShoppingBagService _shoppingBagService;
-        private readonly IMenuRetrievalService _menuService;
         private readonly ILogger _logger;
+        private readonly IMenuRetrievalRepository _menuRetrievalRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IShoppingBagRepository _shoppingBagRepository;
 
-        public OrderService(IOrderRepository orderRepository, IShoppingBagService shoppingBagService, IMenuRetrievalService menuService, ILogger logger)
+        public OrderService(ILogger logger, IMenuRetrievalRepository menuRetrievalRepository, IOrderRepository orderRepository, IShoppingBagRepository shoppingBagRepository)
         {
-            _orderRepository = orderRepository;
-            _shoppingBagService = shoppingBagService;
-            _menuService = menuService;
             _logger = logger;
+            _menuRetrievalRepository = menuRetrievalRepository;
+            _orderRepository = orderRepository;
+            _shoppingBagRepository = shoppingBagRepository;
         }
 
-        public Task<Result<CafeOrder>> CreateNewOrderAsync(int customerId, int paymentTypeId, decimal tip)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Result<CafeOrderResponse>> CreateOrderAsync(int customerId, int paymentTypeId, decimal tip)
+        public async Task<Result<CafeOrderResponse>> CreateNewOrderAsync(OrderRequest dto)
         {
             try
             {
-                var result = await _shoppingBagService.GetShoppingBagAsync(customerId);
-                if (!result.Ok || result.Data == null || !result.Data.Items.Any())
+                var shoppingBagResult = await _shoppingBagRepository.GetShoppingBagAsync(dto.CustomerId);
+
+                if (shoppingBagResult == null || shoppingBagResult.Items == null)
                 {
-                    _logger.LogError("Shopping bag did not have any items in it.");
+                    _logger.LogError($"Shopping Bag and/or Items not found for Customer ID: {dto.CustomerId}");
                     return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please try again in a few minutes.");
                 }
 
-                var shoppingBag = result.Data;
-                var shoppingBagItems = shoppingBag.Items;
+                var shoppingBag = shoppingBagResult;
+                var shoppingBagItems = shoppingBagResult.Items;
 
                 var orderItems = new List<OrderItem>();
                 decimal subTotal = 0;
@@ -46,74 +42,77 @@ namespace Cafe.BLL.Services
 
                 foreach (var item in shoppingBagItems)
                 {
-                    var itemPriceResult = await _menuService.GetItemPriceByItemIdAsync(item.ItemID);
-                    if (!itemPriceResult.Ok || itemPriceResult.Data == null || itemPriceResult.Data.Price == null)
+                    var itemPriceResult = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(item.ItemID);
+
+                    if (itemPriceResult == null || itemPriceResult.ItemPriceID == null || itemPriceResult.Price == null)
                     {
-                        _logger.LogError($"Could not find price for item with ID: {item.ItemID}");
+                        _logger.LogError($"Item price not found for Item ID: {item.ItemID}");
                         return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please try again in a few minutes.");
                     }
 
-                    decimal extendedPrice = (decimal)(itemPriceResult.Data.Price * item.Quantity);
+                    decimal extendedPrice = (decimal)(itemPriceResult.Price * item.Quantity);
                     subTotal += extendedPrice;
 
                     orderItems.Add(new OrderItem
                     {
-                        ItemPriceID = (int)itemPriceResult.Data.ItemPriceID,
+                        ItemPriceID = (int)itemPriceResult.ItemPriceID,
                         Quantity = item.Quantity,
-                        ExtendedPrice = extendedPrice,
+                        ExtendedPrice = extendedPrice
                     });
                 }
 
                 decimal tax = subTotal * taxRate;
-                decimal finalTotal = subTotal + tax + tip;
+                decimal finalTotal = subTotal + tax + dto.Tip;
 
                 var order = new CafeOrder
                 {
-                    CustomerID = customerId,
-                    PaymentTypeID = paymentTypeId,
+                    CustomerID = dto.CustomerId,
+                    PaymentTypeID = dto.PaymentTypeId,
                     OrderDate = DateTime.Now,
                     SubTotal = subTotal,
                     Tax = tax,
-                    Tip = tip,
+                    Tip = dto.Tip,
                     FinalTotal = finalTotal,
                     PaymentStatusID = 2
                 };
 
-                var createdOrder = await _orderRepository.CreateOrderAsync(order, orderItems);
+                var orderCreated = await _orderRepository.CreateOrderAsync(order, orderItems);
+                await _shoppingBagRepository.ClearShoppingBagAsync(dto.CustomerId);
 
-                await _shoppingBagService.ClearShoppingBagAsync(customerId);
-
-                _logger.LogInformation($"Order {createdOrder.OrderID} created successfully for customer {customerId}.");
-
-                var response = new CafeOrderResponse
+                var orderDto = new CafeOrderResponse
                 {
-                    OrderID = createdOrder.OrderID,
-                    CustomerID = createdOrder.CustomerID,
-                    PaymentTypeID = createdOrder.PaymentTypeID,
-                    PaymentStatusID = createdOrder.PaymentStatusID,
-                    OrderDate = createdOrder.OrderDate,
-                    SubTotal = createdOrder.SubTotal,
-                    Tax = createdOrder.Tax,
-                    Tip = createdOrder.Tip,
-                    FinalTotal = createdOrder.FinalTotal,
-                    ServerID = createdOrder.ServerID,
-                    OrderItems = createdOrder.OrderItems?
-                                         .Select(oi => new OrderItemResponse
-                                         {
-                                             OrderItemID = oi.OrderItemID,
-                                             ItemPriceID = oi.ItemPriceID,
-                                             Quantity = oi.Quantity,
-                                             ExtendedPrice = oi.ExtendedPrice
-                                         })
-                                         .ToList() ?? new List<OrderItemResponse>()
+                    CustomerID = dto.CustomerId,
+                    PaymentTypeID = dto.PaymentTypeId,
+                    OrderDate = DateTime.Now,
+                    SubTotal = subTotal,
+                    Tax = tax,
+                    Tip = dto.Tip,
+                    FinalTotal = finalTotal,
+                    PaymentStatusID = 2,
+                    OrderID = orderCreated.OrderID,
+                    OrderItems = new List<OrderItemResponse>()
                 };
 
-                return ResultFactory.Success(response);
+                foreach (var item in orderCreated.OrderItems)
+                {
+                    var itemDto = new OrderItemResponse
+                    {
+                        OrderItemID = item.OrderItemID,
+                        ItemPriceID = item.ItemPriceID,
+                        Quantity = item.Quantity,
+                        ExtendedPrice = item.ExtendedPrice
+                    };
+
+                    orderDto.OrderItems.Add(itemDto);
+                }
+
+                return ResultFactory.Success(orderDto);
+
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"An error occurred while creating an order for customer {customerId}");
-                return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please contact our customer assistance team.");
+                _logger.LogError($"An error occurred when attempting to create a new order: {ex.Message}");
+                return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please contact our management team.");
             }
         }
 

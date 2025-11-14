@@ -10,7 +10,12 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
-        public Task ClearShoppingBag(int shoppingBagId)
+        public Task ClearShoppingBagAsync(int shoppingBagId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
         {
             throw new NotImplementedException();
         }
@@ -25,12 +30,12 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
-        public Task RemoveItemAsync(int shoppingBagId, int shoppingBagItemId)
+        public Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateItemQuantityAsync(int shoppingBagId, int shoppingBagItemId, byte quantity)
+        public Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
         {
             throw new NotImplementedException();
         }

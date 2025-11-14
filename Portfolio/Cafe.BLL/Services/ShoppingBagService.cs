@@ -165,26 +165,5 @@ namespace Cafe.BLL.Services
                 return ResultFactory.Fail("An error occurred. Please contact our management team.");
             }
         }
-
-        public async Task<Result<ShoppingBag>> GetShoppingBagAsync(int customerId)
-        {
-            try
-            {
-                var shoppingBag = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
-
-                if (shoppingBag == null)
-                {
-                    _logger.LogError("Shopping Bag not found.");
-                    return ResultFactory.Fail<ShoppingBag>("An error occurred. Please try again in a few minutes.");
-                }
-
-                return ResultFactory.Success(shoppingBag);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"An unexpected error occurred when retrieving the shopping bag: {ex.Message}");
-                return ResultFactory.Fail<ShoppingBag>("An error occurred. Please contact our management team.");
-            }
-        }
     }
 }

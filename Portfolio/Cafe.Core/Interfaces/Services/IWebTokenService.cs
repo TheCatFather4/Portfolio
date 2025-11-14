@@ -2,7 +2,7 @@
 
 namespace Cafe.Core.Interfaces.Services
 {
-    public interface IJwtService
+    public interface IWebTokenService
     {
         Task<string> GenerateTokenAsync(IdentityUser user);
     }

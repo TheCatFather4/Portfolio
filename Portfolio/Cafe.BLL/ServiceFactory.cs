@@ -83,6 +83,28 @@ namespace Cafe.BLL
             }
         }
 
+        public IOrderService CreateOrderService()
+        {
+            var logger = _loggerFactory.CreateLogger<OrderService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new OrderService(
+                    logger,
+                    new EFMenuRetrievalRepository(_config.GetConnectionString()),
+                    new EFOrderRepository(_config.GetConnectionString()),
+                    new EFShoppingBagRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new OrderService(
+                    logger,
+                    new DapperMenuRetrievalRepository(_config.GetConnectionString()),
+                    new DapperOrderRepository(_config.GetConnectionString()),
+                    new DapperShoppingBagRepository(_config.GetConnectionString()));
+            }
+        }
+
         public ISalesReportService CreateSalesReportService()
         {
             var logger = _loggerFactory.CreateLogger<SalesReportService>();
@@ -139,35 +161,11 @@ namespace Cafe.BLL
             }
         }
 
-        public IOrderService CreateOrderService()
+        public IWebTokenService CreateWebTokenService()
         {
-            var logger = _loggerFactory.CreateLogger<OrderService>();
-
-            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
-            {
-                return new OrderService(
-                new EFOrderRepository(_config.GetConnectionString()),
-                CreateShoppingBagService(),
-                CreateMenuRetrievalService(),
-                logger);
-            }
-            else
-            {
-                return new OrderService(
-                    new DapperOrderRepository(_config.GetConnectionString()),
-                    CreateShoppingBagService(),
-                    CreateMenuRetrievalService(),
-                    logger);
-            }
+            return new WebTokenService(_jwtConfig);
         }
 
-        // API
-        public IJwtService CreateJwtService()
-        {
-            return new APIJwtService(_jwtConfig);
-        }
-
-        // API
         public IPaymentService CreatePaymentService()
         {
             var logger = _loggerFactory.CreateLogger<APIPaymentService>();
@@ -175,28 +173,6 @@ namespace Cafe.BLL
             return new APIPaymentService(
                 new EFPaymentRepository(_config.GetConnectionString()),
                 logger);
-        }
-
-        public IMVOrderService CreateMVCOrderService()
-        {
-            var logger = _loggerFactory.CreateLogger<MVCOrderService>();
-
-            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
-            {
-                return new MVCOrderService(
-                    logger,
-                    CreateMenuRetrievalService(),
-                    CreateShoppingBagService(),
-                    new EFOrderRepository(_config.GetConnectionString()));
-            }
-            else
-            {
-                return new MVCOrderService(
-                    logger,
-                    CreateMenuRetrievalService(),
-                    CreateShoppingBagService(),
-                    new DapperOrderRepository(_config.GetConnectionString()));
-            }
         }
 
         public IMVPaymentService CreateMVCPaymentService()

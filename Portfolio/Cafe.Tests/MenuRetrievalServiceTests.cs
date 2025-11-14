@@ -74,17 +74,6 @@ namespace Cafe.Tests
         }
 
         [Test]
-        public void GetItemPriceByItemIdAsync_Success()
-        {
-            var service = GetMenuService();
-
-            var task = service.GetItemPriceByItemIdAsync(1);
-
-            Assert.That(task.Result.Ok, Is.True);
-            Assert.That(task.Result.Data, Is.Not.Null);
-        }
-
-        [Test]
         public void GetItemsByCategoryId_Success()
         {
             var service = GetMenuService();

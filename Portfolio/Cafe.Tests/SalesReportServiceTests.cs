@@ -50,10 +50,10 @@ namespace Cafe.Tests
 
             date = DateTime.Today;
 
-            var result = service.FilterOrdersByDate(date);
+            var result = service.FilterOrdersByDateAsync(date);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data.Orders, Has.Count.EqualTo(2));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data.Orders, Has.Count.EqualTo(2));
         }
     }
 }

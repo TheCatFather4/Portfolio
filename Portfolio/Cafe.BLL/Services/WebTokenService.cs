@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 
-namespace Cafe.BLL.Services.API
+namespace Cafe.BLL.Services
 {
-    public class APIJwtService : IJwtService
+    public class WebTokenService : IWebTokenService
     {
         private readonly IConfiguration _config;
 
-        public APIJwtService(IConfiguration config)
+        public WebTokenService(IConfiguration config)
         {
             _config = config;
         }

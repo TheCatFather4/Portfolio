@@ -11,7 +11,7 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
-        public List<CafeOrder> GetAllOrders()
+        public async Task<List<CafeOrder>> GetAllOrdersAsync()
         {
             var orders = new List<CafeOrder>();
 
@@ -53,7 +53,7 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
-        public List<OrderItem> GetOrderItemsByItemPriceId(int itemPriceId)
+        public async Task<List<OrderItem>> GetOrderItemsByItemPriceIdAsync(int itemPriceId)
         {
             var orderItems = new List<OrderItem>();
 

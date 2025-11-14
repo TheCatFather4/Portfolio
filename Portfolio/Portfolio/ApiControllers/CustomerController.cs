@@ -15,7 +15,7 @@ namespace Portfolio.ApiControllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ICustomerService _customerService;
-        private readonly IJwtService _jwtService;
+        private readonly IWebTokenService _jwtService;
 
         /// <summary>
         /// Injects two ASP.NET Identity dependencies, and two service dependencies
@@ -24,7 +24,7 @@ namespace Portfolio.ApiControllers
         /// <param name="signInManager"></param>
         /// <param name="customerService"></param>
         /// <param name="jwtService"></param>
-        public CustomerController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICustomerService customerService, IJwtService jwtService)
+        public CustomerController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICustomerService customerService, IWebTokenService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;

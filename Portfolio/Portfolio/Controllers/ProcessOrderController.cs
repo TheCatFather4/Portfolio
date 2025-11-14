@@ -1,5 +1,5 @@
-﻿using Cafe.Core.Interfaces.Services;
-using Cafe.Core.Interfaces.Services.MVC;
+﻿using Cafe.Core.DTOs;
+using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
@@ -8,12 +8,10 @@ namespace Portfolio.Controllers
 {
     public class ProcessOrderController : Controller
     {
-        private readonly IMVOrderService _mvOrderService;
         private readonly IOrderService _orderService;
 
-        public ProcessOrderController(IMVOrderService mvOrderService, IOrderService orderService)
+        public ProcessOrderController(IOrderService orderService)
         {
-            _mvOrderService = mvOrderService;
             _orderService = orderService;
         }
 
@@ -42,21 +40,28 @@ namespace Portfolio.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var result = await _mvOrderService.CreateNewOrderAsync(model.CustomerId, model.PaymentTypeId, (decimal)model.Tip);
+                    var dto = new OrderRequest
+                    {
+                        CustomerId = model.CustomerId,
+                        PaymentTypeId = model.PaymentTypeId,
+                        Tip = (decimal)model.Tip
+                    };
+
+                    var result = await _orderService.CreateNewOrderAsync(dto);
 
                     if (result.Ok)
                     {
                         model.SubTotal = result.Data.SubTotal;
                         model.Tax = result.Data.Tax;
                         model.FinalTotal = result.Data.FinalTotal;
-                        model.PaymentStatusId = result.Data.PaymentStatusID;
+                        model.PaymentStatusId = (byte?)result.Data.PaymentStatusID;
                         model.OrderId = result.Data.OrderID;
 
                         TempData["Alert"] = Alert.CreateSuccess("Order ready for payment!");
                         return View(model);
                     }
 
-                    TempData["Alert"] = Alert.CreateError("Unable to process order.");
+                    TempData["Alert"] = Alert.CreateError(result.Message);
                     return RedirectToAction("Index", "ShoppingCart");
                 }
 
@@ -95,8 +100,8 @@ namespace Portfolio.Controllers
                     return View(model);
                 }
 
-                TempData["Alert"] = Alert.CreateError("Order details not found");
-                return RedirectToAction("Index", "Profile");
+                TempData["Alert"] = Alert.CreateError(result.Message);
+                return RedirectToAction("Profile", "Account");
             }
 
             return RedirectToAction("Login", "Account");
@@ -131,7 +136,7 @@ namespace Portfolio.Controllers
                     return View(model);
                 }
 
-                TempData["Alert"] = Alert.CreateError("Orders not found.");
+                TempData["Alert"] = Alert.CreateError(result.Message);
                 return RedirectToAction("Index", "Profile");
             }
 
