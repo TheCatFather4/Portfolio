@@ -1,5 +1,6 @@
 ﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
@@ -12,28 +13,16 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
-        public void AddPayment(Payment payment)
+        public async Task AddPaymentAsync(Payment payment)
         {
-             _dbContext.Payment.Add(payment);
-             _dbContext.SaveChanges();
+            await _dbContext.AddAsync(payment);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public CafeOrder GetOrderById(int orderId)
+        public async Task<List<PaymentType>> GetPaymentTypesAsync()
         {
-            return _dbContext.CafeOrder
-                .FirstOrDefault(co => co.OrderID == orderId);
-            
-        }
-
-        public List<PaymentType> GetPaymentTypes()
-        {
-            return _dbContext.PaymentType.ToList();
-        }
-
-        public void UpdateOrderStatus(CafeOrder order)
-        {
-            _dbContext.CafeOrder.Update(order);
-            _dbContext.SaveChanges();
+            return await _dbContext.PaymentType
+                .ToListAsync();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cafe.Core.Interfaces.Services;
-using Cafe.Core.Interfaces.Services.MVC;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -10,15 +9,15 @@ namespace Portfolio.Utilities
         public SelectList BuildCategories(ITempDataDictionary tempData);
         public SelectList BuildTimesOfDays(ITempDataDictionary tempData);
         public SelectList BuildItems(ITempDataDictionary tempData);
-        public SelectList BuildPaymentTypes(ITempDataDictionary tempData);
+        public Task<SelectList> BuildPaymentTypesAsync(ITempDataDictionary tempData);
     }
 
     public class SelectListBuilder : ISelectListBuilder
     {
         private readonly IMenuRetrievalService _menuService;
-        private readonly IMVPaymentService _paymentService;
+        private readonly IPaymentService _paymentService;
 
-        public SelectListBuilder(IMenuRetrievalService menuService, IMVPaymentService paymentService)
+        public SelectListBuilder(IMenuRetrievalService menuService, IPaymentService paymentService)
         {
             _menuService = menuService;
             _paymentService = paymentService;
@@ -52,13 +51,13 @@ namespace Portfolio.Utilities
             }
         }
 
-        public SelectList BuildPaymentTypes(ITempDataDictionary tempData)
+        public async Task<SelectList> BuildPaymentTypesAsync(ITempDataDictionary tempData)
         {
-            var paymentTypesResult = _paymentService.GetPaymentTypes();
+            var result = await _paymentService.GetPaymentTypesAsync();
 
-            if (paymentTypesResult.Ok)
+            if (result.Ok)
             {
-                return new SelectList(paymentTypesResult.Data, "PaymentTypeID", "PaymentTypeName");
+                return new SelectList(result.Data, "PaymentTypeID", "PaymentTypeName");
             }
             else
             {

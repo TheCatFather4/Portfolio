@@ -14,7 +14,7 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public void AddPayment(Payment payment)
+        public async Task AddPaymentAsync(Payment payment)
         {
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -30,60 +30,22 @@ namespace Cafe.Data.Repositories.Dapper
                     payment.PaymentStatusID
                 };
 
-                cn.Execute(sql, parameters);
+                await cn.ExecuteAsync(sql, parameters);
             }
         }
 
-        public CafeOrder GetOrderById(int orderId)
+        public async Task<List<PaymentType>> GetPaymentTypesAsync()
         {
-            CafeOrder order = new CafeOrder();
-
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"SELECT * FROM CafeOrder 
-                            WHERE OrderID = @OrderID;";
-
-                var parameter = new
-                {
-                    OrderID = orderId
-                };
-
-                order = cn.QueryFirstOrDefault<CafeOrder>(sql, parameter);
-            }
-
-            return order;
-        }
-
-        public List<PaymentType> GetPaymentTypes()
-        {
-            List<PaymentType> pts = new List<PaymentType>();
+            var paymentTypes = new List<PaymentType>();
 
             using (var cn = new SqlConnection(_connectionString))
             {
                 var sql = "SELECT * FROM PaymentType;";
 
-                pts = cn.Query<PaymentType>(sql).ToList();
+                paymentTypes = (await cn.QueryAsync<PaymentType>(sql)).ToList();
             }
 
-            return pts;
-        }
-
-        public void UpdateOrderStatus(CafeOrder order)
-        {
-            using (var cn = new SqlConnection(_connectionString))
-            {
-                var sql = @"UPDATE CafeOrder SET 
-                                PaymentStatusID = @PaymentStatusID 
-                            WHERE OrderID = @OrderID;";
-
-                var parameters = new
-                {
-                    order.PaymentStatusID,
-                    order.OrderID
-                };
-
-                cn.Execute(sql, parameters);
-            }
+            return paymentTypes;
         }
     }
 }

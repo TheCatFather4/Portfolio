@@ -34,9 +34,9 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(PaymentResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public IActionResult ProcessPayment([FromBody] PaymentRequest dto)
+        public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest dto)
         {
-            var result = _paymentService.ProcessPayment(dto);
+            var result = await _paymentService.ProcessPaymentAsync(dto);
 
             if (result.Ok)
             {

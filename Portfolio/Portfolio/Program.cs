@@ -1,7 +1,6 @@
 using Cafe.BLL;
 using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
-using Cafe.Core.Interfaces.Services.MVC;
 using Cafe.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +64,12 @@ builder.Services.AddScoped<IOrderService>(provider =>
     return serviceFactory.CreateOrderService();
 });
 
+builder.Services.AddScoped<IPaymentService>(provider =>
+{
+    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
+    return serviceFactory.CreatePaymentService();
+});
+
 builder.Services.AddScoped<ISalesReportService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
@@ -87,18 +92,6 @@ builder.Services.AddScoped<IWebTokenService>(provider =>
 {
     var serviceFactory = provider.GetRequiredService<ServiceFactory>();
     return serviceFactory.CreateWebTokenService();
-});
-
-builder.Services.AddScoped<IPaymentService>(provider =>
-{
-    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreatePaymentService();
-});
-
-builder.Services.AddScoped<IMVPaymentService>(provider =>
-{
-    var serviceFactory = provider.GetRequiredService<ServiceFactory>();
-    return serviceFactory.CreateMVCPaymentService();
 });
 
 builder.Services.AddScoped<ISelectListBuilder, SelectListBuilder>();

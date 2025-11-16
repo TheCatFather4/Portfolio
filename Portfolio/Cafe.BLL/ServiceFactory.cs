@@ -1,10 +1,7 @@
 ﻿using Cafe.BLL.Services;
-using Cafe.BLL.Services.API;
-using Cafe.BLL.Services.MVC;
 using Cafe.Core.Enums;
 using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
-using Cafe.Core.Interfaces.Services.MVC;
 using Cafe.Data.Repositories.Dapper;
 using Cafe.Data.Repositories.EF;
 using Microsoft.Extensions.Configuration;
@@ -105,6 +102,26 @@ namespace Cafe.BLL
             }
         }
 
+        public IPaymentService CreatePaymentService()
+        {
+            var logger = _loggerFactory.CreateLogger<PaymentService>();
+
+            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
+            {
+                return new PaymentService(
+                    logger,
+                    new EFOrderRepository(_config.GetConnectionString()),
+                    new EFPaymentRepository(_config.GetConnectionString()));
+            }
+            else
+            {
+                return new PaymentService(
+                    logger,
+                    new DapperOrderRepository(_config.GetConnectionString()),
+                    new DapperPaymentRepository(_config.GetConnectionString()));
+            }
+        }
+
         public ISalesReportService CreateSalesReportService()
         {
             var logger = _loggerFactory.CreateLogger<SalesReportService>();
@@ -164,33 +181,6 @@ namespace Cafe.BLL
         public IWebTokenService CreateWebTokenService()
         {
             return new WebTokenService(_jwtConfig);
-        }
-
-        public IPaymentService CreatePaymentService()
-        {
-            var logger = _loggerFactory.CreateLogger<APIPaymentService>();
-
-            return new APIPaymentService(
-                new EFPaymentRepository(_config.GetConnectionString()),
-                logger);
-        }
-
-        public IMVPaymentService CreateMVCPaymentService()
-        {
-            var logger = _loggerFactory.CreateLogger<MVCPaymentService>();
-
-            if (_config.GetDatabaseMode() == DatabaseMode.ORM)
-            {
-                return new MVCPaymentService(
-                    logger,
-                    new EFPaymentRepository(_config.GetConnectionString()));
-            }
-            else
-            {
-                return new MVCPaymentService(
-                    logger,
-                    new DapperPaymentRepository(_config.GetConnectionString()));
-            }
         }
     }
 }

@@ -55,5 +55,16 @@ namespace Cafe.Data.Repositories.EF
                 .Where(co => co.CustomerID == customerId)
                 .ToListAsync();
         }
+
+        public async Task UpdateOrderStatusAsync(CafeOrder order)
+        {
+            var orderToUpdate = await _dbContext.CafeOrder.FirstOrDefaultAsync(co => co.OrderID == order.OrderID);
+
+            if (orderToUpdate != null)
+            {
+                orderToUpdate.PaymentStatusID = order.PaymentStatusID;
+                await _dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

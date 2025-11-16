@@ -1,5 +1,4 @@
-﻿
-using Cafe.Core.Entities;
+﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 
 namespace Cafe.Tests.MockRepositories
@@ -95,6 +94,11 @@ namespace Cafe.Tests.MockRepositories
         }
 
         public Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateOrderStatusAsync(CafeOrder order)
         {
             throw new NotImplementedException();
         }

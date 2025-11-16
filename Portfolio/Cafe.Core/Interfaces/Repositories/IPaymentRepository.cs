@@ -4,9 +4,7 @@ namespace Cafe.Core.Interfaces.Repositories
 {
     public interface IPaymentRepository
     {
-        void AddPayment(Payment payment);
-        CafeOrder GetOrderById(int orderId);
-        void UpdateOrderStatus(CafeOrder order);
-        List<PaymentType> GetPaymentTypes();
+        Task AddPaymentAsync(Payment payment);
+        Task<List<PaymentType>> GetPaymentTypesAsync();
     }
 }

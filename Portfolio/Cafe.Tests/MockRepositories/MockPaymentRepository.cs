@@ -5,43 +5,14 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockPaymentRepository : IPaymentRepository
     {
-        public void AddPayment(Payment payment)
+        public Task AddPaymentAsync(Payment payment)
         {
-            var payments = new List<Payment>();
-
-            payments.Add(payment);
+            throw new NotImplementedException();
         }
 
-        public CafeOrder GetOrderById(int orderId)
+        public Task<List<PaymentType>> GetPaymentTypesAsync()
         {
-            var order = new CafeOrder
-            {
-                OrderID = orderId
-            };
-
-            return order;
-        }
-
-        public List<PaymentType> GetPaymentTypes()
-        {
-            var payments = new List<PaymentType>();
-
-            var payType = new PaymentType
-            {
-                PaymentTypeID = 1,
-                PaymentTypeName = "Visa"
-            };
-
-            payments.Add(payType);
-
-            return payments;
-        }
-
-        public void UpdateOrderStatus(CafeOrder order)
-        {
-            var existingOrder = new CafeOrder();
-
-            existingOrder.OrderID = order.OrderID;
+            throw new NotImplementedException();
         }
     }
 }

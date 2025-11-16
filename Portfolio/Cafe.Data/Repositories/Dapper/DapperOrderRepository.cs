@@ -167,5 +167,23 @@ namespace Cafe.Data.Repositories.Dapper
 
             return orders;
         }
+
+        public async Task UpdateOrderStatusAsync(CafeOrder order)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"Update CafeOrder SET 
+                            PaymentStatusID = @PaymentStatusID 
+                            WHERE OrderID = @OrderID;";
+
+                var parameters = new
+                {
+                    PaymentStatusID = order.PaymentStatusID,
+                    OrderID = order.OrderID
+                };
+
+                await cn.ExecuteAsync(sql, parameters);
+            }
+        }
     }
 }

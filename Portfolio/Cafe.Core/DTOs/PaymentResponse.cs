@@ -4,5 +4,6 @@
     {
         public int OrderID { get; set; }
         public int PaymentStatusID { get; set; }
+        public DateTime TransactionDate { get; set; }
     }
 }

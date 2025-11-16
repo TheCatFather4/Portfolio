@@ -1,5 +1,5 @@
-﻿using Cafe.Core.Entities;
-using Cafe.Core.Interfaces.Services.MVC;
+﻿using Cafe.Core.DTOs;
+using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
@@ -9,26 +9,26 @@ namespace Portfolio.Controllers
 {
     public class ProcessPaymentController : Controller
     {
-        private readonly IMVPaymentService _paymentService;
+        private readonly IPaymentService _paymentService;
         private readonly ISelectListBuilder _selectListBuilder;
 
-        public ProcessPaymentController(IMVPaymentService paymentService, ISelectListBuilder selectListBuilder)
+        public ProcessPaymentController(IPaymentService paymentService, ISelectListBuilder selectListBuilder)
         {
             _paymentService = paymentService;
             _selectListBuilder = selectListBuilder;
         }
 
         [HttpGet]
-        public IActionResult Process(int orderId)
+        public async Task<IActionResult> Process(int orderId)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var model = new PaymentForm()
                 {
-                    OrderId = orderId
+                    OrderId = orderId,
                 };
 
-                model.PaymentTypes = _selectListBuilder.BuildPaymentTypes(TempData);
+                model.PaymentTypes = await _selectListBuilder.BuildPaymentTypesAsync(TempData);
 
                 if (model.PaymentTypes == null)
                 {
@@ -44,35 +44,35 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Process(PaymentForm model)
+        public async Task<IActionResult> Process(PaymentForm model)
         {
             if (User.Identity.IsAuthenticated)
             {
                 if (ModelState.IsValid)
                 {
-                    var payment = new Payment()
+                    var dto = new PaymentRequest()
                     {
                         OrderID = model.OrderId,
                         PaymentTypeID = (int)model.PaymentTypeId,
                         Amount = (decimal)model.Amount,
                     };
 
-                    var result = _paymentService.ProcessPayment(payment);
+                    var result = await _paymentService.ProcessPaymentAsync(dto);
 
                     if (result.Ok)
                     {
-                        model.TransactionDate = (DateTime)payment.TransactionDate;
-                        model.PaymentStatusId = payment.PaymentStatusID;
+                        model.TransactionDate = result.Data.TransactionDate;
+                        model.PaymentStatusId = (byte)result.Data.PaymentStatusID;
 
                         return View(model);
                     }
 
                     TempData["Alert"] = Alert.CreateError(result.Message);
-                    model.PaymentTypes = _selectListBuilder.BuildPaymentTypes(TempData);
+                    model.PaymentTypes = await _selectListBuilder.BuildPaymentTypesAsync(TempData);
                     return View(model);
                 }
 
-                model.PaymentTypes = _selectListBuilder.BuildPaymentTypes(TempData);
+                model.PaymentTypes = await _selectListBuilder.BuildPaymentTypesAsync(TempData);
                 return View(model);
             }
 
