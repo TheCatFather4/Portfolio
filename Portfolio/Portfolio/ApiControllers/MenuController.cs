@@ -11,15 +11,15 @@ namespace Portfolio.ApiControllers
     [ApiController]
     public class MenuController : ControllerBase
     {
-        private readonly IMenuRetrievalService _menuService;
+        private readonly IMenuRetrievalService _menuRetrievalService;
 
         /// <summary>
         /// Injects a service dependency for the menu
         /// </summary>
         /// <param name="menuService"></param>
-        public MenuController(IMenuRetrievalService menuService)
+        public MenuController(IMenuRetrievalService menuRetrievalService)
         {
-            _menuService = menuService;
+            _menuRetrievalService = menuRetrievalService;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public IActionResult GetMenu()
         {
-            var result = _menuService.GetAllItemsAPI();
+            var result = _menuRetrievalService.GetAllItemsAPI();
 
             if (result.Ok)
             {
@@ -59,7 +59,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> GetItem(int itemId)
         {
-            var result = await _menuService.GetItemByIdAsyncAPI(itemId);
+            var result = await _menuRetrievalService.GetItemByIdAsyncAPI(itemId);
 
             if (result.Ok)
             {

@@ -17,7 +17,7 @@ namespace Cafe.BLL.Services
             _config = config;
         }
 
-        public async Task<string> GenerateTokenAsync(IdentityUser user)
+        public string GenerateToken(IdentityUser user)
         {
             var claims = new List<Claim>
             {
