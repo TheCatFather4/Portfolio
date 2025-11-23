@@ -65,8 +65,14 @@
                                 <li><a class="dropdown-item" href="~/cat-poker/index.html">Cat Poker</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link link-light link-opacity-50-hover" href="https://www.github.com/TheCatFather4">GitHub</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Documentation
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Documentation">Code and Diagrams</a></li>
+                                <li><a class="dropdown-item" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link link-light link-opacity-50-hover" asp-controller="Home" asp-action="Contact">Contact Me</a>
@@ -84,6 +90,9 @@
         }
     </div>
     @RenderBody()
+    <div class="row bg-primary">
+        <h5 class="mt-2 text-light text-center">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+    </div>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
