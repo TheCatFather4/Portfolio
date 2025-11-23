@@ -1,149 +1,174 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cat Poker</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link href="index.css" rel="stylesheet">
-    </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg" id="navbarCat">
-                <div class="container-fluid">
-                    <button class="navbar-toggler my-2" type="button" id="toggleIcon" data-bs-toggle="collapse" data-bs-target="#navbar03" aria-controls="navbar03" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbar03">
-                        <a class="navbar-brand text-white">Cat Poker</a>
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="https://www.jmarcello.dev/Home/Index">Home</a></li>
-                                    <li><a class="dropdown-item" href="https://www.jmarcello.dev/Home/Cafe">4th Wall Cafe</a></li>
-                                    <li><a class="dropdown-item" href="https://www.jmarcello.dev/Home/CafeAPI">Cafe API</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-light link-opacity-50-hover" href="https://www.github.com/TheCatFather4">GitHub</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-light link-opacity-50-hover" href="https://www.jmarcello.dev/Home/Contact">Contact Me</a>
-                            </li>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Poker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg" id="navbarCat">
+            <div class="container-fluid">
+                <button class="navbar-toggler my-2" type="button" id="toggleIcon" data-bs-toggle="collapse"
+                    data-bs-target="#navbar03" aria-controls="navbar03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar03">
+                    <a class="navbar-brand text-white">Cat Poker</a>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="https://www.jmarcello.dev/Home/Index">Home</a></li>
+                                <li><a class="dropdown-item" href="https://www.jmarcello.dev/Cafe">4th Wall Cafe</a>
+                                </li>
+                                <li><a class="dropdown-item" href="https://www.jmarcello.dev/Cafe/OrderAPI">Cafe API</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Documentation
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="https://www.jmarcello.dev/Documentation">Code and
+                                        Diagrams</a></li>
+                                <li><a class="dropdown-item" href="https://www.github.com/TheCatFather4">GitHub
+                                        Profile</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-light link-opacity-50-hover"
+                                href="https://www.jmarcello.dev/Home/Contact">Contact Me</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="row" id="row1">
+        <div class="text-center my-3">
+            <h3 id="gameTitle">Welcome to Cat Poker!</h3>
+        </div>
+    </div>
+    <div class="row" id="row2">
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 9rem">
+                <img src="img/placeholder.jpg" class="card-img-top" id="catPic1">
+                <div class="card-body text-center" id="cardBody1">
+                    <h5 class="card-title" id="catName1">Cat</h5>
+                    <p id="catRoll1">0</p>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined">
+                    <label class="btn btn-outline-primary" for="btn-check-outlined" id="holdButton1">Hold</label>
+                </div>
+            </div>
+            <div class="card" style="width: 9rem">
+                <img src="img/placeholder.jpg" class="card-img-top" id="catPic2">
+                <div class="card-body text-center" id="cardBody2">
+                    <h5 class="card-title" id="catName2">Cat</h5>
+                    <p id="catRoll2">0</p>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined2">
+                    <label class="btn btn-outline-primary" for="btn-check-outlined2" id="holdButton2">Hold</label>
+                </div>
+            </div>
+            <div class="card" style="width: 9rem">
+                <img src="img/placeholder.jpg" class="card-img-top" id="catPic3">
+                <div class="card-body text-center" id="cardBody3">
+                    <h5 class="card-title" id="catName3">Cat</h5>
+                    <p id="catRoll3">0</p>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined3">
+                    <label class="btn btn-outline-primary" for="btn-check-outlined3" id="holdButton3">Hold</label>
+                </div>
+            </div>
+            <div class="card" style="width: 9rem">
+                <img src="img/placeholder.jpg" class="card-img-top" id="catPic4">
+                <div class="card-body text-center" id="cardBody4">
+                    <h5 class="card-title" id="catName4">Cat</h5>
+                    <p id="catRoll4">0</p>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined4">
+                    <label class="btn btn-outline-primary" for="btn-check-outlined4" id="holdButton4">Hold</label>
+                </div>
+            </div>
+            <div class="card" style="width: 9rem">
+                <img src="img/placeholder.jpg" class="card-img-top" id="catPic5">
+                <div class="card-body text-center" id="cardBody5">
+                    <h5 class="card-title" id="catName5">Cat</h5>
+                    <p id="catRoll5">0</p>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined5">
+                    <label class="btn btn-outline-primary" for="btn-check-outlined5" id="holdButton5">Hold</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="row3">
+        <div class="text-center mt-3" id="buttonArea">
+            <span id="remainingRollCount">3</span><span class="me-2"> Rolls Remaining</span>
+            <button class="btn btn-primary me-2" id="scoreButton">Score</button>
+            <button class="btn btn-success" id="rollButton">Roll</button>
+        </div>
+    </div>
+    <div class="row" id="row4">
+        <div class="col-md-6">
+            <div id="scoreBoardArea">
+                <div class="text-center my-3">
+                    <h3>Scoreboard</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h3 id="currentDisplay">Current Score</h3>
+                        <h1 id="currentScore">0</h1>
+                    </div>
+                    <div class="text-center">
+                        <h3 id="highDisplay">High Score</h3>
+                        <h1 id="highScore">0</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="scoringArea">
+                <div class="text-center">
+                    <h3>Scoring</h3>
+                </div>
+                <div>
+                    <div class="container-fluid">
+                        <ul class="list-group text-center mb-3" id="listRows">
+                            <li class="list-group-item">Chance: Sum of cards</li>
+                            <li class="list-group-item">3 of a Kind: 30 points + sum of cards</li>
+                            <li class="list-group-item">4 of a Kind: 40 points + sum of cards</li>
+                            <li class="list-group-item">5 of a kind: 50 points + sum of cards</li>
                         </ul>
                     </div>
                 </div>
-            </nav>
-        </header>
-        <div class="row" id="row1">
-            <div class="text-center my-3">
-                <h3 id="gameTitle">Welcome to Cat Poker!</h3>
             </div>
         </div>
-        <div class="row" id="row2">
-            <div class="d-flex justify-content-center">
-                <div class="card" style="width: 9rem">
-                    <img src="img/placeholder.jpg" class="card-img-top" id="catPic1">
-                    <div class="card-body text-center" id="cardBody1">
-                        <h5 class="card-title" id="catName1">Cat</h5>
-                        <p id="catRoll1">0</p>
-                        <input type="checkbox" class="btn-check" id="btn-check-outlined">
-                        <label class="btn btn-outline-primary" for="btn-check-outlined" id="holdButton1">Hold</label>
-                    </div>
-                </div>
-                <div class="card" style="width: 9rem">
-                    <img src="img/placeholder.jpg" class="card-img-top" id="catPic2">
-                    <div class="card-body text-center" id="cardBody2">
-                        <h5 class="card-title" id="catName2">Cat</h5>
-                        <p id="catRoll2">0</p>
-                        <input type="checkbox" class="btn-check" id="btn-check-outlined2">
-                        <label class="btn btn-outline-primary" for="btn-check-outlined2" id="holdButton2">Hold</label>
-                    </div>
-                </div>
-                <div class="card" style="width: 9rem">
-                    <img src="img/placeholder.jpg" class="card-img-top" id="catPic3">
-                    <div class="card-body text-center" id="cardBody3">
-                        <h5 class="card-title" id="catName3">Cat</h5>
-                        <p id="catRoll3">0</p>
-                        <input type="checkbox" class="btn-check" id="btn-check-outlined3">
-                        <label class="btn btn-outline-primary" for="btn-check-outlined3" id="holdButton3">Hold</label>
-                    </div>
-                </div>
-                <div class="card" style="width: 9rem">
-                    <img src="img/placeholder.jpg" class="card-img-top" id="catPic4">
-                    <div class="card-body text-center" id="cardBody4">
-                        <h5 class="card-title" id="catName4">Cat</h5>
-                        <p id="catRoll4">0</p>
-                        <input type="checkbox" class="btn-check" id="btn-check-outlined4">
-                        <label class="btn btn-outline-primary" for="btn-check-outlined4" id="holdButton4">Hold</label>
-                    </div>
-                </div>
-                <div class="card" style="width: 9rem">
-                    <img src="img/placeholder.jpg" class="card-img-top" id="catPic5">
-                    <div class="card-body text-center" id="cardBody5">
-                        <h5 class="card-title" id="catName5">Cat</h5>
-                        <p id="catRoll5">0</p>
-                        <input type="checkbox" class="btn-check" id="btn-check-outlined5">
-                        <label class="btn btn-outline-primary" for="btn-check-outlined5" id="holdButton5">Hold</label>
-                    </div>
-                </div>
+    </div>
+    <div class="row" id="row5">
+        <div class="text-center" id="playAgainArea">
+            <div>
+                <p>Play again and try for a higher score</p>
+            </div>
+            <div>
+                <button class="btn btn-secondary" id="playAgainButton">Play Again</button>
             </div>
         </div>
-        <div class="row" id="row3">
-            <div class="text-center mt-3" id="buttonArea">
-                <span id="remainingRollCount">3</span><span class="me-2"> Rolls Remaining</span>
-                <button class="btn btn-primary me-2" id="scoreButton">Score</button>
-                <button class="btn btn-success" id="rollButton">Roll</button>
-            </div>
-        </div>
-        <div class="row" id="row4">
-            <div class="col-md-6">
-                <div id="scoreBoardArea">
-                    <div class="text-center my-3">
-                        <h3>Scoreboard</h3>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="text-center">
-                            <h3 id="currentDisplay">Current Score</h3>
-                            <h1 id="currentScore">0</h1>
-                        </div>
-                        <div class="text-center">
-                            <h3 id="highDisplay">High Score</h3>
-                            <h1 id="highScore">0</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div id="scoringArea">
-                    <div class="text-center">
-                        <h3>Scoring</h3>
-                    </div>
-                    <div>
-                        <div class="container-fluid">
-                            <ul class="list-group text-center mb-3" id="listRows">
-                                <li class="list-group-item">Chance: Sum of cards</li>
-                                <li class="list-group-item">3 of a Kind: 30 points + sum of cards</li>
-                                <li class="list-group-item">4 of a Kind: 40 points + sum of cards</li>
-                                <li class="list-group-item">5 of a kind: 50 points + sum of cards</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="row5">
-            <div class="text-center" id="playAgainArea">
-                <div>
-                    <p>Play again and try for a higher score</p>
-                </div>
-                <div>
-                    <button class="btn btn-secondary" id="playAgainButton">Play Again</button>
-                </div>
-            </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <script src="index.js"></script>
-    </body>
+    </div>
+    <div class="row" id="navBottomCat">
+        <h5 class="mt-2 text-light text-center">Hazelnut Software Solutions <img src="/img/hazelnut.png" width="50"
+                height="50" />2025</h5>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+
 </html>

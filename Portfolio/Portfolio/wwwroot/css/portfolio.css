@@ -1,27 +1,90 @@
-﻿body {
-    background: linear-gradient(to right, #4738ac, #b0a5f6);
-}
-
-nav {
+﻿nav {
     background-color: #7b7da7;
 }
 
-#contactForm {
-    background-color: #bdb7e5;
+#contactHeadline {
+    color: darkorchid;
+    font-family: cursive;
+}
+
+#docPageHeadline {
+    font-family: cursive;
+}
+
+#documentationHeadline {
+    color: white;
+    font-family: cursive;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+#documentationRow {
+    background: linear-gradient(0deg,#4738ac, #b0a5f6);
+    margin-top: 50px;
+}
+
+#imgContainer:hover #overlay {
+    opacity: 1;
+}
+
+#headline {
+    color: white;
+    font-family: cursive;
+}
+
+#headlineRow {
+    background: linear-gradient(0deg ,#4738ac, #b0a5f6);
+    margin-top: 50px;
 }
 
 #jmPhoto {
+    height: 200px;
     width: 200px;
-    height: 201px;
-    border: 0.2rem outset #6857d5;
-    border-radius: 10%;
 }
 
-#skillsList div {
-    background-color: orange;
-    font-weight: bold;
-    border: 0.5rem outset blue;
-    border-radius: 12px;
+#navBottom {
+    background-color: #7b7da7;
+    margin-top: 50px;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: white;
+}
+
+#projectsHeadline {
+    color: white;
+    font-family: cursive;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#skillsHeadline {
+    color: white;
+    font-family: cursive;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+#skillsRow {
+    background: linear-gradient(#4738ac, #b0a5f6);
+    margin-top: 50px;
+}
+
+#text {
+    color: darkorchid;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    margin: 0px 10px 10px 10px;
 }
