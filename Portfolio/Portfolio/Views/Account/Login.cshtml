@@ -5,46 +5,42 @@
     ViewData["Title"] = "Log in";
 }
 
-<div class="row">
-    <div class="text-center my-3">
-        <h2>Log In</h2>
-        <h5 class="text-success mt-2">New Customer? <a asp-controller="Account" asp-action="Register">Register Here</a></h5>
+<div class="text-center my-3">
+    <h2>Log In</h2>
+    <h5 class="text-success mt-2">New Customer? <a asp-controller="Account" asp-action="Register">Register Here</a></h5>
+</div>
+<div class="container-fluid px-3">
+    <div class="col-md-6 mx-auto border border-5 border-info rounded p-3 bg-primary">
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-white"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control" id="formInput" />
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" id="validationText"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Password" class="form-control" id="formInput" />
+                <label asp-for="Password">Password</label>
+                <span asp-validation-for="Password" id="validationText"></span>
+            </div>
+            <div class="checkbox mb-3">
+                <label asp-for="RememberMe" class="form-label">
+                    <input class="form-check-input" asp-for="RememberMe" />
+                    <label for="RememberMe" class="text-white">Remember Me</label>
+                </label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success me-3">Log in</button>
+                <a asp-controller="Home" asp-action="Cafe" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go Back</a>
+            </div>
+        </form>
     </div>
 </div>
-<div class="row">
-    <div class="container-fluid px-3">
-        <div class="col-md-6 mx-auto border border-5 border-info rounded p-3 bg-primary">
-            <form asp-controller="Account" asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-white"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" id="formInput" />
-                    <label asp-for="Email">Email</label>
-                    <span asp-validation-for="Email" class="text-white"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Password" class="form-control" id="formInput" />
-                    <label asp-for="Password">Password</label>
-                    <span asp-validation-for="Password" class="text-white"></span>
-                </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="RememberMe" />
-                        <label for="RememberMe" class="text-white">Remember Me</label>
-                    </label>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-success me-3">Log in</button>
-                    <a asp-controller="Home" asp-action="Cafe" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Go Back</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="row bg-info mt-5 pt-3">
+<div class="container-fluid bg-info mt-5 pt-3 pb-1">
     <div class="text-center text-light" id="noteLogin">
         <p><b>Note:</b> If you would like to access the sales reports or management area, it requres a special role for authorization.</p>
         <p>
-            Here are some sample accounts you may use to try them out!<br />
+            Below are some sample accounts you may use to try them out!<br />
             <div class="my-2">
                 <i><span class="text-success">Sales Reports </span></i><br />
                 <b>Username:</b> SalesManager@fwcafe.com<br />

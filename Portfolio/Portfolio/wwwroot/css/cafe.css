@@ -11,6 +11,16 @@
     margin-top: 20px;
 }
 
+#bottomImgContainer:hover #imgOverlay {
+    opacity: 1;
+}
+
+#bottomRow {
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+}
+
 #cafeTitle {
     font-family: serif;
     font-size: 2.5rem;
@@ -63,6 +73,29 @@
     outline: 0;
 }
 
+#imgOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #ffb0f4;
+}
+
+#imgText {
+    color: darkorchid;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
 #imgUpdate {
     display: block;
     margin: auto;
@@ -107,4 +140,10 @@
 
 #titleSection {
     font-family: serif;
+}
+
+#validationText {
+    color: darkviolet;
+    font-size: 16px;
+    font-weight: bold;
 }

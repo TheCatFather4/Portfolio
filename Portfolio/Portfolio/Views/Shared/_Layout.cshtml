@@ -48,9 +48,11 @@
         </nav>
     </header>
     @RenderBody()
-    <div class="row" id="navBottom">
-        <h5 class="mt-2 text-light text-center">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
-    </div>
+    <footer>
+        <div class="container-fluid" id="navBottom">
+            <h5 class="text-light text-center">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+        </div>
+    </footer>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

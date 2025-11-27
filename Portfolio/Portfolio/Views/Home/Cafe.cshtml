@@ -3,68 +3,44 @@
     ViewData["Title"] = "4th Wall Cafe";
 }
 
-<div class="row">
-    <div class="my-3">
-        <h1 class="text-center" id="cafeTitle">Comfort food begins at the <span>4th Wall Cafe</span></h1>
-    </div>
+<div class="my-5">
+    <h1 class="text-center" id="cafeTitle">Comfort food begins at the <span>4th Wall Cafe</span></h1>
 </div>
-<div class="row">
-    <img src="~/img/cafemain.jpg" class="img-fluid" />
+<img src="~/img/cafemain.jpg" class="img-fluid" />
+<div class="my-5">
+    <h2 class="text-center" id="menuTitle">Our menu is sure to have something that piques <span>your interest</span></h2>
 </div>
-<div class="row">
-    <div class="my-3">
-        <h2 class="text-center" id="menuTitle">Our menu is sure to have something that piques <span>your interest</span></h2>
-    </div>
-</div>
-<div class="row">
-    <img src="~/img/cafemenu.jpg" class="img-fluid" />
-</div>
-<div class="row">
-    <h3 class="text-center my-3">
-        <a class="btn btn-success me-2" type="submit" asp-controller="CafeMenu" asp-action="Index" id="menuButtonHome">View Menu</a>
-        <a class="btn btn-warning ms-2" type="submit" asp-controller="ShoppingCart" asp-action="Index" id="menuButtonHome">Order Now</a>
-    </h3>
-</div>
-<div class="row bg-info">
-    <div class="container-fluid d-flex mb-3">
-        <div class="col-md-4 text-center">
-            <div class="m-3">
-                <img src="~/img/management.jpg" class="img-fluid img-thumbnail" id="bottomImages" />
-            </div>
-            <div class="my-3">
-                <h3>
-                    <a class="link-light link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Management" asp-action="Index" id="titleSection">Management Area</a>
-                </h3>
+<img src="~/img/cafemenu.jpg" class="img-fluid" />
+<h3 class="text-center my-5">
+    <a class="btn btn-success me-3" type="submit" asp-controller="CafeMenu" asp-action="Index" id="menuButtonHome">View Menu</a>
+    <a class="btn btn-warning ms-3" type="submit" asp-controller="ShoppingCart" asp-action="Index" id="menuButtonHome">Order Now</a>
+</h3>
+<div class="container-fluid bg-info">
+    <div class="d-flex justify-content-evenly">
+        <div class="card my-3" style="width:30rem" id="bottomImgContainer">
+            <img src="~/img/management.jpg" class="card-img" />
+            <div id="imgOverlay">
+                <div id="imgText"><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Management" asp-action="Index" id="titleSection">Management Area</a></div>
             </div>
         </div>
-        <div class="col-md-4 text-center">
-            <div class="m-3">
-                <img src="~/img/sales.jpg" class="img-fluid img-thumbnail" id="bottomImages" />
-            </div>
-            <div class="my-3">
-                <h3>
-                    <a class="link-light link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Reports" asp-action="Index" id="titleSection">Sales Reports</a>
-                </h3>
+        <div class="card my-3" style="width:30rem" id="bottomImgContainer">
+            <img src="~/img/sales.jpg" class="card-img" />
+            <div id="imgOverlay">
+                <div id="imgText"><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Reports" asp-action="Index" id="titleSection">Sales Reports</a></div>
             </div>
         </div>
-        <div class="col-md-4 text-center">
-            <div class="m-3">
-                <img src="~/img/orderapi.jpg" class="img-fluid img-thumbnail" id="bottomImages" />
-            </div>
-            <div class="my-3">
-                <h3>
-                    <a class="link-light link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Home" asp-action="CafeAPI" id="titleSection">Online Ordering API</a>
-                </h3>
+        <div class="card my-3" style="width:30rem" id="bottomImgContainer">
+            <img src="~/img/orderapi.jpg" class="card-img" />
+            <div id="imgOverlay">
+                <div id="imgText"><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Home" asp-action="CafeAPI" id="titleSection">Online Ordering API</a></div>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="container-fluid">
-        <div class="text-center my-3 d-flex justify-content-evenly">
-            <h5><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" href="https://www.github.com/TheCatFather4">GitHub</a></h5>
-            <h5><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Home" asp-action="Documentation">Documentation and Diagrams</a></h5>
-            <h5><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" href="https://www.linkedin.com/in/joseph-marcello-9b31a134a">LinkedIn</a></h5>
-        </div>
+<div class="container-fluid">
+    <div class="text-center mt-5 d-flex justify-content-evenly">
+        <h5><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" href="https://www.github.com/TheCatFather4">GitHub</a></h5>
+        <h5><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-controller="Home" asp-action="Documentation">Documentation and Diagrams</a></h5>
+        <h5><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" href="https://www.linkedin.com/in/joseph-marcello-9b31a134a">LinkedIn</a></h5>
     </div>
 </div>
