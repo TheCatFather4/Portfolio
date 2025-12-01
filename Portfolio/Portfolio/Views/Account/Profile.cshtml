@@ -15,19 +15,19 @@
         </h1>
         <p>Update your customer information on this page</p>
     </div>
-    <div class="row">
+    <div class="row mx-auto">
         <form asp-controller="Account" asp-action="Profile" method="post" class="border border-info border-5 rounded p-3 bg-primary">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="CustomerID" />
             <div class="form-floating mb-3">
                 <input type="text" asp-for="FirstName" class="form-control" id="formInput" />
                 <label asp-for="FirstName">First Name</label>
-                <span asp-validation-for="FirstName" class="text-light"></span>
+                <span asp-validation-for="FirstName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="LastName" class="form-control" id="formInput" />
                 <label asp-for="LastName">Last Name</label>
-                <span asp-validation-for="LastName" class="text-light"></span>
+                <span asp-validation-for="LastName" id="validationText"></span>
             </div>
             <input type="hidden" asp-for="Email" />
             <input type="hidden" asp-for="Id" />

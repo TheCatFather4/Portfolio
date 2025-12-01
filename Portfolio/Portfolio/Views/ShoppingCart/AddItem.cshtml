@@ -6,20 +6,20 @@
 }
 
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <div class="mt-3">
-            @if (Model.ItemImgPath != null)
-            {
-                <img src="~/item/@Model.ItemImgPath" class="img-thumbnail img-fluid" style="width: 10rem" />
-            }
-            else
-            {
-                <img src="~/item/newitem.jpg" class="img-thumbnail img-fluid" style="width: 10rem" />
-            }
-            <h3 class="my-2 text-center" id="titleSection">@Model.ItemName</h3>
-            <h5 class="mt-2 text-center">$@Model.Price</h5>
-        </div>
-        <div class="bg-primary border border-info border-5 rounded p-3 m-3" id="addItemForm">
+    <div class="text-center">
+        <div class="bg-primary border border-info border-5 rounded px-5 py-3 m-5">
+            <div class="mt-3">
+                @if (Model.ItemImgPath != null)
+                {
+                    <img src="~/item/@Model.ItemImgPath" class="img-thumbnail img-fluid" style="width: 10rem" />
+                }
+                else
+                {
+                    <img src="~/item/newitem.jpg" class="img-thumbnail img-fluid" style="width: 10rem" />
+                }
+                <h3 class="my-3 text-center" id="titleSection">@Model.ItemName</h3>
+                <h5 class="mb-3 text-center">$@Model.Price</h5>
+            </div>
             <form asp-controller="ShoppingCart" asp-action="AddItem" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="ItemID" />
@@ -27,7 +27,7 @@
                 <div class="form-floating mb-3">
                     <input asp-for="Quantity" class="form-control" type="number" value="1" id="formInput" />
                     <label asp-for="Quantity">Quantity</label>
-                    <span asp-validation-for="Quantity" class="text-light"></span>
+                    <span asp-validation-for="Quantity" id="validationText"></span>
                 </div>
                 <input type="hidden" asp-for="Price" />
                 <input type="hidden" asp-for="ItemStatusID" />

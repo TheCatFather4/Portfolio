@@ -5,7 +5,7 @@
     ViewData["Title"] = "Shopping Cart";
 }
 
-<div class="text-center my-3">
+<div class="text-center my-5">
     <h1 id="titleSection">Shopping Cart</h1>
 </div>
 @if (Model.Items.Any())
@@ -17,8 +17,8 @@
                     <th>Item</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
-                    <th></th>
+                    <th>Item Total</th>
+                    <th>Update/Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,25 +36,29 @@
                         <td style="vertical-align: middle;">$@i.Price</td>
                         <td style="vertical-align: middle;">@i.Quantity</td>
                         <td style="vertical-align: middle;">$@(@i.Price* @i.Quantity)</td>
-                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Update Quantity or Delete</a></td>
+                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Edit</a></td>
                     </tr>
                 }
             </tbody>
         </table>
         <div class="my-3 text-center">
-            <h3>Cart Total: $@Model.Total</h3>
+            <h3 id="titleSection">Cart Total: $@Model.Total</h3>
         </div>
     </div>
-    <div class="row">
-        <div class="text-center">
-            <h3 id="titleSection">Want to add more items?<br />Return to the <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">menu</a> page!</h3>
-            <h3>All done? Go to <a asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">checkout</a></h3>
+    <div class="container">
+        <div class="d-flex justify-content-evenly text-center">
+            <div class="col-md-6">
+                <h3 id="titleSection">Return to the <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">menu</a></h3>
+            </div>
+            <div class="col-md-6">
+                <h3 id="titleSection">All done? Go to <a asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">checkout</a></h3>
+            </div>
         </div>
     </div>
     <div class="container">
         <div class="row p-3">
-            <div class="text-center border border-info border-2 rounded bg-warningbg-warning-subtle">
-                <h5 class="my-3">Empty Shopping Cart</h5>
+            <div class="text-center border border-primary border-2 rounded bg-dark">
+                <h5 class="my-3 text-light">Empty Shopping Cart</h5>
                 <a class="btn btn-danger mb-3" asp-controller="ShoppingCart" asp-action="EmptyShoppingCart" asp-route-customerId="@Model.CustomerID">Empty Cart</a>
             </div>
         </div>
@@ -62,10 +66,12 @@
 }
 else
 {
-    <p class="text-center" id="noItemsCart">There are currently no items in your shopping cart.</p>
-    <div class="row">
-        <div class="text-center">
-            <h3 id="titleSection">Want to add some items to your cart?<br />Go to our <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50">menu</a> page to browse our available items!</h3>
+    <div class="container">
+        <div class="text-center border border-primary border-2 rounded bg-dark">
+            <p class="my-3 text-light" id="noItemsCart">There are no items in your shopping cart.</p>
+        </div>
+        <div class="text-center mt-3">
+            <h3 id="titleSection">Want to add items to your cart?<br />Go to the <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50">menu</a> page!</h3>
         </div>
     </div>
 }
