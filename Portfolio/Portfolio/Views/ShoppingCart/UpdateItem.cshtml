@@ -5,8 +5,8 @@
     ViewData["Title"] = "Update Cart";
 }
 
-<div class="row text-center">
-    <h3>@Model.ItemName</h3>
+<div class="text-center">
+    <h3 class="my-3">@Model.ItemName</h3>
     @if (Model.ItemImgPath != null)
     {
         <img src="~/item/@Model.ItemImgPath" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
@@ -15,13 +15,13 @@
     {
         <img src="~/item/newitem.jpg" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
     }
-    <h5><span class="me-2">Price: $@Model.Price</span><span class="ms-2">Quantity: @Model.Quantity</span></h5>
-    <h5>Total: $@(Model.Price* Model.Quantity)</h5>
+    <h5 class="my-3"><span class="me-3">Price: $@Model.Price</span><span class="mx-3">Quantity: @Model.Quantity</span><span class="ms-3">Total: $@(Model.Price* Model.Quantity)</span></h5>
 </div>
+
 <div class="container">
-    <div class="row mb-3">
-        <div class="col-sm-4 border border-info border-3 rounded bg-primary p-3">
-            <h5 class="mb-3">Update item quantity?</h5>
+    <div class="d-flex justify-content-evenly border border-info border-3 rounded bg-primary p-3">
+        <div>
+            <h5 class="my-3" id="titleSection">Update item quantity?</h5>
             <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="CustomerID" />
@@ -29,7 +29,7 @@
                 <div class="form-floating mb-3">
                     <input type="number" asp-for="Quantity" class="form-control" id="formInput" />
                     <label asp-for="Quantity"></label>
-                    <span asp-validation-for="Quantity" class="text-light"></span>
+                    <span asp-validation-for="Quantity" id="validationText"></span>
                 </div>
                 <input type="hidden" asp-for="ItemName" />
                 <input type="hidden" asp-for="ItemImgPath" />
@@ -37,10 +37,10 @@
                 <button class="btn btn-warning mb-3">Update</button>
             </form>
         </div>
-        <div class="col-sm-4 my-5">
+        <div class="p-5" id="updateItemForm1">
             <h2 class="text-center">OR</h2>
         </div>
-        <div class="col-sm-4 text-center border border-info border-3 rounded bg-primary p-3">
+        <div id="updateItemForm2">
             <h5>Delete item from cart?</h5>
             <form asp-controller="ShoppingCart" asp-action="DeleteItem" method="post">
                 @Html.AntiForgeryToken()
@@ -52,13 +52,10 @@
                 <input type="hidden" asp-for="Price" />
                 <button class="btn btn-danger my-3">Delete</button>
             </form>
-            <h6 class="mt-3">Note: Deleting the item will set its quantity to 0 and remove it from the cart entirely.</h6>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="text-center">
-        <h3 class="mt-3">Changed your mind?</h3>
-        <a class="btn btn-success my-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Back to Shopping Cart</a>
-    </div>
+<div class="text-center">
+    <h3 class="mt-5">Changed your mind?</h3>
+    <a class="btn btn-success my-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Back to Shopping Cart</a>
 </div>

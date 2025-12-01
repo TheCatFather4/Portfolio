@@ -2,6 +2,10 @@
     background-color: rgb(7, 35, 144);
 }
 
+#addItemForm {
+    margin-top: 40px;
+}
+
 #bottomImages {
     margin-top: 20px;
 }
@@ -135,6 +139,16 @@
 
 #titleSection {
     font-family: serif;
+}
+
+#updateItemForm1 {
+    margin-top: 30px;
+    font-family: cursive;
+}
+
+#updateItemForm2 {
+    margin-top: 80px;
+    font-family: cursive;
 }
 
 #validationText {
