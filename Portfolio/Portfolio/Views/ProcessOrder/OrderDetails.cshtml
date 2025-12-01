@@ -5,61 +5,59 @@
     ViewData["Title"] = "Order Details";
 }
 
-<div class="row text-center my-3">
-    <h2>Details for Order: @Model.OrderId</h2>
+<div class="text-center my-5" id="titleSection">
+    <h2>Details for Order: <span class="text-success">#@Model.OrderId</span></h2>
 </div>
 <div class="container">
-    <div class="row">
-        <table class="table border border-info table-warning table-striped">
-            <thead>
-                <tr>
-                    <th>Order Status</th>
-                    <th>Date</th>
-                    <th>Tax</th>
-                    <th>Tip</th>
-                    <th>Final Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    @if (Model.PaymentStatusId == 2)
-                    {
-                        <td class="text-warning">Pending <a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId">Go to checkout</a></td>
-                    }
-                    else
-                    {
-                        <td class="text-success">Paid</td>
-                    }
-                    <td>@Model.OrderDate</td>
-                    <td>$@Model.Tax</td>
-                    <td>$@Model.Tip</td>
-                    <td>$@Model.FinalTotal</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <table class="table border border-info table-warning table-striped">
-            <thead>
-                <tr>
-                    <th>Order Item ID</th>
-                    <th>Quantity</th>
-                    <th>Extended Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var i in Model.Items)
+    <table class="table table-bordered border-primary table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Order Status</th>
+                <th>Date</th>
+                <th>Tax</th>
+                <th>Tip</th>
+                <th>Final Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (Model.PaymentStatusId == 2)
                 {
-                    <tr>
-                        <td>@i.OrderItemId</td>
-                        <td>@i.Quantity</td>
-                        <td>$@i.ExtendedPrice</td>
-                    </tr>
+                    <td class="text-warning">Pending <a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId">Go to checkout</a></td>
                 }
-            </tbody>
-        </table>
-    </div>
-    <div class="text-center my-3">
-        <a asp-controller="Account" asp-action="Profile" class="btn btn-primary" type="submit">Back to Customer profile</a>
+                else
+                {
+                    <td class="text-success">Paid</td>
+                }
+                <td>@Model.OrderDate</td>
+                <td>$@Model.Tax</td>
+                <td>$@Model.Tip</td>
+                <td>$@Model.FinalTotal</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered border-primary table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Order Item ID</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Extended Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Items)
+            {
+                <tr>
+                    <td>@i.OrderItemId</td>
+                    <td>@i.ItemName</td>
+                    <td>@i.Quantity</td>
+                    <td>$@i.ExtendedPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center mt-4">
+        <a asp-controller="Account" asp-action="Profile" class="btn btn-success" type="submit">Back to Customer profile</a>
     </div>
 </div>

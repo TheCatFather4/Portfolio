@@ -3,6 +3,7 @@ using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
+using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
 {
@@ -128,6 +129,7 @@ namespace Portfolio.Controllers
                         Items = result.Data.OrderItems?.Select(oi => new OrderItemDetails
                         {
                             OrderItemId = oi.OrderItemID,
+                            ItemName = EnumConverter.GetItemPriceName(oi.ItemPriceID),
                             Quantity = oi.Quantity,
                             ExtendedPrice = oi.ExtendedPrice
                         }).ToList() ?? new List<OrderItemDetails>()
