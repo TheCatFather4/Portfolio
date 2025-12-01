@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
+    /// <summary>
+    /// Handles business logic concerning customer entities
+    /// </summary>
     public class CustomerService : ICustomerService
     {
         private readonly ILogger _logger;
@@ -19,6 +22,12 @@ namespace Cafe.BLL.Services
             _shoppingBagRepository = shoppingBagRepository;
         }
 
+        /// <summary>
+        /// Handles the logic for adding a new customer record. If using the Dapper database mode, 
+        /// a conditional check is present, as Dapper does not automatically update the CustomerID.
+        /// </summary>
+        /// <param name="dto">An object to map to a new customer object</param>
+        /// <returns>A result dto</returns>
         public async Task<Result> AddCustomerAsync(AddCustomerRequest dto)
         {
             var customer = new Customer
@@ -62,6 +71,11 @@ namespace Cafe.BLL.Services
             return ResultFactory.Success("New customer successfully registered!");
         }
 
+        /// <summary>
+        /// Handles the logic for looking up a customer by email address
+        /// </summary>
+        /// <param name="email">A string in the form of an email address</param>
+        /// <returns>A result dto with a customer entity as its data</returns>
         public async Task<Result<Customer>> GetCustomerByEmailAsync(string email)
         {
             try
@@ -83,6 +97,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Checks to see if a particular email address is already present in the database
+        /// </summary>
+        /// <param name="email">A string in the form of an email address</param>
+        /// <returns>A result dto</returns>
         public async Task<Result> GetDuplicateEmailAsync(string email)
         {
             try
@@ -103,6 +122,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Handles the logic for updating a Customer record
+        /// </summary>
+        /// <param name="customer">Customer Entity</param>
+        /// <returns>A result dto</returns>
         public async Task<Result> UpdateCustomerAsync(Customer customer)
         {
             try

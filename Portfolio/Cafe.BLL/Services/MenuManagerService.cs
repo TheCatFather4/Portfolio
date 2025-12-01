@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
+    /// <summary>
+    /// Handles business logic concerning menu management
+    /// </summary>
     public class MenuManagerService : IMenuManagerService
     {
         private readonly ILogger _logger;
@@ -19,6 +22,11 @@ namespace Cafe.BLL.Services
             _menuRetrievalRepository = menuRetrievalRepository;
         }
 
+        /// <summary>
+        /// Handles logic involving adding a new item to the database
+        /// </summary>
+        /// <param name="item">An item entity</param>
+        /// <returns>A result dto</returns>
         public Result AddNewItem(Item item)
         {
             try
@@ -33,6 +41,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Filters through all the items by category, time of day, and/or by date.
+        /// </summary>
+        /// <param name="dto">A dto used for filtering and mapping items</param>
+        /// <returns>A result dto with a list of items and their itemprices</returns>
         public Result<List<Item>> FilterMenu(MenuFilter dto)
         {
             try
@@ -137,6 +150,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Handles logic involving updating a current item record
+        /// </summary>
+        /// <param name="item">An item entity</param>
+        /// <returns>A result dto</returns>
         public Result UpdateItem(Item item)
         {
             try
