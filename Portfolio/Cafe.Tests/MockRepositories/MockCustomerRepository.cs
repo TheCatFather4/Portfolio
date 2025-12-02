@@ -41,9 +41,9 @@ namespace Cafe.Tests.MockRepositories
             };
         }
 
-        public Task UpdateCustomerAsync(Customer customer)
+        public async Task UpdateCustomerAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            var c1 = new Customer();
         }
     }
 }
