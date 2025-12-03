@@ -27,7 +27,7 @@
                         <td>@o.OrderId</td>
                         @if (o.PaymentStatusId == 2)
                         {
-                            <td class="text-warning">Pending <a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@o.OrderId">Go to checkout</a></td>
+                            <td class="text-warning">Pending<a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@o.OrderId" class="ms-3">Go to checkout</a></td>
                         }
                         else if (o.PaymentStatusId == 1)
                         {

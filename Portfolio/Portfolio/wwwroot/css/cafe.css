@@ -67,6 +67,11 @@
     border: solid 5px #ed19cf;
 }
 
+#cardTop2 {
+    border: solid 5px #ed19cf;
+    border-radius: 10px;
+}
+
 #formInput:focus {
     box-shadow: 0px 0px 12px 4px #ed19cf;
     outline: 0;
@@ -138,7 +143,7 @@
 }
 
 #titleSection {
-    font-family: serif;
+    font-family: cursive;
 }
 
 #updateItemForm1 {
@@ -153,6 +158,12 @@
 
 #validationText {
     color: darkviolet;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#validationText2 {
+    color: mediumspringgreen;
     font-size: 16px;
     font-weight: bold;
 }

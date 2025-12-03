@@ -23,7 +23,7 @@
             <tr>
                 @if (Model.PaymentStatusId == 2)
                 {
-                    <td class="text-warning">Pending <a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId">Go to checkout</a></td>
+                    <td class="text-warning">Pending<a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId" class="ms-3">Go to checkout</a></td>
                 }
                 else
                 {
