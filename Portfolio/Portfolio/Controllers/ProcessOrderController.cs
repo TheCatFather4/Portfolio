@@ -17,17 +17,26 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult Process(int customerId)
+        public async Task<IActionResult> Process(int customerId)
         {
             if (User.Identity.IsAuthenticated)
             {
-                var model = new OrderForm
-                {
-                    CustomerId = customerId,
-                    PaymentTypeId = 1
-                };
+                var total = await _orderService.GetOrderTotalAsync(customerId);
 
-                return View(model);
+                if (total.Ok)
+                {
+                    var model = new OrderForm
+                    {
+                        CustomerId = customerId,
+                        PaymentTypeId = 1,
+                        TipFormTotal = total.Data,
+                        TipTen = total.Data * 0.10M,
+                        TipFifteen = total.Data * 0.15M,
+                        TipTwenty = total.Data * 0.20M
+                    };
+
+                    return View(model);
+                }
             }
 
             return RedirectToAction("Login", "Account");

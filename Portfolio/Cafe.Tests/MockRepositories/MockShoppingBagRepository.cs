@@ -30,6 +30,11 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
+        public Task<decimal> GetShoppingBagTotalAsync(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
         {
             throw new NotImplementedException();

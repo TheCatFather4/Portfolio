@@ -7,8 +7,10 @@
 
 @if (Model.PaymentStatusId != 2)
 {
-    <div class="text-center my-3">
-        <h3>Before we prepare your order for payment, would you like to add a tip?</h3>
+    <div class="text-center my-5">
+        <h3 id="titleSection">Before we prepare your order for payment, would you like to add a tip?</h3>
+        <h3 class="text-success mt-3">SubTotal: $@Model.TipFormTotal.ToString("F2") (After Tax)</h3>
+        <p>10% Tip = $@Model.TipTen.ToString("F2")<br />15% Tip = $@Model.TipFifteen.ToString("F2")<br />20% Tip = $@Model.TipTwenty.ToString("F2")</p>
     </div>
     <div class="container">
         <div class="row">
@@ -19,12 +21,16 @@
                 <input type="hidden" asp-for="SubTotal" />
                 <input type="hidden" asp-for="Tax" />
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" asp-for="Tip" value="0.00" id="formInput" />
+                    <input type="string" class="form-control" asp-for="Tip" value="0.00" id="formInput" />
                     <label asp-for="Tip">Tip</label>
                     <span asp-validation-for="Tip" id="validationText"></span>
                 </div>
                 <input type="hidden" asp-for="FinalTotal" />
                 <input type="hidden" asp-for="PaymentStatusId" />
+                <input type="hidden" asp-for="TipFormTotal" />
+                <input type="hidden" asp-for="TipTen" />
+                <input type="hidden" asp-for="TipFifteen" />
+                <input type="hidden" asp-for="TipTwenty" />
                 <div>
                     <button class="btn btn-success me-2">Process</button>
                     <a asp-controller="ShoppingCart" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Back to Shopping Cart</a>
@@ -35,36 +41,34 @@
 }
 else
 {
-    <div class="row text-center my-3">
+    <div class="text-center my-5">
         <h2>Order Summary</h2>
     </div>
     <div class="container">
-        <div class="row">
-            <table class="table table-info">
-                <thead>
-                    <tr>
-                        <th>Sub Total</th>
-                        <th>Tax</th>
-                        <th>Tip</th>
-                        <th>Final Total</th>
-                        <th>Payment Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>$@Model.SubTotal.ToString("F2")</td>
-                        <td>$@Model.Tax.ToString("F2")</td>
-                        <td>$@Model.Tip?.ToString("F2")</td>
-                        <td>$@Model.FinalTotal.ToString("F2")</td>
-                        <td>Pending</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="table table-dark table-striped table-hover table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th>Sub Total</th>
+                    <th>Tax</th>
+                    <th>Tip</th>
+                    <th>Final Total</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$@Model.SubTotal.ToString("F2")</td>
+                    <td>$@Model.Tax.ToString("F2")</td>
+                    <td>$@Model.Tip?.ToString("F2")</td>
+                    <td class="text-success">$@Model.FinalTotal.ToString("F2")</td>
+                    <td class="text-warning">Pending</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="row text-center my-3">
+    <div class="text-center my-3">
         <div>
-            <h3><a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId">Go to Checkout</a></h3>
+            <h3><a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId" class="btn btn-success">Go to Payment</a></h3>
         </div>
     </div>
 }

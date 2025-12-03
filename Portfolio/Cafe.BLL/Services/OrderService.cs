@@ -218,5 +218,30 @@ namespace Cafe.BLL.Services
                 return ResultFactory.Fail<List<CafeOrderResponse>>("An error occurred. Please contact our site administrator.");
             }
         }
+
+        public async Task<Result<decimal>> GetOrderTotalAsync(int customerId)
+        {
+            try
+            {
+                var total = await _shoppingBagRepository.GetShoppingBagTotalAsync(customerId);
+
+                if (total == 0)
+                {
+                    _logger.LogError($"An error occurred when attempting to retrieve shopping bag total for Customer ID: {customerId}.");
+                    return ResultFactory.Fail<decimal>("An error occurred. Please try again in a few minutes.");
+                }
+
+                decimal taxRate = 0.04M;
+                var tax = total * taxRate;
+                total += tax;
+
+                return ResultFactory.Success(total);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred when attempting to retrieve order total for Customer ID {customerId}: {ex.Message}");
+                return ResultFactory.Fail<decimal>("An error occurred. Please contact our site administrator.");
+            }
+        }
     }
 }

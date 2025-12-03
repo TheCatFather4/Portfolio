@@ -7,5 +7,6 @@ namespace Cafe.Core.Interfaces.Services
         Task<Result<CafeOrderResponse>> CreateNewOrderAsync(OrderRequest dto);
         Task<Result<CafeOrderResponse>> GetOrderDetailsAsync(int orderId);
         Task<Result<List<CafeOrderResponse>>> GetOrderHistoryAsync(int customerId);
+        Task<Result<decimal>> GetOrderTotalAsync(int customerId);
     }
 }
