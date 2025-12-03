@@ -21,7 +21,7 @@
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" asp-for="Tip" value="0.00" id="formInput" />
                     <label asp-for="Tip">Tip</label>
-                    <span asp-validation-for="Tip" class="text-light"></span>
+                    <span asp-validation-for="Tip" id="validationText"></span>
                 </div>
                 <input type="hidden" asp-for="FinalTotal" />
                 <input type="hidden" asp-for="PaymentStatusId" />
