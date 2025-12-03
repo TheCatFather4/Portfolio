@@ -148,6 +148,27 @@ namespace Cafe.Data.Repositories.Dapper
             return sbi;
         }
 
+        public async Task<decimal> GetShoppingBagTotalAsync(int customerId)
+        {
+            decimal total = 0;
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT SUM(sbi.Price * sbi.Quantity) FROM ShoppingBag AS sb 
+                            INNER JOIN ShoppingBagItem AS sbi ON sb.ShoppingBagID = sbi.ShoppingBagID 
+                            WHERE sb.CustomerID = @CustomerID;";
+
+                var parameter = new
+                {
+                    CustomerID = customerId
+                };
+
+                total = await cn.ExecuteScalarAsync<decimal>(sql, parameter);
+            }
+
+            return total;
+        }
+
         public async Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
         {
             using (var cn = new SqlConnection(_connectionString))

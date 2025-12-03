@@ -61,6 +61,16 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(sbi => sbi.ShoppingBagItemID == shoppingBagItemId);
         }
 
+        public async Task<decimal> GetShoppingBagTotalAsync(int customerId)
+        {
+            var total = await _dbContext.ShoppingBag
+                .Where(sb => sb.CustomerID == customerId)
+                .SelectMany(sb => sb.Items, (sb, sbi) => sbi.Price * sbi.Quantity)
+                .SumAsync();
+
+            return (decimal)total;
+        }
+
         public async Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
         {
             _dbContext.ShoppingBagItem.Remove(item);
