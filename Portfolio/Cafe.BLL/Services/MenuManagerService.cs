@@ -15,6 +15,12 @@ namespace Cafe.BLL.Services
         private readonly IMenuManagerRepository _menuManagerRepository;
         private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
+        /// <summary>
+        /// Constructs a service that has a logger and the ability to invoke repository methods concerning menu management.
+        /// </summary>
+        /// <param name="logger">An implementation of the ILogger interface.</param>
+        /// <param name="menuManagerRepository">An implementation of the IMenuManager interface.</param>
+        /// <param name="menuRetrievalRepository">An implementation of the IMenuRetrieval interface.</param>
         public MenuManagerService(ILogger<MenuManagerService> logger, IMenuManagerRepository menuManagerRepository, IMenuRetrievalRepository menuRetrievalRepository)
         {
             _logger = logger;
@@ -23,10 +29,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Handles logic involving adding a new item to the database
+        /// Sends a new Item to the repository.
         /// </summary>
-        /// <param name="item">An item entity</param>
-        /// <returns>A result dto</returns>
+        /// <param name="item">An Item entity to be added to the database.</param>
+        /// <returns>A Result DTO.</returns>
         public Result AddNewItem(Item item)
         {
             try
@@ -42,10 +48,11 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Filters through all the items by category, time of day, and/or by date.
+        /// Retrieves menu from repository. If successful, the properties of the MenuFilter are checked for any conditions 
+        /// that the user requested. The returned List of Item entities will be in accord with that request.
         /// </summary>
-        /// <param name="dto">A dto used for filtering and mapping items</param>
-        /// <returns>A result dto with a list of items and their itemprices</returns>
+        /// <param name="dto">Used to filter the List of Item entities returned from the repository.</param>
+        /// <returns>A Result DTO with a List of Item entities as its data.</returns>>
         public Result<List<Item>> FilterMenu(MenuFilter dto)
         {
             try
@@ -58,7 +65,7 @@ namespace Cafe.BLL.Services
                     return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
                 }
 
-                // filter by category
+                // Category filter
                 if (dto.CategoryID != null)
                 {
                     menu = menu
@@ -66,7 +73,7 @@ namespace Cafe.BLL.Services
                         .ToList();
                 }
 
-                // filter by time of day
+                // TimeOfDay filter
                 if (dto.TimeOfDayID != null)
                 {
                     var itemsByTimeOfDay = new List<Item>();
@@ -103,7 +110,7 @@ namespace Cafe.BLL.Services
                     menu = itemsByTimeOfDay;
                 }
 
-                // filter by date
+                // Date filter
                 if (dto.Date != null)
                 {
                     var itemsByDate = new List<Item>();
@@ -151,10 +158,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Handles logic involving updating a current item record
+        /// Sends a current Item entity to the repository to be updated.
         /// </summary>
-        /// <param name="item">An item entity</param>
-        /// <returns>A result dto</returns>
+        /// <param name="item">The current Item to be updated.</param>
+        /// <returns>A Result DTO.</returns>
         public Result UpdateItem(Item item)
         {
             try

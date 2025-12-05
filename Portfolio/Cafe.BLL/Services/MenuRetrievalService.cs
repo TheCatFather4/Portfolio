@@ -15,7 +15,7 @@ namespace Cafe.BLL.Services
         private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
         /// <summary>
-        /// Constructs a service that has a logger and the ability to invoke repository methods involving menu retrieval.
+        /// Constructs a service that has a logger and the ability to invoke repository methods concerning menu retrieval.
         /// </summary>
         /// <param name="logger">An implementation of the ILogger interface.</param>
         /// <param name="menuRetrievalRepository">An implementation of the IMenuRetrievalRepository interface.</param>

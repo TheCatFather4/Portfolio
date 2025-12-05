@@ -15,6 +15,12 @@ namespace Cafe.BLL.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IShoppingBagRepository _shoppingBagRepository;
 
+        /// <summary>
+        /// Constructs a service that has a logger and the ability to invoke repository methods concerning customers.
+        /// </summary>
+        /// <param name="logger">An implementation of the ILogger interface.</param>
+        /// <param name="customerRepository">An implementation of the ICustomerRepository interface.</param>
+        /// <param name="shoppingBagRepository">An implementation of the IShoppingBagRepository interface.</param>
         public CustomerService(ILogger<CustomerService> logger, ICustomerRepository customerRepository, IShoppingBagRepository shoppingBagRepository)
         {
             _logger = logger;
@@ -23,11 +29,13 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Handles the logic for adding a new customer record. If using the Dapper database mode, 
-        /// a conditional check is present, as Dapper does not automatically update the CustomerID.
+        /// Instantiates a new Customer and a new ShoppingBag. Both objects are sent to the appropriate repositories.
+        /// The new Customer object will have a new CustomerID if added to the database using the ORM DatabaseMode.
+        /// If using the Dapper variant, the CustomerID will need to be manually updated. An additional conditional
+        /// check is provided for this below. See Cafe.BLL.ServiceFactory and appsettings.json for more details.
         /// </summary>
-        /// <param name="dto">An object to map to a new customer object</param>
-        /// <returns>A result dto</returns>
+        /// <param name="dto">Used in mapping data to a new Customer object.</param>
+        /// <returns>A Result DTO.</returns>
         public async Task<Result> AddCustomerAsync(AddCustomerRequest dto)
         {
             var customer = new Customer
@@ -72,10 +80,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Handles the logic for looking up a customer by email address
+        /// Sends an email address to the repository to look up a current Customer.
         /// </summary>
-        /// <param name="email">A string in the form of an email address</param>
-        /// <returns>A result dto with a customer entity as its data</returns>
+        /// <param name="email">A string in the form of an email address.</param>
+        /// <returns>A Result DTO with a Customer entity as its data.</returns>
         public async Task<Result<Customer>> GetCustomerByEmailAsync(string email)
         {
             try
@@ -98,10 +106,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Checks to see if a particular email address is already present in the database
+        /// Sends an email address to the repository to see if a Customer already exists.
         /// </summary>
-        /// <param name="email">A string in the form of an email address</param>
-        /// <returns>A result dto</returns>
+        /// <param name="email">A string in the form of an email address.</param>
+        /// <returns>A Result DTO.</returns>
         public async Task<Result> GetDuplicateEmailAsync(string email)
         {
             try
@@ -123,10 +131,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Handles the logic for updating a Customer record
+        /// Sends a current Customer entity to the repository to be updated.
         /// </summary>
-        /// <param name="customer">Customer Entity</param>
-        /// <returns>A result dto</returns>
+        /// <param name="customer">The current Customer to be updated.</param>
+        /// <returns>A Result DTO.</returns>
         public async Task<Result> UpdateCustomerAsync(Customer customer)
         {
             try
