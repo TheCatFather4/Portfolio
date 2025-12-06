@@ -6,6 +6,7 @@ namespace Cafe.Core.Interfaces.Repositories
     {
         Task<int> AddCustomerAsync(Customer customer);
         Task<Customer> GetCustomerByEmailAsync(string email);
+        Task<string?> GetEmailAddressAsync(string email);
         Task UpdateCustomerAsync(Customer customer);
     }
 }

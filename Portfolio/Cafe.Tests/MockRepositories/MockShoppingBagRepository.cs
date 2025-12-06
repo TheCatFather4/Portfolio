@@ -15,9 +15,12 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
-        public Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
+        public async Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
         {
-            throw new NotImplementedException();
+            int id = 1;
+
+            await Task.Delay(100);
+            return id;
         }
 
         public Task<ShoppingBag> GetShoppingBagAsync(int customerId)

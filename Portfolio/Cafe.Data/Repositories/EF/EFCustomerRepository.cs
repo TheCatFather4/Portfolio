@@ -27,6 +27,14 @@ namespace Cafe.Data.Repositories.EF
                 .FirstOrDefaultAsync(c => c.Email == email);
         }
 
+        public async Task<string?> GetEmailAddressAsync(string email)
+        {
+            return await _dbContext.Customer
+                .Where(c => c.Email == email)
+                .Select(c => c.Email)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task UpdateCustomerAsync(Customer customer)
         {
             _dbContext.Customer.Update(customer);

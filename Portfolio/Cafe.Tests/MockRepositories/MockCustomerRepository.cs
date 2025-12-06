@@ -41,6 +41,17 @@ namespace Cafe.Tests.MockRepositories
             };
         }
 
+        public async Task<string?> GetEmailAddressAsync(string email)
+        {
+            if (email == "Customer1@fwcafe.com")
+            {
+                await Task.Delay(1000);
+                return "Customer1@fwcafe.com";
+            }
+
+            return null;
+        }
+
         public async Task UpdateCustomerAsync(Customer customer)
         {
             var c1 = new Customer();

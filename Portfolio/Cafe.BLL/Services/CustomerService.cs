@@ -106,7 +106,8 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Sends an email address to the repository to see if a Customer already exists.
+        /// Sends an email address to the repository. If the repository doesn't return a matching string,
+        /// the email is not a duplicate. This method is used in the workflow of registering a new Customer to the database.
         /// </summary>
         /// <param name="email">A string in the form of an email address.</param>
         /// <returns>A Result DTO.</returns>
@@ -114,9 +115,9 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var currentCustomer = await _customerRepository.GetCustomerByEmailAsync(email);
+                var duplicateEmail = await _customerRepository.GetEmailAddressAsync(email);
 
-                if (currentCustomer == null)
+                if (duplicateEmail == null)
                 {
                     return ResultFactory.Success();
                 }

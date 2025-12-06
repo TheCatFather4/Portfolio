@@ -58,6 +58,25 @@ namespace Cafe.Data.Repositories.Dapper
             return customer;
         }
 
+        public async Task<string?> GetEmailAddressAsync(string email)
+        {
+            string? duplicate;
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT Email FROM Customer AS c WHERE c.Email = @Email;";
+
+                var parameter = new
+                {
+                    Email = email
+                };
+
+                duplicate = await cn.QueryFirstOrDefaultAsync<string>(sql, parameter);
+            }
+
+            return duplicate;
+        }
+
         public async Task UpdateCustomerAsync(Customer customer)
         {
             using (var cn = new SqlConnection(_connectionString))
