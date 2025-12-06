@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Cafe.BLL.Services
 {
     /// <summary>
-    /// Handles business logic concerning customer entities
+    /// Handles the business logic for Customer related tasks.
     /// </summary>
     public class CustomerService : ICustomerService
     {
@@ -16,11 +16,11 @@ namespace Cafe.BLL.Services
         private readonly IShoppingBagRepository _shoppingBagRepository;
 
         /// <summary>
-        /// Constructs a service that has a logger and the ability to invoke repository methods concerning customers.
+        /// Constructs a service with the dependencies required for Customer related tasks.
         /// </summary>
-        /// <param name="logger">An implementation of the ILogger interface.</param>
-        /// <param name="customerRepository">An implementation of the ICustomerRepository interface.</param>
-        /// <param name="shoppingBagRepository">An implementation of the IShoppingBagRepository interface.</param>
+        /// <param name="logger">An dependency used for logging error messages.</param>
+        /// <param name="customerRepository">An dependency used for invoking data methods concerning Customer records.</param>
+        /// <param name="shoppingBagRepository">An dependency used for creating new ShoppingBag records.</param>
         public CustomerService(ILogger<CustomerService> logger, ICustomerRepository customerRepository, IShoppingBagRepository shoppingBagRepository)
         {
             _logger = logger;
@@ -29,15 +29,15 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Instantiates a new Customer and a new ShoppingBag. Both objects are sent to the appropriate repositories.
-        /// The new Customer object will have a new CustomerID if added to the database using the ORM DatabaseMode.
-        /// If using the Dapper variant, the CustomerID will need to be manually updated. An additional conditional
-        /// check is provided for this below. See Cafe.BLL.ServiceFactory and appsettings.json for more details.
+        /// An ICustomerRepository method is invoked to create a new Customer record. If successful, a ShoppingBag is created for the
+        /// Customer. The new record is then updated with the new ShoppingBagID.
         /// </summary>
-        /// <param name="dto">Used in mapping data to a new Customer object.</param>
-        /// <returns>A Result DTO.</returns>
+        /// <param name="dto">The data required to create a new Customer record. The data is mapped to a new Customer instance.</param>
+        /// <returns>A Result DTO with a confirmation message.</returns>
         public async Task<Result> AddCustomerAsync(AddCustomerRequest dto)
         {
+            // If using Entity Framework Core:
+            // The CustomerID property will be automatically assigned to this object instance.
             var customer = new Customer
             {
                 FirstName = dto.FirstName,
@@ -54,7 +54,8 @@ namespace Cafe.BLL.Services
                 return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
             }
 
-            // If using Dapper database mode
+            // If using Dapper:
+            // The CustomerID property must be manually assigned to the object instance.
             if (customer.CustomerID == 0)
             {
                 customer.CustomerID = customerId;
@@ -65,6 +66,7 @@ namespace Cafe.BLL.Services
                 CustomerID = customerId
             };
 
+            // Create a new ShoppingBag for the Customer.
             var shoppingBagId = await _shoppingBagRepository.CreateShoppingBagAsync(shoppingBag);
 
             if (shoppingBagId == 0)
@@ -73,17 +75,17 @@ namespace Cafe.BLL.Services
                 return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
             }
 
+            // Update Customer record.
             customer.ShoppingBagID = shoppingBagId;
-
             await _customerRepository.UpdateCustomerAsync(customer);
             return ResultFactory.Success("New customer successfully registered!");
         }
 
         /// <summary>
-        /// Sends an email address to the repository to look up a current Customer.
+        /// An ICustomerRepository method is invoked to determine whether a given Customer exists or not.
         /// </summary>
         /// <param name="email">A string in the form of an email address.</param>
-        /// <returns>A Result DTO with a Customer entity as its data.</returns>
+        /// <returns>A Result DTO with a Customer entity as its data. If a Customer was not found, the Result data is null.</returns>
         public async Task<Result<Customer>> GetCustomerByEmailAsync(string email)
         {
             try
@@ -100,17 +102,16 @@ namespace Cafe.BLL.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError($"An error occurred when attempting to retrieve Customer data for {email}: {ex.Message}");
                 return ResultFactory.Fail<Customer>("An error occurred. Please contact our management team for assistance.");
             }
         }
 
         /// <summary>
-        /// Sends an email address to the repository. If the repository doesn't return a matching string,
-        /// the email is not a duplicate. This method is used in the workflow of registering a new Customer to the database.
+        /// An ICustomerRepository method is invoked to determine whether a given email address is a duplicate or not.
         /// </summary>
         /// <param name="email">A string in the form of an email address.</param>
-        /// <returns>A Result DTO.</returns>
+        /// <returns>A Result DTO. A message is returned if the email address already exists.</returns>
         public async Task<Result> GetDuplicateEmailAsync(string email)
         {
             try
@@ -132,10 +133,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Sends a current Customer entity to the repository to be updated.
+        /// An ICustomerRepository method is invoked to update a Customer record.
         /// </summary>
-        /// <param name="customer">The current Customer to be updated.</param>
-        /// <returns>A Result DTO.</returns>
+        /// <param name="customer">The Customer data to be send to the database.</param>
+        /// <returns>A Result DTO with a confirmation message.</returns>
         public async Task<Result> UpdateCustomerAsync(Customer customer)
         {
             try

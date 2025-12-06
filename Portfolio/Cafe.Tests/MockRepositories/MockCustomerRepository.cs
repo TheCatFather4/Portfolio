@@ -8,37 +8,47 @@ namespace Cafe.Tests.MockRepositories
         public async Task<int> AddCustomerAsync(Customer customer)
         {
             int id = 1;
+
+            await Task.Delay(1000);
             return id;
         }
 
-        public async Task<int> CreateShoppingBagAsync(ShoppingBag shoppingBag)
+        public async Task<Customer?> GetCustomerByEmailAsync(string email)
         {
-            int id = 1;
-            return id;
-        }
+            var customers = new List<Customer>();
 
-        public async Task<Customer> GetCustomerByEmailAsync(string email)
-        {
-            if (email == "Customer1@fwcafe.com")
+            var c1 = new Customer()
             {
-                var customer = new Customer
-                {
-                    CustomerID = 1,
-                    Email = email,
-                    FirstName = "Test",
-                    LastName = "Tester"
-                };
+                CustomerID = 1,
+                FirstName = "Yugi",
+                LastName = "Moto",
+                Email = "Customer1@fwcafe.com",
+                Id = "123abc"
+            };
 
-                return customer;
+            var c2 = new Customer()
+            {
+                CustomerID = 2,
+                FirstName = "Seto",
+                LastName = "Kaiba",
+                Email = "Huhuhuhuahaha@duelist.com",
+                Id = "blueeyeswhitedragon"
+            };
+
+            customers.Add(c1);
+            customers.Add(c2);
+
+            await Task.Delay(1000);
+
+            foreach (var c in customers)
+            {
+                if (c.Email == email)
+                {
+                    return c;
+                }
             }
 
-            return new Customer
-            {
-                CustomerID = 0,
-                Email = "Null",
-                FirstName = "Null",
-                LastName = "Null"
-            };
+            return null;
         }
 
         public async Task<string?> GetEmailAddressAsync(string email)
@@ -54,7 +64,15 @@ namespace Cafe.Tests.MockRepositories
 
         public async Task UpdateCustomerAsync(Customer customer)
         {
-            var c1 = new Customer();
+            await Task.Delay(100);
+            var updated = new Customer
+            {
+                CustomerID = customer.CustomerID,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Email = customer.Email,
+                Id = customer.Id
+            };
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Cafe.Data.Repositories.EF
             return customer.CustomerID;
         }
 
-        public async Task<Customer> GetCustomerByEmailAsync(string email)
+        public async Task<Customer?> GetCustomerByEmailAsync(string email)
         {
             return await _dbContext.Customer
                 .FirstOrDefaultAsync(c => c.Email == email);

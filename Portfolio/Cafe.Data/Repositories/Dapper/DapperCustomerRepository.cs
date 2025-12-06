@@ -22,6 +22,7 @@ namespace Cafe.Data.Repositories.Dapper
             {
                 var sql = @"INSERT INTO Customer (FirstName, LastName, Email, Id, ShoppingBagID) 
                             VALUES (@FirstName, @LastName, @Email, @Id, @ShoppingBagID);
+
                             SELECT SCOPE_IDENTITY();";
 
                 var parameters = new
@@ -39,9 +40,9 @@ namespace Cafe.Data.Repositories.Dapper
             return id;
         }
 
-        public async Task<Customer> GetCustomerByEmailAsync(string email)
+        public async Task<Customer?> GetCustomerByEmailAsync(string email)
         {
-            Customer customer = new Customer();
+            Customer? customer = new Customer();
 
             using (var cn = new SqlConnection(_connectionString))
             {
