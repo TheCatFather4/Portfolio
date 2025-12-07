@@ -30,7 +30,7 @@ namespace Portfolio.Controllers
             var model = new ItemCategoryForm();
 
             model.Items = await _selectListBuilder.BuildItemsAsync(TempData);
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
+            model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
             model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();
             return View(model);
@@ -41,7 +41,7 @@ namespace Portfolio.Controllers
         public async Task<IActionResult> ItemCategorySales(ItemCategoryForm model)
         {
             model.Items = await _selectListBuilder.BuildItemsAsync(TempData);
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
+            model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
             model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();
 

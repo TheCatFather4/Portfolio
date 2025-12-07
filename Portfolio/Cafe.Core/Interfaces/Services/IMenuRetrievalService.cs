@@ -7,10 +7,10 @@ namespace Cafe.Core.Interfaces.Services
     {
         Task<Result<List<ItemResponse>>> GetAllItemsAPIAsync();
         Task<Result<List<Item>>> GetAllItemsMVCAsync();
-        Result<List<Category>> GetCategories();
+        Task<Result<List<Category>>> GetCategoriesAsync();
         Task<Result<ItemResponse>> GetItemByIdAsyncAPI(int itemId);
         Task<Result<Item>> GetItemByIdAsyncMVC(int itemID);
         Result<List<Item>> GetItemsByCategoryId(int categoryId);
-        Result<List<TimeOfDay>> GetTimeOfDays();
+        Task<Result<List<TimeOfDay>>> GetTimeOfDaysAsync();
     }
 }

@@ -52,14 +52,14 @@ namespace Cafe.Data.Repositories.Dapper
             return itemDictionary.Values.ToList();
         }
 
-        public List<Category> GetCategories()
+        public async Task<List<Category>> GetCategoriesAsync()
         {
             List<Category> categories = new List<Category>();
 
             using (var cn = new SqlConnection(_connectionString))
             {
                 var sql = "SELECT * FROM Category";
-                categories = cn.Query<Category>(sql).ToList();
+                categories = (await cn.QueryAsync<Category>(sql)).ToList();
             }
 
             return categories;
@@ -130,14 +130,14 @@ namespace Cafe.Data.Repositories.Dapper
             return items;
         }
 
-        public List<TimeOfDay> GetTimeOfDays()
+        public async Task<List<TimeOfDay>> GetTimeOfDaysAsync()
         {
             List<TimeOfDay> timeOfDays = new List<TimeOfDay>();
 
             using (var cn = new SqlConnection(_connectionString))
             {
                 var sql = "SELECT * FROM TimeOfDay";
-                timeOfDays = cn.Query<TimeOfDay>(sql).ToList();
+                timeOfDays = (await cn.QueryAsync<TimeOfDay>(sql)).ToList();
             }
 
             return timeOfDays;

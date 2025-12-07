@@ -18,13 +18,13 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var model = new MenuForm();
 
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
+            model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
 
-            model.TimesOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
+            model.TimesOfDays = await _selectListBuilder.BuildTimesOfDaysAsync(TempData);
 
             if (model.Categories == null || model.TimesOfDays == null)
             {
@@ -40,8 +40,8 @@ namespace Portfolio.Controllers
         public async Task<IActionResult> Index(MenuForm model)
         {
             // Reload select lists
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.TimesOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
+            model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
+            model.TimesOfDays = await _selectListBuilder.BuildTimesOfDaysAsync(TempData);
 
             var dto = new MenuFilter
             {

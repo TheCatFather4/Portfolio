@@ -20,10 +20,10 @@ namespace Cafe.Data.Repositories.EF
                 .ToListAsync();
         }
 
-        public List<Category> GetCategories()
+        public async Task<List<Category>> GetCategoriesAsync()
         {
-            return _dbContext.Category
-                .ToList();
+            return await _dbContext.Category
+                .ToListAsync();
         }
 
         public async Task<Item> GetItemByIdAsync(int itemId)
@@ -46,10 +46,10 @@ namespace Cafe.Data.Repositories.EF
                .ToList();
         }
 
-        public List<TimeOfDay> GetTimeOfDays()
+        public async Task<List<TimeOfDay>> GetTimeOfDaysAsync()
         {
-            return _dbContext.TimeOfDay
-                .ToList();
+            return await _dbContext.TimeOfDay
+                .ToListAsync();
         }
     }
 }

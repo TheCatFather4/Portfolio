@@ -107,11 +107,11 @@ namespace Cafe.BLL.Services
         /// Invokes repository and checks if any Category entities are found. If successful, entities are returned.
         /// </summary>
         /// <returns>A Result DTO containing a List of Category entities.</returns>
-        public Result<List<Category>> GetCategories()
+        public async Task<Result<List<Category>>> GetCategoriesAsync()
         {
             try
             {
-                var categories = _menuRetrievalRepository.GetCategories();
+                var categories = await _menuRetrievalRepository.GetCategoriesAsync();
 
                 if (categories.Count() == 0)
                 {
@@ -230,11 +230,11 @@ namespace Cafe.BLL.Services
         /// Invokes repository and checks if any TimeOfDay entities are found. If successful, returns a list of the entities.
         /// </summary>
         /// <returns>A Result DTO containing a List of Item entities.</returns>
-        public Result<List<TimeOfDay>> GetTimeOfDays()
+        public async Task<Result<List<TimeOfDay>>> GetTimeOfDaysAsync()
         {
             try
             {
-                var times = _menuRetrievalRepository.GetTimeOfDays();
+                var times = await _menuRetrievalRepository.GetTimeOfDaysAsync();
 
                 if (times.Count() == 0)
                 {

@@ -6,8 +6,8 @@ namespace Portfolio.Utilities
 {
     public interface ISelectListBuilder
     {
-        public SelectList BuildCategories(ITempDataDictionary tempData);
-        public SelectList BuildTimesOfDays(ITempDataDictionary tempData);
+        public Task<SelectList> BuildCategoriesAsync(ITempDataDictionary tempData);
+        public Task<SelectList> BuildTimesOfDaysAsync(ITempDataDictionary tempData);
         public Task<SelectList> BuildItemsAsync(ITempDataDictionary tempData);
         public Task<SelectList> BuildPaymentTypesAsync(ITempDataDictionary tempData);
     }
@@ -23,9 +23,9 @@ namespace Portfolio.Utilities
             _paymentService = paymentService;
         }
 
-        public SelectList BuildCategories(ITempDataDictionary tempData)
+        public async Task<SelectList> BuildCategoriesAsync(ITempDataDictionary tempData)
         {
-            var categoriesResult = _menuService.GetCategories();
+            var categoriesResult = await _menuService.GetCategoriesAsync();
 
             if (categoriesResult.Ok)
             {
@@ -65,9 +65,9 @@ namespace Portfolio.Utilities
             }
         }
 
-        public SelectList BuildTimesOfDays(ITempDataDictionary tempData)
+        public async Task<SelectList> BuildTimesOfDaysAsync(ITempDataDictionary tempData)
         {
-            var timesResult = _menuService.GetTimeOfDays();
+            var timesResult = await _menuService.GetTimeOfDaysAsync();
 
             if (timesResult.Ok)
             {

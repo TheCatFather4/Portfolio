@@ -52,12 +52,12 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddItem()
+        public async Task<IActionResult> AddItem()
         {
             var model = new AddItemForm();
 
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
+            model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
+            model.TimeOfDays = await _selectListBuilder.BuildTimesOfDaysAsync(TempData);
 
             if (model.Categories == null || model.TimeOfDays == null)
             {
@@ -72,8 +72,8 @@ namespace Portfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddItem(AddItemForm model)
         {
-            model.Categories = _selectListBuilder.BuildCategories(TempData);
-            model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
+            model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
+            model.TimeOfDays = await _selectListBuilder.BuildTimesOfDaysAsync(TempData);
 
             if (ModelState.IsValid)
             {
