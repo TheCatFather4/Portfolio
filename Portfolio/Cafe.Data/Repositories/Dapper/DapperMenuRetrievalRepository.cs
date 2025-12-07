@@ -65,7 +65,7 @@ namespace Cafe.Data.Repositories.Dapper
             return categories;
         }
 
-        public async Task<Item> GetItemByIdAsync(int itemId)
+        public async Task<Item?> GetItemByIdAsync(int itemId)
         {
             Item item = new Item();
 
@@ -82,7 +82,7 @@ namespace Cafe.Data.Repositories.Dapper
                     ItemID = itemId
                 };
 
-                using (var multi = cn.QueryMultiple(sql, parameters))
+                using (var multi = await cn.QueryMultipleAsync(sql, parameters))
                 {
                     item = multi.ReadFirst<Item>();
                     item.Prices = multi.Read<ItemPrice>().ToList();
@@ -92,9 +92,9 @@ namespace Cafe.Data.Repositories.Dapper
             return item;
         }
 
-        public async Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId)
+        public async Task<ItemPrice?> GetItemPriceByItemIdAsync(int itemId)
         {
-            ItemPrice price = new ItemPrice();
+            ItemPrice? price = new ItemPrice();
 
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -111,7 +111,7 @@ namespace Cafe.Data.Repositories.Dapper
             return price;
         }
 
-        public List<Item> GetItemsByCategoryId(int categoryId)
+        public async Task<List<Item>> GetItemsByCategoryIdAsync(int categoryId)
         {
             List<Item> items = new List<Item>();
 
@@ -124,7 +124,7 @@ namespace Cafe.Data.Repositories.Dapper
                     CategoryID = categoryId
                 };
 
-                items = cn.Query<Item>(sql, parameter).ToList();
+                items = (await cn.QueryAsync<Item>(sql, parameter)).ToList();
             }
 
             return items;

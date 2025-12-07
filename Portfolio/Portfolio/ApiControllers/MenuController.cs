@@ -59,7 +59,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
         public async Task<IActionResult> GetItem(int itemId)
         {
-            var result = await _menuRetrievalService.GetItemByIdAsyncAPI(itemId);
+            var result = await _menuRetrievalService.GetItemByIdAPIAsync(itemId);
 
             if (result.Ok)
             {

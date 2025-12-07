@@ -59,7 +59,7 @@ namespace Portfolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _menuRetrievalService.GetItemByIdAsyncMVC(itemId);
+                var result = await _menuRetrievalService.GetItemByIdMVCAsync(itemId);
 
                 if (result.Ok)
                 {

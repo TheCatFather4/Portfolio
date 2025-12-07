@@ -99,7 +99,7 @@ namespace Portfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> EditItem(int id)
         {
-            var result = await _menuRetrievalService.GetItemByIdAsyncMVC(id);
+            var result = await _menuRetrievalService.GetItemByIdMVCAsync(id);
 
             if (result.Ok)
             {

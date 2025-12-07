@@ -28,7 +28,7 @@ namespace Cafe.BLL.Services
                 };
 
                 // 1. Get items by CategoryID
-                var items = _menuRetrievalRepository.GetItemsByCategoryId(categoryId);
+                var items = await _menuRetrievalRepository.GetItemsByCategoryIdAsync(categoryId);
 
                 // 2. If ok, continue
                 if (items.Count() == 0)

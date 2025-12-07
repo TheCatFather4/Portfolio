@@ -26,24 +26,24 @@ namespace Cafe.Data.Repositories.EF
                 .ToListAsync();
         }
 
-        public async Task<Item> GetItemByIdAsync(int itemId)
+        public async Task<Item?> GetItemByIdAsync(int itemId)
         {
             return await _dbContext.Item
                 .Include(i => i.Prices)
                 .FirstOrDefaultAsync(i => i.ItemID == itemId);
         }
 
-        public async Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId)
+        public async Task<ItemPrice?> GetItemPriceByItemIdAsync(int itemId)
         {
             return await _dbContext.ItemPrice
                 .FirstOrDefaultAsync(ip => ip.ItemID == itemId);
         }
 
-        public List<Item> GetItemsByCategoryId(int categoryId)
+        public async Task<List<Item>> GetItemsByCategoryIdAsync(int categoryId)
         {
-            return _dbContext.Item
-               .Where(i => i.CategoryID == categoryId)
-               .ToList();
+            return await _dbContext.Item
+                .Where(i => i.CategoryID == categoryId)
+                .ToListAsync();
         }
 
         public async Task<List<TimeOfDay>> GetTimeOfDaysAsync()
