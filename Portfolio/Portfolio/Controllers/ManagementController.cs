@@ -28,11 +28,11 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult MenuIndex()
+        public async Task<IActionResult> MenuIndex()
         {
             var model = new List<MenuItem>();
 
-            var result = _menuRetrievalService.GetAllItemsMVC();
+            var result = await _menuRetrievalService.GetAllItemsMVCAsync();
 
             if (result.Ok)
             {
@@ -70,7 +70,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddItem(AddItemForm model)
+        public async Task<IActionResult> AddItem(AddItemForm model)
         {
             model.Categories = _selectListBuilder.BuildCategories(TempData);
             model.TimeOfDays = _selectListBuilder.BuildTimesOfDays(TempData);
@@ -79,7 +79,7 @@ namespace Portfolio.Controllers
             {
                 var entity = model.ToEntity();
 
-                var result = _menuManagerService.AddNewItem(entity);
+                var result = await _menuManagerService.AddNewItemAsync(entity);
 
                 if (result.Ok)
                 {
@@ -114,7 +114,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditItem(int id, EditItemForm model)
+        public async Task<IActionResult> EditItem(int id, EditItemForm model)
         {
             if (id != model.ItemID)
             {
@@ -126,7 +126,7 @@ namespace Portfolio.Controllers
             {
                 var item = model.ToEntity();
 
-                var result = _menuManagerService.UpdateItem(item);
+                var result = await _menuManagerService.UpdateItemAsync(item);
 
                 if (result.Ok)
                 {

@@ -29,12 +29,12 @@ namespace Cafe.BLL.Services
         /// Invokes repository and checks if any Item entities are found. If successful, entities are mapped to DTOs. 
         /// </summary>
         /// <returns>A Result DTO containing a List of ItemResponse and ItemPriceResponse DTOs.</returns>
-        public Result<List<ItemResponse>> GetAllItemsAPI()
+        public async Task<Result<List<ItemResponse>>> GetAllItemsAPIAsync()
         {
             try
             {
                 // The repository method also returns any ItemPrice entities associated with the Item.
-                var menu = _menuRetrievalRepository.GetAllItems();
+                var menu = await _menuRetrievalRepository.GetAllItemsAsync();
 
                 if (menu != null)
                 {
@@ -81,12 +81,12 @@ namespace Cafe.BLL.Services
         /// Invokes repository and checks if any Item entities are found. If successful, entities are returned.
         /// </summary>
         /// <returns>A Result DTO containing a List of Item and ItemPrice entities.</returns>
-        public Result<List<Item>> GetAllItemsMVC()
+        public async Task<Result<List<Item>>> GetAllItemsMVCAsync()
         {
             try
             {
                 // The repository method also returns any ItemPrice entities associated with the Item.
-                var items = _menuRetrievalRepository.GetAllItems();
+                var items = await _menuRetrievalRepository.GetAllItemsAsync();
 
                 if (items.Count() == 0)
                 {

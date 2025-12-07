@@ -14,7 +14,7 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public void AddItem(Item item)
+        public async Task AddItemAsync(Item item)
         {
             int id = 0;
 
@@ -22,6 +22,7 @@ namespace Cafe.Data.Repositories.Dapper
             {
                 var itemSql = @"INSERT INTO Item (CategoryID, ItemName, ItemDescription, ItemStatusID, ItemImgPath) 
                                 VALUES (@CategoryID, @ItemName, @ItemDescription, @ItemStatusID, @ItemImgPath);
+
                                 SELECT SCOPE_IDENTITY();";
 
                 var itemParameters = new
@@ -47,11 +48,11 @@ namespace Cafe.Data.Repositories.Dapper
                     item.Prices[0].EndDate
                 };
 
-                cn.Execute(itemPriceSql, itemPriceParameters);
+                await cn.ExecuteAsync(itemPriceSql, itemPriceParameters);
             }
         }
 
-        public void UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -79,7 +80,7 @@ namespace Cafe.Data.Repositories.Dapper
                     item.ItemID
                 };
 
-                cn.Execute(itemPriceSql, itemPriceParameters);
+                await cn.ExecuteAsync(itemPriceSql, itemPriceParameters);
             }
         }
     }

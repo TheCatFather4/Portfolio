@@ -14,7 +14,7 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public List<Item> GetAllItems()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
             var itemDictionary = new Dictionary<int, Item>();
 
@@ -22,7 +22,7 @@ namespace Cafe.Data.Repositories.Dapper
             {
                 var sql = "SELECT * FROM Item AS i INNER JOIN ItemPrice AS ip ON ip.ItemID = i.ItemID ORDER BY i.ItemID";
 
-                cn.Query<Item, ItemPrice, Item>(
+                await cn.QueryAsync<Item, ItemPrice, Item>(
                     sql,
                     (item, price) =>
                     {

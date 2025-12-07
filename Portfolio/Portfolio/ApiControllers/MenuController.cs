@@ -30,9 +30,9 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(List<ItemResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(string), StatusCodes.Status503ServiceUnavailable)]
-        public IActionResult GetMenu()
+        public async Task<IActionResult> GetMenu()
         {
-            var result = _menuRetrievalService.GetAllItemsAPI();
+            var result = await _menuRetrievalService.GetAllItemsAPIAsync();
 
             if (result.Ok)
             {

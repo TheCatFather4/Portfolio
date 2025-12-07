@@ -5,7 +5,7 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockMenuRetrievalRepository : IMenuRetrievalRepository
     {
-        public List<Item> GetAllItems()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
             var items = new List<Item>();
 
@@ -81,6 +81,7 @@ namespace Cafe.Tests.MockRepositories
             item3.Prices.Add(price3);
             items.Add(item3);
 
+            await Task.Delay(1000);
             return items;
         }
 

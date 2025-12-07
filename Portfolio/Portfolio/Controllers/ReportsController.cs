@@ -25,11 +25,11 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult ItemCategorySales()
+        public async Task<IActionResult> ItemCategorySales()
         {
             var model = new ItemCategoryForm();
 
-            model.Items = _selectListBuilder.BuildItems(TempData);
+            model.Items = await _selectListBuilder.BuildItemsAsync(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
             model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();
@@ -40,7 +40,7 @@ namespace Portfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ItemCategorySales(ItemCategoryForm model)
         {
-            model.Items = _selectListBuilder.BuildItems(TempData);
+            model.Items = await _selectListBuilder.BuildItemsAsync(TempData);
             model.Categories = _selectListBuilder.BuildCategories(TempData);
             model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();

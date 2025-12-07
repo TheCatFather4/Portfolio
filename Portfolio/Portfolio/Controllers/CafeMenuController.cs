@@ -37,7 +37,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(MenuForm model)
+        public async Task<IActionResult> Index(MenuForm model)
         {
             // Reload select lists
             model.Categories = _selectListBuilder.BuildCategories(TempData);
@@ -50,7 +50,7 @@ namespace Portfolio.Controllers
                 Date = model.Date
             };
 
-            var result = _menuManagerService.FilterMenu(dto);
+            var result = await _menuManagerService.FilterMenuAsync(dto);
 
             if (result.Ok)
             {

@@ -12,16 +12,16 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
-        public void AddItem(Item item)
+        public async Task AddItemAsync(Item item)
         {
             _dbContext.Item.Add(item);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
             _dbContext.Update(item);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

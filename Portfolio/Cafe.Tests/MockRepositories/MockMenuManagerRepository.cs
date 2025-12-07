@@ -5,16 +5,20 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockMenuManagerRepository : IMenuManagerRepository
     {
-        public void AddItem(Item item)
+        public async Task AddItemAsync(Item item)
         {
             var items = new List<Item>();
+
+            await Task.Delay(1000);
             items.Add(item);
         }
 
-        public void UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
-            var item2 = new Item();
-            item2 = item;
+            var existingItem = new Item();
+
+            await Task.Delay(1000);
+            existingItem = item;
         }
     }
 }

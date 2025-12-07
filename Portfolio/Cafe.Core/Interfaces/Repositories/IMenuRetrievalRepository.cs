@@ -4,7 +4,7 @@ namespace Cafe.Core.Interfaces.Repositories
 {
     public interface IMenuRetrievalRepository
     {
-        List<Item> GetAllItems();
+        Task<List<Item>> GetAllItemsAsync();
         List<Category> GetCategories();
         Task<Item> GetItemByIdAsync(int itemId);
         Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId);

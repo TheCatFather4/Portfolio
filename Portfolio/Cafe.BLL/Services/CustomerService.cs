@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Cafe.BLL.Services
 {
     /// <summary>
-    /// Handles the business logic for Customer related tasks.
+    /// Handles the business logic concerning Customer related tasks.
     /// </summary>
     public class CustomerService : ICustomerService
     {
@@ -18,7 +18,7 @@ namespace Cafe.BLL.Services
         /// <summary>
         /// Constructs a service with the dependencies required for Customer related tasks.
         /// </summary>
-        /// <param name="logger">An dependency used for logging error messages.</param>
+        /// <param name="logger">A dependency used for logging error messages.</param>
         /// <param name="customerRepository">An dependency used for invoking data methods concerning Customer records.</param>
         /// <param name="shoppingBagRepository">An dependency used for creating new ShoppingBag records.</param>
         public CustomerService(ILogger<CustomerService> logger, ICustomerRepository customerRepository, IShoppingBagRepository shoppingBagRepository)

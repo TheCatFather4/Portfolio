@@ -8,7 +8,7 @@ namespace Portfolio.Utilities
     {
         public SelectList BuildCategories(ITempDataDictionary tempData);
         public SelectList BuildTimesOfDays(ITempDataDictionary tempData);
-        public SelectList BuildItems(ITempDataDictionary tempData);
+        public Task<SelectList> BuildItemsAsync(ITempDataDictionary tempData);
         public Task<SelectList> BuildPaymentTypesAsync(ITempDataDictionary tempData);
     }
 
@@ -37,9 +37,9 @@ namespace Portfolio.Utilities
             }
         }
 
-        public SelectList BuildItems(ITempDataDictionary tempData)
+        public async Task<SelectList> BuildItemsAsync(ITempDataDictionary tempData)
         {
-            var itemsResult = _menuService.GetAllItemsMVC();
+            var itemsResult = await _menuService.GetAllItemsMVCAsync();
 
             if (itemsResult.Ok)
             {

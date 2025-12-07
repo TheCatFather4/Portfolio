@@ -13,11 +13,11 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
-        public List<Item> GetAllItems()
+        public async Task<List<Item>> GetAllItemsAsync()
         {
-            return _dbContext.Item
+            return await _dbContext.Item
                 .Include(i => i.Prices)
-                .ToList();
+                .ToListAsync();
         }
 
         public List<Category> GetCategories()

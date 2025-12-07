@@ -22,7 +22,7 @@ namespace Cafe.Tests
         }
 
         [Test]
-        public void AddNewItem_Success()
+        public void AddNewItemAsync_Success()
         {
             var service = GetMenuManagerService();
 
@@ -37,13 +37,13 @@ namespace Cafe.Tests
                 Prices = new List<ItemPrice>()
             };
 
-            var result = service.AddNewItem(item);
+            var result = service.AddNewItemAsync(item);
 
-            Assert.That(result.Ok, Is.True);
+            Assert.That(result.Result.Ok, Is.True);
         }
 
         [Test]
-        public void FilterMenu_ByCategory()
+        public void FilterMenuAsync_ByCategory()
         {
             var service = GetMenuManagerService();
 
@@ -52,15 +52,15 @@ namespace Cafe.Tests
                 CategoryID = 1,
             };
 
-            var result = service.FilterMenu(filter);
+            var result = service.FilterMenuAsync(filter);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
-            Assert.That(result.Data[0].CategoryID, Is.EqualTo(1));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Result.Data[0].CategoryID, Is.EqualTo(1));
         }
 
         [Test]
-        public void FilterMenu_ByDate()
+        public void FilterMenuAsync_ByDate()
         {
             var service = GetMenuManagerService();
 
@@ -73,15 +73,15 @@ namespace Cafe.Tests
                 Date = date
             };
 
-            var result = service.FilterMenu(filter);
+            var result = service.FilterMenuAsync(filter);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
-            Assert.That(result.Data[0].Prices[0].StartDate, Is.EqualTo(filter.Date));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Result.Data[0].Prices[0].StartDate, Is.EqualTo(filter.Date));
         }
 
         [Test]
-        public void FilterMenu_ByTimeOfDay()
+        public void FilterMenuAsync_ByTimeOfDay()
         {
             var service = GetMenuManagerService();
 
@@ -90,28 +90,28 @@ namespace Cafe.Tests
                 TimeOfDayID = 2,
             };
 
-            var result = service.FilterMenu(filter);
+            var result = service.FilterMenuAsync(filter);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
-            Assert.That(result.Data[0].Prices[0].TimeOfDayID, Is.EqualTo(2));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Result.Data[0].Prices[0].TimeOfDayID, Is.EqualTo(2));
         }
 
         [Test]
-        public void FilterMenu_NoFilter()
+        public void FilterMenuAsync_NoFilter()
         {
             var service = GetMenuManagerService();
 
             var filter = new MenuFilter();
 
-            var result = service.FilterMenu(filter);
+            var result = service.FilterMenuAsync(filter);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(3));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(3));
         }
 
         [Test]
-        public void UpdateItem_Success()
+        public void UpdateItemAsync_Success()
         {
             var service = GetMenuManagerService();
 
@@ -121,9 +121,9 @@ namespace Cafe.Tests
                 ItemDescription = "Tasty"
             };
 
-            var result = service.UpdateItem(item);
+            var result = service.UpdateItemAsync(item);
 
-            Assert.That(result.Ok, Is.True);
+            Assert.That(result.Result.Ok, Is.True);
         }
     }
 }

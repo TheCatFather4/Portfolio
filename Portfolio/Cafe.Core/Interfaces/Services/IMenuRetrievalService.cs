@@ -5,8 +5,8 @@ namespace Cafe.Core.Interfaces.Services
 {
     public interface IMenuRetrievalService
     {
-        Result<List<ItemResponse>> GetAllItemsAPI();
-        Result<List<Item>> GetAllItemsMVC();
+        Task<Result<List<ItemResponse>>> GetAllItemsAPIAsync();
+        Task<Result<List<Item>>> GetAllItemsMVCAsync();
         Result<List<Category>> GetCategories();
         Task<Result<ItemResponse>> GetItemByIdAsyncAPI(int itemId);
         Task<Result<Item>> GetItemByIdAsyncMVC(int itemID);

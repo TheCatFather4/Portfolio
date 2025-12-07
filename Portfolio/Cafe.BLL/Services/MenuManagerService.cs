@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Cafe.BLL.Services
 {
     /// <summary>
-    /// Handles business logic concerning menu management
+    /// Handles the business logic concerning menu management tasks.
     /// </summary>
     public class MenuManagerService : IMenuManagerService
     {
@@ -16,11 +16,11 @@ namespace Cafe.BLL.Services
         private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
         /// <summary>
-        /// Constructs a service that has a logger and the ability to invoke repository methods concerning menu management.
+        /// Constructs a service with the dependencies required for menu management tasks.
         /// </summary>
-        /// <param name="logger">An implementation of the ILogger interface.</param>
-        /// <param name="menuManagerRepository">An implementation of the IMenuManager interface.</param>
-        /// <param name="menuRetrievalRepository">An implementation of the IMenuRetrieval interface.</param>
+        /// <param name="logger">A dependency used for logging error messages.</param>
+        /// <param name="menuManagerRepository">A dependency used for adding and updating Item records.</param>
+        /// <param name="menuRetrievalRepository">A dependency used for retrieving Item records.</param>
         public MenuManagerService(ILogger<MenuManagerService> logger, IMenuManagerRepository menuManagerRepository, IMenuRetrievalRepository menuRetrievalRepository)
         {
             _logger = logger;
@@ -29,15 +29,15 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Sends a new Item to the repository.
+        /// An IMenuManagerRepository method is invoked to add a new Item record.
         /// </summary>
         /// <param name="item">An Item entity to be added to the database.</param>
-        /// <returns>A Result DTO.</returns>
-        public Result AddNewItem(Item item)
+        /// <returns>A Result DTO with a confirmation message.</returns>
+        public async Task<Result> AddNewItemAsync(Item item)
         {
             try
             {
-                _menuManagerRepository.AddItem(item);
+                await _menuManagerRepository.AddItemAsync(item);
                 return ResultFactory.Success($"{item.ItemName} successfully added to the menu!");
             }
             catch (Exception ex)
@@ -48,16 +48,18 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Retrieves menu from repository. If successful, the properties of the MenuFilter are checked for any conditions 
-        /// that the user requested. The returned List of Item entities will be in accord with that request.
+        /// An IMenuRetrievalRepository method is invoked to retrieve all Item records. 
+        /// If successful, the MenuFilter DTO is then checked for any values.
+        /// If values are present, the List of Item records will filtered accordingly.
+        /// If no values are present, all Item records will be returned.
         /// </summary>
         /// <param name="dto">Used to filter the List of Item entities returned from the repository.</param>
-        /// <returns>A Result DTO with a List of Item entities as its data.</returns>>
-        public Result<List<Item>> FilterMenu(MenuFilter dto)
+        /// <returns>A Result DTO with a List of Item entities as its data.</returns> 
+        public async Task<Result<List<Item>>> FilterMenuAsync(MenuFilter dto)
         {
             try
             {
-                var menu = _menuRetrievalRepository.GetAllItems();
+                var menu = await _menuRetrievalRepository.GetAllItemsAsync();
 
                 if (menu.Count() == 0)
                 {
@@ -65,7 +67,7 @@ namespace Cafe.BLL.Services
                     return ResultFactory.Fail<List<Item>>("An error occurred. Please try again in a few minutes.");
                 }
 
-                // Category filter
+                // Filter records by Category
                 if (dto.CategoryID != null)
                 {
                     menu = menu
@@ -73,7 +75,7 @@ namespace Cafe.BLL.Services
                         .ToList();
                 }
 
-                // TimeOfDay filter
+                // Filter records by TimeOfDay
                 if (dto.TimeOfDayID != null)
                 {
                     var itemsByTimeOfDay = new List<Item>();
@@ -110,7 +112,7 @@ namespace Cafe.BLL.Services
                     menu = itemsByTimeOfDay;
                 }
 
-                // Date filter
+                // Filter records by Date
                 if (dto.Date != null)
                 {
                     var itemsByDate = new List<Item>();
@@ -121,8 +123,8 @@ namespace Cafe.BLL.Services
 
                         foreach (var price in item.Prices)
                         {
-                            if (price.StartDate <= dto.Date && price.EndDate == null ||
-                                price.StartDate <= dto.Date && price.EndDate >= dto.Date)
+                            if ((price.StartDate <= dto.Date && price.EndDate == null) ||
+                                (price.StartDate <= dto.Date && price.EndDate >= dto.Date))
                             {
                                 pricesByDate.Add(price);
                             }
@@ -158,15 +160,15 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Sends a current Item entity to the repository to be updated.
+        /// An IMenuManagerRepository method is invoked to update an Item record.
         /// </summary>
-        /// <param name="item">The current Item to be updated.</param>
-        /// <returns>A Result DTO.</returns>
-        public Result UpdateItem(Item item)
+        /// <param name="item">The Item data to be send to the database.</param>
+        /// <returns>A Result DTO with a confirmation message.</returns>
+        public async Task<Result> UpdateItemAsync(Item item)
         {
             try
             {
-                _menuManagerRepository.UpdateItem(item);
+                await _menuManagerRepository.UpdateItemAsync(item);
                 return ResultFactory.Success("Item successfully updated!");
             }
             catch (Exception ex)

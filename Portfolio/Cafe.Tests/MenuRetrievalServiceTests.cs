@@ -9,7 +9,7 @@ namespace Cafe.Tests
     [TestFixture]
     public class MenuRetrievalServiceTests
     {
-        public IMenuRetrievalService GetMenuService()
+        public IMenuRetrievalService GetMenuRetrievalService()
         {
             var service = new MenuRetrievalService(
                 new MockMenuRetrievalLogger(),
@@ -21,29 +21,29 @@ namespace Cafe.Tests
         [Test]
         public void GetAllItemsAPI_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
-            var result = service.GetAllItemsAPI();
+            var result = service.GetAllItemsAPIAsync();
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(3));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(3));
         }
 
         [Test]
         public void GetAllItemsMVC_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
-            var result = service.GetAllItemsMVC();
+            var result = service.GetAllItemsMVCAsync();
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(3));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(3));
         }
 
         [Test]
         public void GetCategories_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
             var result = service.GetCategories();
 
@@ -54,7 +54,7 @@ namespace Cafe.Tests
         [Test]
         public void GetItemByIdAsyncAPI_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
             var task = service.GetItemByIdAsyncAPI(1);
 
@@ -65,7 +65,7 @@ namespace Cafe.Tests
         [Test]
         public void GetItemByIdAsyncMVC_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
             var task = service.GetItemByIdAsyncMVC(1);
 
@@ -76,7 +76,7 @@ namespace Cafe.Tests
         [Test]
         public void GetItemsByCategoryId_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
             var result = service.GetItemsByCategoryId(1);
 
@@ -87,7 +87,7 @@ namespace Cafe.Tests
         [Test]
         public void GetTimeOfDays_Success()
         {
-            var service = GetMenuService();
+            var service = GetMenuRetrievalService();
 
             var result = service.GetTimeOfDays();
 
