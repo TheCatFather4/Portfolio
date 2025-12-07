@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Cafe.BLL.Services
 {
     /// <summary>
-    /// Handles business logic concerning menu retrieval.
+    /// Handles the business logic concerning menu retrieval.
     /// </summary>
     public class MenuRetrievalService : IMenuRetrievalService
     {
@@ -15,10 +15,10 @@ namespace Cafe.BLL.Services
         private readonly IMenuRetrievalRepository _menuRetrievalRepository;
 
         /// <summary>
-        /// Constructs a service that has a logger and the ability to invoke repository methods concerning menu retrieval.
+        /// Constructs a service with the dependencies required for menu retrieval.
         /// </summary>
-        /// <param name="logger">An implementation of the ILogger interface.</param>
-        /// <param name="menuRetrievalRepository">An implementation of the IMenuRetrievalRepository interface.</param>
+        /// <param name="logger">A dependency used for logging error messages.</param>
+        /// <param name="menuRetrievalRepository">A dependency used for adding and updating Item records.</param>
         public MenuRetrievalService(ILogger<MenuRetrievalService> logger, IMenuRetrievalRepository menuRetrievalRepository)
         {
             _logger = logger;
@@ -26,14 +26,16 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Invokes repository and checks if any Item entities are found. If successful, entities are mapped to DTOs. 
+        /// Invokes the menu retrieval repository and checks if any Item records are found. 
+        /// If successful, the entities are mapped to ItemResponse DTOs.
+        /// Note: This method is used by the API menu controller.
         /// </summary>
-        /// <returns>A Result DTO containing a List of ItemResponse and ItemPriceResponse DTOs.</returns>
+        /// <returns>A Result DTO containing a List of ItemResponse DTOs and their associated ItemPriceResponse DTOs.</returns>
         public async Task<Result<List<ItemResponse>>> GetAllItemsAPIAsync()
         {
             try
             {
-                // The repository method also returns any ItemPrice entities associated with the Item.
+                // This method also returns ItemPrice records joined with each associated Item record.
                 var menu = await _menuRetrievalRepository.GetAllItemsAsync();
 
                 if (menu != null)
@@ -78,14 +80,17 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Invokes repository and checks if any Item entities are found. If successful, entities are returned.
+        /// Invokes the menu retrieval repository and checks if any Item records are found. 
+        /// If successful, entities are returned.
+        /// Note: This method is used by the MVC menu controller. 
+        ///       It is scheduled to be consolidated with the above method.
         /// </summary>
-        /// <returns>A Result DTO containing a List of Item and ItemPrice entities.</returns>
+        /// <returns>A Result DTO containing a List of Item and joined ItemPrice entities.</returns>
         public async Task<Result<List<Item>>> GetAllItemsMVCAsync()
         {
             try
             {
-                // The repository method also returns any ItemPrice entities associated with the Item.
+                // This method also returns ItemPrice records joined with each associated Item record.
                 var items = await _menuRetrievalRepository.GetAllItemsAsync();
 
                 if (items.Count() == 0)
@@ -104,7 +109,8 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Invokes repository and checks if any Category entities are found. If successful, entities are returned.
+        /// Invokes the menu retrieval repository and counts the retrieved Category records. 
+        /// If successful, the list of entities is returned.
         /// </summary>
         /// <returns>A Result DTO containing a List of Category entities.</returns>
         public async Task<Result<List<Category>>> GetCategoriesAsync()
@@ -129,15 +135,17 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Invokes repository and checks if an Item entity is found. If successful, Item is mapped to an ItemResponse DTO.
+        /// Invokes the menu retrieval repository and checks if an Item record is found. 
+        /// If successful, the entity is mapped to an ItemResponse DTO and returned.
+        /// Note: This method is used by the API menu controller.
         /// </summary>
-        /// <param name="itemId">An ItemID associated with an Item entity.</param>
-        /// <returns>A Task containing a Result DTO that contains an ItemResponse DTO.</returns>
+        /// <param name="itemId">The ItemID used for looking up an Item record.</param>
+        /// <returns>A Result DTO that contains an ItemResponse DTO as its data.</returns>
         public async Task<Result<ItemResponse>> GetItemByIdAPIAsync(int itemId)
         {
             try
             {
-                // The repository method also returns any ItemPrice entities associated with the Item.
+                // This method also returns any ItemPrice records joined to each Item record.
                 var item = await _menuRetrievalRepository.GetItemByIdAsync(itemId);
 
                 if (item == null)
@@ -175,10 +183,13 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Invokes repository and checks if an Item entity is found. If successful, Item is returned.
+        /// Invokes the menu retrieval repository and checks if an Item record is found. 
+        /// If successful, the entity is returned.
+        /// Note: This method is used by the MVC management and shopping cart controller. 
+        ///       It is scheduled to be consolidated with the above method.
         /// </summary>
-        /// <param name="itemID">An ItemID associated with an Item entity.</param>
-        /// <returns>A Task containing a Result DTO that contains an Item entity.</returns>
+        /// <param name="itemID">The ItemID used for looking up an Item record.</param>
+        /// <returns>A Result DTO that contains an Item entity as its data.</returns>
         public async Task<Result<Item>> GetItemByIdMVCAsync(int itemID)
         {
             try
@@ -201,9 +212,10 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// Invokes repository and checks if any TimeOfDay entities are found. If successful, returns a list of the entities.
+        /// Invokes the menu retrieval repository and counts the retrieved TimeOfDay records. 
+        /// If successful, the list of entities is returned.
         /// </summary>
-        /// <returns>A Result DTO containing a List of Item entities.</returns>
+        /// <returns>A Result DTO containing a List of TimeOfDay entities.</returns>
         public async Task<Result<List<TimeOfDay>>> GetTimeOfDaysAsync()
         {
             try
