@@ -85,7 +85,7 @@ namespace Cafe.Tests.MockRepositories
             return items;
         }
 
-        public List<Category> GetCategories()
+        public async Task<List<Category>> GetCategoriesAsync()
         {
             var categories = new List<Category>();
 
@@ -97,10 +97,11 @@ namespace Cafe.Tests.MockRepositories
 
             categories.Add(category);
 
+            await Task.Delay(1000);
             return categories;
         }
 
-        public async Task<Item> GetItemByIdAsync(int itemId)
+        public async Task<Item?> GetItemByIdAsync(int itemId)
         {
             var item = new Item
             {
@@ -125,10 +126,16 @@ namespace Cafe.Tests.MockRepositories
 
             item.Prices.Add(price);
 
+            if (item.ItemID != 1)
+            {
+                return null;
+            }
+
+            await Task.Delay(1000);
             return item;
         }
 
-        public async Task<ItemPrice> GetItemPriceByItemIdAsync(int itemId)
+        public async Task<ItemPrice?> GetItemPriceByItemIdAsync(int itemId)
         {
             var price = new ItemPrice
             {
@@ -140,10 +147,11 @@ namespace Cafe.Tests.MockRepositories
                 EndDate = DateTime.Now.AddDays(1)
             };
 
+            await Task.Delay(1000);
             return price;
         }
 
-        public List<Item> GetItemsByCategoryId(int categoryId)
+        public async Task<List<Item>> GetItemsByCategoryIdAsync(int categoryId)
         {
             var items = new List<Item>();
 
@@ -159,10 +167,11 @@ namespace Cafe.Tests.MockRepositories
 
             items.Add(item);
 
+            await Task.Delay(1000);
             return items;
         }
 
-        public List<TimeOfDay> GetTimeOfDays()
+        public async Task<List<TimeOfDay>> GetTimeOfDaysAsync()
         {
             var timeOfDays = new List<TimeOfDay>();
 
@@ -174,6 +183,7 @@ namespace Cafe.Tests.MockRepositories
 
             timeOfDays.Add(timeOfDay);
 
+            await Task.Delay(1000);
             return timeOfDays;
         }
     }

@@ -19,7 +19,7 @@ namespace Cafe.Tests
         }
 
         [Test]
-        public void GetAllItemsAPI_Success()
+        public void GetAllItemsAPIAsync_Success()
         {
             var service = GetMenuRetrievalService();
 
@@ -41,47 +41,60 @@ namespace Cafe.Tests
         }
 
         [Test]
-        public void GetCategories_Success()
+        public void GetCategoriesAsync_Success()
         {
             var service = GetMenuRetrievalService();
 
-            var result = service.GetCategories();
+            var result = service.GetCategoriesAsync();
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(1));
         }
 
         [Test]
-        public void GetItemByIdAsyncAPI_Success()
+        public void GetItemByIdAPIAsync_NotFound()
         {
             var service = GetMenuRetrievalService();
 
-            var task = service.GetItemByIdAsyncAPI(1);
+            var result = service.GetItemByIdAPIAsync(2);
 
-            Assert.That(task.Result.Ok, Is.True);
-            Assert.That(task.Result.Data, Is.Not.Null);
+            Assert.That(result.Result.Ok, Is.False);
+            Assert.That(result.Result.Data, Is.Null);
         }
 
         [Test]
-        public void GetItemByIdAsyncMVC_Success()
+        public void GetItemByIdAPIAsync_Success()
         {
             var service = GetMenuRetrievalService();
 
-            var task = service.GetItemByIdAsyncMVC(1);
+            var result = service.GetItemByIdAPIAsync(1);
 
-            Assert.That(task.Result.Ok, Is.True);
-            Assert.That(task.Result.Data, Is.Not.Null);
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Is.Not.Null);
+            Assert.That(result.Result.Data?.ItemName, Is.EqualTo("Food"));
         }
 
         [Test]
-        public void GetItemsByCategoryId_Success()
+        public void GetItemByIdMVCAsync_NotFound()
         {
             var service = GetMenuRetrievalService();
 
-            var result = service.GetItemsByCategoryId(1);
+            var result = service.GetItemByIdAPIAsync(2);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Result.Ok, Is.False);
+            Assert.That(result.Result.Data, Is.Null);
+        }
+
+        [Test]
+        public void GetItemByIdMVCAsync_Success()
+        {
+            var service = GetMenuRetrievalService();
+
+            var result = service.GetItemByIdMVCAsync(1);
+
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Is.Not.Null);
+            Assert.That(result.Result.Data?.ItemName, Is.EqualTo("Food"));
         }
 
         [Test]
@@ -89,10 +102,10 @@ namespace Cafe.Tests
         {
             var service = GetMenuRetrievalService();
 
-            var result = service.GetTimeOfDays();
+            var result = service.GetTimeOfDaysAsync();
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(1));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(1));
         }
     }
 }
