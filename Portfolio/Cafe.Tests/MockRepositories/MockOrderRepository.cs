@@ -5,9 +5,25 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockOrderRepository : IOrderRepository
     {
-        public Task<CafeOrder> CreateOrderAsync(CafeOrder order, List<OrderItem> items)
+        public async Task<CafeOrder> CreateOrderAsync(CafeOrder order, List<OrderItem> items)
         {
-            throw new NotImplementedException();
+            var orders = new List<CafeOrder>();
+            var orderItems = new List<OrderItem>();
+            orders.Add(order);
+
+            await Task.Delay(1000);
+            return new CafeOrder
+            {
+                OrderID = 1,
+                CustomerID = order.CustomerID,
+                PaymentStatusID = order.PaymentStatusID,
+                OrderDate = order.OrderDate,
+                SubTotal = order.SubTotal,
+                Tax = order.Tax,
+                Tip = order.Tip,
+                FinalTotal = order.FinalTotal,
+                OrderItems = items
+            };
         }
 
         public async Task<List<CafeOrder>> GetAllOrdersAsync()
@@ -44,12 +60,30 @@ namespace Cafe.Tests.MockRepositories
             orders.Add(order1);
             orders.Add(order2);
 
+            await Task.Delay(1000);
             return orders;
         }
 
-        public Task<CafeOrder> GetOrderByIdAsync(int orderId)
+        public async Task<CafeOrder?> GetOrderByIdAsync(int orderId)
         {
-            throw new NotImplementedException();
+            if (orderId == 1)
+            {
+                await Task.Delay(1000);
+                return new CafeOrder
+                {
+                    OrderID = 1,
+                    CustomerID = 1,
+                    PaymentTypeID = 1,
+                    PaymentStatusID = 1,
+                    OrderDate = DateTime.Today,
+                    SubTotal = 10.00M,
+                    Tax = 0.40M,
+                    Tip = 1.50M,
+                    FinalTotal = 10.90M
+                };
+            }
+
+            return null;
         }
 
         public async Task<List<OrderItem>> GetOrderItemsByItemPriceIdAsync(int itemPriceId)
@@ -90,17 +124,94 @@ namespace Cafe.Tests.MockRepositories
             orderItems.Add(orderItem2);
             orderItems.Add(orderItem3);
 
+            await Task.Delay(1000);
             return orderItems;
         }
 
-        public Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)
+        public async Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId)
         {
-            throw new NotImplementedException();
+            var orders = new List<CafeOrder>();
+
+            var order1 = new CafeOrder
+            {
+                OrderID = 1,
+                CustomerID = 1,
+                PaymentTypeID = 1,
+                PaymentStatusID = 1,
+                OrderDate = DateTime.Today,
+                SubTotal = 10.00M,
+                Tax = 0.40M,
+                Tip = 1.50M,
+                FinalTotal = 10.90M
+            };
+
+            var order2 = new CafeOrder
+            {
+                OrderID = 2,
+                CustomerID = 2,
+                PaymentTypeID = 1,
+                PaymentStatusID = 1,
+                OrderDate = DateTime.Today,
+                SubTotal = 20.00M,
+                Tax = 0.80M,
+                Tip = 3.00M,
+                FinalTotal = 23.80M
+            };
+
+            var order3 = new CafeOrder
+            {
+                OrderID = 3,
+                CustomerID = 1,
+                PaymentTypeID = 1,
+                PaymentStatusID = 1,
+                OrderDate = DateTime.Today,
+                SubTotal = 12.00M,
+                Tax = 0.40M,
+                Tip = 2.50M,
+                FinalTotal = 14.90M
+            };
+
+            var order4 = new CafeOrder
+            {
+                OrderID = 4,
+                CustomerID = 1,
+                PaymentTypeID = 1,
+                PaymentStatusID = 1,
+                OrderDate = DateTime.Today,
+                SubTotal = 30.00M,
+                Tax = 1.40M,
+                Tip = 4.00M,
+                FinalTotal = 35.40M
+            };
+
+            orders.Add(order1);
+            orders.Add(order2);
+            orders.Add(order3);
+            orders.Add(order4);
+
+            var ordersReturned = new List<CafeOrder>();
+
+            foreach (var order in orders)
+            {
+                if (customerId == order.CustomerID)
+                {
+                    ordersReturned.Add(order);
+                }
+            }
+
+            await Task.Delay(1000);
+            return ordersReturned;
         }
 
-        public Task UpdateOrderStatusAsync(CafeOrder order)
+        public async Task UpdateOrderStatusAsync(CafeOrder order)
         {
-            throw new NotImplementedException();
+            var existingOrder = new CafeOrder
+            {
+                OrderID = order.OrderID,
+                PaymentStatusID = order.PaymentStatusID,
+            };
+
+            await Task.Delay(1000);
         }
     }
 }

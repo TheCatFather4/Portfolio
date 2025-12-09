@@ -102,9 +102,9 @@ namespace Cafe.Data.Repositories.Dapper
             return id;
         }
 
-        public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
+        public async Task<ShoppingBag?> GetShoppingBagAsync(int customerId)
         {
-            ShoppingBag sb = new ShoppingBag();
+            ShoppingBag? sb = new ShoppingBag();
 
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -122,7 +122,10 @@ namespace Cafe.Data.Repositories.Dapper
 
                 sb = await cn.QueryFirstOrDefaultAsync<ShoppingBag>(sql, parameter);
 
-                sb.Items = (List<ShoppingBagItem>?)await cn.QueryAsync<ShoppingBagItem>(itemsql, parameter);
+                if (sb != null)
+                {
+                    sb.Items = (List<ShoppingBagItem>?)await cn.QueryAsync<ShoppingBagItem>(itemsql, parameter);
+                }
             }
 
             return sb;

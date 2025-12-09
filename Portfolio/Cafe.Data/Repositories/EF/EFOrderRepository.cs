@@ -34,7 +34,7 @@ namespace Cafe.Data.Repositories.EF
                 .ToListAsync();
         }
 
-        public async Task<CafeOrder> GetOrderByIdAsync(int orderId)
+        public async Task<CafeOrder?> GetOrderByIdAsync(int orderId)
         {
             return await _dbContext.CafeOrder
                 .Include(co => co.OrderItems)

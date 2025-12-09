@@ -77,9 +77,9 @@ namespace Cafe.Data.Repositories.Dapper
             return orders;
         }
 
-        public async Task<CafeOrder> GetOrderByIdAsync(int orderId)
+        public async Task<CafeOrder?> GetOrderByIdAsync(int orderId)
         {
-            CafeOrder order = new CafeOrder();
+            CafeOrder? order = new CafeOrder();
 
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -96,8 +96,11 @@ namespace Cafe.Data.Repositories.Dapper
                 var itemsSql = @"SELECT * FROM OrderItem 
                                 WHERE OrderID = @OrderID";
 
-                order.OrderItems = (await cn.QueryAsync<OrderItem>(itemsSql, orderParameter))
-                    .ToList();
+                if (order != null)
+                {
+                    order.OrderItems = (await cn.QueryAsync<OrderItem>(itemsSql, orderParameter))
+                        .ToList();
+                }
             }
 
             return order;

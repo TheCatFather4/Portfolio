@@ -6,7 +6,7 @@ namespace Cafe.Core.Interfaces.Repositories
     {
         Task<CafeOrder> CreateOrderAsync(CafeOrder order, List<OrderItem> items);
         Task<List<CafeOrder>> GetAllOrdersAsync();
-        Task<CafeOrder> GetOrderByIdAsync(int orderId);
+        Task<CafeOrder?> GetOrderByIdAsync(int orderId);
         Task<List<OrderItem>> GetOrderItemsByItemPriceIdAsync(int itemPriceId);
         Task<List<CafeOrder>> GetOrdersByCustomerIdAsync(int customerId);
         Task UpdateOrderStatusAsync(CafeOrder order);

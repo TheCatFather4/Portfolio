@@ -25,7 +25,7 @@ namespace Cafe.BLL.Services
         {
             try
             {
-                var shoppingBagResult = await _shoppingBagRepository.GetShoppingBagAsync(dto.CustomerId);
+                var shoppingBagResult = await GetShoppingBagByCustomerIdAsync(dto.CustomerId);
 
                 if (shoppingBagResult == null || shoppingBagResult.Items == null)
                 {
@@ -42,7 +42,7 @@ namespace Cafe.BLL.Services
 
                 foreach (var item in shoppingBagItems)
                 {
-                    var itemPriceResult = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(item.ItemID);
+                    var itemPriceResult = await GetItemPriceByItemIdAsync(item.ItemID);
 
                     if (itemPriceResult == null || itemPriceResult.ItemPriceID == null || itemPriceResult.Price == null)
                     {
@@ -114,6 +114,18 @@ namespace Cafe.BLL.Services
                 _logger.LogError($"An error occurred when attempting to create a new order: {ex.Message}");
                 return ResultFactory.Fail<CafeOrderResponse>("An error occurred. Please contact our management team.");
             }
+        }
+
+        public async Task<ItemPrice?> GetItemPriceByItemIdAsync(int itemId)
+        {
+            ItemPrice? itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(itemId);
+
+            if (itemPrice != null)
+            {
+                return itemPrice;
+            }
+
+            return null;
         }
 
         public async Task<Result<CafeOrderResponse>> GetOrderDetailsAsync(int orderId)
@@ -242,6 +254,18 @@ namespace Cafe.BLL.Services
                 _logger.LogError($"An error occurred when attempting to retrieve order total for Customer ID {customerId}: {ex.Message}");
                 return ResultFactory.Fail<decimal>("An error occurred. Please contact our site administrator.");
             }
+        }
+
+        public async Task<ShoppingBag?> GetShoppingBagByCustomerIdAsync(int customerId)
+        {
+            ShoppingBag? sb = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
+
+            if (sb != null)
+            {
+                return sb;
+            }
+
+            return null;
         }
     }
 }

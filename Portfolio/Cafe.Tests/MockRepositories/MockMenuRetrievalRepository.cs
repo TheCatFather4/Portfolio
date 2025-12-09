@@ -137,18 +137,44 @@ namespace Cafe.Tests.MockRepositories
 
         public async Task<ItemPrice?> GetItemPriceByItemIdAsync(int itemId)
         {
-            var price = new ItemPrice
+            var prices = new List<ItemPrice>();
+
+            var price1 = new ItemPrice
             {
                 ItemPriceID = 1,
-                ItemID = itemId,
+                ItemID = 1,
                 TimeOfDayID = 1,
-                Price = (decimal)2.50,
+                Price = (decimal)5.00,
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(1)
+                EndDate = DateTime.Now.AddDays(1),
+                OrderItems = new List<OrderItem>()
+
             };
 
-            await Task.Delay(1000);
-            return price;
+            var price2 = new ItemPrice
+            {
+                ItemPriceID = 2,
+                ItemID = 2,
+                TimeOfDayID = 1,
+                Price = (decimal)3.00,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(1),
+                OrderItems = new List<OrderItem>()
+            };
+
+            prices.Add(price1);
+            prices.Add(price2);
+
+            foreach (var p in prices)
+            {
+                if (itemId == p.ItemID)
+                {
+                    await Task.Delay(1000);
+                    return p;
+                }
+            }
+
+            return null;
         }
 
         public async Task<List<Item>> GetItemsByCategoryIdAsync(int categoryId)

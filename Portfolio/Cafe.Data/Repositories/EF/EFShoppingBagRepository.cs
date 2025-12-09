@@ -48,7 +48,7 @@ namespace Cafe.Data.Repositories.EF
             return shoppingBag.ShoppingBagID;
         }
 
-        public async Task<ShoppingBag> GetShoppingBagAsync(int customerId)
+        public async Task<ShoppingBag?> GetShoppingBagAsync(int customerId)
         {
             return await _dbContext.ShoppingBag
                 .Include(sb => sb.Items)
