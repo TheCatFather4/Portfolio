@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
+    /// <summary>
+    /// Handles the business logic concerning cafe orders.
+    /// </summary>
     public class OrderService : IOrderService
     {
         private readonly ILogger _logger;
@@ -13,6 +16,13 @@ namespace Cafe.BLL.Services
         private readonly IOrderRepository _orderRepository;
         private readonly IShoppingBagRepository _shoppingBagRepository;
 
+        /// <summary>
+        /// Constructs a service with the dependencies required for creating and accessing cafe orders.
+        /// </summary>
+        /// <param name="logger">A dependency used for logging error messages.</param>
+        /// <param name="menuRetrievalRepository">A dependency used for retrieving item records.</param>
+        /// <param name="orderRepository">A dependency used for creating and retrieving order records.</param>
+        /// <param name="shoppingBagRepository">A dependency used for retrieving shopping bag records.</param>
         public OrderService(ILogger logger, IMenuRetrievalRepository menuRetrievalRepository, IOrderRepository orderRepository, IShoppingBagRepository shoppingBagRepository)
         {
             _logger = logger;
@@ -21,6 +31,13 @@ namespace Cafe.BLL.Services
             _shoppingBagRepository = shoppingBagRepository;
         }
 
+        /// <summary>
+        /// The customer's shopping bag is retrieved. If successful, prices are retrieved 
+        /// for each item and mapped to create a new CafeOrder record. The customer's 
+        /// shopping bag is emptied and the new record is mapped to a response DTO.
+        /// </summary>
+        /// <param name="dto">A Request DTO used for retrieving and mapping customer data.</param>
+        /// <returns>A Result DTO with a CafeOrderResponse DTO as its data.</returns>
         public async Task<Result<CafeOrderResponse>> CreateNewOrderAsync(OrderRequest dto)
         {
             try
@@ -116,6 +133,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// An ItemPrice record is retrieved.
+        /// </summary>
+        /// <param name="itemId">An ItemID used to retrieve an ItemPrice record.</param>
+        /// <returns>An ItemPrice record.</returns>
         public async Task<ItemPrice?> GetItemPriceByItemIdAsync(int itemId)
         {
             ItemPrice? itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(itemId);
@@ -128,6 +150,11 @@ namespace Cafe.BLL.Services
             return null;
         }
 
+        /// <summary>
+        /// A CafeOrder is retrieved by OrderID. If found, a data is mapped to a response DTO for display.
+        /// </summary>
+        /// <param name="orderId">An OrderID used in retrieving a CafeOrder record.</param>
+        /// <returns>A Result DTO with a response DTO as its data.</returns>
         public async Task<Result<CafeOrderResponse>> GetOrderDetailsAsync(int orderId)
         {
             try
@@ -176,6 +203,12 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// A CustomerID is used to retrieve a list of CafeOrder records. 
+        /// If successful, the data is mapped to a list of CafeOrderReponse DTOs for display.
+        /// </summary>
+        /// <param name="customerId">A CustomerID used for the retrieval of CafeOrder records.</param>
+        /// <returns>A Result DTO with a list of response DTOs as its data.</returns>
         public async Task<Result<List<CafeOrderResponse>>> GetOrderHistoryAsync(int customerId)
         {
             try
@@ -231,6 +264,13 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// The subtotal of a customer's ShoppingBag is retrieved. 
+        /// If found, the tax is calculated and added to the subtotal.
+        /// The total price is then returned.
+        /// </summary>
+        /// <param name="customerId">A CustomerID used for retrieving the subtotal of a customer's ShoppingBag.</param>
+        /// <returns>A Result DTO with a decimal as its data.</returns>
         public async Task<Result<decimal>> GetOrderTotalAsync(int customerId)
         {
             try
@@ -256,6 +296,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// A ShoppingBag record is retrieved.
+        /// </summary>
+        /// <param name="customerId">A CustomerID used in the retrieval of a ShoppingBag record.</param>
+        /// <returns>A ShoppingBag record.</returns>
         public async Task<ShoppingBag?> GetShoppingBagByCustomerIdAsync(int customerId)
         {
             ShoppingBag? sb = await _shoppingBagRepository.GetShoppingBagAsync(customerId);
