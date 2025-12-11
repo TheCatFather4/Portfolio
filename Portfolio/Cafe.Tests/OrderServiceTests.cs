@@ -45,7 +45,68 @@ namespace Cafe.Tests
 
             var result = service.GetItemPriceByItemIdAsync(1);
 
-            Assert.That(result.Result.ItemPriceID, Is.EqualTo(1));
+            Assert.That(result.Result?.ItemPriceID, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetOrderDetailsAsync_NotFound()
+        {
+            var service = GetOrderService();
+
+            var result = service.GetOrderDetailsAsync(2);
+
+            Assert.That(result.Result.Ok, Is.False);
+        }
+
+        [Test]
+        public void GetOrderDetailsAsync_Success()
+        {
+            var service = GetOrderService();
+
+            var result = service.GetOrderDetailsAsync(1);
+
+            Assert.That(result.Result.Ok, Is.True);
+        }
+
+        [Test]
+        public void GetOrderHistoryAsync_NotFound()
+        {
+            var service = GetOrderService();
+
+            var result = service.GetOrderHistoryAsync(3);
+
+            Assert.That(result.Result.Ok, Is.False);
+        }
+
+        [Test]
+        public void GetOrderHistoryAsync_Success()
+        {
+            var service = GetOrderService();
+
+            var result = service.GetOrderHistoryAsync(1);
+
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data?.Count(), Is.EqualTo(3));
+        }
+
+        [Test]
+        public void GetOrderTotalAsync_Success()
+        {
+            var service = GetOrderService();
+
+            var result = service.GetOrderTotalAsync(1);
+
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Is.EqualTo(26.00M));
+        }
+
+        [Test]
+        public void GetOrderTotalAsync_Zero()
+        {
+            var service = GetOrderService();
+            var result = service.GetOrderTotalAsync(2);
+
+            Assert.That(result.Result.Ok, Is.False);
         }
 
         [Test]
@@ -55,7 +116,7 @@ namespace Cafe.Tests
 
             var result = service.GetShoppingBagByCustomerIdAsync(1);
 
-            Assert.That(result.Result.ShoppingBagID, Is.EqualTo(1));
+            Assert.That(result.Result?.ShoppingBagID, Is.EqualTo(1));
         }
     }
 }

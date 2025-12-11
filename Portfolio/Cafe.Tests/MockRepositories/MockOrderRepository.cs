@@ -79,7 +79,8 @@ namespace Cafe.Tests.MockRepositories
                     SubTotal = 10.00M,
                     Tax = 0.40M,
                     Tip = 1.50M,
-                    FinalTotal = 10.90M
+                    FinalTotal = 10.90M,
+                    OrderItems = new List<OrderItem>()
                 };
             }
 
@@ -142,7 +143,8 @@ namespace Cafe.Tests.MockRepositories
                 SubTotal = 10.00M,
                 Tax = 0.40M,
                 Tip = 1.50M,
-                FinalTotal = 10.90M
+                FinalTotal = 10.90M,
+                OrderItems = new List<OrderItem>()
             };
 
             var order2 = new CafeOrder
@@ -155,7 +157,8 @@ namespace Cafe.Tests.MockRepositories
                 SubTotal = 20.00M,
                 Tax = 0.80M,
                 Tip = 3.00M,
-                FinalTotal = 23.80M
+                FinalTotal = 23.80M,
+                OrderItems = new List<OrderItem>()
             };
 
             var order3 = new CafeOrder
@@ -168,7 +171,8 @@ namespace Cafe.Tests.MockRepositories
                 SubTotal = 12.00M,
                 Tax = 0.40M,
                 Tip = 2.50M,
-                FinalTotal = 14.90M
+                FinalTotal = 14.90M,
+                OrderItems = new List<OrderItem>()
             };
 
             var order4 = new CafeOrder
@@ -181,7 +185,8 @@ namespace Cafe.Tests.MockRepositories
                 SubTotal = 30.00M,
                 Tax = 1.40M,
                 Tip = 4.00M,
-                FinalTotal = 35.40M
+                FinalTotal = 35.40M,
+                OrderItems = new List<OrderItem>()
             };
 
             orders.Add(order1);

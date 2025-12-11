@@ -70,9 +70,15 @@ namespace Cafe.Tests.MockRepositories
             throw new NotImplementedException();
         }
 
-        public Task<decimal> GetShoppingBagTotalAsync(int customerId)
+        public async Task<decimal> GetShoppingBagTotalAsync(int customerId)
         {
-            throw new NotImplementedException();
+            if (customerId == 1)
+            {
+                await Task.Delay(1000);
+                return 25.00M;
+            }
+
+            else return 0;
         }
 
         public Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
