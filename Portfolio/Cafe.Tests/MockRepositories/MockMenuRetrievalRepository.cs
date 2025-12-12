@@ -191,7 +191,21 @@ namespace Cafe.Tests.MockRepositories
                 ItemImgPath = "soda.jpg"
             };
 
-            items.Add(item);
+            var item2 = new Item
+            {
+                ItemID = 2,
+                CategoryID = 1,
+                ItemStatusID = 1,
+                ItemName = "Tea",
+                ItemDescription = "Crisp",
+                ItemImgPath = "tea.jpg"
+            };
+
+            if (categoryId == 1)
+            {
+                items.Add(item);
+                items.Add(item2);
+            }
 
             await Task.Delay(1000);
             return items;
