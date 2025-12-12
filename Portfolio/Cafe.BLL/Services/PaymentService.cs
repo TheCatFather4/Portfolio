@@ -6,12 +6,21 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
+    /// <summary>
+    /// Handles the business logic concerning payments
+    /// </summary>
     public class PaymentService : IPaymentService
     {
         private readonly ILogger _logger;
         private readonly IOrderRepository _orderRepository;
         private readonly IPaymentRepository _paymentRepository;
 
+        /// <summary>
+        /// Constructs a service with the dependencies required for retrieving and making payments.
+        /// </summary>
+        /// <param name="logger">A dependency used for logging errors.</param>
+        /// <param name="orderRepository">A dependency used for retrieving and updating orders.</param>
+        /// <param name="paymentRepository">A dependency used for retrieving PaymentType records and creating new Payment records.</param>
         public PaymentService(ILogger<PaymentService> logger, IOrderRepository orderRepository, IPaymentRepository paymentRepository)
         {
             _logger = logger;
@@ -19,6 +28,11 @@ namespace Cafe.BLL.Services
             _paymentRepository = paymentRepository;
         }
 
+        /// <summary>
+        /// A repository method is invoked to retrieve all payment types from the database. 
+        /// If successful, a list of PaymentType records is returned.
+        /// </summary>
+        /// <returns>A Result DTO with a list of PaymentType records as its data.</returns>
         public async Task<Result<List<PaymentType>>> GetPaymentTypesAsync()
         {
             try
@@ -40,6 +54,13 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Attempts to retrieve an Order record by OrderID. 
+        /// If successful, a new Payment record is created and added to the database.
+        /// Note: The Random object is used to simulate a declined payment.
+        /// </summary>
+        /// <param name="dto">A request DTO used to retrieve an Order record and in creating a new Payment record.</param>
+        /// <returns>A Result DTO with a PaymentResponse DTO as its data.</returns>
         public async Task<Result<PaymentResponse>> ProcessPaymentAsync(PaymentRequest dto)
         {
             try
@@ -60,6 +81,7 @@ namespace Cafe.BLL.Services
                     return ResultFactory.Fail<PaymentResponse>("This order has already been paid.");
                 }
 
+                // Simulation of declined payment
                 var rng = new Random();
                 var isSuccessful = rng.Next(1, 100) <= 90;
 

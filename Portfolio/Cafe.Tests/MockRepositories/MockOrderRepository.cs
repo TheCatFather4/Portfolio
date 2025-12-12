@@ -74,7 +74,7 @@ namespace Cafe.Tests.MockRepositories
                     OrderID = 1,
                     CustomerID = 1,
                     PaymentTypeID = 1,
-                    PaymentStatusID = 1,
+                    PaymentStatusID = 2,
                     OrderDate = DateTime.Today,
                     SubTotal = 10.00M,
                     Tax = 0.40M,
