@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace Cafe.BLL
 {
     /// <summary>
-    /// Factory methods used to instantiate services.
+    /// A factory class that handles the business logic for instantiating services.
     /// </summary>
     public class ServiceFactory
     {
@@ -19,11 +19,11 @@ namespace Cafe.BLL
         private readonly IConfiguration _jwtConfig;
 
         /// <summary>
-        /// Constructs a factory that has the state required to get a connection string, set a database mode, create loggers, and generate JSON Web Tokens.
+        /// Constructs a factory that has the state required for connection strings, database settings, logger creation, web token generation.
         /// </summary>
-        /// <param name="config">An implementation of the IAppConfiguration interface.</param>
-        /// <param name="loggerFactory">An implmentation of the ILoggerFactory interface.</param>
-        /// <param name="jwtConfig">An implementation of the IConfiguration interface.</param>
+        /// <param name="config">A dependency used for retrieving connection strings and database settings.</param>
+        /// <param name="loggerFactory">A dependency used for instantiating loggers.</param>
+        /// <param name="jwtConfig">A dependency used for generating JSON web tokens.</param>
         public ServiceFactory(IAppConfiguration config, ILoggerFactory loggerFactory, IConfiguration jwtConfig)
         {
             _config = config;
@@ -32,9 +32,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning customers
+        /// Instantiates a logger and returns a customer service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A customer service implementatation</returns>
+        /// <returns>A customer service dependency.</returns>
         public ICustomerService CreateCustomerService()
         {
             var logger = _loggerFactory.CreateLogger<CustomerService>();
@@ -56,9 +58,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning menu management
+        /// Instantiates a logger and returns a menu manager service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A menu management service implementatation</returns>
+        /// <returns>A menu manager service dependency.</returns>
         public IMenuManagerService CreateMenuManagerService()
         {
             var logger = _loggerFactory.CreateLogger<MenuManagerService>();
@@ -80,9 +84,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning menu retrieval
+        /// Instantiates a logger and returns a menu retrieval service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A menu retrieval service implementatation</returns>
+        /// <returns>A menu retrieval service dependency.</returns>
         public IMenuRetrievalService CreateMenuRetrievalService()
         {
             var logger = _loggerFactory.CreateLogger<MenuRetrievalService>();
@@ -102,9 +108,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning cafe orders
+        /// Instantiates a logger and returns an order service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A cafe order service implementatation</returns>
+        /// <returns>An order service dependency.</returns>
         public IOrderService CreateOrderService()
         {
             var logger = _loggerFactory.CreateLogger<OrderService>();
@@ -128,9 +136,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning payments
+        /// Instantiates a logger and returns a payment service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A payment service implementatation</returns>
+        /// <returns>A payment service dependency.</returns>
         public IPaymentService CreatePaymentService()
         {
             var logger = _loggerFactory.CreateLogger<PaymentService>();
@@ -152,9 +162,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning menu management
+        /// Instantiates a logger and returns a sales report service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A menu management service implementatation</returns>
+        /// <returns>A sales report service dependency.</returns>
         public ISalesReportService CreateSalesReportService()
         {
             var logger = _loggerFactory.CreateLogger<SalesReportService>();
@@ -176,9 +188,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning server management
+        /// Instantiates a logger and returns a server manager service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A server service implementatation</returns>
+        /// <returns>A server manager service dependency.</returns>
         public IServerManagerService CreateServerManagerService()
         {
             var logger = _loggerFactory.CreateLogger<ServerManagerService>();
@@ -198,9 +212,11 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning shopping bags
+        /// Instantiates a logger and returns a shopping bag service dependency.
+        /// The repositories returned are in accord with the current database setting.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A shopping bag service implementatation</returns>
+        /// <returns>A shopping bag service dependency.</returns>
         public IShoppingBagService CreateShoppingBagService()
         {
             var logger = _loggerFactory.CreateLogger<ShoppingBagService>();
@@ -220,9 +236,10 @@ namespace Cafe.BLL
         }
 
         /// <summary>
-        /// Instantiates a service concerning JSON Web Tokens
+        /// Uses the configuration implementation to instatiate a web token service.
+        /// See the appsettings.json file for more details.
         /// </summary>
-        /// <returns>A Json Web Token service implementatation</returns>
+        /// <returns>A web token service dependency.</returns>
         public IWebTokenService CreateWebTokenService()
         {
             return new WebTokenService(_jwtConfig);
