@@ -103,7 +103,7 @@ namespace Portfolio.ApiControllers
 
             if (result.Succeeded)
             {
-                var token =  _jwtService.GenerateToken(user);
+                var token =  await _jwtService.GenerateTokenAsync(user);
 
                 if (token == null)
                 {
