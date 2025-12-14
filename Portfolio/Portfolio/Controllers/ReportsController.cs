@@ -54,7 +54,7 @@ namespace Portfolio.Controllers
                     model.TotalQuantity = filterItemResult.Data.TotalQuantity;
                     model.TotalRevenue = filterItemResult.Data.TotalRevenue;
 
-                    foreach (var idf in filterItemResult.Data.Items)
+                    foreach (var idf in filterItemResult.Data.Reports)
                     {
                         var idr = new ItemReport
                         {
@@ -82,7 +82,7 @@ namespace Portfolio.Controllers
                     model.TotalQuantity = filterCategoryResult.Data.TotalQuantity;
                     model.TotalRevenue = filterCategoryResult.Data.TotalRevenue;
 
-                    foreach (var crf in filterCategoryResult.Data.Categories)
+                    foreach (var crf in filterCategoryResult.Data.CategoryItems)
                     {
                         var cr = new CategoryReport();
                         cr.ItemName = crf.ItemName;

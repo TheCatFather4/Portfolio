@@ -38,7 +38,7 @@ namespace Cafe.Tests
             var result = service.FilterItemsByCategoryIdAsync(1);
 
             Assert.That(result.Result.Ok, Is.True);
-            Assert.That(result.Result.Data?.Categories, Has.Count.EqualTo(2));
+            Assert.That(result.Result.Data?.CategoryItems, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace Cafe.Tests
             var result = service.FilterItemsByItemIdAsync(1);
 
             Assert.That(result.Result.Ok, Is.True);
-            Assert.That(result.Result.Data?.Items, Has.Count.EqualTo(3));
+            Assert.That(result.Result.Data?.Reports, Has.Count.EqualTo(3));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace Cafe.Tests
             var result = service.FilterOrdersByDateAsync(date);
 
             Assert.That(result.Result.Ok, Is.True);
-            Assert.That(result.Result.Data?.Orders, Has.Count.EqualTo(2));
+            Assert.That(result.Result.Data?.Orders, Has.Count.EqualTo(1));
         }
     }
 }

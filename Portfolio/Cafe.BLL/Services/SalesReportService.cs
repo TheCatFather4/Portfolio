@@ -1,16 +1,26 @@
 ﻿using Cafe.Core.DTOs;
+using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
+    /// <summary>
+    /// Handles the business logic concerning sales reports.
+    /// </summary>
     public class SalesReportService : ISalesReportService
     {
         private readonly ILogger _logger;
         private readonly IMenuRetrievalRepository _menuRetrievalRepository;
         private readonly IOrderRepository _orderRepository;
 
+        /// <summary>
+        /// Constructs a service with the dependencies required to prepare sales reports.
+        /// </summary>
+        /// <param name="logger">A dependency used for logging errors.</param>
+        /// <param name="menuRetrievalRepository">A dependency used for retrieving data concerning Item records.</param>
+        /// <param name="orderRepository">A dependency used for retrieving data concerning CafeOrder records.</param>
         public SalesReportService(ILogger<SalesReportService> logger, IMenuRetrievalRepository menuRetrievalRepository, IOrderRepository orderRepository)
         {
             _logger = logger;
@@ -18,92 +28,74 @@ namespace Cafe.BLL.Services
             _orderRepository = orderRepository;
         }
 
+        /// <summary>
+        /// Attempts to retrieve Item records by CategoryID. 
+        /// If successful, pricing and sales data is retrieved for each item.
+        /// A sales report is generated for each date the item was sold.
+        /// An additional report is generated for each item in the Category selected.
+        /// </summary>
+        /// <param name="categoryId">A CategoryID used to retrieve Item records.</param>
+        /// <returns>A Result DTO with an ItemCategoryFilter DTO as its data.</returns>
         public async Task<Result<ItemCategoryFilter>> FilterItemsByCategoryIdAsync(int categoryId)
         {
             try
             {
                 var dto = new ItemCategoryFilter
                 {
-                    SelectedCategoryID = categoryId
+                    SelectedCategoryID = categoryId,
+                    CategoryItems = new List<CategoryItem>()
                 };
 
-                // 1. Get items by CategoryID
                 var items = await _menuRetrievalRepository.GetItemsByCategoryIdAsync(categoryId);
 
-                // 2. If ok, continue
                 if (items.Count() == 0)
                 {
                     _logger.LogError($"No items were found for Category ID: {categoryId}.");
                     return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                 }
 
-                // 3. This is the list of lists
-                var categoryReports = new List<CategoryFilter>();
-
-                // 4. Loop through each item from step 1
                 foreach (var item in items)
                 {
-                    // for the current item being iterated....
-
-                    // 5. New CategoryReport
-                    var categoryReport = new CategoryFilter();
-
-                    // 6. Map item name to the new report
-                    categoryReport.ItemName = item.ItemName;
-
-                    // 7. Get item price
                     var itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync((int)item.ItemID);
 
-                    // 8. If ok, continue
                     if (itemPrice == null)
                     {
                         _logger.LogError($"No item price was found for Item ID: {item.ItemID}");
                         return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                     }
 
-                    // 9. Get sold order items
-                    var soldOrderItems = await _orderRepository.GetOrderItemsByItemPriceIdAsync((int)itemPrice.ItemPriceID);
+                    var soldItems = await _orderRepository.GetOrderItemsByItemPriceIdAsync((int)itemPrice.ItemPriceID);
 
-                    // 10. If ok, continue
-                    if (soldOrderItems.Count() == 0)
+                    if (soldItems.Count() == 0)
                     {
                         _logger.LogError($"No order items were found for ItemPrice ID: {itemPrice.ItemPriceID}.");
                         return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                     }
 
-                    // 11. Create new Item Date Report List - list of lists
-                    var itemDateReports = new List<ItemFilter>();
-
-                    // 12. Loop through sold items
-                    foreach (var soi in soldOrderItems)
+                    var categoryItem = new CategoryItem
                     {
-                        // model quantity
-                        dto.TotalQuantity += soi.Quantity;
+                        ItemName = item.ItemName,
+                        ItemReports = new List<ItemReport>()
+                    };
 
-                        // model extended price
-                        dto.TotalRevenue += soi.ExtendedPrice;
-
-                        // 13. Map each sold item's data to a corresponding Item Date Report - many ItemDateReports for ONE CategoryReport 
-                        var itemDateReport = new ItemFilter
+                    foreach (var si in soldItems)
+                    {
+                        var report = new ItemReport
                         {
-                            Price = (decimal)itemPrice.Price, // from step 7.
-                            Quantity = soi.Quantity,
-                            ExtendedPrice = soi.ExtendedPrice,
-                            DateSold = soi.CafeOrder.OrderDate
+                            Price = (decimal)itemPrice.Price,
+                            Quantity = si.Quantity,
+                            ExtendedPrice = si.ExtendedPrice,
+                            DateSold = si.CafeOrder.OrderDate
                         };
 
-                        itemDateReports.Add(itemDateReport);
+                        dto.TotalQuantity += si.Quantity;
+                        dto.TotalRevenue += si.ExtendedPrice;
+
+                        categoryItem.ItemReports.Add(report);
                     }
 
-                    // 14. Map list of ItemDateReports to the Category report (that was instantiated at step 5)
-                    categoryReport.ItemReports = itemDateReports;
-
-                    // 15. Add Category Report to List of Category Reports
-                    categoryReports.Add(categoryReport);
+                    dto.CategoryItems.Add(categoryItem);
                 }
-
-                // 16. After looping through each item, and all category reports are added to the list, map category list to model
-                dto.Categories = categoryReports;
 
                 return ResultFactory.Success(dto);
             }
@@ -114,13 +106,21 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Attempts to retrieve an ItemPrice record. 
+        /// If successful, sold items are retrieved and the data is mapped to a report.
+        /// A sales report is generated for each date the item was sold.
+        /// </summary>
+        /// <param name="itemId">An ItemID used to retrieve an ItemPrice record.</param>
+        /// <returns>A Result DTO with an ItemCategoryFilter DTO as its data.</returns>
         public async Task<Result<ItemCategoryFilter>> FilterItemsByItemIdAsync(int itemId)
         {
             try
             {
                 var dto = new ItemCategoryFilter()
                 {
-                    SelectedItemID = itemId
+                    SelectedItemID = itemId,
+                    Reports = new List<ItemReport>()
                 };
 
                 var itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(itemId);
@@ -139,14 +139,12 @@ namespace Cafe.BLL.Services
                     return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator");
                 }
 
-                var itemDateFilters = new List<ItemFilter>();
-
                 foreach (var item in orderItems)
                 {
                     dto.TotalQuantity += item.Quantity;
                     dto.TotalRevenue += item.ExtendedPrice;
 
-                    var itemDateFilter = new ItemFilter
+                    var report = new ItemReport
                     {
                         Price = (decimal)itemPrice.Price,
                         Quantity = item.Quantity,
@@ -154,10 +152,8 @@ namespace Cafe.BLL.Services
                         DateSold = item.CafeOrder.OrderDate
                     };
 
-                    itemDateFilters.Add(itemDateFilter);
+                    dto.Reports.Add(report);
                 }
-
-                dto.Items = itemDateFilters;
 
                 return ResultFactory.Success(dto);
             }
@@ -168,11 +164,21 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Retrieves all CafeOrder records. If successful, records are filtered by date and payment status.
+        /// Then, revenue is calculated and the filtered data is returned. 
+        /// </summary>
+        /// <param name="date">A DateTime object used to filter orders.</param>
+        /// <returns>A Result DTO with an OrderFilter DTO as its data.</returns>
         public async Task<Result<OrderFilter>> FilterOrdersByDateAsync(DateTime date)
         {
             try
             {
-                decimal revenue = 0.00M;
+                var filter = new OrderFilter
+                {
+                    Orders = new List<CafeOrder>(),
+                    Revenue = 0.00M
+                };
 
                 var orders = await _orderRepository.GetAllOrdersAsync();
 
@@ -182,23 +188,14 @@ namespace Cafe.BLL.Services
                     return ResultFactory.Fail<OrderFilter>("An error occurred. Please try again in a few minutes.");
                 }
 
-                var filteredOrders = orders
-                    .Where(o => o.OrderDate.Date == date.Date)
+                filter.Orders = orders
+                    .Where(o => o.OrderDate.Date == date.Date && o.PaymentStatusID == 1)
                     .ToList();
 
-                foreach (var o in filteredOrders)
+                foreach (var o in filter.Orders)
                 {
-                    if (o.PaymentStatusID == 1)
-                    {
-                        revenue += o.SubTotal;
-                    }
+                    filter.Revenue += o.SubTotal;
                 }
-
-                var filter = new OrderFilter
-                {
-                    Orders = filteredOrders,
-                    Revenue = revenue
-                };
 
                 return ResultFactory.Success(filter);
             }
