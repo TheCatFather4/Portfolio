@@ -14,7 +14,7 @@ namespace Cafe.Data.Repositories.Dapper
             _connectionString = connectionString;
         }
 
-        public void AddServer(Server server)
+        public async Task AddServerAsync(Server server)
         {
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -30,11 +30,11 @@ namespace Cafe.Data.Repositories.Dapper
                     server.DoB
                 };
 
-                cn.Execute(sql, parameters);
+                await cn.ExecuteAsync(sql, parameters);
             }
         }
 
-        public List<Server> GetAllServers()
+        public async Task<List<Server>> GetAllServersAsync()
         {
             List<Server> servers = new List<Server>();
 
@@ -42,15 +42,15 @@ namespace Cafe.Data.Repositories.Dapper
             {
                 var sql = "SELECT * FROM [Server];";
 
-                servers = cn.Query<Server>(sql).ToList();
+                servers = (await cn.QueryAsync<Server>(sql)).ToList();
             }
 
             return servers;
         }
 
-        public Server GetServerById(int serverId)
+        public async Task<Server?> GetServerByIdAsync(int serverId)
         {
-            Server server = new Server();
+            Server? server = new Server();
 
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -61,13 +61,13 @@ namespace Cafe.Data.Repositories.Dapper
                     ServerID = serverId,
                 };
 
-                server = cn.QueryFirstOrDefault<Server>(sql, parameter);
+                server = await cn.QueryFirstOrDefaultAsync<Server>(sql, parameter);
             }
 
             return server;
         }
 
-        public void UpdateServer(Server server)
+        public async Task UpdateServerAsync(Server server)
         {
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -89,7 +89,7 @@ namespace Cafe.Data.Repositories.Dapper
                     server.TermDate
                 };
 
-                cn.Execute(sql, parameters);
+                await cn.ExecuteAsync(sql, parameters);
             }
         }
     }

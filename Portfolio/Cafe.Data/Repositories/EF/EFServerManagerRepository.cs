@@ -1,5 +1,6 @@
 ﻿using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
@@ -12,28 +13,28 @@ namespace Cafe.Data.Repositories.EF
             _dbContext = new CafeContext(connectionString);
         }
 
-        public void AddServer(Server server)
+        public async Task AddServerAsync(Server server)
         {
-            _dbContext.Server.Add(server);
-            _dbContext.SaveChanges();
+            await _dbContext.Server.AddAsync(server);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public List<Server> GetAllServers()
+        public async Task<List<Server>> GetAllServersAsync()
         {
-            return _dbContext.Server
-                .ToList();
+            return await _dbContext.Server
+                .ToListAsync();
         }
 
-        public Server GetServerById(int serverId)
+        public async Task<Server?> GetServerByIdAsync(int serverId)
         {
-            return _dbContext.Server
-                .FirstOrDefault(s => s.ServerID == serverId);
+            return await _dbContext.Server
+                .FirstOrDefaultAsync(s => s.ServerID == serverId);
         }
 
-        public void UpdateServer(Server server)
+        public async Task UpdateServerAsync(Server server)
         {
             _dbContext.Update(server);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

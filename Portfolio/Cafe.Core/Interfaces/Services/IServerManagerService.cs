@@ -5,9 +5,9 @@ namespace Cafe.Core.Interfaces.Services
 {
     public interface IServerManagerService
     {
-        Result AddServer(Server server);
-        Result<List<Server>> GetAllServers();
-        Result<Server> GetServerById(int serverID);
-        Result UpdateServer(Server server);
+        Task<Result> AddServerAsync(Server server);
+        Task<Result<List<Server>>> GetAllServersAsync();
+        Task<Result<Server>> GetServerByIdAsync(int serverId);
+        Task<Result> UpdateServerAsync(Server server);
     }
 }

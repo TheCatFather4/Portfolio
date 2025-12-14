@@ -144,11 +144,11 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult ServerIndex()
+        public async Task<IActionResult> ServerIndex()
         {
             var model = new ServerList();
 
-            var result = _serverManagerService.GetAllServers();
+            var result = await _serverManagerService.GetAllServersAsync();
 
             if (result.Ok)
             {
@@ -171,7 +171,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddServer(ServerForm model)
+        public async Task<IActionResult> AddServer(ServerForm model)
         {
             if (ModelState.IsValid)
             {
@@ -179,7 +179,7 @@ namespace Portfolio.Controllers
 
                 var entity = model.ToEntity();
 
-                var result = _serverManagerService.AddServer(entity);
+                var result = await _serverManagerService.AddServerAsync(entity);
 
                 if (result.Ok)
                 {
@@ -197,9 +197,9 @@ namespace Portfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditServer(int id)
+        public async Task<IActionResult> EditServer(int id)
         {
-            var result = _serverManagerService.GetServerById(id);
+            var result = await _serverManagerService.GetServerByIdAsync(id);
 
             if (result.Ok)
             {
@@ -214,7 +214,7 @@ namespace Portfolio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditServer(int id, ServerForm model)
+        public async Task<IActionResult> EditServer(int id, ServerForm model)
         {
             if (id != model.ServerID)
             {
@@ -226,7 +226,7 @@ namespace Portfolio.Controllers
             {
                 var entity = model.ToEntity();
 
-                var result = _serverManagerService.UpdateServer(entity);
+                var result = await _serverManagerService.UpdateServerAsync(entity);
 
                 if (result.Ok)
                 {

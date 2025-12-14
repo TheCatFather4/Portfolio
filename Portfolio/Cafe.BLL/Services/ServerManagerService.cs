@@ -6,22 +6,30 @@ using Microsoft.Extensions.Logging;
 
 namespace Cafe.BLL.Services
 {
+    /// <summary>
+    /// Handles the business logic concerning servers.
+    /// </summary>
     public class ServerManagerService : IServerManagerService
     {
         private readonly ILogger _logger;
         private readonly IServerManagerRepository _serverManagerRepository;
 
+        /// <summary>
+        /// Constructs a service with the dependencies required to manage servers.
+        /// </summary>
+        /// <param name="logger">A dependency used for logging errors.</param>
+        /// <param name="serverManagerRepository">A dependency used for adding, retrieving, and updating servers.</param>
         public ServerManagerService(ILogger<ServerManagerService> logger, IServerManagerRepository serverManagerRepository)
         {
             _logger = logger;
             _serverManagerRepository = serverManagerRepository;
         }
 
-        public Result AddServer(Server server)
+        public async Task<Result> AddServerAsync(Server server)
         {
             try
             {
-                _serverManagerRepository.AddServer(server);
+                await _serverManagerRepository.AddServerAsync(server);
                 return ResultFactory.Success("New server successfully added!");
             }
             catch (Exception ex)
@@ -31,11 +39,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result<List<Server>> GetAllServers()
+        public async Task<Result<List<Server>>> GetAllServersAsync()
         {
             try
             {
-                var servers = _serverManagerRepository.GetAllServers();
+                var servers = await _serverManagerRepository.GetAllServersAsync();
 
                 if (servers.Count() == 0)
                 {
@@ -52,11 +60,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result<Server> GetServerById(int serverId)
+        public async Task<Result<Server>> GetServerByIdAsync(int serverId)
         {
             try
             {
-                var server = _serverManagerRepository.GetServerById(serverId);
+                var server = await _serverManagerRepository.GetServerByIdAsync(serverId);
 
                 if (server == null)
                 {
@@ -73,11 +81,11 @@ namespace Cafe.BLL.Services
             }
         }
 
-        public Result UpdateServer(Server server)
+        public async Task<Result> UpdateServerAsync(Server server)
         {
             try
             {
-                _serverManagerRepository.UpdateServer(server);
+                await _serverManagerRepository.UpdateServerAsync(server);
                 return ResultFactory.Success("Server successfully updated!");
             }
             catch (Exception ex)
