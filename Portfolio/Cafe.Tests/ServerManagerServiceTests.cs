@@ -20,7 +20,7 @@ namespace Cafe.Tests
         }
 
         [Test]
-        public void AddServer_Success()
+        public void AddServerAsync_Success()
         {
             var service = GetServerManagerService();
 
@@ -33,35 +33,46 @@ namespace Cafe.Tests
                 DoB = DateTime.Today.AddYears(-20)
             };
 
-            var result = service.AddServer(server);
+            var result = service.AddServerAsync(server);
 
-            Assert.That(result.Ok, Is.True);
+            Assert.That(result.Result.Ok, Is.True);
         }
 
         [Test]
-        public void GetAllServers_Success()
+        public void GetAllServersAsync_Success()
         {
             var service = GetServerManagerService();
 
-            var result = service.GetAllServers();
+            var result = service.GetAllServersAsync();
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data, Has.Count.EqualTo(2));
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Has.Count.EqualTo(2));
         }
 
         [Test]
-        public void GetServerById_Success()
+        public void GetServerByIdAsync_NotFound()
         {
             var service = GetServerManagerService();
 
-            var result = service.GetServerById(1);
+            var result = service.GetServerByIdAsync(2);
 
-            Assert.That(result.Ok, Is.True);
-            Assert.That(result.Data.ServerID, Is.EqualTo(1));
+            Assert.That(result.Result.Ok, Is.False);
+            Assert.That(result.Result.Data, Is.Null);
         }
 
         [Test]
-        public void UpdateServer_Success()
+        public void GetServerByIdAsync_Success()
+        {
+            var service = GetServerManagerService();
+
+            var result = service.GetServerByIdAsync(1);
+
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data?.ServerID, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void UpdateServerAsync_Success()
         {
             var service = GetServerManagerService();
 
@@ -71,9 +82,9 @@ namespace Cafe.Tests
                 LastName = "Smith",
             };
 
-            var result = service.UpdateServer(server);
+            var result = service.UpdateServerAsync(server);
 
-            Assert.That(result.Ok, Is.True);
+            Assert.That(result.Result.Ok, Is.True);
         }
     }
 }

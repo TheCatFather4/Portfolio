@@ -5,13 +5,14 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockServerManagerRepository : IServerManagerRepository
     {
-        public void AddServer(Server server)
+        public async Task AddServerAsync(Server server)
         {
             List<Server> servers = new List<Server>();
             servers.Add(server);
+            await Task.Delay(1000);
         }
 
-        public List<Server> GetAllServers()
+        public async Task<List<Server>> GetAllServersAsync()
         {
             var servers = new List<Server>();
 
@@ -36,10 +37,11 @@ namespace Cafe.Tests.MockRepositories
             servers.Add(server1);
             servers.Add(server2);
 
+            await Task.Delay(1000);
             return servers;
         }
 
-        public Server GetServerById(int serverId)
+        public async Task<Server?> GetServerByIdAsync(int serverId)
         {
             var server = new Server
             {
@@ -50,13 +52,20 @@ namespace Cafe.Tests.MockRepositories
                 DoB = DateTime.Today.AddYears(-25)
             };
 
-            return server;
+            if (serverId == 1)
+            {
+                await Task.Delay(1000);
+                return server;
+            }
+
+            return null;
         }
 
-        public void UpdateServer(Server server)
+        public async Task UpdateServerAsync(Server server)
         {
             var server2 = new Server();
             server2 = server;
+            await Task.Delay(1000);
         }
     }
 }
