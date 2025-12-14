@@ -5,9 +5,11 @@ namespace Cafe.Tests.MockRepositories
 {
     public class MockShoppingBagRepository : IShoppingBagRepository
     {
-        public Task AddItemToShoppingBagAsync(ShoppingBagItem item)
+        public async Task AddItemToShoppingBagAsync(ShoppingBagItem item)
         {
-            throw new NotImplementedException();
+            var items = new List<ShoppingBagItem>();
+            items.Add(item);
+            await Task.Delay(1000);
         }
 
         public async Task ClearShoppingBagAsync(int shoppingBagId)
@@ -65,9 +67,27 @@ namespace Cafe.Tests.MockRepositories
             return null;
         }
 
-        public Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
+        public async Task<ShoppingBagItem?> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
         {
-            throw new NotImplementedException();
+            if (shoppingBagItemId == 1)
+            {
+                var sbi = new ShoppingBagItem
+                {
+                    ShoppingBagItemID = 1,
+                    ShoppingBagID = 1,
+                    ItemID = 1,
+                    ItemStatusID = 1,
+                    Quantity = 1,
+                    ItemName = "Coffee",
+                    Price = 2.00M,
+                    ItemImgPath = "coffee.jpg"
+                };
+
+                await Task.Delay(1000);
+                return sbi;
+            }
+
+            return null;
         }
 
         public async Task<decimal> GetShoppingBagTotalAsync(int customerId)
@@ -81,14 +101,14 @@ namespace Cafe.Tests.MockRepositories
             else return 0;
         }
 
-        public Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
+        public async Task RemoveItemFromShoppingBagAsync(ShoppingBagItem item)
         {
-            throw new NotImplementedException();
+            await Task.Delay(1000);
         }
 
-        public Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
+        public async Task UpdateItemQuantityAsync(int shoppingBagItemId, byte quantity)
         {
-            throw new NotImplementedException();
+            await Task.Delay(1000);
         }
     }
 }

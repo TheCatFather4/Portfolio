@@ -131,9 +131,9 @@ namespace Cafe.Data.Repositories.Dapper
             return sb;
         }
 
-        public async Task<ShoppingBagItem> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
+        public async Task<ShoppingBagItem?> GetShoppingBagItemByIdAsync(int shoppingBagItemId)
         {
-            ShoppingBagItem sbi = new ShoppingBagItem();
+            ShoppingBagItem? sbi = new ShoppingBagItem();
 
             using (var cn = new SqlConnection(_connectionString))
             {
