@@ -25,6 +25,11 @@ namespace Cafe.BLL.Services
             _serverManagerRepository = serverManagerRepository;
         }
 
+        /// <summary>
+        /// Attempts to add a new Server record by sending an entity to the repository.
+        /// </summary>
+        /// <param name="server">A Server entity to be added to the database.</param>
+        /// <returns>A Result DTO with a confirmation message.</returns>
         public async Task<Result> AddServerAsync(Server server)
         {
             try
@@ -39,6 +44,10 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Makes a call to the repository to retrieve all Server records.
+        /// </summary>
+        /// <returns>A Result DTO with a list of Server entities as its data.</returns>
         public async Task<Result<List<Server>>> GetAllServersAsync()
         {
             try
@@ -60,6 +69,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Attempts to retrieve a Server record by its Id. If successful, the data is returned.
+        /// </summary>
+        /// <param name="serverId">A ServerID used in retrieving a Server record.</param>
+        /// <returns>A Result DTO with a Server entity as its data.</returns>
         public async Task<Result<Server>> GetServerByIdAsync(int serverId)
         {
             try
@@ -81,6 +95,11 @@ namespace Cafe.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Sends a current Server record to the repository to be updated in the database.
+        /// </summary>
+        /// <param name="server">The current Server record to be updated.</param>
+        /// <returns>A Result DTO with a confirmation message.</returns>
         public async Task<Result> UpdateServerAsync(Server server)
         {
             try
