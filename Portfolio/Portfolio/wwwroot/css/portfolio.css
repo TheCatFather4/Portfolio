@@ -49,6 +49,30 @@
     padding-bottom: 1px;
 }
 
+#navHoverCafe {
+    font-family: cursive;
+}
+
+#navHoverCafeApi {
+    --bs-dropdown-link-hover-bg: #73a839;
+    font-family: cursive
+}
+
+#navHoverCatPoker {
+    --bs-dropdown-link-hover-bg: #033c73;
+    font-family: cursive
+}
+
+#navHoverDiagram {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+    font-family: cursive
+}
+
+#navHoverProfile {
+    --bs-dropdown-link-hover-bg: darkorchid;
+    font-family: cursive
+}
+
 #overlay {
     position: absolute;
     top: 0;
