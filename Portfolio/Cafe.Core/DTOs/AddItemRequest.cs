@@ -2,6 +2,9 @@
 
 namespace Cafe.Core.DTOs
 {
+    /// <summary>
+    /// Used for handling requests and mapping data concerning new Item entities.
+    /// </summary>
     public class AddItemRequest
     {
         [Required(ErrorMessage = "A Shopping Bag ID is required.")]

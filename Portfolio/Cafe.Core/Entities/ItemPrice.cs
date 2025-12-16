@@ -14,6 +14,7 @@ namespace Cafe.Core.Entities
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
+        // Navigation property for joining OrderItem table.
         public List<OrderItem>? OrderItems { get; set; }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Cafe.Core.DTOs
 {
+    /// <summary>
+    /// Used for handling requests involving the update of ShoppingBagItem entities.
+    /// </summary>
     public class UpdateQuantityRequest
     {
         [Required(ErrorMessage = "A quantity is required.")]

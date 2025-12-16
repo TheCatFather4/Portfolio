@@ -2,6 +2,9 @@
 
 namespace Cafe.Core.DTOs
 {
+    /// <summary>
+    /// Used for handling requests concerning IdentityUser records.
+    /// </summary>
     public class LoginRequest
     {
         [Required(ErrorMessage = "A valid email address is required.")]

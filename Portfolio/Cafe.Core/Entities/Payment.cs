@@ -14,8 +14,10 @@ namespace Cafe.Core.Entities
         public DateTime? TransactionDate { get; set; }
         public byte PaymentStatusID { get; set; }
 
-        // Navigation properties
+        // Navigation property for joining CafeOrder table.
         public CafeOrder? Order { get; set; }
+
+        // Navigation property for joining PaymentType table.
         public PaymentType? PaymentType { get; set; }
     }
 }

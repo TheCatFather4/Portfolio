@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Cafe.Core.Entities
+﻿namespace Cafe.Core.Entities
 {
     public class Customer
     {

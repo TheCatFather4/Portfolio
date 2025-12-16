@@ -2,6 +2,9 @@
 
 namespace Cafe.Core.DTOs
 {
+    /// <summary>
+    /// Used for handling requests and mapping data concerning new Payment entities.
+    /// </summary>
     public class PaymentRequest
     {
         [Required(ErrorMessage = "An Order ID is required.")]

@@ -16,6 +16,7 @@ namespace Cafe.Core.Entities
         public int? CustomerID { get; set; }
         public byte? PaymentStatusID { get; set; }
 
+        // Navigation property for joining OrderItem table.
         public List<OrderItem> OrderItems { get; set; }
     }
 }

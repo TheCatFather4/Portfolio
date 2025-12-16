@@ -2,6 +2,9 @@
 
 namespace Cafe.Core.DTOs
 {
+    /// <summary>
+    /// Used for handling requests and mapping data concerning new Customer entities.
+    /// </summary>
     public class AddCustomerRequest
     {
         [Required(ErrorMessage = "A first name is required.")]

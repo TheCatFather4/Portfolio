@@ -2,6 +2,10 @@
 
 namespace Cafe.Core.Attributes
 {
+    /// <summary>
+    /// Specifies a decimal range of values for data validation.
+    /// Inherits from ValidationAttribute.
+    /// </summary>
     public class DecimalRange : ValidationAttribute
     {
         private readonly decimal _min;

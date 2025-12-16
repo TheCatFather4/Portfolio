@@ -1,5 +1,8 @@
 ﻿namespace Cafe.Core.Enums
 {
+    /// <summary>
+    /// Used to display item names in a customer's order history.
+    /// </summary>
     public enum ItemPriceName
     {
         Coffee = 1,

@@ -14,6 +14,7 @@ namespace Cafe.Core.Entities
         public byte? ItemStatusID { get; set; }
         public string? ItemImgPath { get; set; }
 
+        // Navigation property for joining ItemPrice table.
         public List<ItemPrice>? Prices { get; set; }
     }
 }
