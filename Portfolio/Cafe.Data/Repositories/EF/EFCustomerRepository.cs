@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles data persistence concerning Customer entities.
+    /// Implements ICustomerRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFCustomerRepository : ICustomerRepository
     {
         private readonly CafeContext _dbContext;

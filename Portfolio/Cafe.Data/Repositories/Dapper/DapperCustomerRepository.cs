@@ -5,6 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
+    /// <summary>
+    /// Handles data persistence concerning Customer entities.
+    /// Implements ICustomerRepository by utilizing Dapper Micro-ORM.
+    /// </summary>
     public class DapperCustomerRepository : ICustomerRepository
     {
         private readonly string _connectionString;

@@ -5,6 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
+    /// <summary>
+    /// Handles data persistence concerning Item entities.
+    /// Implements IMenuManagerRepository by utilizing Dapper Micro-ORM.
+    /// </summary>
     public class DapperMenuManagerRepository : IMenuManagerRepository
     {
         private readonly string _connectionString;

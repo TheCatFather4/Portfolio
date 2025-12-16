@@ -5,6 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
+    /// <summary>
+    /// Handles data persistence concerning ShoppingBag entities.
+    /// Implements IShoppingBagRepository by utilizing Dapper Micro-ORM.
+    /// </summary>
     public class DapperShoppingBagRepository : IShoppingBagRepository
     {
         private readonly string _connectionString;

@@ -3,6 +3,10 @@ using Cafe.Core.Interfaces.Repositories;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles data persistence concerning Item entities.
+    /// Implements IMenuManagerRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFMenuManagerRepository : IMenuManagerRepository
     {
         private readonly CafeContext _dbContext;

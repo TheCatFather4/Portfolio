@@ -5,6 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
+    /// <summary>
+    /// Handles data persistence concerning Payment entities.
+    /// Implements IPaymentRepository by utilizing Dapper Micro-ORM.
+    /// </summary>
     public class DapperPaymentRepository : IPaymentRepository
     {
         private readonly string _connectionString;

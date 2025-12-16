@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles data persistence concerning CafeOrder entities.
+    /// Implements IOrderRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFOrderRepository : IOrderRepository
     {
         private readonly CafeContext _dbContext;

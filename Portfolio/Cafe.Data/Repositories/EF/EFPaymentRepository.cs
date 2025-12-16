@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles data persistence concerning Payment entities.
+    /// Implements IPaymentRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFPaymentRepository : IPaymentRepository
     {
         private readonly CafeContext _dbContext;

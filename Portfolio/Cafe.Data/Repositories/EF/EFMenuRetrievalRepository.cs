@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles the retrieval of entities concerning the menu of the cafe.
+    /// Implements IMenuRetrievalRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFMenuRetrievalRepository : IMenuRetrievalRepository
     {
         private readonly CafeContext _dbContext;

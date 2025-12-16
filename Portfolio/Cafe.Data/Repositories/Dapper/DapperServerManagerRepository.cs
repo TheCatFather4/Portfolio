@@ -5,6 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
+    /// <summary>
+    /// Handles data persistence concerning Server entities.
+    /// Implements IServerManagerRepository by utilizing Dapper Micro-ORM.
+    /// </summary>
     public class DapperServerManagerRepository : IServerManagerRepository
     {
         private readonly string _connectionString;

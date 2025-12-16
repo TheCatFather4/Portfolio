@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles data persistence concerning ShoppingBag entities.
+    /// Implements IShoppingBagRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFShoppingBagRepository : IShoppingBagRepository
     {
         private readonly CafeContext _dbContext;

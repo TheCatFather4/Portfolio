@@ -5,6 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Cafe.Data.Repositories.Dapper
 {
+    /// <summary>
+    /// Handles the retrieval of entities concerning the menu of the cafe.
+    /// Implements IMenuRetrievalRepository by utilizing Dapper Micro-ORM.
+    /// </summary>
     public class DapperMenuRetrievalRepository : IMenuRetrievalRepository
     {
         private readonly string _connectionString;

@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data.Repositories.EF
 {
+    /// <summary>
+    /// Handles data persistence concerning Server entities.
+    /// Implements IServerManagerRepository by utilizing Entity Framework Core.
+    /// </summary>
     public class EFServerManagerRepository : IServerManagerRepository
     {
         private readonly CafeContext _dbContext;
