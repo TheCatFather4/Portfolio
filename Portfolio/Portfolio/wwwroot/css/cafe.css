@@ -137,6 +137,16 @@
     margin-top: 5px;
 }
 
+#reportTitle {
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+#reportTitle2 {
+    margin-bottom: 30px;
+    margin-top: 35px;
+}
+
 #revenueResult {
     font-family: serif;
     font-size: 1.5rem;

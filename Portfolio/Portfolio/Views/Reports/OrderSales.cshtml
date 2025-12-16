@@ -7,10 +7,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="my-3 text-center">
-            <h2>Order Revenue</h2>
-            <h5>Select or enter a date to display a corresponding sales report.</h5>
-            <p>If you cannot find a sales report, try an example date: <b>10/16/2025</b></p>
+        <div class="my-4 text-center" id="titleSection">
+            <h2 id="reportTitle">Sales Reports by Date</h2>
+            <h4 class="text-success">Enter a date to display a corresponding sales report.</h4>
+            <p>If you cannot find a sales report, try an example date such as: <b>10/16/2025</b></p>
         </div>
     </div>
     <div class="border border-info p-3 border-3 rounded bg-primary">
@@ -19,7 +19,7 @@
             <div class="form-floating mb-3">
                 <input type="date" class="form-control" asp-for="OrderDate" id="formInput" />
                 <label asp-for="OrderDate">Order Date</label>
-                <span asp-validation-for="OrderDate" class="text-light"></span>
+                <span asp-validation-for="OrderDate" id="validationText"></span>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-success me-2">Show Report</button>
