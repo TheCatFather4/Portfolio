@@ -13,6 +13,17 @@ namespace Cafe.Tests.MockRepositories
             payments.Add(payment);
         }
 
+        public async Task<decimal> GetFinalTotalAsync(int orderId)
+        {
+            if (orderId == 1)
+            {
+                await Task.Delay(1000);
+                return 20.00M;
+            }
+
+            return 0;
+        }
+
         public async Task<List<PaymentType>> GetPaymentTypesAsync()
         {
             var paymentTypes = new List<PaymentType>();

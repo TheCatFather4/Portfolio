@@ -29,6 +29,33 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
+        /// An OrderID is used to retrieve a total for the corresponding CafeOrder. 
+        /// If found, the total is returned.
+        /// </summary>
+        /// <param name="orderId">An OrderID used to retrieve the final total of a CafeOrder record.</param>
+        /// <returns>A Result DTO with a price as its data.</returns>
+        public async Task<Result<decimal>> GetFinalTotalAsync(int orderId)
+        {
+            try
+            {
+                var total = await _paymentRepository.GetFinalTotalAsync(orderId);
+
+                if (total == 0)
+                {
+                    _logger.LogError($"Final total for Order ID: {orderId} is 0.");
+                    return ResultFactory.Fail<decimal>("An error occurred. Please try again in a few minutes.");
+                }
+
+                return ResultFactory.Success(total);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred when attempting to retrieve the final total for CafeOrder {orderId}: {ex.Message}");
+                return ResultFactory.Fail<decimal>("An error occurred. Please contact the site administrator.");
+            }
+        }
+
+        /// <summary>
         /// A repository method is invoked to retrieve all payment types from the database. 
         /// If successful, a list of PaymentType records is returned.
         /// </summary>

@@ -21,6 +21,28 @@ namespace Cafe.Tests
         }
 
         [Test]
+        public void GetFinalTotalAsync_Success()
+        {
+            var service = GetPaymentService();
+
+            var result = service.GetFinalTotalAsync(1);
+
+            Assert.That(result.Result.Ok, Is.True);
+            Assert.That(result.Result.Data, Is.EqualTo(20.00M));
+        }
+
+        [Test]
+        public void GetFinalTotalAsync_Zero()
+        {
+            var service = GetPaymentService();
+
+            var result = service.GetFinalTotalAsync(3);
+
+            Assert.That(result.Result.Ok, Is.False);
+            Assert.That(result.Result.Data, Is.EqualTo(0));
+        }
+
+        [Test]
         public void GetPaymentTypesAsync_Success()
         {
             var service = GetPaymentService();
