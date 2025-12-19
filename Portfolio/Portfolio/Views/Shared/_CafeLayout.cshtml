@@ -24,8 +24,8 @@
                                     Hello, @User.Identity.Name!
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Customer Profile</a></li>
-                                    <li><a class="dropdown-item" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
+                                    <li><a class="dropdown-item" id="navHoverCafeProfile" asp-controller="Account" asp-action="Profile">Customer Profile</a></li>
+                                    <li><a class="dropdown-item" id="navHoverCart" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -45,14 +45,13 @@
                         }
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Cafe
+                                Café
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Cafe">Home</a></li>
                                 <li><a class="dropdown-item" asp-controller="CafeMenu" asp-action="Index">Menu</a></li>
                                 <li><a class="dropdown-item" asp-controller="Management" asp-action="Index">Management</a></li>
                                 <li><a class="dropdown-item" asp-controller="Reports" asp-action="Index">Sales Reports</a></li>
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="CafeAPI">API</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -60,9 +59,9 @@
                                 Portfolio
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Home</a></li>
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="CafeAPI">Cafe API</a></li>
-                                <li><a class="dropdown-item" href="~/cat-poker/index.html">Cat Poker</a></li>
+                                <li><a class="dropdown-item" id="navHoverPortfolio" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li><a class="dropdown-item" id="navHoverCafeApi" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
+                                <li><a class="dropdown-item" id="navHoverCatPoker" href="~/cat-poker/index.html">Cat Poker</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -70,8 +69,8 @@
                                 Documentation
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Documentation">Code and Diagrams</a></li>
-                                <li><a class="dropdown-item" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                                <li><a class="dropdown-item" id="navHoverDiagram" asp-controller="Home" asp-action="Documentation">Code and Diagrams</a></li>
+                                <li><a class="dropdown-item" id="navHoverProfile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -92,7 +91,7 @@
     @RenderBody()
     <footer>
         <div class="container-fluid bg-primary" id="bottomRow">
-            <h5 class="text-light text-center">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+            <h5 class="text-light text-center" id="titleSection">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
         </div>
     </footer>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
