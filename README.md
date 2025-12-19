@@ -4,30 +4,52 @@
 This is my software developer portfolio website.<br>
 It currently features **3 software applications** that I have built with _much care_.<br>
 I am continually updating the applications regularly, so check back frequently for new features!<br>
-**Visit my site at** [https://www.jmarcello.dev](https://www.jmarcello.dev)
 
-<img width="800" height="560" alt="Portfoliosite" src="https://github.com/user-attachments/assets/644e60f7-747f-45d5-8363-7529d98e810d" />
+##
 
-## Featured Projects
+---> **Visit my site at** [https://www.jmarcello.dev](https://www.jmarcello.dev) <---
 
-# [The 4th Wall Cafe](https://www.jmarcello.dev/Home/Cafe)
+<img width="825" height="563" alt="portfolio" src="https://github.com/user-attachments/assets/5d7ffb8a-24ed-4fd8-880a-b6fa83968bbb" />
+
+##
+
+## Featured Software Applications
+
+# [The 4th Wall Café](https://www.jmarcello.dev/Home/Cafe)
 This is a _full-stack_ web application that utilizes **ASP.NET Core (MVC)** for the _front-end_ portion.<br>
 The _back-end_ is written in **C#** and utilizes both **Entity Framework Core** and **Dapper** (Micro-ORM) for data persistence.<br>
 **ASP.NET Core Identity** is also used for authentication and authorization.<br>
 Additionally, the **Bootstrap** framework is used to make the website _responsive_.<br>
 
-<img width="800" height="560" alt="4thwall" src="https://github.com/user-attachments/assets/72e0bfa8-8256-49b3-91f2-3b6cab8be045" />
+<img width="825" height="563" alt="cafe" src="https://github.com/user-attachments/assets/65c6b95c-b485-4fbc-90eb-944e6ebbbc57" />
 
-## Application Features
+##
 
+## Café Features
+
+### Authentication
+Registration, Logging In, and Logging Out are all implemented in this application.<br>
+Users must register an account with the café in order to add items to the shopping cart.<br>
+Users must also be logged in before they may proceed with ordering and payments.<br>
+##
+### Authorization
+Two areas of the website cannot be accessed unless the user possesses the required roles.<br>
+**1.) The Sales Report Area:** an _Accountant_ role is required to view this area.<br>
+**2.) The Management Area:** a _Manager role_ is required to view this area.<br>
+
+>[!NOTE]
+>I have provided some sample credentials on the login page so that you can access these areas.
+##
 ### Two Database Modes
 There are two _different_ database modes that can be set up for effective data persistence.<br>
 **1.) Entity Framework Core:** A framework ideal for _light weight queries_.<br>
 **2.) Dapper:** A micro-ORM ideal for _greater granular control_.<br>
 
->[!NOTE]
->In order to switch between database modes, simply change the value for the "DatabaseMode" key found in the **appsettings.json** file.<br>
->The default value; "ORM" is set up to use Entity Framework Core. If you would like to use Dapper, change the value to "Dapper".
+>[!TIP]
+>Change the _value_ of the "DatabaseMode" key to switch between modes.<br>
+>The default value is set to "ORM" which uses Entity Framework Core.<br>
+>If you would like to use Dapper, change the value to "Dapper".<br>
+>The key can be found in the [_appsettings.json_](https://github.com/TheCatFather4/Portfolio/blob/main/Portfolio/Portfolio/appsettings.json) file.<br>
 
 ##
 
