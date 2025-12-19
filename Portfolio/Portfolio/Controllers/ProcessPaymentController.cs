@@ -36,6 +36,16 @@ namespace Portfolio.Controllers
                     return RedirectToAction("Index", "Profile");
                 }
 
+                var result = await _paymentService.GetFinalTotalAsync(orderId);
+
+                if (!result.Ok)
+                {
+                    TempData["Alert"] = Alert.CreateError(result.Message);
+                    return RedirectToAction("Index", "Profile");
+                }
+
+                model.FinalTotal = result.Data;
+
                 return View(model);
             }
 
@@ -63,6 +73,7 @@ namespace Portfolio.Controllers
                     {
                         model.TransactionDate = result.Data.TransactionDate;
                         model.PaymentStatusId = (byte)result.Data.PaymentStatusID;
+                        model.PaymentTypeName = EnumConverter.GetPaymentTypeName((int)model.PaymentTypeId);
 
                         return View(model);
                     }

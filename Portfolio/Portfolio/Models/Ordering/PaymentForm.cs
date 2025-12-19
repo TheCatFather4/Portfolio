@@ -16,5 +16,7 @@ namespace Portfolio.Models.Ordering
 
         public DateTime TransactionDate { get; set; }
         public byte PaymentStatusId { get; set; }
+        public decimal FinalTotal { get; set; }
+        public string? PaymentTypeName { get; set; }
     }
 }

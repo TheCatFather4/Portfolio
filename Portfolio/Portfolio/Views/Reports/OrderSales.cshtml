@@ -11,6 +11,7 @@
             <h2 id="reportTitle">Sales Reports by Date</h2>
             <h4 class="text-success">Enter a date to display a corresponding sales report.</h4>
             <p>If you cannot find a sales report, try an example date such as: <b>10/16/2025</b></p>
+            <p>Or use the <a asp-controller="Reports" asp-action="ItemCategorySales">Item/Category report form</a> to find some dates to try out.</p>
         </div>
     </div>
     <div class="border border-info p-3 border-3 rounded bg-primary">
@@ -59,10 +60,10 @@
                 </table>
             </div>
             <div class="mb-3 text-center" id="titleSection">
-                <h3>The total revenue for @Model.OrderDate.Value.ToShortDateString() is $<span class="text-success">@Model.TotalRevenue</span>.</h3>
+                <h3>The total revenue for @Model.OrderDate.Value.ToShortDateString() is <span class="text-success">$@Model.TotalRevenue</span>.</h3>
             </div>
             <div class="text-center" id="titleSection">
-                <h5 class="mt-2 text-info">Try out the online ordering with this account to see more data persistence in action!</h5>
+                <h5 class="mt-2 text-info">Try out the online ordering feature with this account to see more data persistence in action!</h5>
                 <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
                 <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>
             </div>

@@ -21,5 +21,23 @@ namespace Portfolio.Utilities
 
             return string.Empty;
         }
+
+        public static string GetPaymentTypeName(int paymentTypeId)
+        {
+            foreach (PaymentTypeName ptn in Enum.GetValues<PaymentTypeName>())
+            {
+                if (paymentTypeId == (int)ptn)
+                {
+                    if (ptn.ToString().Contains("_"))
+                    {
+                        return ptn.ToString().Replace("_", " ");
+                    }
+
+                    return ptn.ToString();
+                }
+            }
+
+            return string.Empty;
+        }
     }
 }
