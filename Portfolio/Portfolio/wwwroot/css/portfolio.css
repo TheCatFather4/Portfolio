@@ -1,19 +1,20 @@
 ﻿nav {
     background-color: #7b7da7;
+    font-family: Lucida Console;
 }
 
 #contactHeadline {
     color: darkorchid;
-    font-family: cursive;
+    font-family: Lucida Console;
 }
 
 #docPageHeadline {
-    font-family: cursive;
+    font-family: Lucida Console;
 }
 
 #documentationHeadline {
     color: white;
-    font-family: cursive;
+    font-family: Lucida Console;
     margin-top: 40px;
     margin-bottom: 20px;
 }
@@ -34,11 +35,11 @@
 
 #headline {
     color: white;
-    font-family: cursive;
+    font-family: Lucida Console;
 }
 
 #headlineRow {
-    background: linear-gradient(0deg ,#4738ac, #b0a5f6);
+    background: linear-gradient(0deg,#4738ac, #b0a5f6);
     margin-top: 50px;
 }
 
@@ -54,28 +55,20 @@
     padding-bottom: 1px;
 }
 
-#navHoverCafe {
-    font-family: cursive;
-}
-
 #navHoverCafeApi {
     --bs-dropdown-link-hover-bg: #73a839;
-    font-family: cursive
 }
 
 #navHoverCatPoker {
     --bs-dropdown-link-hover-bg: #033c73;
-    font-family: cursive
 }
 
 #navHoverDiagram {
     --bs-dropdown-link-hover-bg: #4e4e4e;
-    font-family: cursive
 }
 
 #navHoverProfile {
     --bs-dropdown-link-hover-bg: darkorchid;
-    font-family: cursive
 }
 
 #overlay {
@@ -105,14 +98,14 @@
 
 #projectsHeadline {
     color: white;
-    font-family: cursive;
+    font-family: Lucida Console;
     margin-top: 40px;
     margin-bottom: 40px;
 }
 
 #skillsHeadline {
     color: white;
-    font-family: cursive;
+    font-family: Lucida Console;
     margin-bottom: 10px;
     margin-top: 30px;
 }

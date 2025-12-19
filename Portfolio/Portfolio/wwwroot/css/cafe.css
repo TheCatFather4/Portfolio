@@ -1,9 +1,14 @@
-﻿.form-check-input:checked {
+﻿nav {
+    font-family: serif;
+}
+
+.form-check-input:checked {
     background-color: rgb(7, 35, 144);
 }
 
 #addItemForm {
     margin-top: 40px;
+    font-family: serif;
 }
 
 #bottomImages {
@@ -93,6 +98,7 @@
 #imgText {
     color: darkorchid;
     font-size: 20px;
+    font-family: serif;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -108,6 +114,7 @@
 
 #menuButtonHome {
     font-size: 1.5rem;
+    font-family: serif;
 }
 
 #menuTitle {
@@ -123,6 +130,35 @@
         font-size: 2.5rem;
     }
 
+#navHoverCafeApi {
+    --bs-dropdown-link-hover-bg: #73a839;
+}
+
+#navHoverCafeProfile {
+    --bs-dropdown-link-hover-bg: #1137ee;
+}
+
+#navHoverCart {
+    --bs-dropdown-link-hover-bg: #f1620f;
+}
+
+#navHoverCatPoker {
+    --bs-dropdown-link-hover-bg: #033c73;
+}
+
+#navHoverDiagram {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+}
+
+#navHoverPortfolio {
+    --bs-dropdown-link-hover-bg: #7b7da7;
+    font-family: serif;
+}
+
+#navHoverProfile {
+    --bs-dropdown-link-hover-bg: darkorchid;
+}
+
 #noItemsCart {
     font-family: serif;
     font-size: 1.5rem;
@@ -130,6 +166,7 @@
 
 #noteLogin {
     font-size: 1.1rem;
+    font-family: serif;
 }
 
 #register1 {
@@ -153,17 +190,17 @@
 }
 
 #titleSection {
-    font-family: cursive;
+    font-family: serif;
 }
 
 #updateItemForm1 {
     margin-top: 30px;
-    font-family: cursive;
+    font-family: serif;
 }
 
 #updateItemForm2 {
     margin-top: 80px;
-    font-family: cursive;
+    font-family: serif;
 }
 
 #validationText {
