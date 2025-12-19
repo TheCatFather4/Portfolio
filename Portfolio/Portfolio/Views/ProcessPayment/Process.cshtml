@@ -7,7 +7,7 @@
 
 @if (Model.PaymentStatusId != 1)
 {
-    <div class="text-center my-3">
+    <div class="text-center my-3" id="titleSection">
         <h2>Process Payment</h2>
     </div>
     <div class="container">
@@ -31,7 +31,7 @@
                 <input type="hidden" asp-for="PaymentStatusId" />
                 <div>
                     <button class="btn btn-success me-2">Confirm Payment</button>
-                    <a asp-controller="Profile" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50">Back to customer Profile</a>
+                    <a asp-controller="Account" asp-action="Profile" class="link-light link-opacity-50-hover link-underline-opacity-50">Back to customer Profile</a>
                 </div>
             </form>
         </div>
@@ -39,7 +39,7 @@
 }
 else
 {
-    <div class="text-center my-3">
+    <div class="text-center my-3" id="titleSection">
         <h2>Payment Confirmation</h2>
     </div>
     <div class="container">
@@ -73,7 +73,7 @@ else
             </table>
         </div>
     </div>
-    <div class="text-center">
+    <div class="text-center" id="titleSection">
         <h3>Go to:</h3>
         <h5><a asp-controller="Account" asp-action="Profile">Customer profile</a></h5>
         <h5><a asp-controller="Home" asp-action="Cafe">Cafe Home</a></h5>

@@ -5,7 +5,7 @@
 }
 
 <div class="container">
-    <div class="row">
+    <div class="row" id="titleSection">
         <h1 class="mt-3">
             @if (!string.IsNullOrEmpty(Model.FirstName))
             {
@@ -39,7 +39,7 @@
         </form>
     </div>
     <div class="row">
-        <div class="my-3">
+        <div class="my-3" id="titleSection">
             <h3>
                 <a class="btn btn-info me-2" type="submit" asp-controller="ProcessOrder" asp-action="OrderHistory" asp-route-customerId="@Model.CustomerID">View Order History</a>
                 <a class="btn btn-warning" type="submit" asp-controller="ShoppingCart" asp-action="Index">View Shopping Cart</a>
