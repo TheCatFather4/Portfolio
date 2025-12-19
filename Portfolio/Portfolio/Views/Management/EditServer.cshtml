@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <div class="text-center my-3">
-        <h2>Edit a server</h2>
-        <h5>If you would like to re-activate a server, change the Termination Date field to <span class="text-success">mm/dd/yyyy</span>.</h5>
+    <div class="text-center my-3" id="titleSection">
+        <h1 class="mb-3">Edit a server</h1>
+        <h5>If you would like to re-activate a server, change the Termination Date field to <i><span class="text-success">mm/dd/yyyy</span></i>.</h5>
     </div>
     <div class="border border-info p-3 border-5 rounded bg-primary">
         <form class="mb-3" asp-controller="Management" asp-action="EditServer" asp-route-id="@Model.ServerID" method="post">
@@ -17,17 +17,17 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="FirstName" id="formInput" />
                 <label asp-for="FirstName">First Name</label>
-                <span asp-validation-for="FirstName" class="text-light"></span>
+                <span asp-validation-for="FirstName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="LastName" id="formInput" />
                 <label asp-for="LastName">Last Name</label>
-                <span asp-validation-for="LastName" class="text-light"></span>
+                <span asp-validation-for="LastName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="DoB" id="formInput" />
                 <label asp-for="DoB">Date of Birth</label>
-                <span asp-validation-for="DoB" class="text-light"></span>
+                <span asp-validation-for="DoB" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="date" class="form-control" asp-for="HireDate" id="formInput" />
@@ -36,7 +36,7 @@
             <div class="form-floating mb-3">
                 <input type="date" class="form-control" asp-for="TermDate" id="formInput" />
                 <label asp-for="TermDate">Termination Date</label>
-                <span asp-validation-for="TermDate" class="text-light"></span>
+                <span asp-validation-for="TermDate" id="validationText"></span>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-success me-3">Save</button>
