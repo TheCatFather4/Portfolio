@@ -38,6 +38,25 @@ namespace Cafe.Data.Repositories.Dapper
             }
         }
 
+        public async Task<decimal> GetFinalTotalAsync(int orderId)
+        {
+            decimal total = 0;
+
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                var sql = "SELECT FinalTotal FROM CafeOrder WHERE OrderID = @OrderID;";
+
+                var parameter = new
+                {
+                    orderId,
+                };
+
+                total = await cn.ExecuteAsync(sql, parameter);
+            }
+
+            return total;
+        }
+
         public async Task<List<PaymentType>> GetPaymentTypesAsync()
         {
             var paymentTypes = new List<PaymentType>();

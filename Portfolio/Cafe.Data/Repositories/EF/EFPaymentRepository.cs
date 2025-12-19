@@ -23,6 +23,19 @@ namespace Cafe.Data.Repositories.EF
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<decimal> GetFinalTotalAsync(int orderId)
+        {
+            CafeOrder? order = await _dbContext.CafeOrder
+                .FirstOrDefaultAsync(o => o.OrderID == orderId);
+
+            if (order != null)
+            {
+                return order.FinalTotal;
+            }
+
+            return 0;
+        }
+
         public async Task<List<PaymentType>> GetPaymentTypesAsync()
         {
             return await _dbContext.PaymentType
