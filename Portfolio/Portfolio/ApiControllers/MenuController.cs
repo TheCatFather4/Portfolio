@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests involving the menu of the cafe
+    /// Handles requests concerning the menu of the café.
     /// </summary>
     [Route("api/cafe/[controller]")]
     [ApiController]
@@ -14,18 +14,19 @@ namespace Portfolio.ApiControllers
         private readonly IMenuRetrievalService _menuRetrievalService;
 
         /// <summary>
-        /// Injects a service dependency for the menu
+        /// Constructs a controller with the required dependency to retrieve all Item records. 
         /// </summary>
-        /// <param name="menuService"></param>
-        public MenuController(IMenuRetrievalService menuRetrievalService)
+        /// <param name="menuService">A dependency used for menu retrieval.</param>
+        public MenuController(IMenuRetrievalService menuService)
         {
-            _menuRetrievalService = menuRetrievalService;
+            _menuRetrievalService = menuService;
         }
 
         /// <summary>
-        /// Retrieves the entire menu including pricing information for each item
+        /// Retrieves the entire menu of Item records and ItemPrice records. 
+        /// The data returned is a list of ItemResponse DTOs.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of ItemResponse DTOs.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<ItemResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -49,10 +50,11 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Retrieves an individual item including its pricing information
+        /// Retrieves an Item and ItemPrice record based on an ItemID.
+        /// The data is returned as an ItemResponse DTO.
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <returns></returns>
+        /// <param name="itemId">An ItemID used to retrieve an Item record.</param>
+        /// <returns>An ItemResponse DTO.</returns>
         [HttpGet("{itemId}")]
         [ProducesResponseType(typeof(ItemResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]

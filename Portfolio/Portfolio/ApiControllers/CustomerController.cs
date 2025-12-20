@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests involving customer registration and logging in
+    /// Handles requests concerning authentication.
     /// </summary>
     [Route("api/cafe/[controller]")]
     [ApiController]
@@ -18,12 +18,12 @@ namespace Portfolio.ApiControllers
         private readonly IWebTokenService _jwtService;
 
         /// <summary>
-        /// Injects two ASP.NET Identity dependencies, and two service dependencies
+        /// Constructs a controller with the dependencies required for authentication. 
         /// </summary>
-        /// <param name="userManager"></param>
-        /// <param name="signInManager"></param>
-        /// <param name="customerService"></param>
-        /// <param name="jwtService"></param>
+        /// <param name="userManager">A dependency used for managing user persistence. Part of ASP.NET Core Identity.</param>
+        /// <param name="signInManager">A dependency used for signing users in. Part of ASP.NET Core Identity.</param>
+        /// <param name="customerService">A dependency used for registering new Customer entities.</param>
+        /// <param name="jwtService">A dependency used for generating JSON Web Tokens.</param>
         public CustomerController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICustomerService customerService, IWebTokenService jwtService)
         {
             _userManager = userManager;
@@ -33,10 +33,10 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Registers a new customer with the cafe and a new identity user
+        /// Registers a new Customer with the café and an associated IdentityUser.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">A DTO used for mapping new Customer data.</param>
+        /// <returns>A message based on the type of status code response.</returns>
         [HttpPost("register")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -81,10 +81,11 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Checks if a user's credentials are valid and if so, returns a JSON web token for authorization
+        /// Retrieves an IdentityUser by email. If successful, password is checked.
+        /// If the password result is successful, a JSON Web Token is generated for authorization.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">A DTO containing a user's credentials for logging in.</param>
+        /// <returns>A message based upon the type of status code response.</returns>
         [HttpPost("login")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
@@ -103,7 +104,7 @@ namespace Portfolio.ApiControllers
 
             if (result.Succeeded)
             {
-                var token =  await _jwtService.GenerateTokenAsync(user);
+                var token = await _jwtService.GenerateTokenAsync(user);
 
                 if (token == null)
                 {
