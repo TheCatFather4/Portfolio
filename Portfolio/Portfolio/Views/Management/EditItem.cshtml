@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <div class="text-center my-3">
-        <h2>Edit @Model.ItemName</h2>
-        <p>Use the form below to make adjustments.</p>
+    <div class="text-center my-4" id="titleSection">
+        <h1>Edit @Model.ItemName</h1>
+        <h4 class="text-info">Use the form below to make adjustments</h4>
     </div>
     <div class="border border-info p-3 border-5 rounded bg-primary">
         <form asp-controller="Management" asp-action="EditItem" method="post" asp-route-id="@Model.ItemID">
@@ -18,12 +18,12 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="ItemName" id="formInput" />
                 <label asp-for="ItemName">Item Name</label>
-                <span asp-validation-for="ItemName" class="text-light"></span>
+                <span asp-validation-for="ItemName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="ItemDescription" id="formInput" />
                 <label asp-for="ItemDescription">Description</label>
-                <span asp-validation-for="ItemDescription" class="text-light"></span>
+                <span asp-validation-for="ItemDescription" id="validationText"></span>
             </div>
             <input type="hidden" asp-for="ItemImgPath" />
             @for (int i = 0; i < Model.Prices.Count; i++)
@@ -34,7 +34,7 @@
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" asp-for="Prices[i].Price" id="formInput" />
                     <label asp-for="Prices[i].Price">Price</label>
-                    <span asp-validation-for="Prices[i].Price" class="text-light"></span>
+                    <span asp-validation-for="Prices[i].Price" id="validationText"></span>
                 </div>
                 <input type="hidden" asp-for="Prices[i].StartDate" />
                 <input type="hidden" asp-for="Prices[i].EndDate" />

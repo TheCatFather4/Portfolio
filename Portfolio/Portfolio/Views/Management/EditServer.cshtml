@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <div class="text-center my-3" id="titleSection">
-        <h1 class="mb-3">Edit a server</h1>
-        <h5>If you would like to re-activate a server, change the Termination Date field to <i><span class="text-success">mm/dd/yyyy</span></i>.</h5>
+    <div class="text-center my-4" id="titleSection">
+        <h1>Edit a server</h1>
+        <h4 class="text-info">If you would like to re-activate a server, change the Termination Date field to <i>mm/dd/yyyy</i></h4>
     </div>
     <div class="border border-info p-3 border-5 rounded bg-primary">
         <form class="mb-3" asp-controller="Management" asp-action="EditServer" asp-route-id="@Model.ServerID" method="post">

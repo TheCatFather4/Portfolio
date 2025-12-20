@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <div class="text-center my-3">
-        <h2>Add a Server</h2>
-        <h5 class="text-success">You may add a server to the cafe by simply filling out the form and clicking submit.</h5>
+    <div class="text-center my-4" id="titleSection">
+        <h1>Add a Server</h1>
+        <h4 class="text-info">You may add a server to the cafe by simply filling out the form and clicking submit</h4>
     </div>
     <div class="border border-info border-5 rounded p-3 bg-primary">
         <form class="mb-3" asp-controller="Management" asp-action="AddServer" method="post">
@@ -16,17 +16,18 @@
             <div class="form-floating mb-3">
                 <input type="text" asp-for="FirstName" class="form-control" id="formInput" />
                 <label asp-for="FirstName">First Name</label>
-                <span asp-validation-for="FirstName" class="text-light"></span>
+                <span asp-validation-for="FirstName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="LastName" class="form-control" id="formInput" />
                 <label asp-for="LastName">Last Name</label>
-                <span asp-validation-for="LastName" class="text-light"></span>
+                <span asp-validation-for="LastName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="date" asp-for="DoB" class="form-control" id="formInput" />
                 <label asp-for="DoB">Date of Birth</label>
-                <span asp-validation-for="DoB" class="text-light"></span>
+                <span asp-validation-for="DoB" id="validationText"></span>
+
             </div>
             <div class="form-floating mb-3">
                 <button type="submit" class="btn btn-success me-3">Submit</button>
