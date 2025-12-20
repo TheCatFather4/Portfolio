@@ -1,0 +1,29 @@
+﻿nav {
+    font-family: Arial;
+}
+
+#bottomAPI {
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+}
+
+#navHoverCatPoker {
+    --bs-dropdown-link-hover-bg: #033c73;
+}
+
+#navHoverDiagram {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+}
+
+#navHoverPortfolio {
+    --bs-dropdown-link-hover-bg: #7b7da7;
+}
+
+#navHoverProfile {
+    --bs-dropdown-link-hover-bg: darkorchid;
+}
+
+#titleAPI {
+    font-family: Arial;
+}
