@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests involving the customer's shopping bag
+    /// Handles requests concerning the customer's shopping bag.
     /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/cafe/[controller]")]
@@ -17,21 +17,21 @@ namespace Portfolio.ApiControllers
         private readonly IShoppingBagService _shoppingBagService;
 
         /// <summary>
-        /// Injects a service dependency for the shopping bag
+        /// Constructs a controller with the dependency required to invoke shopping bag service members.
         /// </summary>
-        /// <param name="shoppingBagService"></param>
+        /// <param name="shoppingBagService">A dependency used to access a customer's shopping bag data.</param>
         public ShoppingBagController(IShoppingBagService shoppingBagService)
         {
             _shoppingBagService = shoppingBagService;
         }
 
         /// <summary>
-        /// Adds an item to a customer's shopping bag
+        /// Adds an item to a customer's shopping bag.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost("{customerId}/items")]
+        /// <param name="customerId">A CustomerID that identifies which shopping bag to use.</param>
+        /// <param name="dto">A DTO containing the data of the item to add.</param>
+        /// <returns>A status code.</returns>
+        [HttpPost("{customerId}/add")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
@@ -50,11 +50,11 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Empties a customer's shopping bag
+        /// Empties a customer's shopping bag.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        [HttpDelete("{customerId}")]
+        /// <param name="customerId">A CustomerID that identifies which shopping bag to use.</param>
+        /// <returns>A status code.</returns>
+        [HttpDelete("{customerId}/empty")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
@@ -73,10 +73,10 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Retrieves a customer's shopping bag and any items inside it
+        /// Retrieves a customer's shopping bag and its contents.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
+        /// <param name="customerId">A CustomerID that identifies which shopping bag to use.</param>
+        /// <returns>A status code. If successful, a response DTO is returned with the customer's shopping bag data.</returns>
         [HttpGet("{customerId}")]
         [ProducesResponseType(typeof(ShoppingBagResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
@@ -101,19 +101,18 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Updates an item's quantity in customer's shopping bag
+        /// Removes an item from a customer's shopping bag.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="shoppingBagItemId"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut("{customerId}/items/{shoppingBagItemId}")]
+        /// <param name="customerId">A CustomerID that identifies which shopping bag to use.</param>
+        /// <param name="shoppingBagItemId">A ShoppingBagItemID that identifies which item to remove.</param>
+        /// <returns>A status code.</returns>
+        [HttpDelete("{customerId}/remove/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantityRequest dto)
+        public async Task<IActionResult> RemoveItemFromBag(int customerId, int shoppingBagItemId)
         {
-            var result = await _shoppingBagService.UpdateItemQuantityAsync(shoppingBagItemId, dto.Quantity);
+            var result = await _shoppingBagService.RemoveItemFromShoppingBagAsync(customerId, shoppingBagItemId);
 
             if (result.Ok)
             {
@@ -126,18 +125,19 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Removes an item from a customer's shopping bag
+        /// Updates the quantity of an item in the customer's shopping bag.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="shoppingBagItemId"></param>
+        /// <param name="customerId">A CustomerID that identifies which shopping bag to use.</param>
+        /// <param name="shoppingBagItemId">A ShoppingBagItemID that identifies which item to update.</param>
+        /// <param name="dto">The new quantity value</param>
         /// <returns></returns>
-        [HttpDelete("{customerId}/items/{shoppingBagItemId}")]
+        [HttpPut("{customerId}/update/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> RemoveItemFromBag(int customerId, int shoppingBagItemId)
+        public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantityRequest dto)
         {
-            var result = await _shoppingBagService.RemoveItemFromShoppingBagAsync(customerId, shoppingBagItemId);
+            var result = await _shoppingBagService.UpdateItemQuantityAsync(shoppingBagItemId, dto.Quantity);
 
             if (result.Ok)
             {
