@@ -74,7 +74,7 @@ namespace Cafe.BLL.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred when attempting to retrieve the menu.");
+                _logger.LogError($"An error occurred when attempting to retrieve the menu: {ex.Message}");
                 return ResultFactory.Fail<List<ItemResponse>>("An error occurred. Please contact the customer assistance team.");
             }
         }
@@ -150,7 +150,7 @@ namespace Cafe.BLL.Services
 
                 if (item == null)
                 {
-                    _logger.LogError($"Item with ID: {itemId} was not found. Check the database connection.");
+                    _logger.LogError($"Item with ID: {itemId} was not found.");
                     return ResultFactory.Fail<ItemResponse>("An error occurred. Please try again in a few minutes.");
                 }
 
