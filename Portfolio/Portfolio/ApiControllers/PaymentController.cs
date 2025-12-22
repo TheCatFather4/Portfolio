@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests involving payments
+    /// Handles requests concerning payments. Authentication required.
     /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/cafe/[controller]")]
@@ -17,19 +17,21 @@ namespace Portfolio.ApiControllers
         private readonly IPaymentService _paymentService;
 
         /// <summary>
-        /// Injects a service dependency
+        /// Constructs a controller with the required dependency for processing payments.
         /// </summary>
-        /// <param name="paymentService"></param>
+        /// <param name="paymentService">A dependency used to access and create payments.</param>
         public PaymentController(IPaymentService paymentService)
         {
             _paymentService = paymentService;
         }
 
         /// <summary>
-        /// Processes payments and returns a confirmation status
+        /// Processes a payment.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <param name="dto">A DTO with the data required to make a payment.</param>
+        /// <response code="200">Payment confirmation data.</response>
+        /// <response code="400">Data not valid.</response>
+        /// <response code="401">Not authorized.</response>
         [HttpPost("process")]
         [ProducesResponseType(typeof(PaymentResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

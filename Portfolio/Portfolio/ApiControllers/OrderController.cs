@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests involving placing orders
+    /// Handles requests concerning orders. Authentication required.
     /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/cafe/[controller]")]
@@ -17,23 +17,27 @@ namespace Portfolio.ApiControllers
         private readonly IOrderService _orderService;
 
         /// <summary>
-        /// Injects an order service
+        /// Constructs a controller with the required dependency to place orders and access order history.
         /// </summary>
-        /// <param name="orderService"></param>
+        /// <param name="orderService">A dependency used in accessing data concerning orders.</param>
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
 
         /// <summary>
-        /// Creates a new order for a customer. Items are removed from the shopping bag and moved to the order.
+        /// Creates a new order for a customer.
         /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
+        /// <param name="dto">A DTO with the data required to create a new order.</param>
+        /// <response code="201">The data from the newly created order.</response>
+        /// <response code="400">Client data not valid.</response>
+        /// <response code="401">Not authorized.</response>
+        /// <response code="404">CustomerID not found.</response>
+        [HttpPost("new")]
         [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest dto)
         {
             if (!ModelState.IsValid)
@@ -49,20 +53,23 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                return BadRequest(result.Message);
+                return NotFound(result.Message);
             }
         }
 
         /// <summary>
-        /// Retrieves the details of an order including its item data
+        /// Retrieves the details of a customer's order.
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
-        [HttpGet("{orderId}")]
+        /// <param name="customerId">An ID used to identify a specific customer.</param>
+        /// <param name="orderId">An ID used to identity a specific order.</param>
+        /// <response code="200">Customer's order details.</response>
+        /// <response code="401">Not authorized.</response>
+        /// <response code="404">Order not found.</response>
+        [HttpGet("customer/{customerId}/{orderId}")]
         [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetOrderDetails(int orderId)
+        public async Task<IActionResult> GetOrderDetails(int customerId, int orderId)
         {
             var result = await _orderService.GetOrderDetailsAsync(orderId);
 
@@ -77,14 +84,16 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Retrieves a customer's order history, including items associated with each order
+        /// Retrieves a customer's entire order history.
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
+        /// <param name="customerId">An ID used to identify a specific customer.</param>
+        /// <response code="200">Customer's order history.</response>
+        /// <response code="401">Not authorized.</response>
+        /// <response code="404">Order history not found.</response>
         [HttpGet("customer/{customerId}")]
         [ProducesResponseType(typeof(List<CafeOrderResponse>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetOrderHistory(int customerId)
         {
             var result = await _orderService.GetOrderHistoryAsync(customerId);
@@ -95,7 +104,7 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                return BadRequest(result.Message);
+                return NotFound(result.Message);
             }
         }
     }
