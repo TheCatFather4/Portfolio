@@ -338,7 +338,7 @@ function handleRoll() {
                 break;
         }
     }
-    
+
     let counts = [one, two, three, four, five, six]
 
     for (let i = 0; i < counts.length; i++) {
