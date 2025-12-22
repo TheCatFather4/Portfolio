@@ -40,6 +40,12 @@ Two areas of the website cannot be accessed unless the user possesses the requir
 >[!NOTE]
 >I have provided some sample credentials on the login page so that you can access these areas.
 ##
+### Menu Form
+A menu form exists to allow users to filter through items.<br>
+The items can be filtered in any combination of category, date, or time of day.<br>
+Each item has a conveniently placed "Add to Cart" button, so that users may order immediately.<br>
+Users must be logged in however, in order to add to the shopping cart.<br>
+##
 ### Two Database Modes
 There are two _different_ database modes that can be set up for effective data persistence.<br>
 **1.) Entity Framework Core:** A framework ideal for _light weight queries_.<br>
@@ -67,6 +73,15 @@ This is a _front-end_ web application that is written in **HTML**, **CSS**, and 
 The **Boostrap** framework is used for column layout, and _responsiveness_.<br>
 
 <img width="797" height="603" alt="Catpoker" src="https://github.com/user-attachments/assets/326f161f-91c8-45cf-a480-0d52afdedfc1" />
+
+##
+## Documentation and Diagrams
+Most of the documentation can be found right here in this repository.<br>
+However, I realize that it might take some folks much time to find the code they'd like to view.<br>
+Therefore, I included a _Documentation and Diagrams_ section on the portfolio website.<br>
+There are buttons that will navigate you to specific areas of the repository for your convenience.<br>
+Additionally, there are _Entity Relastionship_ diagrams and _Class Modeling_ diagrams for additional visuals.<br>
+Currently, I have one ERD and one CMD for the 4th Wall Cafe. I am currently working on more diagrams as we speak.<br>
 
 ##
 
