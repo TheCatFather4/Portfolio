@@ -8,92 +8,96 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-primary">
-            <div class="container-fluid">
-                <button class="navbar-toggler my-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar02" aria-controls="navbar02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbar02">
-                    <a class="navbar-brand text-white">4th Wall Cafe</a>
-                    <ul class="navbar-nav ms-auto">
-                        @if (User.Identity.IsAuthenticated)
-                        {
+    <div class="container-fluid">
+        <header>
+            <div class="row">
+                <nav class="navbar navbar-expand-lg bg-primary">
+                    <button class="navbar-toggler my-2 ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbar02" aria-controls="navbar02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar02">
+                        <a class="navbar-brand text-white ms-3">4th Wall Cafe</a>
+                        <ul class="navbar-nav ms-auto">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle link-light link-opacity-50-hover ms-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Hello, @User.Identity.Name!
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" id="navHoverCafeProfile" asp-controller="Account" asp-action="Profile">Customer Profile</a></li>
+                                        <li><a class="dropdown-item" id="navHoverCart" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <form class="form-line" asp-controller="Account" asp-action="Logout" method="post">
+                                        <button type="submit" class="btn btn-link nav-link link-light link-opacity-50-hover mx-3">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link link-light link-opacity-50-hover ms-3" asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link link-light link-opacity-50-hover ms-3" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                            }
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Hello, @User.Identity.Name!
+                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover mx-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Café
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="navHoverCafeProfile" asp-controller="Account" asp-action="Profile">Customer Profile</a></li>
-                                    <li><a class="dropdown-item" id="navHoverCart" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Cafe">Home</a></li>
+                                    <li><a class="dropdown-item" asp-controller="CafeMenu" asp-action="Index">Menu</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Management" asp-action="Index">Management</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Reports" asp-action="Index">Sales Reports</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover ms-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Portfolio
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="navHoverPortfolio" asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li><a class="dropdown-item" id="navHoverCafeApi" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
+                                    <li><a class="dropdown-item" id="navHoverCatPoker" href="~/cat-poker/index.html">Cat Poker</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover ms-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Documentation
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="navHoverDiagram" asp-controller="Home" asp-action="Documentation">Code and Diagrams</a></li>
+                                    <li><a class="dropdown-item" id="navHoverProfile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <form class="form-line" asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit" class="btn btn-link nav-link link-light link-opacity-50-hover">Logout</button>
-                                </form>
+                                <a class="nav-link link-light link-opacity-50-hover mx-3" asp-controller="Home" asp-action="Contact">Contact Me</a>
                             </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link link-light link-opacity-50-hover" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-light link-opacity-50-hover" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                        }
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Café
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Cafe">Home</a></li>
-                                <li><a class="dropdown-item" asp-controller="CafeMenu" asp-action="Index">Menu</a></li>
-                                <li><a class="dropdown-item" asp-controller="Management" asp-action="Index">Management</a></li>
-                                <li><a class="dropdown-item" asp-controller="Reports" asp-action="Index">Sales Reports</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Portfolio
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" id="navHoverPortfolio" asp-controller="Home" asp-action="Index">Home</a></li>
-                                <li><a class="dropdown-item" id="navHoverCafeApi" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
-                                <li><a class="dropdown-item" id="navHoverCatPoker" href="~/cat-poker/index.html">Cat Poker</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle link-light link-opacity-50-hover" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Documentation
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" id="navHoverDiagram" asp-controller="Home" asp-action="Documentation">Code and Diagrams</a></li>
-                                <li><a class="dropdown-item" id="navHoverProfile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link-light link-opacity-50-hover" asp-controller="Home" asp-action="Contact">Contact Me</a>
-                        </li>
-                    </ul>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div class="container">
+            @if (TempData["Alert"] is string alertData)
+            {
+                var parts = alertData.Split("|");
+                <div class="mt-3 alert alert-@parts[1] alert-dismissible fade show text-center">@parts[0] <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+            }
+        </div>
+        @RenderBody()
+        <footer>
+            <div class="row">
+                <div class="bg-primary" id="bottomRow">
+                    <h5 class="text-light text-center" id="titleSection">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        @if (TempData["Alert"] is string alertData)
-        {
-            var parts = alertData.Split("|");
-            <div class="mt-3 alert alert-@parts[1] alert-dismissible fade show text-center">@parts[0] <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
-        }
+        </footer>
     </div>
-    @RenderBody()
-    <footer>
-        <div class="container-fluid bg-primary" id="bottomRow">
-            <h5 class="text-light text-center" id="titleSection">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
-        </div>
-    </footer>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
