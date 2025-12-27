@@ -2,60 +2,57 @@
 @model ItemUpdate
 @{
     Layout = "_CafeLayout";
-    ViewData["Title"] = "Update Cart";
+    ViewData["Title"] = "Update or Delete";
 }
 
-<div class="text-center" id="titleSection">
-    <h3 class="my-3">@Model.ItemName</h3>
-    @if (Model.ItemImgPath != null)
-    {
-        <img src="~/item/@Model.ItemImgPath" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
-    }
-    else
-    {
-        <img src="~/item/newitem.jpg" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
-    }
-    <h5 class="my-3"><span class="me-3">Price: $@Model.Price</span><span class="mx-3">Quantity: @Model.Quantity</span><span class="ms-3">Total: $@(Model.Price* Model.Quantity)</span></h5>
-</div>
-
-<div class="container">
-    <div class="d-flex justify-content-evenly border border-info border-3 rounded bg-primary p-3">
-        <div>
-            <h5 class="my-3" id="titleSection">Update item quantity?</h5>
-            <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="CustomerID" />
-                <input type="hidden" asp-for="ShoppingBagItemID" />
-                <div class="form-floating mb-3">
-                    <input type="number" asp-for="Quantity" class="form-control" id="formInput" />
-                    <label asp-for="Quantity"></label>
-                    <span asp-validation-for="Quantity" id="validationText"></span>
-                </div>
-                <input type="hidden" asp-for="ItemName" />
-                <input type="hidden" asp-for="ItemImgPath" />
-                <input type="hidden" asp-for="Price" />
-                <button class="btn btn-warning mb-3">Update</button>
-            </form>
-        </div>
-        <div class="p-5" id="updateItemForm1">
-            <h2 class="text-center">OR</h2>
-        </div>
-        <div id="updateItemForm2">
-            <h5>Delete item from cart?</h5>
-            <form asp-controller="ShoppingCart" asp-action="DeleteItem" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="CustomerID" />
-                <input type="hidden" asp-for="ShoppingBagItemID" />
-                <input type="hidden" asp-for="Quantity" />
-                <input type="hidden" asp-for="ItemName" />
-                <input type="hidden" asp-for="ItemImgPath" />
-                <input type="hidden" asp-for="Price" />
-                <button class="btn btn-danger my-3">Delete</button>
-            </form>
-        </div>
+<div class="row">
+    <div class="text-center" id="titleSection">
+        <h3 class="my-3">@Model.ItemName</h3>
+        @if (Model.ItemImgPath != null)
+        {
+            <img src="~/item/@Model.ItemImgPath" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+        }
+        else
+        {
+            <img src="~/item/newitem.jpg" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+        }
+        <h5 class="my-3"><span class="me-3">Price: $@Model.Price</span><span class="mx-3">Quantity: @Model.Quantity</span><span class="ms-3">Total: $@(Model.Price* Model.Quantity)</span></h5>
     </div>
 </div>
-<div class="text-center" id="titleSection">
-    <h3 class="mt-5">Changed your mind?</h3>
-    <a class="btn btn-success my-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Back to Shopping Cart</a>
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-evenly border border-info border-3 rounded bg-primary p-3">
+            <div id="buttonEdit">
+                <a class="btn btn-success" type="submit" asp-controller="ShoppingCart" asp-action="Index">Back to Shopping Cart</a>
+            </div>
+            <div>
+                <form asp-controller="ShoppingCart" asp-action="UpdateItem" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="CustomerID" />
+                    <input type="hidden" asp-for="ShoppingBagItemID" />
+                    <div class="form-floating mb-3">
+                        <input type="number" asp-for="Quantity" class="form-control" id="formInput" />
+                        <label asp-for="Quantity"></label>
+                        <span asp-validation-for="Quantity" id="validationText"></span>
+                    </div>
+                    <input type="hidden" asp-for="ItemName" />
+                    <input type="hidden" asp-for="ItemImgPath" />
+                    <input type="hidden" asp-for="Price" />
+                    <button class="btn btn-warning">Update Item Quantity</button>
+                </form>
+            </div>
+            <div id="buttonEdit">
+                <form asp-controller="ShoppingCart" asp-action="DeleteItem" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="CustomerID" />
+                    <input type="hidden" asp-for="ShoppingBagItemID" />
+                    <input type="hidden" asp-for="Quantity" />
+                    <input type="hidden" asp-for="ItemName" />
+                    <input type="hidden" asp-for="ItemImgPath" />
+                    <input type="hidden" asp-for="Price" />
+                    <button class="btn btn-danger">Delete Item From Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

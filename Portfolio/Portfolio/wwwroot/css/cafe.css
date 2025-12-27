@@ -30,6 +30,12 @@
     padding-bottom: 1px;
 }
 
+#buttonEdit {
+    margin-top: 74px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 #cafeTitle {
     font-family: serif;
     font-size: 2.5rem;
@@ -126,7 +132,7 @@
 #imgUpdate {
     display: block;
     margin: auto;
-    width: 250px;
+    width: 200px;
 }
 
 #menuButtonHome {

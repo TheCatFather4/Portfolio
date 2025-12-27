@@ -7,40 +7,44 @@
 
 <div class="container">
     <div class="text-center">
-        <div class="bg-info px-5 py-3 m-5" id="cardTop2">
-            <div class="d-flex justify-content-evenly">
-                <div class="mt-3 mb-4">
-                    @if (Model.ItemImgPath != null)
-                    {
-                        <img src="~/item/@Model.ItemImgPath" class="img-fluid" style="width: 10rem" id="cardTop2" />
-                    }
-                    else
-                    {
-                        <img src="~/item/newitem.jpg" class="img-fluid" style="width: 10rem" id="cardTop2" />
-                    }
-                </div>
-                <div id="addItemForm">
-                    <h3 class="text-center" id="titleSection">@Model.ItemName</h3>
-                    <h5 class="text-center">$@Model.Price</h5>
+        <div class="bg-info px-5 py-3 mx-5 mt-5" id="cardTop2">
+            <div class="row">
+                <div class="d-flex justify-content-evenly">
+                    <div class="mt-3 mb-4">
+                        @if (Model.ItemImgPath != null)
+                        {
+                            <img src="~/item/@Model.ItemImgPath" class="img-fluid" style="width: 10rem" id="cardTop2" />
+                        }
+                        else
+                        {
+                            <img src="~/item/newitem.jpg" class="img-fluid" style="width: 10rem" id="cardTop2" />
+                        }
+                    </div>
+                    <div id="addItemForm">
+                        <h3 class="text-center" id="titleSection">@Model.ItemName</h3>
+                        <h5 class="text-center">$@Model.Price</h5>
+                    </div>
                 </div>
             </div>
-            <form asp-controller="ShoppingCart" asp-action="AddItem" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="ItemID" />
-                <input type="hidden" asp-for="ItemName" />
-                <div class="form-floating mb-3">
-                    <input asp-for="Quantity" class="form-control" type="number" value="1" id="formInput" />
-                    <label asp-for="Quantity">Quantity</label>
-                    <span asp-validation-for="Quantity" id="validationText2"></span>
-                </div>
-                <input type="hidden" asp-for="Price" />
-                <input type="hidden" asp-for="ItemStatusID" />
-                <input type="hidden" asp-for="ItemImgPath" />
-                <div class="mt-3">
-                    <button class="btn btn-success me-3">Add to Cart</button>
-                    <a asp-controller="CafeMenu" asp-action="Index" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Back to Menu</a>
-                </div>
-            </form>
+            <div class="row">
+                <form asp-controller="ShoppingCart" asp-action="AddItem" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="ItemID" />
+                    <input type="hidden" asp-for="ItemName" />
+                    <div class="form-floating mb-3">
+                        <input asp-for="Quantity" class="form-control" type="number" value="1" id="formInput" />
+                        <label asp-for="Quantity">Quantity</label>
+                        <span asp-validation-for="Quantity" id="validationText2"></span>
+                    </div>
+                    <input type="hidden" asp-for="Price" />
+                    <input type="hidden" asp-for="ItemStatusID" />
+                    <input type="hidden" asp-for="ItemImgPath" />
+                    <div class="mt-3 d-flex justify-content-evenly">
+                        <button class="btn btn-success me-3">Add to Cart</button>
+                        <a asp-controller="CafeMenu" asp-action="Index" class="btn btn-primary">Back to Menu</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

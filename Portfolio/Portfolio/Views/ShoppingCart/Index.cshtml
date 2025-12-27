@@ -5,61 +5,53 @@
     ViewData["Title"] = "Shopping Cart";
 }
 
-<div class="text-center my-5">
-    <h1 id="titleSection">Shopping Cart</h1>
+<div class="row">
+    <div class="text-center mt-5 mb-3">
+        <h2 id="titleSection">Shopping Cart Total: <span class="text-success">$@Model.Total</span></h2>
+    </div>
 </div>
 @if (Model.Items.Any())
 {
     <div class="container">
-        <table class="table table-dark table-striped table-hover table-bordered border-primary">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Item Total</th>
-                    <th>Update/Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var i in Model.Items)
-                {
+        <div class="row">
+            <table class="table table-dark table-striped table-hover table-bordered border-primary">
+                <thead>
                     <tr>
-                        @if (i.ItemImgPath != null)
-                        {
-                            <td><img src="~/item/@i.ItemImgPath" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
-                        }
-                        else
-                        {
-                            <td><img src="~/item/newitem.jpg" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
-                        }
-                        <td style="vertical-align: middle;">$@i.Price</td>
-                        <td style="vertical-align: middle;">@i.Quantity</td>
-                        <td style="vertical-align: middle;">$@(@i.Price* @i.Quantity)</td>
-                        <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="link-light link-opacity-50-hover link-underline-opacity-50-hover">Edit</a></td>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Item Total</th>
+                        <th>Update/Delete</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-        <div class="my-3 text-center">
-            <h3 id="titleSection">Cart Total: $@Model.Total</h3>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model.Items)
+                    {
+                        <tr>
+                            @if (i.ItemImgPath != null)
+                            {
+                                <td><img src="~/item/@i.ItemImgPath" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
+                            }
+                            else
+                            {
+                                <td><img src="~/item/newitem.jpg" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
+                            }
+                            <td style="vertical-align: middle;">$@i.Price</td>
+                            <td style="vertical-align: middle;">@i.Quantity</td>
+                            <td style="vertical-align: middle;">$@(@i.Price* @i.Quantity)</td>
+                            <td style="vertical-align: middle;"><a asp-controller="ShoppingCart" asp-action="UpdateItem" asp-route-shoppingBagItemId="@i.ShoppingBagItemID" class="btn btn-primary">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="container">
-        <div class="d-flex justify-content-evenly text-center">
-            <div class="col-md-6">
-                <h3 id="titleSection">Return to the <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">menu</a></h3>
-            </div>
-            <div class="col-md-6">
-                <h3 id="titleSection">All done? Go to <a asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID" class="link-success link-opacity-50-hover link-underline-opacity-50-hover">checkout</a></h3>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row p-3">
+        <div class="row">
             <div class="text-center border border-primary border-2 rounded bg-dark">
-                <h5 class="my-3 text-light">Empty Shopping Cart</h5>
-                <a class="btn btn-danger mb-3" asp-controller="ShoppingCart" asp-action="EmptyShoppingCart" asp-route-customerId="@Model.CustomerID">Empty Cart</a>
+                <div class="d-flex justify-content-evenly">
+                    <a class="btn btn-success my-3 mx-2" asp-controller="CafeMenu" asp-action="Index">Add More Items</a>
+                    <a class="btn btn-warning my-3 mx-2" asp-controller="ProcessOrder" asp-action="Process" asp-route-customerId="@Model.CustomerID">Go To Checkout</a>
+                    <a class="btn btn-danger my-3 mx-2" asp-controller="ShoppingCart" asp-action="EmptyShoppingCart" asp-route-customerId="@Model.CustomerID">Empty Shopping Cart</a>
+                </div>
             </div>
         </div>
     </div>
@@ -67,11 +59,15 @@
 else
 {
     <div class="container">
-        <div class="text-center border border-primary border-2 rounded bg-dark">
-            <p class="my-3 text-light" id="noItemsCart">There are no items in your shopping cart.</p>
+        <div class="row">
+            <div class="text-center border border-primary border-2 rounded bg-dark">
+                <p class="my-3 text-light" id="noItemsCart">There are no items in your shopping cart.</p>
+            </div>
         </div>
-        <div class="text-center mt-3">
-            <h3 id="titleSection">Want to add items to your cart?<br />Go to the <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50">menu</a> page!</h3>
+        <div class="row">
+            <div class="text-center mt-3">
+                <h3 id="titleSection">Want to add items to your cart?<br />Go to the <a asp-controller="CafeMenu" asp-action="Index" class="link-success link-opacity-50-hover link-underline-opacity-50">menu</a> page!</h3>
+            </div>
         </div>
     </div>
 }
