@@ -1,0 +1,46 @@
+﻿@using Portfolio.Models.Airport
+@model EndRentalForm
+@{
+    Layout = "_AirportLayout";
+    ViewData["Title"] = "Airport Locker Rental";
+}
+
+<div class="container border border-2 border-danger">
+    <div class="row bg-danger" id="consoleTop">
+        <p class="text-white">C:\project\net9.0\airport-locker-rental.exe</p>
+    </div>
+    <div class="row bg-black">
+        <p class="text-white">
+            ===============<br />
+            | Airport Locker Rental |<br />
+            ===============<br />
+            | 1. View a Locker<br />
+            | 2. Rent a Locker<br />
+            | <span class="text-success">3. End Locker Rental</span><br />
+            | 4. List All Lockers<br />
+            | 5. Exit<br />
+            ===============<br />
+        </p>
+        <form asp-controller="Airport" asp-action="EndRental" asp-method="post">
+            @Html.AntiForgeryToken()
+            <p class="text-white">
+                ------------------------------------------------<br />
+                Which locker rental would you like to end?<br />
+                Locker numbers range from 1 to 100<br />
+                Enter your choice: <input type="text" asp-for="LockerNumber" /><br />
+                ------------------------------------------------<br />
+            </p>
+            <input type="hidden" asp-for="Message" />
+            <div style="display:none">
+                <button type="submit"></button>
+            </div>
+        </form>
+        @if (Model.Message != null)
+        {
+            <p class="text-danger">@Model.Message</p>
+        }
+    </div>
+</div>
+<div class="mt-3">
+    <a asp-controller="Airport" asp-action="Menu" class="btn btn-danger" type="submit">Back to main menu</a>
+</div>

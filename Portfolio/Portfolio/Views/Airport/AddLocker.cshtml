@@ -1,0 +1,53 @@
+﻿@using Portfolio.Models.Airport
+@model AddLockerForm
+@{
+    Layout = "_AirportLayout";
+    ViewData["Title"] = "Airport Locker Rental";
+}
+
+<div class="container border border-2 border-danger">
+    <div class="row bg-danger" id="consoleTop">
+        <p class="text-white">C:\project\net9.0\airport-locker-rental.exe</p>
+    </div>
+    <div class="row bg-black">
+        <p class="text-white">
+            ===============<br />
+            | Airport Locker Rental |<br />
+            ===============<br />
+            | 1. View a Locker<br />
+            | <span class="text-success">2. Rent a Locker</span><br />
+            | 3. End Locker Rental<br />
+            | 4. List All Lockers<br />
+            | 5. Exit<br />
+            ===============<br />
+        </p>
+        <form asp-controller="Airport" asp-action="AddLocker" asp-method="post">
+            @Html.AntiForgeryToken()
+            <p class="text-white">
+                ------------------------------------------------<br />
+                Locker # @Model.LockerNumber Rental<br />
+                ------------------------------------------------<br />
+                Enter your name: <input type="text" asp-for="RenterName" /><br />
+                Enter contents:  <input type="text" asp-for="Contents" /><br />
+                ------------------------------------------------<br />
+            </p>
+            <input type="hidden" asp-for="Message" />
+            <input type="hidden" asp-for="SuccessMessage" />
+            <input type="hidden" asp-for="LockerNumber" />
+            <div style="display:none">
+                <button type="submit"></button>
+            </div>
+        </form>
+        @if (Model.Message != null)
+        {
+            <p class="text-danger">@Model.Message</p>
+        }
+        @if (Model.SuccessMessage != null)
+        {
+            <p class="text-success">@Model.SuccessMessage</p>
+        }
+    </div>
+</div>
+<div class="mt-3">
+    <a asp-controller="Airport" asp-action="Menu" class="btn btn-danger" type="submit">Back to main menu</a>
+</div>

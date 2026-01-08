@@ -1,0 +1,40 @@
+﻿@using Portfolio.Models.Airport
+@model AirportMenu
+@{
+    Layout = "_AirportLayout";
+    ViewData["Title"] = "Airport Locker Rental";
+}
+
+<div class="container border border-2 border-danger">
+    <div class="row bg-danger" id="consoleTop">
+        <p class="text-white">C:\project\net9.0\airport-locker-rental.exe</p>
+    </div>
+    <div class="row bg-black">
+        <p class="text-white">
+            ===============<br />
+            | Airport Locker Rental |<br />
+            ===============<br />
+            | 1. View a Locker<br />
+            | 2. Rent a Locker<br />
+            | 3. End Locker Rental<br />
+            | 4. List All Lockers<br />
+            | 5. Exit<br />
+            ===============<br />
+        </p>
+        <form asp-controller="Airport" asp-action="Menu" asp-method="post">
+            @Html.AntiForgeryToken()
+            <div class="text-white">
+                Enter your choice: <input type="text" asp-for="MenuChoice" />
+            </div>
+            <input type="hidden" asp-for="Message" />
+            <div style="display:none">
+                <button type="submit"></button>
+            </div>
+            <div><br /></div>
+        </form>
+        @if (Model.Message != null)
+        {
+            <p class="text-white">@Model.Message</p>
+        }
+    </div>
+</div>

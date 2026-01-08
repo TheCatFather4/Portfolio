@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Portfolio;
+using Portfolio.Models.Airport;
 using Portfolio.Utilities;
 using System.Reflection;
 using System.Text;
@@ -95,6 +96,8 @@ builder.Services.AddScoped<IWebTokenService>(provider =>
 });
 
 builder.Services.AddScoped<ISelectListBuilder, SelectListBuilder>();
+
+builder.Services.AddSingleton<LockerManager>();
 
 builder.Services.AddAuthentication(options =>
 {
