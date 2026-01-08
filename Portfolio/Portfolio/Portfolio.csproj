@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Airport.Core\Airport.Core.csproj" />
     <ProjectReference Include="..\Cafe.BLL\Cafe.BLL.csproj" />
     <ProjectReference Include="..\Cafe.Core\Cafe.Core.csproj" />
   </ItemGroup>
