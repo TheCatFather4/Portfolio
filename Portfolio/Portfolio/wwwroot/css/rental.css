@@ -1,0 +1,47 @@
+﻿nav {
+    font-family: Lucida Sans Typewriter;
+}
+
+#consoleTop {
+    padding-top: 12px;
+}
+
+#navBottom {
+    background: #acacac;
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+}
+
+#navBottomText {
+    color: darkred;
+    font-family: Lucida Sans Typewriter;
+}
+
+#navHoverCafeApi {
+    --bs-dropdown-link-hover-bg: #73a839;
+}
+
+#navHoverCatPoker {
+    --bs-dropdown-link-hover-bg: #033c73;
+}
+
+#navHoverDiagram {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+}
+
+#navHoverPortfolio {
+    --bs-dropdown-link-hover-bg: #7b7da7;
+}
+
+#navHoverProfile {
+    --bs-dropdown-link-hover-bg: darkorchid;
+}
+
+#navTop {
+    background: #acacac;
+}
+
+#rentalText {
+    color: darkred;
+}

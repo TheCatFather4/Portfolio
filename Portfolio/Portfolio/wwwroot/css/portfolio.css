@@ -55,6 +55,11 @@
     padding-bottom: 1px;
 }
 
+#navHoverAirport {
+    --bs-dropdown-link-hover-bg: #acacac;
+    --bs-dropdown-link-hover-color: darkred;
+}
+
 #navHoverCafeApi {
     --bs-dropdown-link-hover-bg: #73a839;
 }
