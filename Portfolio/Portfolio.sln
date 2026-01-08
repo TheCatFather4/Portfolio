@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafe.BLL", "Cafe.BLL\Cafe.B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafe.Tests", "Cafe.Tests\Cafe.Tests.csproj", "{6384E274-3E41-4EE7-AB2E-DABFE45B0DAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airport.Core", "Airport.Core\Airport.Core.csproj", "{9092C509-1F6B-4DD9-92FF-C6D7ADE0097D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6384E274-3E41-4EE7-AB2E-DABFE45B0DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6384E274-3E41-4EE7-AB2E-DABFE45B0DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6384E274-3E41-4EE7-AB2E-DABFE45B0DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9092C509-1F6B-4DD9-92FF-C6D7ADE0097D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9092C509-1F6B-4DD9-92FF-C6D7ADE0097D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9092C509-1F6B-4DD9-92FF-C6D7ADE0097D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9092C509-1F6B-4DD9-92FF-C6D7ADE0097D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
