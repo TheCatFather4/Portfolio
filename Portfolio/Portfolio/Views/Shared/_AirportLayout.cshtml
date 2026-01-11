@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/img/airport-icon.png" rel="icon" type="image/x-icon" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/rental.css" rel="stylesheet" />
     <title>@ViewData["Title"]</title>
@@ -50,20 +51,67 @@
             <h1 class="my-5 text-center" id="navBottomText">Airport Locker Rental</h1>
         </div>
         <div class="row">
-            <div class="col-lg-4"></div>
             <div class="col-lg-4">
-                @RenderBody()
-            </div>
-            <div class="col-lg-4"></div>
-        </div>
-        <footer>
-            <div class="row">
-                <div id="navBottom">
-                    <h5 class="text-center" id="navBottomText">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                <div class="container">
+                    <div class="row">
+                        <div class="border border-2 border-black">
+                            <div class="row" id="about">
+                                <div class="text-center">
+                                    <h3 id="aboutText">Directions</h3>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="d-flex justify-content-center">
+                                    <ul style="list-style-type:none" id="navBottomText">
+                                        <li class="mb-2"><i>To simulate the "console"</i></li>
+                                        <li>1. [tab] to the input field.</li>
+                                        <li>2. Type in your data</li>
+                                        <li>3. Press [Enter] to submit.</li>
+                                        <li>4. [tab] to main menu.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
-    </div>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <div class="col-lg-4">
+                <div class="mb-3">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="border border-2 border-black">
+                            <div class="row" id="about">
+                                <div class="text-center">
+                                    <h3 id="aboutText">About</h3>
+                                </div>
+                            </div>
+                            <div class="row py-3">
+                                <div class="d-flex justify-content-center">
+                                    <div id="navBottomText">
+                                        <div>
+                                            This application is a <i>web version</i> of my Airport Locker Rental <a href="https://github.com/TheCatFather4/AirportLockerRental">console app</a>.
+                                            The UI was designed to mimic the command prompt window by utilizing ASP.NET Core (MVC), Razor Syntax, and CSS.
+                                            The backend uses C# and a mock database to simulate data persistence.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="row">
+                    <div id="navBottom">
+                        <h5 class="text-center" id="navBottomText">Hazelnut Software Solutions <img src="~/img/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

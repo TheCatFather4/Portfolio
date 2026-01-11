@@ -176,6 +176,11 @@
     background-color: midnightblue;
 }
 
+#navAirport {
+    --bs-dropdown-link-hover-bg: #acacac;
+    --bs-dropdown-link-hover-color: darkred;
+}
+
 #navCafe {
     --bs-dropdown-link-hover-bg: #2fa4e7;
 }

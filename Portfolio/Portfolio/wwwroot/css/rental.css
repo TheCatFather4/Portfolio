@@ -2,6 +2,16 @@
     font-family: Lucida Sans Typewriter;
 }
 
+#about {
+    background: #acacac;
+}
+
+#aboutText {
+    color: darkred;
+    font-family: Lucida Sans Typewriter;
+    padding-top: 11px;
+}
+
 #consoleTop {
     padding-top: 12px;
 }

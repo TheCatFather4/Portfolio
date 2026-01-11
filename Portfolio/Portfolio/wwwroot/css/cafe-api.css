@@ -8,6 +8,11 @@
     padding-bottom: 1px;
 }
 
+#navHoverAirport {
+    --bs-dropdown-link-hover-bg: #acacac;
+    --bs-dropdown-link-hover-color: darkred;
+}
+
 #navHoverCatPoker {
     --bs-dropdown-link-hover-bg: #033c73;
 }
