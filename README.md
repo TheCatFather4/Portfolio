@@ -2,8 +2,9 @@
 
 ## About
 This is my software developer portfolio website.<br>
-It currently features **3 software applications** that I have built with _much care_.<br>
-I am continually updating the applications regularly, so check back frequently for new features!<br>
+It currently features **4 software applications** that I have built with _much care_.<br>
+I built all of these applications from scratch and I can elucidate every detail of them.<br>
+I am continually updating the site regularly, so check back frequently for new features!<br>
 
 ##
 
@@ -18,7 +19,7 @@ I am continually updating the applications regularly, so check back frequently f
 # [The 4th Wall Café](https://www.jmarcello.dev/Home/Cafe)
 This is a _full-stack_ web application that utilizes **ASP.NET Core (MVC)** for the _front-end_ portion.<br>
 The _back-end_ is written in **C#** and utilizes both **Entity Framework Core** and **Dapper** (Micro-ORM) for data persistence.<br>
-**ASP.NET Core Identity** is also used for authentication and authorization.<br>
+**ASP.NET Core Identity** is also utilized for authentication and authorization.<br>
 Additionally, the **Bootstrap** framework is used to make the website _responsive_.<br>
 
 <img width="825" height="563" alt="cafe" src="https://github.com/user-attachments/assets/65c6b95c-b485-4fbc-90eb-944e6ebbbc57" />
@@ -27,6 +28,13 @@ Additionally, the **Bootstrap** framework is used to make the website _responsiv
 
 ## Café Features
 
+### Async Await
++ All behavior members in this application (except class constructors) are written to run asynchronously.<br>
+This promotes the "async all the way down" philosophy, as well as improves application performance.<br>
+<img width="602" height="136" alt="4thwall-async" src="https://github.com/user-attachments/assets/1a02427f-92db-49b9-82b9-d1f8d6452a14" />
+
+
+##
 ### Authentication
 Registration, Logging In, and Logging Out are all implemented in this application.<br>
 Users must register an account with the café in order to add items to the shopping cart.<br>
@@ -36,20 +44,45 @@ Users must also be logged in before they may proceed with ordering and payments.
 Two areas of the website cannot be accessed unless the user possesses the required roles.<br>
 **1.) The Sales Report Area:** an _Accountant_ role is required to view this area.<br>
 **2.) The Management Area:** a _Manager role_ is required to view this area.<br>
-
+<br>
+In the case that a user attempts to access an area without authorization,<br>
+they are redirected to an "access denied" page with further instructions for their convenience.<br>
 >[!NOTE]
->I have provided some sample credentials on the login page so that you can access these areas.
+>I have provided some sample credentials on the [login page](https://www.jmarcello.dev/account/login) so that you can access these areas.
+##
+### Layered Architecture
++ **Business Logic**<br>
+All services are separated into a [business logic layer](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.BLL) for maximum modularity.<br>
+A service factory is included in order to further promote code reuse, maintainability, and separation of concerns.<br>
+Each service method includes a _try-catch block_ to handle any exceptions that may occur.
+For simple, predictable errors, a custom result class is utilized to promote defensive coding and avoid unnecessary exceptions.
+##
++ **Data Persistence**<br>
+This application is connected to a database and uses both LINQ syntax and SQL to execute queries.<br>
+**See the Two Database Modes section below for more details concerning LINQ vs SQL**<br>
+All data persistence methods are separated into organized classes within the [data layer](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.Data).<br>
+In the methods that use SQL, all queries are parameterized with an affixed @ symbol to prevent SQL injection attacks.
+<img width="750" height="315" alt="4thwall-sql" src="https://github.com/user-attachments/assets/9137db1b-3313-44ad-9240-91c35657830a" />
+
 ##
 ### Menu Form
-A menu form exists to allow users to filter through items.<br>
+A menu form exists to allow users to filter through menu items.<br>
 The items can be filtered in any combination of category, date, or time of day.<br>
 Each item has a conveniently placed "Add to Cart" button, so that users may order immediately.<br>
-Users must be logged in however, in order to add to the shopping cart.<br>
+Users must be logged in however, in order to add to their shopping carts.<br>
+##
+### Online Ordering
+Customers can add, update, and delete items to and from their shopping carts.<br>
+They can prepare their order for payment and add a tip.<br>
+Additionally, they can pay for their order using one of several payment types.<br>
+
+>[!NOTE]
+>Payment processing is simulated and no actual financial transactions occur.
 ##
 ### Two Database Modes
 There are two _different_ database modes that can be set up for effective data persistence.<br>
-**1.) Entity Framework Core:** A framework ideal for _light weight queries_.<br>
-**2.) Dapper:** A micro-ORM ideal for _greater granular control_.<br>
+**1.) Entity Framework Core:** A framework ideal for _light weight queries_ (Uses **LINQ**).<br>
+**2.) Dapper:** A micro-ORM ideal for _greater granular control_ (Uses **SQL**).<br>
 
 >[!TIP]
 >Change the _value_ of the "DatabaseMode" key to switch between modes.<br>
