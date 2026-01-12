@@ -92,12 +92,24 @@ There are two _different_ database modes that can be set up for effective data p
 
 ##
 
-# [Cafe API](https://www.jmarcello.dev/Home/CafeAPI)
+# [Café API](https://www.jmarcello.dev/Home/CafeAPI)
 This is a REST API that utilizes **ASP.NET Core (Web API)** for its controllers.<br>
-It uses **The 4th Wall Cafe** _back-end_ for its business logic and data persistence.<br>
+It uses **The 4th Wall Café** [_back-end_](https://github.com/TheCatFather4/Portfolio/blob/main/README.md#layered-architecture) for its business logic and data persistence.<br>
 **ASP.NET Core Identity** is also used for authentication and authorization.
 
 <img width="779" height="539" alt="Cafeapi" src="https://github.com/user-attachments/assets/e66ad376-9884-4720-8843-abc7c5c37acf" />
+
+##
+
+## Café API Features
+
+### JWT Authentication
+This API uses a JSON Web Token (JWT) service in order to generate tokens for authentication.<br>
+##
+### RESTful Philosophy
++ The controller methods were written in accord with RESTful philosophical standards.<br>
++ The endpoints were given names to intuitvely assist client consumption and development.<br>
+<img width="800" height="273" alt="cafeapi-rest" src="https://github.com/user-attachments/assets/d8e82046-626f-4b30-81d6-4398fb325807" />
 
 ##
 
