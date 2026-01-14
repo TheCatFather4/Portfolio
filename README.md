@@ -97,8 +97,8 @@ The [Cafe.Tests](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/
 Additionally, mock repository classes and mock loggers are used to get the tests to run where needed.
 ##
 
-### Café Diagrams
-## I have made a few visuals to assist in reading the code for this application.<br>
+## Café Diagrams
+I have made a few visuals to assist in reading the code for this application.<br>
 + An [Entity Relationship Diagram](https://jmarcello.dev/diagrams/cafe-erd.png) (which shows the database schema for the café)
 + A [Class Modeling Diagram](https://jmarcello.dev/diagrams/cafe-ld-cmd.png) (which shows the service class models, as well as the data persistence models for my code)
 >[!Note]
