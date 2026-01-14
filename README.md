@@ -53,9 +53,10 @@ they are redirected to an "access denied" page with further instructions for the
 ### Layered Architecture
 + **Business Logic**<br>
 All services are separated into a [business logic layer](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.BLL) for maximum modularity.<br>
-A service factory is included in order to further promote code reuse, maintainability, and separation of concerns.<br>
-Each service method includes a _try-catch block_ to handle any exceptions that may occur.
-For simple, predictable errors, a custom result class is utilized to promote defensive coding and avoid unnecessary exceptions.
+A service factory is included in the project, in order to further promote code reuse, maintainability, and separation of concerns.<br>
+Each service method includes a _try-catch block_ to handle any exceptions that may occur.<br>
+For simple, predictable errors, a custom result class is utilized to promote defensive coding and avoid unnecessary exceptions.<br>
+In addition, all service classes have a logger in order to record exception and other relevant messages.<br>
 ##
 + **Data Persistence**<br>
 This application is connected to a database and uses both LINQ syntax and SQL to execute queries.<br>
@@ -89,8 +90,20 @@ There are two _different_ database modes that can be set up for effective data p
 >The default value is set to "ORM" which uses Entity Framework Core.<br>
 >If you would like to use Dapper, change the value to "Dapper".<br>
 >The key can be found in the [_appsettings.json_](https://github.com/TheCatFather4/Portfolio/blob/main/Portfolio/Portfolio/appsettings.json) file.<br>
-
 ##
+### Unit Tests
+The [Cafe.Tests](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.Tests) project is where you can find the unit tests for this application.<br>
+3 NuGet Packages were used for testing: NUnit, NUnit3TestAdapter, and Microsoft.NET.Test.Sdk.<br>
+Additionally, mock repository classes and mock loggers are used to get the tests to run where needed.
+##
+
+### Café Diagrams
+## I have made a few visuals to assist in reading the code for this application.<br>
++ An [Entity Relationship Diagram](https://jmarcello.dev/diagrams/cafe-erd.png) (which shows the database schema for the café)
++ A [Class Modeling Diagram](https://jmarcello.dev/diagrams/cafe-ld-cmd.png) (which shows the service class models, as well as the data persistence models for my code)
+>[!Note]
+>I am currently finishing up a class modeling diagram for the controllers and their relation to the logic classes.<br>
+>There are a few artistic adjustments I need to make. After that, I will upload it for viewing. Stay tuned!<br>
 
 # [Café API](https://www.jmarcello.dev/Home/CafeAPI)
 This is a REST API that utilizes **ASP.NET Core (Web API)** for its controllers.<br>
@@ -107,7 +120,7 @@ It uses **The 4th Wall Café** [_back-end_](https://github.com/TheCatFather4/Por
 This API uses a JSON Web Token (JWT) service in order to generate tokens for authentication.<br>
 ##
 ### RESTful Philosophy
-+ The controller methods were written in accord with RESTful philosophical standards.<br>
++ The controller methods were designed in accord with RESTful philosophical standards.<br>
 + The endpoints were given names to intuitvely assist client consumption and development.<br>
 <img width="800" height="273" alt="cafeapi-rest" src="https://github.com/user-attachments/assets/d8e82046-626f-4b30-81d6-4398fb325807" />
 
@@ -115,27 +128,46 @@ This API uses a JSON Web Token (JWT) service in order to generate tokens for aut
 
 # [Cat Poker](https://www.jmarcello.dev/cat-poker/index.html)
 This is a _front-end_ web application that is written in **HTML**, **CSS**, and **JavaScript**.<br>
-The **Boostrap** framework is used for column layout, and _responsiveness_.<br>
+The **Boostrap** framework is used for columns, rows, and _responsiveness_.<br>
 
 <img width="797" height="603" alt="Catpoker" src="https://github.com/user-attachments/assets/326f161f-91c8-45cf-a480-0d52afdedfc1" />
 
 ##
 
+## Directions for Cat Poker
+1. Click on the roll button to generate five random cat cards from 1 to 6.<br>
+2. The numbers you roll will be added up and displayed in the scoreboard area.<br>
+3. After three rolls, the game is done and your high score is displayed.<br>
+4. You may finish the game before three rolls by clicking the score button.<br>
+5. To start a new game, simply click on the play again button.<br>
+##
+
+## Function Modeling Diagram
+I made a "function" modeling diagram for Cat Poker based on the class modeling diagram concept.<br>
+I drew up some pseudo-classes for the diagram that organizes the functions by responsibility.<br>
+Check it out here --->[Cat Poker "Function" Modeling Diagram](https://jmarcello.dev/diagrams/catPokerFmd.png)<---<br>
+##
+
 # [Airport Locker Rental](https://www.jmarcello.dev/airport/menu)
 This is the _MVC version_ of my Airport Locker Rental application.<br>
+If you would like to see the repository for my console version, click here ---->[Airport Locker Rental Console Version](https://www.github.com/thecatfather4/airportlockerrental)<----<br>
 
-<img width="779" height="539" alt="airport-mvc" src="https://github.com/user-attachments/assets/8b1217eb-6a5c-4a8f-81dd-6f9c894beb7c" />
+<img width="779" height="539" alt="airport-mvc" src="https://github.com/user-attachments/assets/351eb29a-4c3d-4c81-b33d-7808c0899795" />
 
 ##
 
-## Documentation and Diagrams
+## Background Information
+The inspiration for this application was to make a web version of my console app, so that users may see the code working in real time.<br>
+I used custom CSS and Bootstrap to create a visual simulation of the windows command prompt.
+
+##
+
+## Portfolio Documentation and Diagrams
 Most of the documentation can be found right here in this repository.<br>
 However, I realize that it might take some folks much time to find the code they'd like to view.<br>
-Therefore, I included a _Documentation and Diagrams_ section on the portfolio website.<br>
-There are buttons that will navigate you to specific areas of the repository for your convenience.<br>
-Additionally, there are _Entity Relastionship_ diagrams and _Class Modeling_ diagrams for additional visuals.<br>
-Currently, I have one ERD and one CMD for the 4th Wall Cafe. I am currently working on more diagrams as we speak.<br>
-
+Therefore, I included a [_Documentation and Diagrams_](https://www.jmarcello.dev/home/documentation) section on my website.<br>
+Each software application has buttons that will take you to specific areas of the repository for your convenience.<br>
+Additionally, there are _Entity Relastionship_ diagrams and _Class Modeling_ diagrams for additional visual assistance.<br>
 ##
 
 ### More projects and features coming soon!
