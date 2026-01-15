@@ -1,15 +1,15 @@
 ﻿using Airport.Core.DTOs;
-using Airport.Core.Repositories;
+using Airport.Core.Interfaces;
 
 namespace Portfolio.Models.Airport
 {
     public class LockerManager
     {
-        private readonly LockerRepository _lockerRepository;
+        private readonly ILockerRepository _lockerRepository;
 
-        public LockerManager()
+        public LockerManager(ILockerRepository lockerRepository)
         {
-            _lockerRepository = new LockerRepository();
+            _lockerRepository = lockerRepository;
         }
 
         public Result EndLockerRental(int lockerNumber)

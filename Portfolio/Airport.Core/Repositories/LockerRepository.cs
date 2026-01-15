@@ -1,8 +1,9 @@
 ﻿using Airport.Core.DTOs;
+using Airport.Core.Interfaces;
 
 namespace Airport.Core.Repositories
 {
-    public class LockerRepository
+    public class LockerRepository : ILockerRepository
     {
         private readonly Locker[] _lockers;
 

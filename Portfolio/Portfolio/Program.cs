@@ -1,3 +1,4 @@
+using Airport.Core.Repositories;
 using Cafe.BLL;
 using Cafe.Core.Interfaces.Application;
 using Cafe.Core.Interfaces.Services;
@@ -97,7 +98,10 @@ builder.Services.AddScoped<IWebTokenService>(provider =>
 
 builder.Services.AddScoped<ISelectListBuilder, SelectListBuilder>();
 
-builder.Services.AddSingleton<LockerManager>();
+builder.Services.AddSingleton<LockerManager>(provider =>
+{
+    return new LockerManager(new LockerRepository());
+});
 
 builder.Services.AddAuthentication(options =>
 {
