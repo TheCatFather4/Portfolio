@@ -125,6 +125,15 @@ This API uses a JSON Web Token (JWT) service in order to generate tokens for aut
 <img width="800" height="273" alt="cafeapi-rest" src="https://github.com/user-attachments/assets/d8e82046-626f-4b30-81d6-4398fb325807" />
 
 ##
+### Data Transfer Objects
+Data Transfer Objects (DTOs) are used for returning resources to the client.<br>
+In order to promote abstraction, as well as encapsulation, the Entity classes are _NOT_ returned.<br>
+##
+### Swagger Documentation
+Additional documentation for this API may be found [here](https://www.jmarcello.dev/swagger).<br>
+The above link will take you to the Swagger documentation linked to my website.<br>
+This will also allow you to test out the endpoints.<br>
+##
 
 # [Cat Poker](https://www.jmarcello.dev/cat-poker/index.html)
 This is a _front-end_ web application that is written in **HTML**, **CSS**, and **JavaScript**.<br>
@@ -148,6 +157,14 @@ I drew up some pseudo-classes for the diagram that organizes the functions by re
 Check it out here --->[Cat Poker "Function" Modeling Diagram](https://jmarcello.dev/diagrams/catPokerFmd.png)<---<br>
 ##
 
+## Responsive Web Design
+I utilized Bootstrap in order to make this application responsive.<br>
+Players can enjoy this game on any screen size without a magnifying glass.<br>
+
+<img width="500" height="599" alt="cat-poker-bsr" src="https://github.com/user-attachments/assets/06a2a40b-375d-4eea-9863-5922cbbf38aa" />
+
+##
+
 # [Airport Locker Rental](https://www.jmarcello.dev/airport/menu)
 This is the _MVC version_ of my Airport Locker Rental application.<br>
 If you would like to see the repository for my console version, click here ---->[Airport Locker Rental Console Version](https://www.github.com/thecatfather4/airportlockerrental)<----<br>
@@ -160,6 +177,12 @@ If you would like to see the repository for my console version, click here ---->
 The inspiration for this application was to make a web version of my console app, so that users may see the code working in real time.<br>
 I used custom CSS and Bootstrap to create a visual simulation of the windows command prompt.
 
+##
+
+## Application Features
+
+### Unit Tests
+The [Airport.Tests](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Airport.Tests) project is where you can find the unit tests for this application.<br>
 ##
 
 ## Portfolio Documentation and Diagrams
