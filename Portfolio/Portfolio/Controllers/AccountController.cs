@@ -7,12 +7,21 @@ using Portfolio.Models.Identity;
 
 namespace Portfolio.Controllers
 {
+    /// <summary>
+    /// Handles requests concerning customer accounts.
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ICustomerService _customerService;
 
+        /// <summary>
+        /// Constructs a controller with the required dependencies for authentication, authorization, and customer profiles.
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
+        /// <param name="customerService"></param>
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICustomerService customerService)
         {
             _userManager = userManager;
@@ -20,14 +29,26 @@ namespace Portfolio.Controllers
             _customerService = customerService;
         }
 
+        /// <summary>
+        /// Takes the user to a web page where they can register as a new customer.
+        /// </summary>
+        /// <returns>The register view.</returns>
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var model = new RegisterUserForm();
+
+            return View(model);
         }
 
+        /// <summary>
+        /// Registers a new user with the café.
+        /// </summary>
+        /// <param name="model">A model used to register new customers.</param>
+        /// <returns>A webpage with a confirmation message depending on the results.</returns>
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterUser model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterUserForm model)
         {
             if (ModelState.IsValid)
             {
@@ -80,19 +101,29 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Takes the user to a web page where they can log in to their account.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// Attempts to sign a user into their café account.
+        /// If successful, the user will be redirected to the café home page.
+        /// </summary>
+        /// <param name="model">A model used to log customers in to their account.</param>
+        /// <returns>A webpage with a confirmation message depending on the result.</returns>
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUser model)
+        public async Task<IActionResult> Login(LoginUserForm model)
         {
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(
-                    model.Email, model.Password, model.RememberMe, 
+                    model.Email, model.Password, model.RememberMe,
                     lockoutOnFailure: false);
 
                 if (result.Succeeded)
@@ -104,6 +135,10 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Logs a customer out of their account.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -112,6 +147,10 @@ namespace Portfolio.Controllers
             return RedirectToAction("Cafe", "Home");
         }
 
+        /// <summary>
+        /// Takes an authenticated user to their customer profile web page.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
@@ -135,7 +174,13 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Updates a customer's first and last name associated with their account.
+        /// </summary>
+        /// <param name="model">A model used for updating a customer's profile.</param>
+        /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(CustomerProfile model)
         {
             if (User.Identity.IsAuthenticated)
@@ -149,12 +194,12 @@ namespace Portfolio.Controllers
                     if (result.Ok)
                     {
                         TempData["Alert"] = Alert.CreateSuccess(result.Message);
-                        return RedirectToAction("Index");
+                        return View(model);
                     }
                     else
                     {
                         TempData["Alert"] = Alert.CreateError("Unable to update your customer data. Please contact the administrator at 1-800-123-4567 for assistance.");
-                        return RedirectToAction("Index");
+                        return View(model);
                     }
                 }
 
@@ -164,6 +209,11 @@ namespace Portfolio.Controllers
             return RedirectToAction("login", "Account");
         }
 
+        /// <summary>
+        /// Returns a webpage to users that are not authorized to access the
+        /// management area or sales report area.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult AccessDenied()
         {
             return View();

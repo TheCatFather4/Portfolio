@@ -1,5 +1,5 @@
 ﻿@using Portfolio.Models.Identity
-@model RegisterUser
+@model RegisterUserForm
 @{
     Layout = "_CafeLayout";
     ViewData["Title"] = "Register User";
@@ -16,6 +16,7 @@
     <div class="px-3">
         <div class="col-md-6 mx-auto border border-info border-5 rounded p-3 bg-primary">
             <form asp-controller="Account" asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" id="validationText"></div>
                 <div class="form-floating mb-3">
                     <input asp-for="Email" class="form-control" id="formInput" />
