@@ -17,7 +17,7 @@ namespace Portfolio.Controllers
         private readonly ICustomerService _customerService;
 
         /// <summary>
-        /// Constructs a controller with the required dependencies for authentication, authorization, and customer profiles.
+        /// Constructs an MVC controller with the required dependencies for authentication, authorization, and customer profiles.
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>

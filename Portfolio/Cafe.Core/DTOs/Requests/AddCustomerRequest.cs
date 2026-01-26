@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cafe.Core.DTOs
+namespace Cafe.Core.DTOs.Requests
 {
     /// <summary>
     /// Used to transfer data concerning the registration of new customers. 
