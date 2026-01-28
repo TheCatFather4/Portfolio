@@ -1,4 +1,4 @@
-﻿using Cafe.Core.DTOs;
+﻿using Cafe.Core.DTOs.Requests;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
@@ -7,20 +7,35 @@ using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
 {
+    /// <summary>
+    /// Handles requests concerning café orders.
+    /// </summary>
     public class ProcessOrderController : Controller
     {
         private readonly IOrderService _orderService;
 
+        /// <summary>
+        /// Constructs a controller with the required dependencies for creating and retrieving café orders.
+        /// </summary>
+        /// <param name="orderService"></param>
         public ProcessOrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
 
+        /// <summary>
+        /// Retrieves the total price of the items in the customer's shopping bag.
+        /// If successful, the data is mapped to an OrderForm model.
+        /// The model is returned for the user to add a tip if desired.
+        /// </summary>
+        /// <param name="customerId">The ID associated with the customer's shopping bag.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> Process(int customerId)
         {
             if (User.Identity.IsAuthenticated)
             {
+                // The invoked method accesses the customer's current shopping bag items to calculate the total.
                 var total = await _orderService.GetOrderTotalAsync(customerId);
 
                 if (total.Ok)
@@ -42,6 +57,12 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// The model is mapped to a request DTO, and is sent to the service layer to add to the database.
+        /// If successful, the returned response DTO is mapped to the model and displayed to the user.
+        /// </summary>
+        /// <param name="model">Used to create a new order entity.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Process(OrderForm model)
@@ -81,6 +102,12 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Retrieves a list of café orders associated with a specific customer ID.
+        /// If successful, the list is mapped to a model and then returned with a rendered view for display.
+        /// </summary>
+        /// <param name="customerId">The ID of the customer.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> OrderHistory(int customerId)
         {
@@ -117,6 +144,13 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Retrieves the data associated with a specific café order ID.
+        /// If successful, the data is mapped to an OrderDetails model.
+        /// The model is then returned with the rendered view.
+        /// </summary>
+        /// <param name="orderId">The ID of the order.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> OrderDetails(int orderId)
         {
