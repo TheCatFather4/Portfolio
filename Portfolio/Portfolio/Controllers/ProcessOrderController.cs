@@ -2,7 +2,7 @@
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
-using Portfolio.Models.Ordering;
+using Portfolio.Models.Orders;
 using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
