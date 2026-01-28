@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cafe.Core.DTOs
+namespace Cafe.Core.DTOs.Requests
 {
     /// <summary>
-    /// Used for handling requests and mapping data concerning new Payment entities.
+    /// Used for handling requests concerning new Payment entities.
     /// </summary>
     public class PaymentRequest
     {

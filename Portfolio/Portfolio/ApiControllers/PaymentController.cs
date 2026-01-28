@@ -1,4 +1,5 @@
-﻿using Cafe.Core.DTOs;
+﻿using Cafe.Core.DTOs.Requests;
+using Cafe.Core.DTOs.Responses;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
