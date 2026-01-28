@@ -50,7 +50,7 @@ namespace Portfolio.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dto = new OrderRequest
+                    var dto = new CafeOrderRequest
                     {
                         CustomerId = model.CustomerId,
                         PaymentTypeId = model.PaymentTypeId,

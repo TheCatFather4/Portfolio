@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cafe.Core.DTOs
+namespace Cafe.Core.DTOs.Requests
 {
     /// <summary>
-    /// Used for handling requests and mapping data concerning new CafeOrder entities.
+    /// Used for handling requests concerning new CafeOrder entities.
     /// </summary>
-    public class OrderRequest
+    public class CafeOrderRequest
     {
         [Required(ErrorMessage = "Customer ID is required.")]
         public int CustomerId { get; set; }

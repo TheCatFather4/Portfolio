@@ -1,5 +1,8 @@
-﻿namespace Cafe.Core.DTOs
+﻿namespace Cafe.Core.DTOs.Responses
 {
+    /// <summary>
+    /// Used to display data to the client from a CafeOrder entity.
+    /// </summary>
     public class CafeOrderResponse
     {
         public int OrderID { get; set; }
@@ -12,7 +15,6 @@
         public decimal FinalTotal { get; set; }
         public int? CustomerID { get; set; }
         public int? PaymentStatusID { get; set; }
-
         public List<OrderItemResponse> OrderItems { get; set; } = new List<OrderItemResponse>();
     }
 }

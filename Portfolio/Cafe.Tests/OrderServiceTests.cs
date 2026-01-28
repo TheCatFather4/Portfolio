@@ -26,7 +26,7 @@ namespace Cafe.Tests
         {
             var service = GetOrderService();
 
-            var dto = new OrderRequest
+            var dto = new CafeOrderRequest
             {
                 CustomerId = 1,
                 PaymentTypeId = 1,
