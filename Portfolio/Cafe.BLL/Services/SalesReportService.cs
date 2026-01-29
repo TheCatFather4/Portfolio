@@ -1,4 +1,5 @@
 ﻿using Cafe.Core.DTOs;
+using Cafe.Core.DTOs.Filters;
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
@@ -170,11 +171,11 @@ namespace Cafe.BLL.Services
         /// </summary>
         /// <param name="date">A DateTime object used to filter orders.</param>
         /// <returns>A Result DTO with an OrderFilter DTO as its data.</returns>
-        public async Task<Result<OrderFilter>> FilterOrdersByDateAsync(DateTime date)
+        public async Task<Result<OrderDateFilter>> FilterOrdersByDateAsync(DateTime date)
         {
             try
             {
-                var filter = new OrderFilter
+                var filter = new OrderDateFilter
                 {
                     Orders = new List<CafeOrder>(),
                     Revenue = 0.00M
@@ -185,7 +186,7 @@ namespace Cafe.BLL.Services
                 if (orders.Count() == 0)
                 {
                     _logger.LogError("Cafe orders not found.");
-                    return ResultFactory.Fail<OrderFilter>("An error occurred. Please try again in a few minutes.");
+                    return ResultFactory.Fail<OrderDateFilter>("An error occurred. Please try again in a few minutes.");
                 }
 
                 filter.Orders = orders
@@ -202,7 +203,7 @@ namespace Cafe.BLL.Services
             catch (Exception ex)
             {
                 _logger.LogError($"An unexpected error occurred in retrieving orders: {ex.Message}");
-                return ResultFactory.Fail<OrderFilter>("An error occurred. Please contact the administrator.");
+                return ResultFactory.Fail<OrderDateFilter>("An error occurred. Please contact the administrator.");
             }
         }
     }

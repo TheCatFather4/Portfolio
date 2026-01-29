@@ -1,4 +1,5 @@
 ﻿using Cafe.Core.DTOs;
+using Cafe.Core.DTOs.Filters;
 
 namespace Cafe.Core.Interfaces.Services
 {
@@ -6,6 +7,6 @@ namespace Cafe.Core.Interfaces.Services
     {
         Task<Result<ItemCategoryFilter>> FilterItemsByCategoryIdAsync(int categoryId);
         Task<Result<ItemCategoryFilter>> FilterItemsByItemIdAsync(int itemId);
-        Task<Result<OrderFilter>> FilterOrdersByDateAsync(DateTime date);
+        Task<Result<OrderDateFilter>> FilterOrdersByDateAsync(DateTime date);
     }
 }
