@@ -7,23 +7,40 @@ using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
 {
+    /// <summary>
+    /// Handles requests concerning sales reports.
+    /// A accountant role is required to utilize these controller methods.
+    /// </summary>
     [Authorize(Roles = "Accountant")]
     public class ReportsController : Controller
     {
         private readonly ISalesReportService _salesReportService;
         private readonly ISelectListBuilder _selectListBuilder;
 
+        /// <summary>
+        /// Constructs a controller with the required dependencies to access sales reports.
+        /// </summary>
+        /// <param name="salesReportService"></param>
+        /// <param name="selectListBuilder"></param>
         public ReportsController(ISalesReportService salesReportService, ISelectListBuilder selectListBuilder)
         {
             _salesReportService = salesReportService;
             _selectListBuilder = selectListBuilder;
         }
 
+        /// <summary>
+        /// Takes the user to the main sales reports web page.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Takes the user to a webpage where can they use two different forms to access sales reports.
+        /// </summary>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> ItemCategorySales()
         {
@@ -36,12 +53,21 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Items are filtered in accord with the form the user selected.
+        /// If the item form was chosen, the item's sales reports will be displayed to the user.
+        /// If the category form was chosen, the category's sales reports will be displayed to the user.
+        /// </summary>
+        /// <param name="model">A model used to display sales data.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ItemCategorySales(ItemCategoryForm model)
         {
+            // Select lists must be reloaded before returning model.
             model.Items = await _selectListBuilder.BuildItemsAsync(TempData);
             model.Categories = await _selectListBuilder.BuildCategoriesAsync(TempData);
+
             model.ItemReports = new List<ItemReport>();
             model.CategoryReports = new List<CategoryReport>();
 
@@ -117,6 +143,10 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Takes the user to a web page that lets them use a form to filter sales by date.
+        /// </summary>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public IActionResult OrderSales()
         {
@@ -125,6 +155,11 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Orders are filtered by the selected date and then displayed to the user.
+        /// </summary>
+        /// <param name="model">A model used to display order data by date.</param>
+        /// <returns>A created ViewResult object with the model state.S</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OrderSales(DateReportForm model)

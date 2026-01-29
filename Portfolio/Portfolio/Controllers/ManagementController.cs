@@ -9,7 +9,7 @@ namespace Portfolio.Controllers
 {
     /// <summary>
     /// Handles requests concerning management of menu and servers.
-    /// A manager role is required to utilize these controllers.
+    /// A manager role is required to utilize these controller methods.
     /// </summary>
     [Authorize(Roles = "Manager")]
     public class ManagementController : Controller
