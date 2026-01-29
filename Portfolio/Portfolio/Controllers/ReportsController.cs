@@ -120,14 +120,14 @@ namespace Portfolio.Controllers
         [HttpGet]
         public IActionResult OrderSales()
         {
-            var model = new OrderForm();
+            var model = new DateReportForm();
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OrderSales(OrderForm model)
+        public async Task<IActionResult> OrderSales(DateReportForm model)
         {
             if (model.OrderDate != null)
             {
