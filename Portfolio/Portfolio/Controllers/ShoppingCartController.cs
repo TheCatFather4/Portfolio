@@ -1,8 +1,7 @@
-﻿using Cafe.Core.DTOs;
+﻿using Cafe.Core.DTOs.Requests;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
-using Portfolio.Models.Ordering;
 using Portfolio.Models.ShoppingCart;
 using Portfolio.Utilities;
 
@@ -117,7 +116,7 @@ namespace Portfolio.Controllers
 
                     if (customerResult.Ok)
                     {
-                        var dto = new AddItemRequest
+                        var dto = new AddItemToBagRequest
                         {
                             ShoppingBagId = (int)customerResult.Data.ShoppingBagID,
                             ItemId = model.ItemID,
