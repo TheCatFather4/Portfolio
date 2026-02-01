@@ -3,6 +3,7 @@ using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
 using Portfolio.Models.Ordering;
+using Portfolio.Models.ShoppingCart;
 using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
@@ -81,7 +82,7 @@ namespace Portfolio.Controllers
 
                 if (result.Ok)
                 {
-                    var model = new CartItem()
+                    var model = new AddCartItemForm()
                     {
                         ItemID = itemId,
                         ItemName = result.Data.ItemName,
@@ -106,7 +107,7 @@ namespace Portfolio.Controllers
         /// <returns>A RedirectedToActionResult with a confirmation message.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddItem(CartItem model)
+        public async Task<IActionResult> AddItem(AddCartItemForm model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -155,7 +156,7 @@ namespace Portfolio.Controllers
         /// <returns>A RedirectedToActionResult with a confirmation message.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteItem(ItemUpdate model)
+        public async Task<IActionResult> DeleteItem(DeleteOrEditCartItem model)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -238,7 +239,7 @@ namespace Portfolio.Controllers
 
                     if (itemResult.Ok)
                     {
-                        var model = new ItemUpdate()
+                        var model = new DeleteOrEditCartItem()
                         {
                             CustomerID = result.Data.CustomerID,
                             ShoppingBagItemID = shoppingBagItemId,
@@ -266,7 +267,7 @@ namespace Portfolio.Controllers
         /// <returns>A created ViewResult object with the model state.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateItem(ItemUpdate model)
+        public async Task<IActionResult> UpdateItem(DeleteOrEditCartItem model)
         {
             if (User.Identity.IsAuthenticated)
             {
