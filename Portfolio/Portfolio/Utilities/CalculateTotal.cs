@@ -1,4 +1,4 @@
-﻿using Cafe.Core.DTOs;
+﻿using Cafe.Core.DTOs.Responses;
 
 namespace Portfolio.Utilities
 {

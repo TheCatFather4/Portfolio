@@ -1,5 +1,8 @@
-﻿namespace Cafe.Core.DTOs
+﻿namespace Cafe.Core.DTOs.Responses
 {
+    /// <summary>
+    /// Used for displaying an individual item in the customer's shopping bag.
+    /// </summary>
     public class ShoppingBagItemResponse
     {
         public int ShoppingBagItemID { get; set; }

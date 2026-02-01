@@ -1,4 +1,6 @@
 ﻿using Cafe.Core.DTOs;
+using Cafe.Core.DTOs.Requests;
+using Cafe.Core.DTOs.Responses;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +39,7 @@ namespace Portfolio.ApiControllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItemRequest dto)
+        public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItemToBagRequest dto)
         {
             var result = await _shoppingBagService.AddItemToShoppingBagAsync(dto);
 

@@ -1,4 +1,6 @@
 ﻿using Cafe.Core.DTOs;
+using Cafe.Core.DTOs.Requests;
+using Cafe.Core.DTOs.Responses;
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
@@ -31,7 +33,7 @@ namespace Cafe.BLL.Services
         /// </summary>
         /// <param name="dto">A DTO with data to add to the database.</param>
         /// <returns>A Result DTO with a confirmation message.</returns>
-        public async Task<Result> AddItemToShoppingBagAsync(AddItemRequest dto)
+        public async Task<Result> AddItemToShoppingBagAsync(AddItemToBagRequest dto)
         {
             try
             {
