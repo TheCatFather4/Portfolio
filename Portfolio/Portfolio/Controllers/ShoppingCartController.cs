@@ -7,12 +7,21 @@ using Portfolio.Utilities;
 
 namespace Portfolio.Controllers
 {
+    /// <summary>
+    /// Handles requests concerning shopping carts.
+    /// </summary>
     public class ShoppingCartController : Controller
     {
         private readonly ICustomerService _customerService;
         private readonly IMenuRetrievalService _menuRetrievalService;
         private readonly IShoppingBagService _shoppingBagService;
 
+        /// <summary>
+        /// Constructs a controller with the required dependencies for creating, reading, updating, and deleting entities concerning shopping carts.
+        /// </summary>
+        /// <param name="customerService"></param>
+        /// <param name="menuRetrievalService"></param>
+        /// <param name="shoppingBagService"></param>
         public ShoppingCartController(ICustomerService customerService, IMenuRetrievalService menuRetrievalService, IShoppingBagService shoppingBagService)
         {
             _customerService = customerService;
@@ -20,6 +29,10 @@ namespace Portfolio.Controllers
             _shoppingBagService = shoppingBagService;
         }
 
+        /// <summary>
+        /// Takes the user to their shopping cart. Authentication is required to access.
+        /// </summary>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -54,6 +67,11 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Adds an item to the user's shopping cart.
+        /// </summary>
+        /// <param name="itemId">The ID of the item to add.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> AddItem(int itemId)
         {
@@ -80,6 +98,12 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// If authenticated and model state is valid, the model state is mapped to a request DTO 
+        /// and passed to the associated service member to add it to the database.
+        /// </summary>
+        /// <param name="model">The model used to transport an item's data.</param>
+        /// <returns>A RedirectedToActionResult with a confirmation message.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddItem(CartItem model)
@@ -124,6 +148,11 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Deletes an item from a customer's shopping cart.
+        /// </summary>
+        /// <param name="model">The model used to delete an item.</param>
+        /// <returns>A RedirectedToActionResult with a confirmation message.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteItem(ItemUpdate model)
@@ -147,6 +176,11 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Takes the user to a web page that asks them for confirmation about emptying their shopping cart.
+        /// </summary>
+        /// <param name="customerId">The ID of the customer's shopping cart.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> EmptyShoppingCart(int customerId)
         {
@@ -158,6 +192,11 @@ namespace Portfolio.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Empties a customer's shopping cart or takes them back to their shopping cart with all of their items remaining.
+        /// </summary>
+        /// <param name="model">The model used to empty the customer's shopping cart.</param>
+        /// <returns>A RedirectedToActionResult with a confirmation message.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmptyShoppingCart(EmptyCart model)
@@ -181,6 +220,11 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Take the user to a form to update the quantity of an item in their shopping cart.
+        /// </summary>
+        /// <param name="shoppingBagItemId">The ID of the shopping bag item to update.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpGet]
         public async Task<IActionResult> UpdateItem(int shoppingBagItemId)
         {
@@ -215,6 +259,11 @@ namespace Portfolio.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        /// <summary>
+        /// Updates the quantity of an item in the customer's shopping cart.
+        /// </summary>
+        /// <param name="model">The model used to update the quantity of the item.</param>
+        /// <returns>A created ViewResult object with the model state.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateItem(ItemUpdate model)
