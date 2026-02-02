@@ -1,5 +1,4 @@
-﻿using Cafe.Core.DTOs;
-using Cafe.Core.DTOs.Requests;
+﻿using Cafe.Core.DTOs.Requests;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -89,6 +88,7 @@ namespace Portfolio.ApiControllers
         /// </summary>
         /// <param name="dto">A LoginRequest DTO with the data required for logging a customer in.</param>
         /// <response code="200">Returns a JSON Web Token.</response>
+        /// <response code="400">Invalid Password.</response>
         /// <response code="401">Too many login attempts for the user.</response>
         /// <response code="404">User not found.</response>
         /// <response code="500">Server side error.</response>

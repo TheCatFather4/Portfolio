@@ -1,4 +1,4 @@
-﻿namespace Cafe.Core.DTOs
+﻿namespace Cafe.Core.DTOs.Responses
 {
     public class OrderItemResponse
     {

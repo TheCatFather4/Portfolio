@@ -33,12 +33,12 @@ namespace Portfolio.ApiControllers
         /// <response code="201">The data from the newly created order.</response>
         /// <response code="400">Client data not valid.</response>
         /// <response code="401">Not authorized.</response>
-        /// <response code="404">CustomerID not found.</response>
+        /// <response code="500">Server error.</response>
         [HttpPost("new")]
         [ProducesResponseType(typeof(CafeOrderResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateOrder([FromBody] CafeOrderRequest dto)
         {
             if (!ModelState.IsValid)
@@ -54,7 +54,7 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                return NotFound(result.Message);
+                return StatusCode(500, result.Message);
             }
         }
 

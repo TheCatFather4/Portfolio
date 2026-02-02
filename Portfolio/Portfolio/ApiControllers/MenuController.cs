@@ -53,7 +53,7 @@ namespace Portfolio.ApiControllers
         /// <response code="500">Server side error.</response>
         [HttpGet("{itemId}")]
         [ProducesResponseType(typeof(ItemResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetItem(int itemId)
         {
@@ -67,7 +67,7 @@ namespace Portfolio.ApiControllers
             {
                 if (result.Data == null)
                 {
-                    return BadRequest(result.Message);
+                    return NotFound(result.Message);
                 }
 
                 return StatusCode(500, result.Message);
