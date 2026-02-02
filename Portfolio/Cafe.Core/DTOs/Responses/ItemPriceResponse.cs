@@ -1,5 +1,8 @@
-﻿namespace Cafe.Core.DTOs
+﻿namespace Cafe.Core.DTOs.Responses
 {
+    /// <summary>
+    /// Used to display item price data to a client from a request.
+    /// </summary>
     public class ItemPriceResponse
     {
         public int ItemPriceID { get; set; }

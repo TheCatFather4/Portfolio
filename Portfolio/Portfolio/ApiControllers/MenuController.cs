@@ -1,4 +1,4 @@
-﻿using Cafe.Core.DTOs;
+﻿using Cafe.Core.DTOs.Responses;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,7 +53,7 @@ namespace Portfolio.ApiControllers
         /// <response code="500">Server side error.</response>
         [HttpGet("{itemId}")]
         [ProducesResponseType(typeof(ItemResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetItem(int itemId)
         {
@@ -67,7 +67,7 @@ namespace Portfolio.ApiControllers
             {
                 if (result.Data == null)
                 {
-                    return NotFound(result.Message);
+                    return BadRequest(result.Message);
                 }
 
                 return StatusCode(500, result.Message);
