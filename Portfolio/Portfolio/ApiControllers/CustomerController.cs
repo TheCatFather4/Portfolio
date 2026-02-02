@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests concerning user authentication and registration.
+    /// Handles requests concerning authentication and registering customers.
     /// </summary>
     [Route("api/cafe/[controller]")]
     [ApiController]
@@ -94,6 +94,7 @@ namespace Portfolio.ApiControllers
         /// <response code="500">Server side error.</response>
         [HttpPost("login")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -103,7 +104,7 @@ namespace Portfolio.ApiControllers
 
             if (user == null)
             {
-                return NotFound("Invalid user name.");
+                return NotFound("Username not found.");
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, lockoutOnFailure: false);
@@ -125,7 +126,7 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                return NotFound("Invalid password.");
+                return BadRequest("Invalid password.");
             }
         }
     }
