@@ -1,4 +1,5 @@
 ﻿using Cafe.Core.DTOs;
+using Cafe.Core.DTOs.Filters;
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;

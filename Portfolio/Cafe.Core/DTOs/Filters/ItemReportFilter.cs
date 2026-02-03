@@ -1,6 +1,9 @@
-﻿namespace Cafe.Core.DTOs
+﻿namespace Cafe.Core.DTOs.Filters
 {
-    public class ItemReport
+    /// <summary>
+    /// Used to filter an item for a sales report.
+    /// </summary>
+    public class ItemReportFilter
     {
         public decimal Price { get; set; }
         public byte Quantity { get; set; }

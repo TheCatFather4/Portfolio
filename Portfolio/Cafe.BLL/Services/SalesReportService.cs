@@ -44,7 +44,7 @@ namespace Cafe.BLL.Services
                 var dto = new ItemCategoryFilter
                 {
                     SelectedCategoryID = categoryId,
-                    CategoryItems = new List<CategoryItem>()
+                    CategoryItems = new List<CategoryItemFilter>()
                 };
 
                 var items = await _menuRetrievalRepository.GetItemsByCategoryIdAsync(categoryId);
@@ -73,15 +73,15 @@ namespace Cafe.BLL.Services
                         return ResultFactory.Fail<ItemCategoryFilter>("An error occurred. Please contact the site administrator.");
                     }
 
-                    var categoryItem = new CategoryItem
+                    var categoryItem = new CategoryItemFilter
                     {
                         ItemName = item.ItemName,
-                        ItemReports = new List<ItemReport>()
+                        ItemReports = new List<ItemReportFilter>()
                     };
 
                     foreach (var si in soldItems)
                     {
-                        var report = new ItemReport
+                        var report = new ItemReportFilter
                         {
                             Price = (decimal)itemPrice.Price,
                             Quantity = si.Quantity,
@@ -121,7 +121,7 @@ namespace Cafe.BLL.Services
                 var dto = new ItemCategoryFilter()
                 {
                     SelectedItemID = itemId,
-                    Reports = new List<ItemReport>()
+                    Reports = new List<ItemReportFilter>()
                 };
 
                 var itemPrice = await _menuRetrievalRepository.GetItemPriceByItemIdAsync(itemId);
@@ -145,7 +145,7 @@ namespace Cafe.BLL.Services
                     dto.TotalQuantity += item.Quantity;
                     dto.TotalRevenue += item.ExtendedPrice;
 
-                    var report = new ItemReport
+                    var report = new ItemReportFilter
                     {
                         Price = (decimal)itemPrice.Price,
                         Quantity = item.Quantity,

@@ -1,4 +1,4 @@
-﻿namespace Cafe.Core.DTOs
+﻿namespace Cafe.Core.DTOs.Filters
 {
     /// <summary>
     /// Used for filtering menu items.

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cafe.Core.DTOs
+namespace Cafe.Core.DTOs.Requests
 {
     /// <summary>
-    /// Used for handling requests involving the update of ShoppingBagItem entities.
+    /// Used for handling PATCH requests concerning an item's quantity.
     /// </summary>
     public class UpdateQuantityRequest
     {
