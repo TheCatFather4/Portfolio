@@ -27,18 +27,25 @@ namespace Portfolio.ApiControllers
         }
 
         /// <summary>
-        /// Processes a payment.
+        /// Receives a payment request from the client and creates a new payment record.
         /// </summary>
         /// <param name="dto">A DTO with the data required to make a payment.</param>
         /// <response code="200">Payment confirmation data.</response>
         /// <response code="400">Data not valid.</response>
         /// <response code="401">Not authorized.</response>
+        /// <response code="500">Server error.</response>
         [HttpPost("process")]
         [ProducesResponseType(typeof(PaymentResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var result = await _paymentService.ProcessPaymentAsync(dto);
 
             if (result.Ok)
@@ -46,7 +53,7 @@ namespace Portfolio.ApiControllers
                 return Ok(result.Data);
             }
 
-            return BadRequest(result.Message);
+            return StatusCode(500, result.Message);
         }
     }
 }

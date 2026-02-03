@@ -1,5 +1,4 @@
-﻿using Cafe.Core.DTOs;
-using Cafe.Core.DTOs.Requests;
+﻿using Cafe.Core.DTOs.Requests;
 using Cafe.Core.DTOs.Responses;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Portfolio.ApiControllers
 {
     /// <summary>
-    /// Handles requests concerning shopping bags. Authentication required.
+    /// Handles requests concerning shopping bags. Authentication is required.
     /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/cafe/[controller]")]
@@ -35,12 +34,19 @@ namespace Portfolio.ApiControllers
         /// <response code="200">Success message.</response>
         /// <response code="400">CustomerID doesn't exist.</response>
         /// <response code="401">Not authorized. Requires a JSON Web Token.</response>
+        /// <response code="500">Server error.</response>
         [HttpPost("{customerId}/add")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AddItemToBag(int customerId, [FromBody] AddItemToBagRequest dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var result = await _shoppingBagService.AddItemToShoppingBagAsync(dto);
 
             if (result.Ok)
@@ -49,7 +55,7 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                return BadRequest(result.Message);
+                return StatusCode(500, result.Message);
             }
         }
 
@@ -142,14 +148,21 @@ namespace Portfolio.ApiControllers
         /// <param name="shoppingBagItemId">An ID that identifies which item to update.</param>
         /// <param name="dto">The new quantity value</param>
         /// <response code="200">Success message.</response>
-        /// <response code="400">ShoppingBagID doesn't exist.</response>
+        /// <response code="400">Invalid data.</response>
         /// <response code="401">Not authorized. Requires a JSON Web Token.</response>
-        [HttpPut("{customerId}/update/{shoppingBagItemId}")]
+        /// <response code="500">Server side error.</response>
+        [HttpPatch("{customerId}/update/{shoppingBagItemId}")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateItemQuantity(int customerId, int shoppingBagItemId, [FromBody] UpdateQuantityRequest dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var result = await _shoppingBagService.UpdateItemQuantityAsync(shoppingBagItemId, dto.Quantity);
 
             if (result.Ok)
@@ -158,7 +171,7 @@ namespace Portfolio.ApiControllers
             }
             else
             {
-                return BadRequest(result.Message);
+                return StatusCode(500, result.Message);
             }
         }
     }

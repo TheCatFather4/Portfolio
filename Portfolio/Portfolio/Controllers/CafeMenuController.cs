@@ -1,4 +1,4 @@
-﻿using Cafe.Core.DTOs;
+﻿using Cafe.Core.DTOs.Filters;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
