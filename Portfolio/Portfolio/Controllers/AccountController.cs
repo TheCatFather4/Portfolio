@@ -42,10 +42,10 @@ namespace Portfolio.Controllers
         }
 
         /// <summary>
-        /// Registers a new user with the café.
+        /// Registers a new customer with the café. If successful, the customer is signed in and given a new shopping bag.
         /// </summary>
         /// <param name="model">A model used to register new customers.</param>
-        /// <returns>A webpage with a confirmation message depending on the results.</returns>
+        /// <returns>A RedirectToActionResult that sends the user to the café's homepage.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserForm model)
@@ -85,7 +85,7 @@ namespace Portfolio.Controllers
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
 
-                        TempData["Alert"] = Alert.CreateSuccess(customerResult.Message);
+                        TempData["Alert"] = Alert.CreateSuccess("New account successfully registered!");
                         return RedirectToAction("Cafe", "Home");
                     }
 

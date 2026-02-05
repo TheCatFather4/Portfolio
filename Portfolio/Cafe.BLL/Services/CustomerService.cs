@@ -1,5 +1,6 @@
 ﻿using Cafe.Core.DTOs;
 using Cafe.Core.DTOs.Requests;
+using Cafe.Core.DTOs.Responses;
 using Cafe.Core.Entities;
 using Cafe.Core.Interfaces.Repositories;
 using Cafe.Core.Interfaces.Services;
@@ -30,15 +31,13 @@ namespace Cafe.BLL.Services
         }
 
         /// <summary>
-        /// An ICustomerRepository method is invoked to create a new Customer record. If successful, a ShoppingBag is created for the
-        /// Customer. The new record is then updated with the new ShoppingBagID.
+        /// Creates a new customer record. If successful, a new shopping bag record is created for the
+        /// customer. The new customer record is then updated with the new shopping bag ID.
         /// </summary>
-        /// <param name="dto">The data required to create a new Customer record. The data is mapped to a new Customer instance.</param>
-        /// <returns>A Result DTO with a confirmation message.</returns>
-        public async Task<Result> AddCustomerAsync(AddCustomerRequest dto)
+        /// <param name="dto">The data required to create a new customer record.</param>
+        /// <returns>A response DTO with the customer ID and shopping bag ID of the newly created customer record.</returns>
+        public async Task<Result<NewCustomerResponse>> AddCustomerAsync(AddCustomerRequest dto)
         {
-            // If using Entity Framework Core:
-            // The CustomerID property will be automatically assigned to this object instance.
             var customer = new Customer
             {
                 FirstName = dto.FirstName,
@@ -52,11 +51,10 @@ namespace Cafe.BLL.Services
             if (customerId == 0)
             {
                 _logger.LogError($"Customer Id returned with a value of: {customerId} ");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+                return ResultFactory.Fail<NewCustomerResponse>("An error occurred. Please try again in a few minutes.");
             }
 
-            // If using Dapper:
-            // The CustomerID property must be manually assigned to the object instance.
+            // If the application is using the Dapper database mode, the CustomerID property must be manually assigned.
             if (customer.CustomerID == 0)
             {
                 customer.CustomerID = customerId;
@@ -67,19 +65,26 @@ namespace Cafe.BLL.Services
                 CustomerID = customerId
             };
 
-            // Create a new ShoppingBag for the Customer.
+            // Create a new shopping bag for the customer.
             var shoppingBagId = await _shoppingBagRepository.CreateShoppingBagAsync(shoppingBag);
 
             if (shoppingBagId == 0)
             {
                 _logger.LogError($"Shopping Bag Id returned with a value of: {shoppingBagId}");
-                return ResultFactory.Fail("An error occurred. Please try again in a few minutes.");
+                return ResultFactory.Fail<NewCustomerResponse>("An error occurred. Please try again in a few minutes.");
             }
 
-            // Update Customer record.
+            // Update the customer record.
             customer.ShoppingBagID = shoppingBagId;
             await _customerRepository.UpdateCustomerAsync(customer);
-            return ResultFactory.Success("New customer successfully registered!");
+
+            var response = new NewCustomerResponse
+            {
+                CustomerID = customer.CustomerID,
+                ShoppingBagID = shoppingBagId
+            };
+
+            return ResultFactory.Success(response);
         }
 
         /// <summary>
