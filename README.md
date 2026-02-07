@@ -135,10 +135,10 @@ This API uses a JSON Web Token (JWT) service in order to generate tokens for aut
 Data Transfer Objects (DTOs) are used for returning resources to the client.<br>
 In order to promote abstraction, as well as encapsulation, the Entity classes are _NOT_ returned.<br>
 ##
-### Swagger Documentation
+### Documentation
 Additional documentation for this API may be found [here](https://www.jmarcello.dev/swagger).<br>
-The above link will take you to the Swagger documentation linked to my website.<br>
-This will also allow you to test out the endpoints.<br>
+The above link will take you to the Swagger documentation linked to my website, where you can test the endpoints.<br>
+I also have a [Class Modeling Diagram](https://www.jmarcello.dev/img/diagrams/cafeapi-controllers.png) for the API Controllers.<br>
 ##
 
 # [Cat Poker](https://www.jmarcello.dev/cat-poker/index.html)
@@ -192,10 +192,10 @@ The [Airport.Tests](https://github.com/TheCatFather4/Portfolio/tree/main/Portfol
 ##
 
 ## Portfolio Documentation and Diagrams
-Most of the documentation can be found right here in this repository.<br>
+Most of the code documentation can be found right here in this repository.<br>
 However, I realize that it might take some folks much time to find the code they'd like to view.<br>
 Therefore, I included a [_Documentation and Diagrams_](https://www.jmarcello.dev/home/documentation) section on my website.<br>
-Each software application has buttons that will take you to specific areas of the repository for your convenience.<br>
+Each software application has buttons that will take you to specific areas of this repository for your convenience.<br>
 Additionally, there are _Entity Relastionship_ diagrams and _Class Modeling_ diagrams for additional visual assistance.<br>
 ##
 
