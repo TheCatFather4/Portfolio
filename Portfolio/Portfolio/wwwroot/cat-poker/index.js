@@ -339,17 +339,24 @@ function handleRoll() {
         }
     }
 
-    let counts = [one, two, three, four, five, six]
+    // Three of a Nut
+    if (three === 3) {
+        score = score * 3;
+        score += 30;
+    }
+    else {
+        let counts = [one, two, three, four, five, six]
 
-    for (let i = 0; i < counts.length; i++) {
-        if (counts[i] === 3) {
-            score += 30;
-        }
-        if (counts[i] === 4) {
-            score += 40;
-        }
-        if (counts[i] === 5) {
-            score += 50;
+        for (let i = 0; i < counts.length; i++) {
+            if (counts[i] === 3) {
+                score += 30;
+            }
+            if (counts[i] === 4) {
+                score += 40;
+            }
+            if (counts[i] === 5) {
+                score += 50;
+            }
         }
     }
 

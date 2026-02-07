@@ -15,8 +15,8 @@
     <div class="container-fluid">
         <header>
             <div class="row">
-                <nav class="navbar navbar-expand-lg" id="navbarCat">
-                    <button class="navbar-toggler my-2 ms-3" type="button" id="toggleIcon" data-bs-toggle="collapse"
+                <nav class="navbar navbar-expand-lg" id="navbar-cat">
+                    <button class="navbar-toggler my-2 ms-3" type="button" id="toggle-icon" data-bs-toggle="collapse"
                         data-bs-target="#navbar03" aria-controls="navbar03" aria-expanded="false"
                         aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -28,18 +28,18 @@
                                 <a class="nav-link dropdown-toggle link-light link-opacity-50-hover ms-3" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="navPortfolio"
+                                    <li><a class="dropdown-item" id="nav-portfolio"
                                             href="https://www.jmarcello.dev/Home/Index">Home</a>
                                     </li>
-                                    <li><a class="dropdown-item" id="navCafe"
+                                    <li><a class="dropdown-item" id="nav-cafe"
                                             href="https://www.jmarcello.dev/Home/Cafe">4th Wall
                                             Café</a>
                                     </li>
-                                    <li><a class="dropdown-item" id="navCafeApi"
+                                    <li><a class="dropdown-item" id="nav-cafe-api"
                                             href="https://www.jmarcello.dev/Home/CafeAPI">Café
                                             API</a>
                                     </li>
-                                    <li><a class="dropdown-item" id="navAirport" href="https://www.jmarcello.dev/Airport/Menu">Airport Locker Rental</a></li>
+                                    <li><a class="dropdown-item" id="nav-airport" href="https://www.jmarcello.dev/Airport/Menu">Airport Locker Rental</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -48,10 +48,10 @@
                                     Documentation
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="navDiagram"
+                                    <li><a class="dropdown-item" id="nav-diagram"
                                             href="https://www.jmarcello.dev/Home/Documentation">Code and
                                             Diagrams</a></li>
-                                    <li><a class="dropdown-item" id="navProfile"
+                                    <li><a class="dropdown-item" id="nav-profile"
                                             href="https://www.github.com/TheCatFather4">GitHub
                                             Profile</a></li>
                                 </ul>
@@ -65,12 +65,12 @@
                 </nav>
             </div>
         </header>
-        <div class="row" id="row1">
+        <div class="row" id="row-title">
             <div class="text-center my-3">
                 <h3 id="gameTitle">Welcome to Cat Poker!</h3>
             </div>
         </div>
-        <div class="row" id="row2">
+        <div class="row" id="row-cards">
             <div class="d-flex justify-content-center">
                 <div class="card" style="width: 9rem">
                     <img src="img/placeholder.jpg" class="card-img-top" id="catPic1">
@@ -119,16 +119,16 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="row3">
+        <div class="row" id="row-roll-button">
             <div class="text-center mt-3" id="buttonArea">
                 <span id="remainingRollCount">3</span><span class="me-2"> Rolls Remaining</span>
                 <button class="btn btn-primary me-2" id="scoreButton">Score</button>
                 <button class="btn btn-success" id="rollButton">Roll</button>
             </div>
         </div>
-        <div class="row" id="row4">
+        <div class="row" id="row-scoring">
             <div class="col-md-6">
-                <div id="scoreBoardArea">
+                <div id="scoreboard-area">
                     <div class="text-center my-3">
                         <h3>Scoreboard</h3>
                     </div>
@@ -145,7 +145,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div id="scoringArea">
+                <div id="scoring-area">
                     <div class="text-center">
                         <h3>Scoring</h3>
                     </div>
@@ -155,15 +155,16 @@
                                 <li class="list-group-item">Chance: Sum of cards</li>
                                 <li class="list-group-item">3 of a Kind: 30 points + sum of cards</li>
                                 <li class="list-group-item">4 of a Kind: 40 points + sum of cards</li>
-                                <li class="list-group-item">5 of a kind: 50 points + sum of cards</li>
+                                <li class="list-group-item">5 of a Kind: 50 points + sum of cards</li>
+                                <li class="list-group-item">3 of a <span class="nut-score">Nut</span>: 30 points + (sum of cards * 3)</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="row5">
-            <div class="text-center" id="playAgainArea">
+        <div class="row" id="row-play-again">
+            <div class="text-center" id="play-again-area">
                 <div>
                     <p>Try again for a higher score!</p>
                 </div>
@@ -172,7 +173,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="navBottomCat">
+        <div class="row" id="nav-bottom-cat">
             <h5 class="mt-2 text-light text-center">Hazelnut Software Solutions <img src="/img/hazelnut.png" width="50"
                     height="50" />2025</h5>
         </div>

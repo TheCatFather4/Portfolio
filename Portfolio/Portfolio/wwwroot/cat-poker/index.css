@@ -1,3 +1,7 @@
+.nut-score {
+    color: #ff8902
+}
+
 #buttonArea {
     border-bottom: 1px solid black;
     padding-top: 5px;
@@ -168,98 +172,98 @@
     font-weight: bold;
 }
 
-#navbarCat {
+#navbar-cat {
     background-color: midnightblue;
 }
 
-#navBottomCat {
+#nav-bottom-cat {
     background-color: midnightblue;
 }
 
-#navAirport {
+#nav-airport {
     --bs-dropdown-link-hover-bg: #acacac;
     --bs-dropdown-link-hover-color: darkred;
 }
 
-#navCafe {
+#nav-cafe {
     --bs-dropdown-link-hover-bg: #2fa4e7;
 }
 
-#navCafe:hover {
+#nav-cafe:hover {
     color: white;
 }
 
-#navCafeApi {
+#nav-cafe-api {
     --bs-dropdown-link-hover-bg: #73a839;
 }
 
-#navCafeApi:hover {
+#nav-cafe-api:hover {
     color: white;
 }
 
-#navDiagram {
+#nav-diagram {
     --bs-dropdown-link-hover-bg: #4e4e4e;
 }
 
-#navDiagram:hover {
+#nav-diagram:hover {
     color: white;
 }
 
-#navProfile {
+#nav-profile {
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 
-#navProfile:hover {
+#nav-profile:hover {
     color: white;
 }
 
-#navPortfolio {
+#nav-portfolio {
     --bs-dropdown-link-hover-bg: #7b7da7;
 }
 
-#navPortfolio:hover {
+#nav-portfolio:hover {
     color: white;
 }
 
-#playAgainArea {
+#play-again-area {
     border-top: 1px solid black;
     padding-top: 20px;
     margin-bottom: 25px;
 }
 
-#row1 {
-    background: linear-gradient(rgb(111, 255, 255), rgb(163, 253, 223));
-}
-
-#row2 {
+#row-cards {
     background-color: rgb(163, 253, 223);
 }
 
-#row3 {
-    background: linear-gradient(rgb(163, 253, 223), rgb(111, 255, 255));
+#row-title {
+    background: linear-gradient(rgb(111, 255, 255), rgb(163, 253, 223));
 }
 
-#row4 {
-    background-color: midnightblue;
-    color: white;
-}
-
-#row5 {
+#row-play-again {
     color: midnightblue;
     font-size: 1.2rem;
     background: repeating-linear-gradient(rgb(111, 255, 255), rgb(163, 253, 223), rgb(111, 255, 255));
 }
 
-#scoreBoardArea {
+#row-roll-button {
+    background: linear-gradient(rgb(163, 253, 223), rgb(111, 255, 255));
+}
+
+#row-scoring {
+    background-color: midnightblue;
+    color: white;
+}
+
+#scoreboard-area {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#scoringArea {
+#scoring-area {
     margin-top: 10px;
 }
 
-#toggleIcon {
+#toggle-icon {
     border: 0.5px solid white;
     color: white;
 }
