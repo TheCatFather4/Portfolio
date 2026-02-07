@@ -99,11 +99,17 @@ Additionally, mock repository classes and mock loggers are used to get the tests
 
 ## Café Diagrams
 I have made a few visuals to assist in reading the code for this application.<br>
-+ An [Entity Relationship Diagram](https://jmarcello.dev/diagrams/cafe-erd.png) (which shows the database schema for the café)
-+ A [Class Modeling Diagram](https://jmarcello.dev/diagrams/cafe-ld-cmd.png) (which shows the service class models, as well as the data persistence models for my code)
->[!Note]
->I am currently finishing up a class modeling diagram for the controllers and their relation to the logic classes.<br>
->There are a few artistic adjustments I need to make. After that, I will upload it for viewing. Stay tuned!<br>
++ 3 Class Modeling Diagrams: [Controllers](https://www.jmarcello.dev/img/diagrams/4thwall-controllers.png), [Services](https://www.jmarcello.dev/img/diagrams/4thwall-services.png), and [Repositories](https://www.jmarcello.dev/img/diagrams/4thwall-repositories.png)
++ An [Entity Relatioship Diagram](https://www.jmarcello.dev/img/diagrams/4thwall-erd.png)
++ A [Flow Chart](https://www.jmarcello.dev/img/diagrams/4thwall-bll-flow.png)
+
+The purpose of these is to show that I have put much thought into the features of this application.<br>
+I believe it demonstrates that software engineering is much more than just "coding"<br>
+and involves understanding what clients (both human and computer) want out of their application.<br>
+
+>[!NOTE]
+>Check out my [Docs and Diagrams](https://www.jmarcello.dev/Home/Documentation) page for more!<br>
+##
 
 # [Café API](https://www.jmarcello.dev/Home/CafeAPI)
 This is a REST API that utilizes **ASP.NET Core (Web API)** for its controllers.<br>
