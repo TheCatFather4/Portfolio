@@ -4,7 +4,7 @@
 
 <div class="row text-center" id="headlineRow">
     <div class="mt-3">
-        <img class="img-fluid img-thumbnail" src="~/img/jm1.jpg" id="jmPhoto" />
+        <img class="img-fluid img-thumbnail" src="~/img/jm.jpg" id="jmPhoto" />
     </div>
     <div class="my-3">
         <h2 id="headline">Joseph Marcello: <i>Software Developer</i></h2>
@@ -21,27 +21,35 @@
                 <button type="button" data-bs-target="#carouselProjects" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselProjects" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselProjects" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselProjects" data-bs-slide-to="3" aria-label="Slide 4"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="~/img/cafe.jpg" class="d-block w-100" />
+                    <img src="~/img/slides/cafe.png" class="d-block w-100" />
                     <div class="carousel-caption d-md-block bg-success">
                         <h5><a asp-controller="Home" asp-action="Cafe" class="btn btn-primary">4th Wall Café</a></h5>
                         <p>A full-stack web application made with ASP.NET Core (MVC)</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="~/img/cafeapi.jpg" class="mx-auto d-block w-100" />
+                    <img src="~/img/slides/cafeapi.png" class="mx-auto d-block w-100" />
                     <div class="carousel-caption d-md-block bg-primary">
                         <h5><a asp-controller="Home" asp-action="CafeAPI" class="btn btn-warning">Café API</a></h5>
                         <p>A RESTful API made with ASP.NET Core (Web API)</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="~/img/catpoker.jpg" class="mx-auto d-block w-100" />
+                    <img src="~/img/slides/catpoker.png" class="mx-auto d-block w-100" />
                     <div class="carousel-caption d-md-block bg-secondary">
                         <h5><a href="~/cat-poker/index.html" class="btn btn-info">Cat Poker</a></h5>
                         <p class="text-info">A front-end web application made with HTML, CSS, and JavaScript</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/slides/airport.png" class="mx-auto d-block w-100" />
+                    <div class="carousel-caption d-md-block" id="airport-carousel">
+                        <h5><a asp-controller="Airport" asp-action="Menu" class="btn btn-secondary">Airport Locker Rental</a></h5>
+                        <p class="text-secondary">A "console" application made with ASP.NET Core (MVC)</p>
                     </div>
                 </div>
             </div>
@@ -59,31 +67,31 @@
         <h3 id="skillsHeadline">Languages</h3>
         <div class="d-flex justify-content-evenly">
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/Csharp_Logo.png" class="card-img" />
+                <img src="~/img/logos/csharp.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">C#</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/javaScript_logo.png" class="card-img" />
+                <img src="~/img/logos/javascript.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">JavaScript</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/SQL_LOGO.png" class="card-img" />
+                <img src="~/img/logos/sql.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">SQL</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/HTML5_LOGO.png" class="card-img" />
+                <img src="~/img/logos/html.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">HTML</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/CSS3_logo.png" class="card-img" />
+                <img src="~/img/logos/css.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">CSS</div>
                 </div>
@@ -92,31 +100,31 @@
         <h3 id="skillsHeadline">Frameworks</h3>
         <div class="d-flex justify-content-evenly">
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/dot_NET_logo.png" class="card-img" />
+                <img src="~/img/logos/dotnet.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">.NET</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/ASP_NETCore_logo.png" class="card-img" />
+                <img src="~/img/logos/aspnetcore.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">ASP.NET Core</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/Bootstrap_Logo.png" class="card-img" />
+                <img src="~/img/logos/bootstrap.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Bootstrap</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/dapper_logo.png" class="card-img" />
+                <img src="~/img/logos/dapper.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Dapper</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/EFCore_logo.png" class="card-img" />
+                <img src="~/img/logos/efcore.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">EF Core</div>
                 </div>
@@ -125,31 +133,31 @@
         <h3 id="skillsHeadline">Tools</h3>
         <div class="d-flex justify-content-evenly mb-5">
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/azureds_logo.jpg" class="card-img" />
+                <img src="~/img/logos/ads.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Azure Data Studio</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/docker_logo.png" class="card-img" />
+                <img src="~/img/logos/docker.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Docker</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/postman_logo.png" class="card-img" />
+                <img src="~/img/logos/postman.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Postman</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/vs_logo.png" class="card-img" />
+                <img src="~/img/logos/vs.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Visual Studio 2022</div>
                 </div>
             </div>
             <div class="card" style="width:10rem;" id="imgContainer">
-                <img src="~/img/vscode_logo.png" class="card-img" />
+                <img src="~/img/logos/vscode.png" class="card-img" />
                 <div id="overlay">
                     <div id="text">Visual Studio Code</div>
                 </div>
@@ -162,31 +170,31 @@
         <h3 id="documentationHeadline">Programming Philosophies</h3>
         <div class="d-flex flex-wrap justify-content-evenly">
             <div class="card m-2 border border-4 border-info" style="width:10rem;" id="zoom">
-                <img src="~/img/n-tier_example.png" class="card-img-top" />
+                <img src="~/img/drawings/ntier.png" class="card-img-top" />
                 <div class="card-body">
                     <h6 class="card-title text-info" id="docPageHeadline">N-tier Architecture</h6>
                 </div>
             </div>
             <div class="card m-2 border border-4 border-info" style="width:10rem;" id="zoom">
-                <img src="~/img/oop_example.png" class="card-img-top" />
+                <img src="~/img/drawings/oop.png" class="card-img-top" />
                 <div class="card-body">
                     <h6 class="card-title text-info" id="docPageHeadline">Object Oriented Programming</h6>
                 </div>
             </div>
             <div class="card m-2 border border-4 border-info" style="width:10rem;" id="zoom">
-                <img src="~/img/rdbms_example.png" class="card-img-top" />
+                <img src="~/img/drawings/rdb.png" class="card-img-top" />
                 <div class="card-body">
                     <h6 class="card-title text-info" id="docPageHeadline">Relational Databases</h6>
                 </div>
             </div>
             <div class="card m-2 border border-4 border-info" style="width:10rem;" id="zoom">
-                <img src="~/img/REST_example.png" class="card-img-top" />
+                <img src="~/img/drawings/rest.png" class="card-img-top" />
                 <div class="card-body">
                     <h6 class="card-title text-info" id="docPageHeadline">REST APIs</h6>
                 </div>
             </div>
             <div class="card m-2 border border-4 border-info" style="width:10rem;" id="zoom">
-                <img src="~/img/soc_example.png" class="card-img-top" />
+                <img src="~/img/drawings/soc.png" class="card-img-top" />
                 <div class="card-body">
                     <h6 class="card-title text-info" id="docPageHeadline">Separation of Concerns</h6>
                 </div>
@@ -197,32 +205,32 @@
         <h3 id="documentationHeadline">Documentation and Diagrams</h3>
         <div class="d-flex flex-wrap justify-content-evenly">
             <div class="card" style="width:12rem;" id="imgContainer2">
-                <img src="~/img/cmd_example.png" class="card-img" />
+                <img src="~/img/examples/cmd.png" class="card-img" />
                 <div id="overlay2">
                     <div id="text">Class Modeling Diagrams</div>
                 </div>
             </div>
             <div class="card" style="width:12rem;" id="imgContainer2">
-                <img src="~/img/documentation_example.png" class="card-img" />
+                <img src="~/img/examples/doc.png" class="card-img" />
                 <div id="overlay2">
                     <div id="text">Code Documentation</div>
                 </div>
             </div>
             <div class="card" style="width:12rem;" id="imgContainer2">
-                <img src="~/img/erd_example.png" class="card-img" />
+                <img src="~/img/examples/erd.png" class="card-img" />
                 <div id="overlay2">
                     <div id="text">Entity Relationship Diagrams</div>
                 </div>
             </div>
             <div class="card" style="width:12rem;" id="imgContainer2">
-                <img src="~/img/unittest_example.png" class="card-img" />
+                <img src="~/img/examples/test.png" class="card-img" />
                 <div id="overlay2">
                     <div id="text">Unit Tests</div>
                 </div>
             </div>
         </div>
         <div class="my-5">
-            <a class="btn btn-success" type="submit" id="docPageHeadline" asp-controller="Home" asp-action="Documentation">Check it out here!</a>
+            <a class="btn btn-success" type="submit" id="docPageHeadline" asp-controller="Home" asp-action="Documentation">Go to docs and diagrams</a>
         </div>
     </div>
 </div>
