@@ -85,7 +85,12 @@
     height: 100%;
 }
 
-#imgContainer3:hover #overlay3 {
+#img-container-cafeapi:hover #overlay-cafeapi {
+    bottom: 0;
+    height: 100%;
+}
+
+#img-container-cat:hover #overlay-cat {
     bottom: 0;
     height: 100%;
 }
@@ -158,7 +163,7 @@
     background-color: aquamarine;
 }
 
-#overlay3 {
+#overlay-cafeapi {
     position: absolute;
     overflow: hidden;
     bottom: 50%;
@@ -167,7 +172,19 @@
     height: 0;
     width: 100%;
     transition: .5s ease;
-    background-color: aqua;
+    background-color: deeppink;
+}
+
+#overlay-cat {
+    position: absolute;
+    overflow: hidden;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    height: 0;
+    width: 100%;
+    transition: .5s ease;
+    background-color: #f3f554;
 }
 
 #projectsHeadline {
