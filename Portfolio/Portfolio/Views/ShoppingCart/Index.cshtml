@@ -30,11 +30,11 @@
                         <tr>
                             @if (i.ItemImgPath != null)
                             {
-                                <td><img src="~/item/@i.ItemImgPath" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
+                                <td><img src="~/img/cafe/item/@i.ItemImgPath" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
                             }
                             else
                             {
-                                <td><img src="~/item/newitem.jpg" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
+                                <td><img src="~/img/cafe/item/newitem.jpg" class="img-fluid border border-info rounded me-3" style="width: 6rem" />@i.ItemName</td>
                             }
                             <td style="vertical-align: middle;">$@i.Price</td>
                             <td style="vertical-align: middle;">@i.Quantity</td>
