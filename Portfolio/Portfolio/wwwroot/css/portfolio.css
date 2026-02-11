@@ -16,7 +16,7 @@
     border-bottom: 2.5px solid #acacac;
     font-family: Lucida Console;
     font-style: italic;
-    margin-top: 30px;
+    margin-top: 25px;
     padding-top: 7px;
     padding-bottom: 5px;
 }
@@ -81,6 +81,11 @@
 }
 
 #imgContainer2:hover #overlay2 {
+    bottom: 0;
+    height: 100%;
+}
+
+#img-container-airport:hover #overlay-airport {
     bottom: 0;
     height: 100%;
 }
@@ -161,6 +166,18 @@
     width: 100%;
     transition: .5s ease;
     background-color: aquamarine;
+}
+
+#overlay-airport {
+    position: absolute;
+    overflow: hidden;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    height: 0;
+    width: 100%;
+    transition: .5s ease;
+    background-color: purple;
 }
 
 #overlay-cafeapi {
