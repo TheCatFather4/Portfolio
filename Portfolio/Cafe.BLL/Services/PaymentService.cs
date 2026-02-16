@@ -103,7 +103,7 @@ namespace Cafe.BLL.Services
                 }
                 else if (dto.Amount != order.FinalTotal)
                 {
-                    return ResultFactory.Fail<PaymentResponse>($"You must pay the full amount due of {order.FinalTotal:c}");
+                    return ResultFactory.Fail<PaymentResponse>($"You must pay the correct amount due of {order.FinalTotal:c}");
                 }
                 else if (order.PaymentStatusID == 1)
                 {
