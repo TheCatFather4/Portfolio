@@ -13,19 +13,19 @@
     --bs-dropdown-link-hover-color: darkred;
 }
 
-#navHoverCatPoker {
+#nav-hover-cat-poker {
     --bs-dropdown-link-hover-bg: #033c73;
 }
 
-#navHoverDiagram {
+#nav-hover-diagram {
     --bs-dropdown-link-hover-bg: #4e4e4e;
 }
 
-#navHoverPortfolio {
+#nav-hover-portfolio {
     --bs-dropdown-link-hover-bg: #7b7da7;
 }
 
-#navHoverProfile {
+#nav-hover-profile {
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 

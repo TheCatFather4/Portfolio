@@ -2,6 +2,11 @@
     font-family: serif;
 }
 
+.cafe-home-list {
+    font-family: serif;
+    list-style: none;
+}
+
 .form-check-input:checked {
     background-color: rgb(7, 35, 144);
 }
@@ -34,6 +39,16 @@
     margin-top: 74px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+#cafe-home-lt {
+    color: white;
+    font-size: 20px;
+}
+
+#cafe-home-summary {
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 #cafeTitle {
@@ -158,7 +173,7 @@
     --bs-dropdown-link-hover-color: darkred;
 }
 
-#navHoverCafeApi {
+#nav-hover-cafeapi {
     --bs-dropdown-link-hover-bg: #73a839;
 }
 
@@ -170,19 +185,19 @@
     --bs-dropdown-link-hover-bg: #f1620f;
 }
 
-#navHoverCatPoker {
+#nav-hover-cat-poker {
     --bs-dropdown-link-hover-bg: #033c73;
 }
 
-#navHoverDiagram {
+#nav-hover-diagram {
     --bs-dropdown-link-hover-bg: #4e4e4e;
 }
 
-#navHoverPortfolio {
+#nav-hover-portfolio {
     --bs-dropdown-link-hover-bg: #7b7da7;
 }
 
-#navHoverProfile {
+#nav-hover-profile {
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 

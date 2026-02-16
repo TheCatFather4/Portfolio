@@ -12,35 +12,35 @@
     <div class="container-fluid">
         <header>
             <div class="row">
-                <nav class="navbar navbar-expand-lg" id="navTop">
+                <nav class="navbar navbar-expand-lg" id="nav-top">
                     <button class="navbar-toggler my-2 ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbar02" aria-controls="navbar02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbar02">
-                        <a class="navbar-brand ms-3" id="rentalText">Airport Locker Rental</a>
+                        <a class="navbar-brand ms-3" id="rental-text">Airport Locker Rental</a>
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle link-opacity-50-hover ms-3" id="rentalText" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle link-opacity-50-hover ms-3" id="rental-text" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Portfolio
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="navHoverPortfolio" asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-portfolio" asp-controller="Home" asp-action="Index">Home</a></li>
                                     <li><a class="dropdown-item" asp-controller="Home" asp-action="Cafe">4th Wall Café</a></li>
-                                    <li><a class="dropdown-item" id="navHoverCafeApi" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
-                                    <li><a class="dropdown-item" id="navHoverCatPoker" href="~/cat-poker/index.html">Cat Poker</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-cafeapi" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-cat-poker" href="~/cat-poker/index.html">Cat Poker</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle link-opacity-50-hover ms-3" id="rentalText" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle link-opacity-50-hover ms-3" id="rental-text" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Documentation
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="navHoverDiagram" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
-                                    <li><a class="dropdown-item" id="navHoverProfile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-diagram" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-profile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link-opacity-50-hover mx-3" id="rentalText" asp-controller="Home" asp-action="Contact">Contact Me</a>
+                                <a class="nav-link link-opacity-50-hover mx-3" id="rental-text" asp-controller="Home" asp-action="Contact">Contact Me</a>
                             </li>
                         </ul>
                     </div>
@@ -48,7 +48,7 @@
             </div>
         </header>
         <div class="row">
-            <h1 class="my-5 text-center" id="navBottomText">Airport Locker Rental</h1>
+            <h1 class="my-5 text-center" id="nav-bottom-text">Airport Locker Rental</h1>
         </div>
         <div class="row">
             <div class="col-lg-4">
@@ -57,12 +57,12 @@
                         <div class="border border-2 border-black">
                             <div class="row" id="about">
                                 <div class="text-center">
-                                    <h3 id="aboutText">Directions</h3>
+                                    <h3 id="about-text">Directions</h3>
                                 </div>
                             </div>
                             <div class="row pt-3">
                                 <div class="d-flex justify-content-center">
-                                    <ul style="list-style-type:none" id="navBottomText">
+                                    <ul style="list-style-type:none" id="nav-bottom-text">
                                         <li class="mb-2"><i>To use the "command prompt":</i></li>
                                         <li>1. [tab] to the input field.</li>
                                         <li>(you should see a blinking cursor)</li>
@@ -90,12 +90,12 @@
                         <div class="border border-2 border-black">
                             <div class="row" id="about">
                                 <div class="text-center">
-                                    <h3 id="aboutText">About</h3>
+                                    <h3 id="about-text">About</h3>
                                 </div>
                             </div>
                             <div class="row py-3">
                                 <div class="d-flex justify-content-center">
-                                    <div id="navBottomText">
+                                    <div id="nav-bottom-text">
                                         <div>
                                             This application is a <i>web version</i> of my Airport Locker Rental <a href="https://github.com/TheCatFather4/AirportLockerRental">console app</a>.
                                             The UI was designed to mimic the command prompt window by utilizing ASP.NET Core (MVC), Razor Syntax, and CSS.
@@ -110,8 +110,8 @@
             </div>
             <footer>
                 <div class="row">
-                    <div id="navBottom">
-                        <h5 class="text-center" id="navBottomText">Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                    <div id="nav-bottom">
+                        <h5 class="text-center" id="nav-bottom-text">Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
                     </div>
                 </div>
             </footer>
