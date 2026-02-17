@@ -2,8 +2,8 @@
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio.Models;
 using Portfolio.Models.Cafe.Account;
+using Portfolio.Utilities;
 
 namespace Portfolio.Controllers.Cafe
 {

@@ -1,7 +1,6 @@
 ﻿using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio.Models;
 using Portfolio.Models.Cafe.Reports;
 using Portfolio.Utilities;
 

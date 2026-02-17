@@ -1,7 +1,6 @@
 ﻿using Cafe.Core.DTOs.Requests;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio.Models;
 using Portfolio.Models.Cafe.ShoppingCart;
 using Portfolio.Utilities;
 

@@ -1,7 +1,6 @@
 ﻿using Cafe.Core.DTOs.Filters;
 using Cafe.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio.Models;
 using Portfolio.Models.Cafe.CafeMenu;
 using Portfolio.Utilities;
 
