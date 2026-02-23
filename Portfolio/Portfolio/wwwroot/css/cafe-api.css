@@ -2,7 +2,7 @@
     font-family: Arial;
 }
 
-#bottomAPI {
+#bottom-api {
     margin-top: 50px;
     padding-top: 9px;
     padding-bottom: 1px;
@@ -29,6 +29,6 @@
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 
-#titleAPI {
+#title-api {
     font-family: Arial;
 }

@@ -76,10 +76,6 @@
     margin-top: 50px;
 }
 
-#img-container-skills:hover #overlay-skills {
-    opacity: 1;
-}
-
 #img-container-cafe:hover #overlay-cafe {
     bottom: 0;
     height: 100%;
@@ -98,6 +94,10 @@
 #img-container-cat:hover #overlay-cat {
     bottom: 0;
     height: 100%;
+}
+
+#img-container-skills:hover #overlay-skills {
+    opacity: 1;
 }
 
 #headline {
@@ -141,19 +141,6 @@
 
 #nav-hover-profile {
     --bs-dropdown-link-hover-bg: darkorchid;
-}
-
-#overlay-skills {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: white;
 }
 
 #overlay-cafe {
@@ -202,6 +189,19 @@
     width: 100%;
     transition: .5s ease;
     background-color: #f3f554;
+}
+
+#overlay-skills {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: white;
 }
 
 #projects-headline {
