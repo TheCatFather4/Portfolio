@@ -8,7 +8,7 @@
     padding-bottom: 1px;
 }
 
-#navHoverAirport {
+#nav-hover-airport {
     --bs-dropdown-link-hover-bg: #acacac;
     --bs-dropdown-link-hover-color: darkred;
 }

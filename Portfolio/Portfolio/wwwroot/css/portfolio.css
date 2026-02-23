@@ -34,7 +34,7 @@
             background: #7e7e7e;
         }
 
-#contactHeadline {
+#contact-headline {
     color: darkorchid;
     font-family: Lucida Console;
     font-size: 17px;
@@ -47,40 +47,40 @@
     transform: translate(-50%, -50%);
 }
 
-#docPageAirport {
+#doc-page-airport {
     background-color: #acacac;
 }
 
-    #docPageAirport h2 {
+    #doc-page-airport h2 {
         color: darkred;
         font-family: Lucida Console;
     }
 
-#docPageAirportBorder {
+#doc-page-airport-border {
     border: 3px solid #acacac;
 }
 
-#docPageHeadline {
+#doc-page-headline {
     font-family: Lucida Console;
 }
 
-#documentationHeadline {
+#documentation-headline {
     color: white;
     font-family: Lucida Console;
     margin-top: 40px;
     margin-bottom: 20px;
 }
 
-#documentationRow {
+#documentation-row {
     background: linear-gradient(0deg,#4738ac, #b0a5f6);
     margin-top: 50px;
 }
 
-#imgContainer:hover #overlay {
+#img-container-skills:hover #overlay-skills {
     opacity: 1;
 }
 
-#imgContainer2:hover #overlay2 {
+#img-container-cafe:hover #overlay-cafe {
     bottom: 0;
     height: 100%;
 }
@@ -105,12 +105,12 @@
     font-family: Lucida Console;
 }
 
-#headlineRow {
+#headline-row {
     background: linear-gradient(0deg,#4738ac, #b0a5f6);
     margin-top: 50px;
 }
 
-#jmPhoto {
+#jm-photo {
     height: 200px;
     width: 200px;
 }
@@ -122,7 +122,7 @@
     padding-bottom: 1px;
 }
 
-#navHoverAirport {
+#nav-hover-airport {
     --bs-dropdown-link-hover-bg: #acacac;
     --bs-dropdown-link-hover-color: darkred;
 }
@@ -143,7 +143,7 @@
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 
-#overlay {
+#overlay-skills {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -156,7 +156,7 @@
     background-color: white;
 }
 
-#overlay2 {
+#overlay-cafe {
     position: absolute;
     overflow: hidden;
     bottom: 50%;
@@ -204,21 +204,21 @@
     background-color: #f3f554;
 }
 
-#projectsHeadline {
+#projects-headline {
     color: white;
     font-family: Lucida Console;
     margin-top: 40px;
     margin-bottom: 40px;
 }
 
-#skillsHeadline {
+#skills-headline {
     color: white;
     font-family: Lucida Console;
     margin-bottom: 10px;
     margin-top: 30px;
 }
 
-#skillsRow {
+#skills-row {
     background: linear-gradient(#4738ac, #b0a5f6);
     margin-top: 50px;
 }

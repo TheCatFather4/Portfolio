@@ -168,7 +168,7 @@
         font-size: 2.5rem;
     }
 
-#navHoverAirport {
+#nav-hover-airport {
     --bs-dropdown-link-hover-bg: #acacac;
     --bs-dropdown-link-hover-color: darkred;
 }
