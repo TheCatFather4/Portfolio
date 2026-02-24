@@ -11,31 +11,31 @@
     background-color: rgb(7, 35, 144);
 }
 
-#addItemForm {
+#add-item-form {
     margin-top: 40px;
     font-family: serif;
 }
 
-#bottomImages {
+#bottom-images {
     margin-top: 20px;
 }
 
-#bottomImgContainer:hover #imgOverlay {
+#bottom-img-container:hover #img-overlay {
     opacity: 1;
 }
 
-#bottomImgContainer2:hover #imgOverlay2 {
+#bottom-img-container-2:hover #img-overlay-2 {
     bottom: 0;
     height: 100%;
 }
 
-#bottomRow {
+#bottom-row {
     margin-top: 50px;
     padding-top: 9px;
     padding-bottom: 1px;
 }
 
-#buttonEdit {
+#button-edit {
     margin-top: 74px;
     margin-left: 10px;
     margin-right: 10px;
@@ -51,64 +51,64 @@
     padding-bottom: 25px;
 }
 
-#cafeTitle {
+#cafe-title {
     font-family: serif;
     font-size: 2.5rem;
     margin-top: 10px;
 }
 
-    #cafeTitle span {
+    #cafe-title span {
         font-family: serif;
         font-size: 2.5rem;
         font-style: italic;
         margin-top: 10px;
     }
 
-#cardAdd {
+#card-add {
     border-left: solid 5px #ed19cf;
     border-right: solid 5px #ed19cf;
     border-bottom: solid 5px #ed19cf;
     background-color: #033c73;
 }
 
-#cardBody {
+#card-body {
     border-left: solid 5px #ed19cf;
     border-right: solid 5px #ed19cf;
     background-color: #033c73;
 }
 
-    #cardBody h5 {
+    #card-body h5 {
         font-family: Papyrus;
         color: white;
     }
 
-    #cardBody p {
+    #card-body p {
         font-family: Georgia;
         color: white;
     }
 
-#cardPrice {
+#card-price {
     border: solid 5px #ed19cf;
     background-color: #033c73;
     font-family: 'Lucida Bright';
     color: white;
 }
 
-#cardTop {
+#card-top {
     border: solid 5px #ed19cf;
 }
 
-#cardTop2 {
+#card-top-2 {
     border: solid 5px #ed19cf;
     border-radius: 10px;
 }
 
-#formInput:focus {
+#form-input:focus {
     box-shadow: 0px 0px 12px 4px #ed19cf;
     outline: 0;
 }
 
-#imgOverlay {
+#img-overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -121,7 +121,7 @@
     background-color: #ffb0f4;
 }
 
-#imgOverlay2 {
+#img-overlay-2 {
     position: absolute;
     overflow: hidden;
     bottom: 50%;
@@ -133,7 +133,7 @@
     background-color: hotpink;
 }
 
-#imgText {
+#img-text {
     color: darkorchid;
     font-size: 20px;
     font-family: serif;
@@ -144,7 +144,7 @@
     text-align: center;
 }
 
-#imgUpdate {
+#img-update {
     display: block;
     margin: auto;
     width: 200px;

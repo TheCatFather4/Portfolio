@@ -16,26 +16,26 @@
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="ServerID" />
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="FirstName" id="formInput" />
+                <input type="text" class="form-control" asp-for="FirstName" id="form-input" />
                 <label asp-for="FirstName">First Name</label>
                 <span asp-validation-for="FirstName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="LastName" id="formInput" />
+                <input type="text" class="form-control" asp-for="LastName" id="form-input" />
                 <label asp-for="LastName">Last Name</label>
                 <span asp-validation-for="LastName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="DoB" id="formInput" />
+                <input type="text" class="form-control" asp-for="DoB" id="form-input" />
                 <label asp-for="DoB">Date of Birth</label>
                 <span asp-validation-for="DoB" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" asp-for="HireDate" id="formInput" />
+                <input type="date" class="form-control" asp-for="HireDate" id="form-input" />
                 <label asp-for="HireDate">Hire Date</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" asp-for="TermDate" id="formInput" />
+                <input type="date" class="form-control" asp-for="TermDate" id="form-input" />
                 <label asp-for="TermDate">Termination Date</label>
                 <span asp-validation-for="TermDate" id="validationText"></span>
             </div>

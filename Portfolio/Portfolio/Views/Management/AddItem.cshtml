@@ -15,41 +15,41 @@
             <div asp-validation-summary="ModelOnly"></div>
             @Html.AntiForgeryToken()
             <div class="form-floating mb-3">
-                <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="formInput">
+                <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="form-input">
                     <option value=""></option>
                 </select>
                 <label asp-for="SelectedCategoryID">Category</label>
                 <span asp-validation-for="SelectedCategoryID" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" asp-for="Name" class="form-control" id="formInput" />
+                <input type="text" asp-for="Name" class="form-control" id="form-input" />
                 <label asp-for="Name">Item Name</label>
                 <span asp-validation-for="Name" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" asp-for="Description" class="form-control" id="formInput" />
+                <input type="text" asp-for="Description" class="form-control" id="form-input" />
                 <label asp-for="Description" class="form-label">Item Description</label>
                 <span asp-validation-for="Description" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimeOfDays" class="form-control" id="formInput">
+                <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimeOfDays" class="form-control" id="form-input">
                     <option value=""></option>
                 </select>
                 <label asp-for="SelectedTimeOfDayID">Time of Day</label>
                 <span asp-validation-for="SelectedTimeOfDayID" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" asp-for="Price" class="form-control" id="formInput" />
+                <input type="text" asp-for="Price" class="form-control" id="form-input" />
                 <label asp-for="Price">Price</label>
                 <span asp-validation-for="Price" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" asp-for="Start" class="form-control" id="formInput" />
+                <input type="text" asp-for="Start" class="form-control" id="form-input" />
                 <label asp-for="Start">Start Date</label>
                 <span asp-validation-for="Start" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" asp-for="End" class="form-control" id="formInput" />
+                <input type="text" asp-for="End" class="form-control" id="form-input" />
                 <label asp-for="End">End Date</label>
                 <span asp-validation-for="End" id="validationText"></span>
             </div>

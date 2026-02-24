@@ -18,7 +18,7 @@
                 <form asp-controller="Reports" asp-action="ItemCategorySales" method="post">
                     @Html.AntiForgeryToken()
                     <div class="form-floating mb-3">
-                        <select asp-for="SelectedItemID" asp-items="Model.Items" class="form-control" id="formInput">
+                        <select asp-for="SelectedItemID" asp-items="Model.Items" class="form-control" id="form-input">
                             <option value=""></option>
                         </select>
                         <label asp-for="SelectedItemID">Items</label>
@@ -35,7 +35,7 @@
                 <form asp-controller="Reports" asp-action="ItemCategorySales" method="post">
                     @Html.AntiForgeryToken()
                     <div class="form-floating mb-3">
-                        <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="formInput">
+                        <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="form-input">
                             <option value=""></option>
                         </select>
                         <label asp-for="SelectedCategoryID">Categories</label>

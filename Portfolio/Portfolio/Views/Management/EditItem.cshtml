@@ -17,12 +17,12 @@
             <input type="hidden" asp-for="ItemID" />
             <input type="hidden" asp-for="CategoryID" />
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="ItemName" id="formInput" />
+                <input type="text" class="form-control" asp-for="ItemName" id="form-input" />
                 <label asp-for="ItemName">Item Name</label>
                 <span asp-validation-for="ItemName" id="validationText"></span>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" asp-for="ItemDescription" id="formInput" />
+                <input type="text" class="form-control" asp-for="ItemDescription" id="form-input" />
                 <label asp-for="ItemDescription">Description</label>
                 <span asp-validation-for="ItemDescription" id="validationText"></span>
             </div>
@@ -33,7 +33,7 @@
                 <input type="hidden" asp-for="Prices[i].ItemID" />
                 <input type="hidden" asp-for="Prices[i].TimeOfDayID" />
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" asp-for="Prices[i].Price" id="formInput" />
+                    <input type="text" class="form-control" asp-for="Prices[i].Price" id="form-input" />
                     <label asp-for="Prices[i].Price">Price</label>
                     <span asp-validation-for="Prices[i].Price" id="validationText"></span>
                 </div>

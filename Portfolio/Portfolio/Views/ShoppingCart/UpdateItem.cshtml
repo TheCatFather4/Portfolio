@@ -10,11 +10,11 @@
         <h3 class="my-3">@Model.ItemName</h3>
         @if (Model.ItemImgPath != null)
         {
-            <img src="~/img/cafe/item/@Model.ItemImgPath" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+            <img src="~/img/cafe/item/@Model.ItemImgPath" class="rounded border border-primary border-3 mb-2" id="img-update" />
         }
         else
         {
-            <img src="~/img/cafe/item/newitem.jpg" class="rounded border border-primary border-3 mb-2" id="imgUpdate" />
+            <img src="~/img/cafe/item/newitem.jpg" class="rounded border border-primary border-3 mb-2" id="img-update" />
         }
         <h5 class="my-3"><span class="me-3">Price: $@Model.Price</span><span class="mx-3">Quantity: @Model.Quantity</span><span class="ms-3">Total: $@(Model.Price* Model.Quantity)</span></h5>
     </div>
@@ -22,7 +22,7 @@
 <div class="container">
     <div class="row">
         <div class="d-flex justify-content-evenly border border-info border-3 rounded bg-primary p-3">
-            <div id="buttonEdit">
+            <div id="button-edit">
                 <a class="btn btn-success" type="submit" asp-controller="ShoppingCart" asp-action="Index">Back to Shopping Cart</a>
             </div>
             <div>
@@ -31,7 +31,7 @@
                     <input type="hidden" asp-for="CustomerID" />
                     <input type="hidden" asp-for="ShoppingBagItemID" />
                     <div class="form-floating mb-3">
-                        <input type="number" asp-for="Quantity" class="form-control" id="formInput" />
+                        <input type="number" asp-for="Quantity" class="form-control" id="form-input" />
                         <label asp-for="Quantity"></label>
                         <span asp-validation-for="Quantity" id="validationText"></span>
                     </div>
@@ -41,7 +41,7 @@
                     <button class="btn btn-warning">Update Item Quantity</button>
                 </form>
             </div>
-            <div id="buttonEdit">
+            <div id="button-edit">
                 <form asp-controller="ShoppingCart" asp-action="DeleteItem" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="CustomerID" />

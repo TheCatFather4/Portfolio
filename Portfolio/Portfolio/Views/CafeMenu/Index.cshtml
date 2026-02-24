@@ -22,19 +22,19 @@
             <form asp-controller="CafeMenu" asp-action="Index" method="post">
                 @Html.AntiForgeryToken()
                 <div class="form-floating mb-3">
-                    <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="formInput">
+                    <select asp-for="SelectedCategoryID" asp-items="Model.Categories" class="form-control" id="form-input">
                         <option value=""></option>
                     </select>
                     <label asp-for="SelectedCategoryID">Category</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimesOfDays" class="form-control" id="formInput">
+                    <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimesOfDays" class="form-control" id="form-input">
                         <option value=""></option>
                     </select>
                     <label asp-for="SelectedTimeOfDayID">Time of Day</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" asp-for="Date" id="formInput" />
+                    <input type="text" class="form-control" asp-for="Date" id="form-input" />
                     <label asp-for="Date">Date  (mm/dd/yyyy)</label>
                 </div>
                 <div>
@@ -54,25 +54,25 @@
                 <div class="card" style="width: 18rem;">
                     @if (i.ItemImgPath != null)
                     {
-                        <img src="~/img/cafe/item/@i.ItemImgPath" class="card-img-top" id="cardTop" />
+                        <img src="~/img/cafe/item/@i.ItemImgPath" class="card-img-top" id="card-top" />
                     }
                     else
                     {
-                        <img src="~/img/cafe/item/newitem.jpg" class="card-img-top" id="cardTop" />
+                        <img src="~/img/cafe/item/newitem.jpg" class="card-img-top" id="card-top" />
                     }
-                    <div class="card-body" id="cardBody">
+                    <div class="card-body" id="card-body">
                         <h5 class="card-title">@i.ItemName</h5>
                         <p class="card-text">@i.ItemDescription</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         @foreach (var p in i.Prices)
                         {
-                            <li class="list-group-item" id="cardPrice">$@p.Price</li>
+                            <li class="list-group-item" id="card-price">$@p.Price</li>
                         }
                     </ul>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div id="cardAdd" class="py-2">
+                        <div id="card-add" class="py-2">
                             <a class="btn btn-success" type="submit" asp-controller="ShoppingCart" asp-action="AddItem" asp-route-itemId="@i.ItemID">
                                 Add to Cart
                             </a>
@@ -80,7 +80,7 @@
                     }
                     else
                     {
-                        <div id="cardAdd" class="py-2">
+                        <div id="card-add" class="py-2">
                             <a class="btn btn-success" type="submit" asp-controller="Account" asp-action="Login" asp-route-itemId="@i.ItemID">
                                 Add to Cart
                             </a>

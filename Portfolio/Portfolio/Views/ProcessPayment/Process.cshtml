@@ -17,14 +17,14 @@
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="OrderId" />
                 <div class="form-floating mb-3">
-                    <select asp-for="PaymentTypeId" asp-items="Model.PaymentTypes" class="form-control" id="formInput">
+                    <select asp-for="PaymentTypeId" asp-items="Model.PaymentTypes" class="form-control" id="form-input">
                         <option value=""></option>
                     </select>
                     <label asp-for="PaymentTypeId">Payment Method</label>
                     <span asp-validation-for="PaymentTypeId" id="validationText"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" asp-for="Amount" class="form-control" id="formInput" />
+                    <input type="text" asp-for="Amount" class="form-control" id="form-input" />
                     <label asp-for="Amount">Amount</label>
                     <span asp-validation-for="Amount" id="validationText"></span>
                 </div>
