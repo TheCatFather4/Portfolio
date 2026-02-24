@@ -1,0 +1,42 @@
+﻿#battleship-text {
+    color: #160071;
+}
+
+#nav-bottom {
+    background: #9fd4fc;
+    padding-top: 9px;
+    padding-bottom: 1px;
+}
+
+#nav-hover-airport {
+    --bs-dropdown-link-hover-bg: #acacac;
+    --bs-dropdown-link-hover-color: darkred;
+}
+
+#nav-hover-cafe-api {
+    --bs-dropdown-link-hover-bg: #73a839;
+}
+
+#nav-hover-cat-poker {
+    --bs-dropdown-link-hover-bg: #033c73;
+}
+
+#nav-hover-diagram {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+}
+
+#nav-hover-portfolio {
+    --bs-dropdown-link-hover-bg: #7b7da7;
+}
+
+#nav-hover-profile {
+    --bs-dropdown-link-hover-bg: darkorchid;
+}
+
+#nav-top {
+    background: #9fd4fc;
+}
+
+#row-bg {
+    background: #160071;
+}
