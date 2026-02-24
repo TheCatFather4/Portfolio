@@ -13,6 +13,11 @@
     --bs-dropdown-link-hover-color: darkred;
 }
 
+#nav-hover-battleship {
+    --bs-dropdown-link-hover-bg: #9fd4fc;
+    --bs-dropdown-link-hover-color: #160071;
+}
+
 #nav-hover-cat-poker {
     --bs-dropdown-link-hover-bg: #033c73;
 }

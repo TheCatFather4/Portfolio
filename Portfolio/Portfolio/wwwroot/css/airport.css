@@ -48,6 +48,11 @@
     font-family: Lucida Sans Typewriter;
 }
 
+#nav-hover-battleship {
+    --bs-dropdown-link-hover-bg: #9fd4fc;
+    --bs-dropdown-link-hover-color: #160071;
+}
+
 #nav-hover-cafeapi {
     --bs-dropdown-link-hover-bg: #73a839;
 }
