@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/battleship.css" rel="stylesheet" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <div class="row">
+                <nav class="navbar navbar-expand-lg" id="nav-top">
+                    <button class="navbar-toggler my-2 ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbar02" aria-controls="navbar02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar02">
+                        <a class="navbar-brand ms-3" id="battleship-text">Battleship</a>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle link-opacity-50-hover ms-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Portfolio
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="nav-hover-portfolio" asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Cafe">4th Wall Café</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-airport" asp-controller="Home" asp-action="Airport">Airport Locker Rental</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-cafe-api" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-cat-poker" href="~/cat-poker/index.html">Cat Poker</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle link-opacity-50-hover ms-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Documentation
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="nav-hover-diagram" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-profile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-opacity-50-hover mx-3" asp-controller="Home" asp-action="Contact">Contact Me</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main>
+            @RenderBody()
+        </main>
+        <footer>
+            <div class="row" id="nav-bottom">
+                <div>
+                    <h5 class="text-center" id="battleship-text">Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -17,6 +17,15 @@ namespace Portfolio.Controllers
         }
 
         /// <summary>
+        /// Takes the user to the Battleship main page.
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Battleship()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// Takes the user to the 4th Wall Café main page.
         /// </summary>
         /// <returns></returns>
