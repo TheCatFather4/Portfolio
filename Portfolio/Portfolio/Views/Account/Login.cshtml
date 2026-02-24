@@ -6,7 +6,7 @@
 }
 
 <div class="row">
-    <div class="text-center my-3" id="titleSection">
+    <div class="text-center my-3" id="title-section">
         <h2>Log In</h2>
         <h5 class="text-success mt-2">New Customer? <a asp-controller="Account" asp-action="Register">Register Here</a></h5>
     </div>
@@ -19,12 +19,12 @@
                 <div class="form-floating mb-3">
                     <input asp-for="Email" class="form-control" id="form-input" />
                     <label asp-for="Email">Email</label>
-                    <span asp-validation-for="Email" id="validationText"></span>
+                    <span asp-validation-for="Email" id="validation-text"></span>
                 </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Password" class="form-control" id="form-input" />
                     <label asp-for="Password">Password</label>
-                    <span asp-validation-for="Password" id="validationText"></span>
+                    <span asp-validation-for="Password" id="validation-text"></span>
                 </div>
                 <div class="checkbox mb-3">
                     <label asp-for="RememberMe" class="form-label">
@@ -42,7 +42,7 @@
 </div>
 <div class="row">
     <div class="bg-info mt-5 pt-3 pb-1">
-        <div class="text-center text-light" id="noteLogin">
+        <div class="text-center text-light" id="note-login">
             <p><b>Note:</b> If you would like to access the sales reports or management area, it requres a special role for authorization.</p>
             <p>
                 Below are some sample accounts you may use to try them out!<br />

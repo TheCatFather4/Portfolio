@@ -150,19 +150,19 @@
     width: 200px;
 }
 
-#menuButtonHome {
+#menu-button-home {
     font-size: 1.5rem;
     font-family: serif;
 }
 
-#menuTitle {
+#menu-title {
     font-family: serif;
     font-size: 2.5rem;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-    #menuTitle span {
+    #menu-title span {
         font-family: serif;
         font-style: italic;
         font-size: 2.5rem;
@@ -177,11 +177,11 @@
     --bs-dropdown-link-hover-bg: #73a839;
 }
 
-#navHoverCafeProfile {
+#nav-hover-cafe-profile {
     --bs-dropdown-link-hover-bg: #1137ee;
 }
 
-#navHoverCart {
+#nav-hover-cart {
     --bs-dropdown-link-hover-bg: #f1620f;
 }
 
@@ -201,57 +201,57 @@
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 
-#noItemsCart {
+#no-items-cart {
     font-family: serif;
     font-size: 1.5rem;
 }
 
-#noteLogin {
+#note-login {
     font-size: 1.1rem;
     font-family: serif;
 }
 
-#register1 {
+#register-1 {
     font-size: 1.25rem;
     margin-top: 5px;
 }
 
-#reportTitle {
+#report-title {
     margin-bottom: 30px;
     margin-top: 10px;
 }
 
-#reportTitle2 {
+#report-title-2 {
     margin-bottom: 30px;
     margin-top: 35px;
 }
 
-#revenueResult {
+#revenue-result {
     font-family: serif;
     font-size: 1.5rem;
 }
 
-#titleSection {
+#title-section {
     font-family: serif;
 }
 
-#updateItemForm1 {
+#update-item-form-1 {
     margin-top: 30px;
     font-family: serif;
 }
 
-#updateItemForm2 {
+#update-item-form-2 {
     margin-top: 80px;
     font-family: serif;
 }
 
-#validationText {
+#validation-text {
     color: darkviolet;
     font-size: 16px;
     font-weight: bold;
 }
 
-#validationText2 {
+#validation-text-2 {
     color: mediumspringgreen;
     font-size: 16px;
     font-weight: bold;

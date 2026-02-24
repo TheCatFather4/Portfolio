@@ -6,7 +6,7 @@
 }
 
 <div class="row">
-    <div class="text-center" id="titleSection">
+    <div class="text-center" id="title-section">
         <h3 class="my-3">@Model.ItemName</h3>
         @if (Model.ItemImgPath != null)
         {
@@ -33,7 +33,7 @@
                     <div class="form-floating mb-3">
                         <input type="number" asp-for="Quantity" class="form-control" id="form-input" />
                         <label asp-for="Quantity"></label>
-                        <span asp-validation-for="Quantity" id="validationText"></span>
+                        <span asp-validation-for="Quantity" id="validation-text"></span>
                     </div>
                     <input type="hidden" asp-for="ItemName" />
                     <input type="hidden" asp-for="ItemImgPath" />

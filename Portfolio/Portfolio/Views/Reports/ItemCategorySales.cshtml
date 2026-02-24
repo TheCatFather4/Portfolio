@@ -7,8 +7,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="text-center mb-3" id="titleSection">
-            <h2 id="reportTitle2">Item and Category Revenue</h2>
+        <div class="text-center mb-3" id="title-section">
+            <h2 id="report-title-2">Item and Category Revenue</h2>
             <h5 class="text-success">Select the appropriate form to view a corresponding sales report.</h5>
         </div>
     </div>
@@ -72,11 +72,11 @@
                     }
                 </tbody>
             </table>
-            <div class="text-center" id="revenueResult">
+            <div class="text-center" id="revenue-result">
                 <div>Total Quantity Sold: <span class="text-success">@Model.TotalQuantity</span></div>
                 <div>Total Revenue: <span class="text-success">$@Model.TotalRevenue</span></div>
             </div>
-            <div class="text-center" id="titleSection">
+            <div class="text-center" id="title-section">
                 <h5 class="mt-2 text-info">Try out the online ordering feature with this account to see more data persistence in action!</h5>
                 <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
                 <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>
@@ -86,7 +86,7 @@
         {
             @foreach (var report in Model.CategoryReports)
             {
-                <p id="revenueResult">Item: <span class="text-success">@report.ItemName</span></p>
+                <p id="revenue-result">Item: <span class="text-success">@report.ItemName</span></p>
                 <table class="table table-striped table-success table-bordered">
                     <thead>
                         <tr>
@@ -109,11 +109,11 @@
                     </tbody>
                 </table>
             }
-            <div class="text-center mb-3" id="revenueResult">
+            <div class="text-center mb-3" id="revenue-result">
                 <div>Total Quantity Sold: <span class="text-success">@Model.TotalQuantity</span></div>
                 <div>Total Revenue: <span class="text-success">$@Model.TotalRevenue</span></div>
             </div>
-            <div class="text-center" id="titleSection">
+            <div class="text-center" id="title-section">
                 <h5 class="mt-2 text-info">Try out the online ordering feature with this account to see more data persistence in action!</h5>
                 <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
                 <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>

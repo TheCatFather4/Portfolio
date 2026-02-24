@@ -7,8 +7,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="my-4 text-center" id="titleSection">
-            <h2 id="reportTitle">Sales Reports by Date</h2>
+        <div class="my-4 text-center" id="title-section">
+            <h2 id="report-title">Sales Reports by Date</h2>
             <h4 class="text-success">Enter a date to display a corresponding sales report.</h4>
             <p>If you cannot find a sales report, try an example date such as: <b>10/16/2025</b></p>
             <p>Or use the <a asp-controller="Reports" asp-action="ItemCategorySales">Item/Category report form</a> to find some dates to try out.</p>
@@ -21,7 +21,7 @@
                 <div class="form-floating mb-3">
                     <input type="date" class="form-control" asp-for="OrderDate" id="form-input" />
                     <label asp-for="OrderDate">Order Date</label>
-                    <span asp-validation-for="OrderDate" id="validationText"></span>
+                    <span asp-validation-for="OrderDate" id="validation-text"></span>
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-success me-2">Show Report</button>
@@ -61,10 +61,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mb-3 text-center" id="titleSection">
+            <div class="mb-3 text-center" id="title-section">
                 <h3>The total revenue for @Model.OrderDate.Value.ToShortDateString() is <span class="text-success">$@Model.TotalRevenue</span>.</h3>
             </div>
-            <div class="text-center" id="titleSection">
+            <div class="text-center" id="title-section">
                 <h5 class="mt-2 text-info">Try out the online ordering feature with this account to see more data persistence in action!</h5>
                 <a class="btn btn-warning m-2" type="submit" asp-controller="ShoppingCart" asp-action="Index">Order Now</a>
                 <p><b>Note: </b>Only orders with a status of <span class="text-success">Paid</span> will be displayed.</p>
@@ -73,7 +73,7 @@
     }
     else if (Model.OrderDate != null)
     {
-        <div class="row" id="titleSection">
+        <div class="row" id="title-section">
             <div class="my-3 text-center">
                 <h4><span class="text-danger">There are no sales reports for @Model.OrderDate?.ToShortDateString()</span></h4>
             </div>

@@ -7,7 +7,7 @@
 
 @if (Model.PaymentStatusId != 2)
 {
-    <div class="text-center my-5" id="titleSection">
+    <div class="text-center my-5" id="title-section">
         <h3>Before we prepare your order for payment, would you like to add a tip?</h3>
         <h3 class="text-success mt-3">SubTotal: $@Model.TipFormTotal.ToString("F2") (After Tax)</h3>
         <p>10% Tip = $@Model.TipTen.ToString("F2")<br />15% Tip = $@Model.TipFifteen.ToString("F2")<br />20% Tip = $@Model.TipTwenty.ToString("F2")</p>
@@ -23,7 +23,7 @@
                 <div class="form-floating mb-3">
                     <input type="string" class="form-control" asp-for="Tip" value="0.00" id="form-input" />
                     <label asp-for="Tip">Tip</label>
-                    <span asp-validation-for="Tip" id="validationText"></span>
+                    <span asp-validation-for="Tip" id="validation-text"></span>
                 </div>
                 <input type="hidden" asp-for="FinalTotal" />
                 <input type="hidden" asp-for="PaymentStatusId" />
@@ -41,7 +41,7 @@
 }
 else
 {
-    <div class="text-center my-5" id="titleSection">
+    <div class="text-center my-5" id="title-section">
         <h2>Order Summary</h2>
     </div>
     <div class="container">
@@ -68,7 +68,7 @@ else
     </div>
     <div class="text-center my-3">
         <div>
-            <h3><a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId" class="btn btn-success" id="titleSection">Go to Payment</a></h3>
+            <h3><a asp-controller="ProcessPayment" asp-action="Process" asp-route-orderId="@Model.OrderId" class="btn btn-success" id="title-section">Go to Payment</a></h3>
         </div>
     </div>
 }

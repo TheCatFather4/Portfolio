@@ -6,7 +6,7 @@
 }
 
 <div class="container">
-    <div class="text-center my-4" id="titleSection">
+    <div class="text-center my-4" id="title-section">
         <h1>Edit @Model.ItemName</h1>
         <h4 class="text-info">Use the form below to make adjustments</h4>
     </div>
@@ -19,12 +19,12 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="ItemName" id="form-input" />
                 <label asp-for="ItemName">Item Name</label>
-                <span asp-validation-for="ItemName" id="validationText"></span>
+                <span asp-validation-for="ItemName" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" asp-for="ItemDescription" id="form-input" />
                 <label asp-for="ItemDescription">Description</label>
-                <span asp-validation-for="ItemDescription" id="validationText"></span>
+                <span asp-validation-for="ItemDescription" id="validation-text"></span>
             </div>
             <input type="hidden" asp-for="ItemImgPath" />
             @for (int i = 0; i < Model.Prices.Count; i++)
@@ -35,7 +35,7 @@
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" asp-for="Prices[i].Price" id="form-input" />
                     <label asp-for="Prices[i].Price">Price</label>
-                    <span asp-validation-for="Prices[i].Price" id="validationText"></span>
+                    <span asp-validation-for="Prices[i].Price" id="validation-text"></span>
                 </div>
                 <input type="hidden" asp-for="Prices[i].StartDate" />
                 <input type="hidden" asp-for="Prices[i].EndDate" />

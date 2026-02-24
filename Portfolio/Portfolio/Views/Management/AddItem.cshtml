@@ -6,7 +6,7 @@
 }
 
 <div class="container">
-    <div class="text-center my-4" id="titleSection">
+    <div class="text-center my-4" id="title-section">
         <h1>Add New Item</h1>
         <h4 class="text-info">Add items to the menu using the form below</h4>
     </div>
@@ -19,39 +19,39 @@
                     <option value=""></option>
                 </select>
                 <label asp-for="SelectedCategoryID">Category</label>
-                <span asp-validation-for="SelectedCategoryID" id="validationText"></span>
+                <span asp-validation-for="SelectedCategoryID" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="Name" class="form-control" id="form-input" />
                 <label asp-for="Name">Item Name</label>
-                <span asp-validation-for="Name" id="validationText"></span>
+                <span asp-validation-for="Name" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="Description" class="form-control" id="form-input" />
                 <label asp-for="Description" class="form-label">Item Description</label>
-                <span asp-validation-for="Description" id="validationText"></span>
+                <span asp-validation-for="Description" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <select asp-for="SelectedTimeOfDayID" asp-items="Model.TimeOfDays" class="form-control" id="form-input">
                     <option value=""></option>
                 </select>
                 <label asp-for="SelectedTimeOfDayID">Time of Day</label>
-                <span asp-validation-for="SelectedTimeOfDayID" id="validationText"></span>
+                <span asp-validation-for="SelectedTimeOfDayID" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="Price" class="form-control" id="form-input" />
                 <label asp-for="Price">Price</label>
-                <span asp-validation-for="Price" id="validationText"></span>
+                <span asp-validation-for="Price" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="Start" class="form-control" id="form-input" />
                 <label asp-for="Start">Start Date</label>
-                <span asp-validation-for="Start" id="validationText"></span>
+                <span asp-validation-for="Start" id="validation-text"></span>
             </div>
             <div class="form-floating mb-3">
                 <input type="text" asp-for="End" class="form-control" id="form-input" />
                 <label asp-for="End">End Date</label>
-                <span asp-validation-for="End" id="validationText"></span>
+                <span asp-validation-for="End" id="validation-text"></span>
             </div>
             <div>
                 <button class="btn btn-success me-3">Add</button>
