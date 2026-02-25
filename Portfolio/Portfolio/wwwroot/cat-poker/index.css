@@ -185,6 +185,11 @@
     --bs-dropdown-link-hover-color: darkred;
 }
 
+#nav-battleship {
+        --bs-dropdown-link-hover-bg: #9fd4fc;
+    --bs-dropdown-link-hover-color: #160071;
+}
+
 #nav-cafe {
     --bs-dropdown-link-hover-bg: #2fa4e7;
 }

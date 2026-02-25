@@ -1,4 +1,8 @@
-﻿#about {
+﻿body {
+    font-family: Bookman Old Style;
+}
+
+#about {
     background: #9fd4fc;
 }
 
