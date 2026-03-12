@@ -1,11 +1,9 @@
-# Portfolio
+# :keyboard: [Portfolio](https://www.jmarcello.dev) :briefcase:
 
 ## About
 This is my software developer portfolio website.<br>
-It currently features **4 software applications** that I have built with _much care_.<br>
-I built all of these applications from scratch and I can elucidate every detail of them.<br>
+It currently features **5 software applications** that I have built with _much care_.<br>
 I am continually updating the site regularly, so check back frequently for new features!<br>
-
 ##
 
 ---> **Visit my site at** [https://www.jmarcello.dev](https://www.jmarcello.dev) <---
@@ -16,7 +14,7 @@ I am continually updating the site regularly, so check back frequently for new f
 
 ## Featured Software Applications
 
-# [The 4th Wall Café](https://www.jmarcello.dev/Home/Cafe)
+# :coffee: [The 4th Wall Café](https://www.jmarcello.dev/Home/Cafe) :bagel:
 This is a _full-stack_ web application that utilizes **ASP.NET Core (MVC)** for the _front-end_ portion.<br>
 The _back-end_ is written in **C#** and utilizes both **Entity Framework Core** and **Dapper** (Micro-ORM) for data persistence.<br>
 **ASP.NET Core Identity** is also utilized for authentication and authorization.<br>
@@ -111,7 +109,7 @@ and involves understanding what clients (both human and computer) want out of th
 >Check out my [Docs and Diagrams](https://www.jmarcello.dev/Home/Documentation) page for more!<br>
 ##
 
-# [Café API](https://www.jmarcello.dev/Home/CafeAPI)
+# :tea: [Café API](https://www.jmarcello.dev/Home/CafeAPI) :computer:
 This is a REST API that utilizes **ASP.NET Core (Web API)** for its controllers.<br>
 It uses **The 4th Wall Café** [_back-end_](https://github.com/TheCatFather4/Portfolio/blob/main/README.md#layered-architecture) for its business logic and data persistence.<br>
 **ASP.NET Core Identity** is also used for authentication and authorization.
@@ -141,7 +139,7 @@ The above link will take you to the Swagger documentation linked to my website, 
 I also have a [Class Modeling Diagram](https://www.jmarcello.dev/img/diagrams/cafeapi-controllers.png) for the API Controllers.<br>
 ##
 
-# [Cat Poker](https://www.jmarcello.dev/cat-poker/index.html)
+# :cat: [Cat Poker](https://www.jmarcello.dev/cat-poker/index.html) :cat2:
 This is a _front-end_ web application that is written in **HTML**, **CSS**, and **JavaScript**.<br>
 The **Boostrap** framework is used for columns, rows, and _responsiveness_.<br>
 
@@ -163,7 +161,7 @@ I drew up some pseudo-classes for the diagram that organizes the functions by re
 Check it out here --->[Cat Poker "Function" Modeling Diagram](https://jmarcello.dev/diagrams/catPokerFmd.png)<---<br>
 ##
 
-## Responsive Web Design
+## :iphone: Responsive Web Design
 I utilized Bootstrap in order to make this application responsive.<br>
 Players can enjoy this game on any screen size without a magnifying glass.<br>
 
@@ -171,7 +169,7 @@ Players can enjoy this game on any screen size without a magnifying glass.<br>
 
 ##
 
-# [Airport Locker Rental](https://www.jmarcello.dev/airport/menu)
+# :airplane: [Airport Locker Rental](https://www.jmarcello.dev/airport/menu) :lock: :key:
 This is the _MVC version_ of my Airport Locker Rental application.<br>
 If you would like to see the repository for my console version, click here ---->[Airport Locker Rental Console Version](https://www.github.com/thecatfather4/airportlockerrental)<----<br>
 
