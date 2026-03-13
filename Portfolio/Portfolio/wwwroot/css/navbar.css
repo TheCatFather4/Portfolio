@@ -1,0 +1,43 @@
+﻿#nav-portfolio {
+    background-color: #7b7da7;
+    font-family: Lucida Console;
+}
+
+#nav-bottom-portfolio {
+    background-color: #7b7da7;
+    font-family: Lucida Console;
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    text-align: center;
+}
+
+    #nav-bottom-portfolio h5 {
+        color: white;
+    }
+
+#nav-hover-airport {
+    --bs-dropdown-link-hover-bg: #acacac;
+    --bs-dropdown-link-hover-color: darkred;
+}
+
+#nav-hover-battleship {
+    --bs-dropdown-link-hover-bg: #9fd4fc;
+    --bs-dropdown-link-hover-color: #160071;
+}
+
+#nav-hover-cafe-api {
+    --bs-dropdown-link-hover-bg: #73a839;
+}
+
+#nav-hover-cat-poker {
+    --bs-dropdown-link-hover-bg: #033c73;
+}
+
+#nav-hover-contact {
+    --bs-dropdown-link-hover-bg: darkorchid;
+}
+
+#nav-hover-docs {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+}

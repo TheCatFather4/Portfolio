@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="~/img/icons/hazelnut.png" rel="icon" type="image/x-icon" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/navbar.css" rel="stylesheet" />
     <link href="~/css/portfolio.css" rel="stylesheet" />
     <title>@ViewData["Title"]</title>
 </head>
@@ -12,12 +13,12 @@
     <div class="container-fluid">
         <header>
             <div class="row">
-                <nav class="navbar navbar-expand-lg">
+                <nav class="navbar navbar-expand-lg" id="nav-portfolio">
                     <button class="navbar-toggler my-2 ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbar01" aria-controls="navbar01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbar01">
-                        <a class="navbar-brand text-white ms-3" id="doc-page-headline">Portfolio</a>
+                        <a class="navbar-brand text-white ms-3">Portfolio</a>
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
                                 <a class="nav-link link-light link-opacity-50-hover ms-3" asp-controller="Home" asp-action="Index">Home</a>
@@ -30,7 +31,7 @@
                                     <li><a class="dropdown-item" id="navHoverCafe" asp-controller="Home" asp-action="Cafe">4th Wall Café</a></li>
                                     <li><a class="dropdown-item" id="nav-hover-airport" asp-controller="Airport" asp-action="Menu">Airport Locker Rental</a></li>
                                     <li><a class="dropdown-item" id="nav-hover-battleship" asp-controller="Home" asp-action="Battleship">Battleship</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-cafeapi" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-cafe-api" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
                                     <li><a class="dropdown-item" id="nav-hover-cat-poker" href="~/cat-poker/index.html">Cat Poker</a></li>
                                 </ul>
                             </li>
@@ -39,8 +40,8 @@
                                     Documentation
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="nav-hover-diagram" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-profile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-docs" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-contact" href="https://www.github.com/TheCatFather4">GitHub Repositories</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -54,8 +55,8 @@
         @RenderBody()
         <footer>
             <div class="row">
-                <div id="nav-bottom">
-                    <h5 class="text-light text-center" id="doc-page-headline">Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                <div id="nav-bottom-portfolio">
+                    <h5>Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
                 </div>
             </div>
         </footer>

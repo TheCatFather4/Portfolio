@@ -1,9 +1,4 @@
-﻿nav {
-    background-color: #7b7da7;
-    font-family: Lucida Console;
-}
-
-.airport-headline {
+﻿.airport-headline {
     color: darkred;
     font-family: Lucida Console;
     margin-top: 20px;
@@ -14,7 +9,7 @@
     color: darkred;
     border-top: 2.5px solid #acacac;
     border-bottom: 2.5px solid #acacac;
-    font-family: Lucida Console;
+    font-family: Lucida Sans Typewriter;
     font-style: italic;
     margin-top: 25px;
     padding-top: 7px;
@@ -53,11 +48,36 @@
 
     #doc-page-airport h2 {
         color: darkred;
-        font-family: Lucida Console;
+        font-family: Lucida Sans Typewriter;
     }
 
 #doc-page-airport-border {
     border: 3px solid #acacac;
+}
+
+#doc-page-airport-text {
+    font-family: Lucida Sans Typewriter;
+}
+
+#doc-page-battleship {
+    background-color: #9fd4fc;
+}
+
+    #doc-page-battleship h2 {
+        color: #160071;
+        font-family: Bookman Old Style;
+    }
+
+#doc-page-cafe {
+    font-family: serif;
+}
+
+#doc-page-cafe-api {
+    font-family: Arial;
+}
+
+#doc-page-cat-poker {
+    font-family: Gill Sans;
 }
 
 #doc-page-headline {
@@ -76,12 +96,12 @@
     margin-top: 50px;
 }
 
-#img-container-cafe:hover #overlay-cafe {
+#img-container-airport:hover #overlay-airport {
     bottom: 0;
     height: 100%;
 }
 
-#img-container-airport:hover #overlay-airport {
+#img-container-cafe:hover #overlay-cafe {
     bottom: 0;
     height: 100%;
 }
@@ -115,37 +135,16 @@
     width: 200px;
 }
 
-#nav-bottom {
-    background-color: #7b7da7;
-    margin-top: 50px;
-    padding-top: 9px;
-    padding-bottom: 1px;
-}
-
-#nav-hover-airport {
-    --bs-dropdown-link-hover-bg: #acacac;
-    --bs-dropdown-link-hover-color: darkred;
-}
-
-#nav-hover-battleship {
-    --bs-dropdown-link-hover-bg: #9fd4fc;
-    --bs-dropdown-link-hover-color: #160071;
-}
-
-#nav-hover-cafeapi {
-    --bs-dropdown-link-hover-bg: #73a839;
-}
-
-#nav-hover-cat-poker {
-    --bs-dropdown-link-hover-bg: #033c73;
-}
-
-#nav-hover-diagram {
-    --bs-dropdown-link-hover-bg: #4e4e4e;
-}
-
-#nav-hover-profile {
-    --bs-dropdown-link-hover-bg: darkorchid;
+#overlay-airport {
+    position: absolute;
+    overflow: hidden;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    height: 0;
+    width: 100%;
+    transition: .5s ease;
+    background-color: purple;
 }
 
 #overlay-cafe {
@@ -158,18 +157,6 @@
     width: 100%;
     transition: .5s ease;
     background-color: aquamarine;
-}
-
-#overlay-airport {
-    position: absolute;
-    overflow: hidden;
-    bottom: 50%;
-    left: 0;
-    right: 0;
-    height: 0;
-    width: 100%;
-    transition: .5s ease;
-    background-color: purple;
 }
 
 #overlay-cafeapi {
