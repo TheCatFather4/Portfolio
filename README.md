@@ -1,14 +1,15 @@
 # :keyboard: [Portfolio](https://www.jmarcello.dev) :briefcase:
 
 ## About
-This is my software developer portfolio website.<br>
+This is my software development portfolio website.<br>
 It currently features **5 software applications** that I have built with _much care_.<br>
 I am continually updating the site regularly, so check back frequently for new features!<br>
+
 ##
 
----> **Visit my site at** [https://www.jmarcello.dev](https://www.jmarcello.dev) <---
+**Visit my site at** ---> [https://www.jmarcello.dev](https://www.jmarcello.dev) <--- or click on the word "Portfolio" displayed in big type above ---^
 
-<img width="825" height="563" alt="portfolio" src="https://github.com/user-attachments/assets/5d7ffb8a-24ed-4fd8-880a-b6fa83968bbb" />
+<img src="/Images/portfolio-main.png" alt="photo of portfolio website" />
 
 ##
 
@@ -24,20 +25,22 @@ Additionally, the **Bootstrap** framework is used to make the website _responsiv
 
 ##
 
-## Café Features
+## 4th Wall Café Features
 
 ### Async Await
 + All behavior members in this application (except class constructors) are written to run asynchronously.<br>
 This promotes the "async all the way down" philosophy, as well as improves application performance.<br>
 <img width="602" height="136" alt="4thwall-async" src="https://github.com/user-attachments/assets/1a02427f-92db-49b9-82b9-d1f8d6452a14" />
 
-
 ##
+
 ### Authentication
 Registration, Logging In, and Logging Out are all implemented in this application.<br>
 Users must register an account with the café in order to add items to the shopping cart.<br>
 Users must also be logged in before they may proceed with ordering and payments.<br>
+
 ##
+
 ### Authorization
 Two areas of the website cannot be accessed unless the user possesses the required roles.<br>
 **1.) The Sales Report Area:** an _Accountant_ role is required to view this area.<br>
@@ -45,9 +48,11 @@ Two areas of the website cannot be accessed unless the user possesses the requir
 <br>
 In the case that a user attempts to access an area without authorization,<br>
 they are redirected to an "access denied" page with further instructions for their convenience.<br>
->[!NOTE]
+>[!IMPORTANT]
 >I have provided some sample credentials on the [login page](https://www.jmarcello.dev/account/login) so that you can access these areas.
+
 ##
+
 ### Layered Architecture
 + **Business Logic**<br>
 All services are separated into a [business logic layer](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.BLL) for maximum modularity.<br>
@@ -55,44 +60,55 @@ A service factory is included in the project, in order to further promote code r
 Each service method includes a _try-catch block_ to handle any exceptions that may occur.<br>
 For simple, predictable errors, a custom result class is utilized to promote defensive coding and avoid unnecessary exceptions.<br>
 In addition, all service classes have a logger in order to record exception and other relevant messages.<br>
-##
+
+
 + **Data Persistence**<br>
-This application is connected to a database and uses both LINQ syntax and SQL to execute queries.<br>
-**See the Two Database Modes section below for more details concerning LINQ vs SQL**<br>
+This application is connected to a database and uses both LINQ syntax and parameterized SQL to execute queries.<br>
 All data persistence methods are separated into organized classes within the [data layer](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.Data).<br>
-In the methods that use SQL, all queries are parameterized with an affixed @ symbol to prevent SQL injection attacks.
+In the methods that use SQL queries, all queries are parameterized with an affixed @ symbol to prevent SQL injection attacks.
 <img width="750" height="315" alt="4thwall-sql" src="https://github.com/user-attachments/assets/9137db1b-3313-44ad-9240-91c35657830a" />
+
+>[!NOTE]
+>**See the "Two Database Modes" section below for more details concerning the LINQ vs SQL modes.**<br>
 
 ##
 ### Menu Form
 A menu form exists to allow users to filter through menu items.<br>
 The items can be filtered in any combination of category, date, or time of day.<br>
 Each item has a conveniently placed "Add to Cart" button, so that users may order immediately.<br>
-Users must be logged in however, in order to add to their shopping carts.<br>
+However, users must be logged in to add items to their shopping carts.<br>
 ##
 ### Online Ordering
-Customers can add, update, and delete items to and from their shopping carts.<br>
-They can prepare their order for payment and add a tip.<br>
-Additionally, they can pay for their order using one of several payment types.<br>
+Users can order food from the café using their customer account.<br>
+
+Once they have an account, they can do the following things:<br>
++ Add items to their shopping cart.<br>
++ Delete items from their shopping cart.<br>
++ Update the quantity of the items in their cart.<br>
++ Prepare their order for payment and add a tip.<br>
++ Pay for their order using one of several payment types.<br>
++ Access their order history and details for each order.<br>
++ Update their customer profile.<br>
 
 >[!NOTE]
 >Payment processing is simulated and no actual financial transactions occur.
 ##
 ### Two Database Modes
 There are two _different_ database modes that can be set up for effective data persistence.<br>
-**1.) Entity Framework Core:** A framework ideal for _light weight queries_ (Uses **LINQ**).<br>
-**2.) Dapper:** A micro-ORM ideal for _greater granular control_ (Uses **SQL**).<br>
+
+**1.) Entity Framework Core:** A framework ideal for _light weight queries_ (Uses **LINQ** syntax queries).<br>
+**2.) Dapper:** A micro-ORM ideal for _greater granular control_ (Uses parameterized **SQL** queries).<br>
 
 >[!TIP]
->Change the _value_ of the "DatabaseMode" key to switch between modes.<br>
+>To change the database mode, go to the [_appsettings.json_](https://github.com/TheCatFather4/Portfolio/blob/main/Portfolio/Portfolio/appsettings.json) file,<br>
+>and change the value of the "DatabaseMode" _key_ in order to switch between EF and Dapper.<br>
 >The default value is set to "ORM" which uses Entity Framework Core.<br>
->If you would like to use Dapper, change the value to "Dapper".<br>
->The key can be found in the [_appsettings.json_](https://github.com/TheCatFather4/Portfolio/blob/main/Portfolio/Portfolio/appsettings.json) file.<br>
+>If you change the value to "Dapper", the application will use the Dapper micro-ORM implementation for its data persistence.<br>
 ##
 ### Unit Tests
+This application is unit tested. I used 3 NuGet packages in testing the services: NUnit, NUnit3TestAdapter, and Microsoft.NET.Test.Sdk<br>
 The [Cafe.Tests](https://github.com/TheCatFather4/Portfolio/tree/main/Portfolio/Cafe.Tests) project is where you can find the unit tests for this application.<br>
-3 NuGet Packages were used for testing: NUnit, NUnit3TestAdapter, and Microsoft.NET.Test.Sdk.<br>
-Additionally, mock repository classes and mock loggers are used to get the tests to run where needed.
+Additionally, I wrote mock loggers and repository classes in order to get the tests to run where needed.<br>
 ##
 
 ## Café Diagrams
