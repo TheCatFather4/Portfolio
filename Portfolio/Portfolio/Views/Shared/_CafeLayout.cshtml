@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="~/img/icons/cafe.png" rel="icon" type="image/x-icon" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/navbar.css" rel="stylesheet" />
     <link href="~/css/cafe.css" rel="stylesheet" />
     <title>@ViewData["Title"]</title>
 </head>
@@ -12,7 +13,7 @@
     <div class="container-fluid">
         <header>
             <div class="row">
-                <nav class="navbar navbar-expand-lg bg-primary">
+                <nav class="navbar navbar-expand-lg bg-primary" id="nav-cafe">
                     <button class="navbar-toggler my-2 ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbar02" aria-controls="navbar02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -27,7 +28,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" id="nav-hover-cafe-profile" asp-controller="Account" asp-action="Profile">Customer Profile</a></li>
-                                        <li><a class="dropdown-item" id="nav-hover-cart" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
+                                        <li><a class="dropdown-item" id="nav-hover-cafe-cart" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
@@ -46,7 +47,7 @@
                                 </li>
                             }
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover mx-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle link-light link-opacity-50-hover ms-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Café
                                 </a>
                                 <ul class="dropdown-menu">
@@ -73,8 +74,8 @@
                                     Documentation
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="nav-hover-diagram" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-profile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-docs" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-github" href="https://www.github.com/TheCatFather4">GitHub Repositories</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -95,8 +96,8 @@
         @RenderBody()
         <footer>
             <div class="row">
-                <div class="bg-primary" id="bottom-row">
-                    <h5 class="text-light text-center" id="title-section">Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                <div class="bg-primary" id="nav-bottom-cafe">
+                    <h5>Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
                 </div>
             </div>
         </footer>

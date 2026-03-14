@@ -1,8 +1,4 @@
-﻿nav {
-    font-family: serif;
-}
-
-.cafe-home-list {
+﻿.cafe-home-list {
     font-family: serif;
     list-style: none;
 }
@@ -20,19 +16,13 @@
     margin-top: 20px;
 }
 
-#bottom-img-container:hover #img-overlay {
+#bottom-image-container:hover #img-overlay {
     opacity: 1;
 }
 
-#bottom-img-container-2:hover #img-overlay-2 {
+#bottom-image-container-2:hover #image-overlay-2 {
     bottom: 0;
     height: 100%;
-}
-
-#bottom-row {
-    margin-top: 50px;
-    padding-top: 9px;
-    padding-bottom: 1px;
 }
 
 #button-edit {
@@ -121,7 +111,7 @@
     background-color: #ffb0f4;
 }
 
-#img-overlay-2 {
+#image-overlay-2 {
     position: absolute;
     overflow: hidden;
     bottom: 50%;
@@ -167,44 +157,6 @@
         font-style: italic;
         font-size: 2.5rem;
     }
-
-#nav-hover-airport {
-    --bs-dropdown-link-hover-bg: #acacac;
-    --bs-dropdown-link-hover-color: darkred;
-}
-
-#nav-hover-battleship {
-    --bs-dropdown-link-hover-bg: #9fd4fc;
-    --bs-dropdown-link-hover-color: #160071;
-}
-
-#nav-hover-cafeapi {
-    --bs-dropdown-link-hover-bg: #73a839;
-}
-
-#nav-hover-cafe-profile {
-    --bs-dropdown-link-hover-bg: #1137ee;
-}
-
-#nav-hover-cart {
-    --bs-dropdown-link-hover-bg: #f1620f;
-}
-
-#nav-hover-cat-poker {
-    --bs-dropdown-link-hover-bg: #033c73;
-}
-
-#nav-hover-diagram {
-    --bs-dropdown-link-hover-bg: #4e4e4e;
-}
-
-#nav-hover-portfolio {
-    --bs-dropdown-link-hover-bg: #7b7da7;
-}
-
-#nav-hover-profile {
-    --bs-dropdown-link-hover-bg: darkorchid;
-}
 
 #no-items-cart {
     font-family: serif;

@@ -6,13 +6,14 @@
     <link href="~/img/icons/cafeapi.png" rel="icon" type="image/x-icon" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/cafe-api.css" rel="stylesheet" />
+    <link href="~/css/navbar.css" rel="stylesheet" />
     <title>@ViewData["Title"]</title>
 </head>
 <body>
     <div class="container-fluid">
         <header>
             <div class="row">
-                <nav class="navbar navbar-expand-lg bg-success">
+                <nav class="navbar navbar-expand-lg bg-success" id="nav-cafe-api">
                     <button class="navbar-toggler my-2 ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbar02" aria-controls="navbar02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -36,8 +37,8 @@
                                     Documentation
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="nav-hover-diagram" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-profile" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-docs" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
+                                    <li><a class="dropdown-item" id="nav-hover-github" href="https://www.github.com/TheCatFather4">GitHub Repositories</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -51,8 +52,8 @@
         @RenderBody()
         <footer>
             <div class="row">
-                <div class="bg-success" id="bottom-api">
-                    <h5 class="text-light text-center" id="title-api">Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
+                <div class="bg-success" id="nav-bottom-cafe-api">
+                    <h5>Hazelnut Software Solutions <img src="~/img/icons/hazelnut.png" width="50" height="50" /> @DateTime.Today.Year.ToString()</h5>
                 </div>
             </div>
         </footer>

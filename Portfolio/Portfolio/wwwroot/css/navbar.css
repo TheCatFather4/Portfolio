@@ -1,4 +1,36 @@
-﻿#nav-portfolio {
+﻿#nav-cafe {
+    font-family: serif;
+}
+
+#nav-bottom-cafe {
+    font-family: serif;
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    text-align: center;
+}
+
+    #nav-bottom-cafe h5 {
+        color: white;
+    }
+
+#nav-cafe-api {
+    font-family: Arial;
+}
+
+#nav-bottom-cafe-api {
+    font-family: Arial;
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    text-align: center;
+}
+
+    #nav-bottom-cafe-api h5 {
+        color: white;
+    }
+
+#nav-portfolio {
     background-color: #7b7da7;
     font-family: Lucida Console;
 }
@@ -26,6 +58,14 @@
     --bs-dropdown-link-hover-color: #160071;
 }
 
+#nav-hover-cafe-profile {
+    --bs-dropdown-link-hover-bg: #1137ee;
+}
+
+#nav-hover-cafe-cart {
+    --bs-dropdown-link-hover-bg: #f1620f;
+}
+
 #nav-hover-cafe-api {
     --bs-dropdown-link-hover-bg: #73a839;
 }
@@ -34,10 +74,14 @@
     --bs-dropdown-link-hover-bg: #033c73;
 }
 
-#nav-hover-contact {
+#nav-hover-docs {
+    --bs-dropdown-link-hover-bg: #4e4e4e;
+}
+
+#nav-hover-github {
     --bs-dropdown-link-hover-bg: darkorchid;
 }
 
-#nav-hover-docs {
-    --bs-dropdown-link-hover-bg: #4e4e4e;
+#nav-hover-portfolio {
+    --bs-dropdown-link-hover-bg: #7b7da7;
 }
