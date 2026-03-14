@@ -1,4 +1,26 @@
-﻿#nav-cafe {
+﻿#nav-airport {
+    background-color: #acacac;
+    font-family: Lucida Sans Typewriter;
+}
+
+#nav-airport-brand {
+    color: darkred;
+}
+
+#nav-bottom-airport {
+    background-color: #acacac;
+    font-family: Lucida Sans Typewriter;
+    margin-top: 50px;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    text-align: center;
+}
+
+    #nav-bottom-airport h5 {
+        color: darkred;
+    }
+
+#nav-cafe {
     font-family: serif;
 }
 

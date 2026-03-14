@@ -1,8 +1,4 @@
-﻿nav {
-    font-family: Lucida Sans Typewriter;
-}
-
-.airport-input {
+﻿.airport-input {
     background-color: black;
     border: none;
     caret-color: white;
@@ -26,57 +22,17 @@
     background: #acacac;
 }
 
+    #about h3 {
+        color: darkred;
+        font-family: Lucida Sans Typewriter;
+        padding-top: 11px;
+    }
+
 #about-text {
     color: darkred;
     font-family: Lucida Sans Typewriter;
-    padding-top: 11px;
 }
 
 #console-top {
     padding-top: 12px;
-}
-
-#nav-bottom {
-    background: #acacac;
-    margin-top: 50px;
-    padding-top: 9px;
-    padding-bottom: 1px;
-}
-
-#nav-bottom-text {
-    color: darkred;
-    font-family: Lucida Sans Typewriter;
-}
-
-#nav-hover-battleship {
-    --bs-dropdown-link-hover-bg: #9fd4fc;
-    --bs-dropdown-link-hover-color: #160071;
-}
-
-#nav-hover-cafeapi {
-    --bs-dropdown-link-hover-bg: #73a839;
-}
-
-#nav-hover-cat-poker {
-    --bs-dropdown-link-hover-bg: #033c73;
-}
-
-#nav-hover-diagram {
-    --bs-dropdown-link-hover-bg: #4e4e4e;
-}
-
-#nav-hover-portfolio {
-    --bs-dropdown-link-hover-bg: #7b7da7;
-}
-
-#nav-hover-profile {
-    --bs-dropdown-link-hover-bg: darkorchid;
-}
-
-#nav-top {
-    background: #acacac;
-}
-
-#rental-text {
-    color: darkred;
 }
