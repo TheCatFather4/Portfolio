@@ -7,6 +7,27 @@
     color: darkred;
 }
 
+#nav-battleship {
+    background-color: #9fd4fc;
+}
+
+#nav-battleship-brand {
+    color: #160071;
+}
+
+#nav-cafe {
+    font-family: serif;
+}
+
+#nav-cafe-api {
+    font-family: Arial;
+}
+
+#nav-portfolio {
+    background-color: #7b7da7;
+    font-family: Lucida Console;
+}
+
 #nav-bottom-airport {
     background-color: #acacac;
     font-family: Lucida Sans Typewriter;
@@ -20,9 +41,17 @@
         color: darkred;
     }
 
-#nav-cafe {
-    font-family: serif;
+#nav-bottom-battleship {
+    background-color: #9fd4fc;
+    font-family: Bookman Old Style;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    text-align: center;
 }
+
+    #nav-bottom-battleship h5 {
+        color: #160071;
+    }
 
 #nav-bottom-cafe {
     font-family: serif;
@@ -36,10 +65,6 @@
         color: white;
     }
 
-#nav-cafe-api {
-    font-family: Arial;
-}
-
 #nav-bottom-cafe-api {
     font-family: Arial;
     margin-top: 50px;
@@ -51,11 +76,6 @@
     #nav-bottom-cafe-api h5 {
         color: white;
     }
-
-#nav-portfolio {
-    background-color: #7b7da7;
-    font-family: Lucida Console;
-}
 
 #nav-bottom-portfolio {
     background-color: #7b7da7;
