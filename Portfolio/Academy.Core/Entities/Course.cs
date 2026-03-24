@@ -1,0 +1,11 @@
+﻿namespace Academy.Core.Entities
+{
+    public class Course
+    {
+        public int CourseID { get; set; }
+        public int SubjectID { get; set; }
+        public string? CourseName { get; set; }
+        public string? CourseDescription { get; set; }
+        public decimal Credits { get; set; }
+    }
+}
