@@ -14,7 +14,7 @@ namespace Cafe.BLL
     /// </summary>
     public class ServiceFactory
     {
-        private readonly IAppConfiguration _config;
+        private readonly ICafeConfiguration _config;
         private readonly ILoggerFactory _loggerFactory;
         private readonly IConfiguration _jwtConfig;
 
@@ -24,7 +24,7 @@ namespace Cafe.BLL
         /// <param name="config">A dependency used for retrieving connection strings and database settings.</param>
         /// <param name="loggerFactory">A dependency used for instantiating loggers.</param>
         /// <param name="jwtConfig">A dependency used for generating JSON web tokens.</param>
-        public ServiceFactory(IAppConfiguration config, ILoggerFactory loggerFactory, IConfiguration jwtConfig)
+        public ServiceFactory(ICafeConfiguration config, ILoggerFactory loggerFactory, IConfiguration jwtConfig)
         {
             _config = config;
             _loggerFactory = loggerFactory;

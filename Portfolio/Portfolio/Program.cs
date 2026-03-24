@@ -6,7 +6,7 @@ using Cafe.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Portfolio;
+using Portfolio.Configuration;
 using Portfolio.Models.Airport;
 using Portfolio.Utilities;
 using System.Reflection;
@@ -19,16 +19,16 @@ builder.Logging.AddConsole();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<IAppConfiguration, AppConfiguration>();
+builder.Services.AddSingleton<ICafeConfiguration, CafeConfiguration>();
 builder.Services.AddSingleton<ServiceFactory>(provider =>
 {
-    var appConfig = provider.GetRequiredService<IAppConfiguration>();
+    var appConfig = provider.GetRequiredService<ICafeConfiguration>();
     var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
     var jwtConfig = provider.GetRequiredService<IConfiguration>();
     return new ServiceFactory(appConfig, loggerFactory, jwtConfig);
 });
 
-var appConfig = new AppConfiguration(builder.Configuration);
+var appConfig = new CafeConfiguration(builder.Configuration);
 var connectionString = appConfig.GetConnectionString();
 
 builder.Services.AddDbContext<IdentityCafeContext>(options =>

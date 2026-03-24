@@ -23,6 +23,22 @@
     <ProjectReference Include="..\Cafe.Core\Cafe.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Academy\Controllers\" />
+    <Folder Include="Areas\Academy\Models\" />
+    <Folder Include="Areas\Academy\Views\" />
+    <Folder Include="Areas\Academy\Utilities\" />
+    <Folder Include="Areas\Airport\Controllers\" />
+    <Folder Include="Areas\Airport\Models\" />
+    <Folder Include="Areas\Airport\Views\" />
+    <Folder Include="Areas\Battleship\Controllers\" />
+    <Folder Include="Areas\Battleship\Views\" />
+    <Folder Include="Areas\Cafe\Controllers\" />
+    <Folder Include="Areas\Cafe\Models\" />
+    <Folder Include="Areas\Cafe\Views\" />
+    <Folder Include="Areas\Cafe\Utilities\" />
+  </ItemGroup>
+
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>	

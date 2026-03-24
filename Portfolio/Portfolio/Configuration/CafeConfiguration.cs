@@ -1,12 +1,12 @@
 ﻿using Cafe.Core.Enums;
 using Cafe.Core.Interfaces.Application;
 
-namespace Portfolio
+namespace Portfolio.Configuration
 {
     /// <summary>
     /// Implements IAppConfiguration to handle the configuration of the 4th Wall Café application.
     /// </summary>
-    public class AppConfiguration : IAppConfiguration
+    public class CafeConfiguration : ICafeConfiguration
     {
         private readonly IConfiguration _configuration;
 
@@ -14,7 +14,7 @@ namespace Portfolio
         /// Constructs a configuration object with the required dependency.
         /// </summary>
         /// <param name="configuration">An implementation of the IConfiguration interface.</param>
-        public AppConfiguration(IConfiguration configuration)
+        public CafeConfiguration(IConfiguration configuration)
         {
             _configuration = configuration;
         }

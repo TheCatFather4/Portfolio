@@ -2,7 +2,7 @@
 
 namespace Cafe.Core.Interfaces.Application
 {
-    public interface IAppConfiguration
+    public interface ICafeConfiguration
     {
         string GetConnectionString();
         DatabaseMode GetDatabaseMode();
