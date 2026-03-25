@@ -1,0 +1,59 @@
+﻿@using Portfolio.Areas.Academy.Models.Admissions
+@model NewStudentForm
+@{
+    Layout = "_AcademyLayout";
+    ViewData["Title"] = "New Student Registration";
+}
+
+<div class="container">
+    <div class="row text-center mt-2">
+        <h1 style="color: crimson;">New Student Registration</h1>
+        <p>Upon successful registration, you will be given the credentials for the student.</p>
+    </div>
+    <div class="row mb-3">
+        <div class="border border-5 border-info rounded p-3">
+            <form asp-area="Academy" asp-controller="Admissions" asp-action="NewStudent" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="None"></div>
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="FirstName" class="form-control" />
+                    <label asp-for="FirstName">First Name</label>
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="LastName" class="form-control" />
+                    <label asp-for="LastName">Last Name</label>
+                    <span asp-validation-for="LastName"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="Alias" class="form-control" />
+                    <label asp-for="Alias">Alias</label>
+                    <span asp-validation-for="Alias"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" asp-for="DoB" />
+                    <label asp-for="DoB">Date of Birth (mm/dd/yyyy)</label>
+                    <span asp-validation-for="DoB"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="SelectedPowerID" asp-items="Model.Powers" class="form-control">
+                        <option value="">---Select---</option>
+                    </select>
+                    <label asp-for="SelectedPowerID">Power</label>
+                    <span asp-validation-for="SelectedPowerID"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="SelectedWeaknessID" asp-items="Model.Weaknesses" class="form-control">
+                        <option value="">---Select---</option>
+                    </select>
+                    <label asp-for="SelectedWeaknessID">Weakness</label>
+                    <span asp-validation-for="SelectedWeaknessID"></span>
+                </div>
+                <div class="mb-2">
+                    <button type="submit" class="btn btn-light me-3" style="color: crimson;">Register Student</button>
+                    <a asp-area="Academy" asp-controller="Admissions" asp-action="Index">Go Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

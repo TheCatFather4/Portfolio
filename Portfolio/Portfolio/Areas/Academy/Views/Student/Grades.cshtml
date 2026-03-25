@@ -1,0 +1,15 @@
+﻿@using Portfolio.Areas.Academy.Models.Student
+@model List<StudentGrade>
+@{
+    Layout = "_AcademyLayout";
+    ViewData["Title"] = "Grades";
+}
+
+<h1>Grades</h1>
+@foreach (var g in Model)
+{
+    <p>Course</p>
+    <p>Section: @g.SectionID</p>
+    <p>Grade: @g.Grade</p>
+    <p>Absences: @g.Absences</p>
+}

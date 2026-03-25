@@ -1,0 +1,15 @@
+﻿@using Portfolio.Areas.Academy.Models.Student
+@model StudentProfile
+@{
+    Layout = "_AcademyLayout";
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<h1>Welcome @Model.FirstName!</h1>
+<p>Here you can view your courses, profile information, and grades.</p>
+<p>Your profile information:</p>
+<p>First Name: @Model.FirstName</p>
+<p>Last Name: @Model.LastName</p>
+<p>Alias: @Model.Alias</p>
+<p>DoB: @Model.DoB.ToShortDateString()</p>
+<a asp-area="Academy" asp-controller="Student" asp-action="Grades" asp-route-studentId="@Model.StudentID">View Grades</a>
