@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Academy.BLL\Academy.BLL.csproj" />
+    <ProjectReference Include="..\Academy.Core\Academy.Core.csproj" />
     <ProjectReference Include="..\Airport.Core\Airport.Core.csproj" />
     <ProjectReference Include="..\Cafe.BLL\Cafe.BLL.csproj" />
     <ProjectReference Include="..\Cafe.Core\Cafe.Core.csproj" />
@@ -26,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Areas\Academy\Controllers\" />
     <Folder Include="Areas\Academy\Views\" />
-    <Folder Include="Areas\Academy\Utilities\" />
     <Folder Include="Areas\Airport\Controllers\" />
     <Folder Include="Areas\Airport\Models\" />
     <Folder Include="Areas\Airport\Views\" />
