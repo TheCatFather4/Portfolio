@@ -1,0 +1,41 @@
+﻿@using Portfolio.Areas.Academy.Models.Registrar
+@model LoginForm
+@{
+    Layout = "_AcademyLayout";
+    ViewData["Title"] = "Log In";
+}
+<div class="container">
+    <div class="row">
+        <div class="text-center my-3">
+            <h1 class="text-info">Log In</h1>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="border border-5 border-info rounded p-3">
+            <form asp-area="Academy" asp-controller="Registrar" asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" />
+                    <label asp-for="Email">Email</label>
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Password" class="form-control" />
+                    <label asp-for="Password">Password</label>
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div class="checkbox mb-3">
+                    <label asp-for="RememberMe" class="form-label">
+                        <input class="form-check-input" asp-for="RememberMe" />
+                        <label for="RememberMe">Remember Me</label>
+                    </label>
+                </div>
+                <div class="mb-2">
+                    <button type="submit" class="btn btn-light me-3" style="color: crimson;">Log in</button>
+                    <a asp-area="Academy" asp-controller="Home" asp-action="Index">Go Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
