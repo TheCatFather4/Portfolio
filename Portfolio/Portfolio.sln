@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy.Core", "Academy.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy.Data", "Academy.Data\Academy.Data.csproj", "{79980FE9-BC25-4E38-926E-48C5DDE7699B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy.BLL", "Academy.BLL\Academy.BLL.csproj", "{0AE37794-825B-4FC8-89DD-2536F6388F06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{79980FE9-BC25-4E38-926E-48C5DDE7699B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79980FE9-BC25-4E38-926E-48C5DDE7699B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79980FE9-BC25-4E38-926E-48C5DDE7699B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE37794-825B-4FC8-89DD-2536F6388F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE37794-825B-4FC8-89DD-2536F6388F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE37794-825B-4FC8-89DD-2536F6388F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE37794-825B-4FC8-89DD-2536F6388F06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
