@@ -1,4 +1,13 @@
-﻿#nav-airport {
+﻿#nav-academy {
+    background-color: crimson;
+    font-family: Century Schoolbook;
+}
+
+#nav-academy-brand {
+    color: white;
+}
+
+#nav-airport {
     background-color: #acacac;
     font-family: Lucida Sans Typewriter;
 }
@@ -27,6 +36,18 @@
     background-color: #7b7da7;
     font-family: Lucida Console;
 }
+
+#nav-bottom-academy {
+    background-color: crimson;
+    font-family: Century Schoolbook;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    text-align: center;
+}
+
+    #nav-bottom-academy h5 {
+        color: white;
+    }
 
 #nav-bottom-airport {
     background-color: #acacac;
@@ -89,6 +110,11 @@
     #nav-bottom-portfolio h5 {
         color: white;
     }
+
+#nav-hover-academy {
+    --bs-dropdown-link-hover-bg: crimson;
+    --bs-dropdown-link-hover-color: white;
+}
 
 #nav-hover-airport {
     --bs-dropdown-link-hover-bg: #acacac;
