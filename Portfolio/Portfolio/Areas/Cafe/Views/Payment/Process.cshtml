@@ -1,0 +1,84 @@
+﻿@using Portfolio.Areas.Cafe.Models.Payment
+@model PaymentForm
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Process Payment";
+}
+
+@if (Model.PaymentStatusId != 1)
+{
+    <div class="text-center my-5" id="title-section">
+        <h1>Process Payment</h1>
+        <h3 class="text-danger mt-3">Amount Due: $@Model.FinalTotal</h3>
+    </div>
+    <div class="container">
+        <div class="row">
+            <form asp-area="Cafe" asp-controller="Payment" asp-action="Process" method="post" class="border border-info border-5 rounded p-3 bg-primary">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="OrderId" />
+                <div class="form-floating mb-3">
+                    <select asp-for="PaymentTypeId" asp-items="Model.PaymentTypes" class="form-control" id="form-input">
+                        <option value=""></option>
+                    </select>
+                    <label asp-for="PaymentTypeId">Payment Method</label>
+                    <span asp-validation-for="PaymentTypeId" id="validation-text"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="Amount" class="form-control" id="form-input" />
+                    <label asp-for="Amount">Amount</label>
+                    <span asp-validation-for="Amount" id="validation-text"></span>
+                </div>
+                <input type="hidden" asp-for="TransactionDate" />
+                <input type="hidden" asp-for="PaymentStatusId" />
+                <input type="hidden" asp-for="FinalTotal" />
+                <input type="hidden" asp-for="PaymentTypeName" />
+                <div>
+                    <button class="btn btn-success me-2">Confirm Payment</button>
+                    <a asp-area="Cafe" asp-controller="Account" asp-action="Profile" class="link-light link-opacity-50-hover link-underline-opacity-50">Back to customer Profile</a>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center my-5" id="title-section">
+        <h1 class="text-success">Payment Confirmation</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <table class="table table-dark table-striped table-hover table-bordered border-success">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Payment Type</th>
+                        <th>Amount Paid</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.OrderId</td>
+                        <td>@Model.PaymentTypeName</td>
+                        <td>@Model.Amount</td>
+                        <td>@Model.TransactionDate</td>
+                        @if (Model.PaymentStatusId == 1)
+                        {
+                            <td class="text-success">Paid</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">Declined</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center mt-3" id="title-section">
+        <h3>Go to:</h3>
+        <h3><a asp-area="Cafe" asp-controller="Account" asp-action="Profile" class="btn btn-info">Customer profile</a></h3>
+        <h3><a asp-area="Cafe" asp-controller="Home" asp-action="Index" class="btn btn-primary">Cafe Home</a></h3>
+    </div>
+}

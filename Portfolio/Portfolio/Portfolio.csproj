@@ -28,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Areas\Battleship\Controllers\" />
     <Folder Include="Areas\Battleship\Views\" />
-    <Folder Include="Areas\Cafe\Views\" />
     <Folder Include="Models\" />
   </ItemGroup>
 

@@ -17,28 +17,10 @@ namespace Portfolio.Controllers
         }
 
         /// <summary>
-        /// Takes the user to the Battleship main page.
+        /// Returns a webpage to users that are not authorized to access an area.
         /// </summary>
         /// <returns></returns>
-        public IActionResult Battleship()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Takes the user to the 4th Wall Café main page.
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Cafe()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Takes the user to the Café API web page.
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult CafeAPI()
+        public IActionResult AccessDenied()
         {
             return View();
         }

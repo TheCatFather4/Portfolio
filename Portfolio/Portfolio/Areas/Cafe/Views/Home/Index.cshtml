@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "4th Wall Cafe";
+}
+
+<div class="row">
+    <div class="my-5">
+        <h1 class="text-center" id="cafe-title">Comfort food begins at the <span>4th Wall Café</span></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="bg-primary">
+        <img src="~/img/cafe/main.jpg" class="img-fluid" />
+    </div>
+</div>
+<div class="row">
+    <div class="my-5">
+        <h2 class="text-center" id="menu-title">Our menu is sure to have something that piques <span>your interest</span></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="bg-primary">
+        <img src="~/img/cafe/menu.jpg" class="img-fluid" />
+    </div>
+</div>
+<div class="row">
+    <h3 class="text-center my-5">
+        <a class="btn btn-success me-3" type="submit" asp-area="Cafe" asp-controller="Menu" asp-action="Index" id="menu-button-home">View Menu</a>
+        <a class="btn btn-warning ms-3" type="submit" asp-area="Cafe" asp-controller="ShoppingCart" asp-action="Index" id="menu-button-home">Order Now</a>
+    </h3>
+</div>
+<div class="row">
+    <div class="bg-info">
+        <div class="d-flex justify-content-evenly">
+            <div class="card my-3" style="width:30rem" id="bottom-image-container">
+                <img src="~/img/cafe/management.jpg" class="card-img" />
+                <div id="img-overlay">
+                    <div id="img-text"><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-area="Cafe" asp-controller="Management" asp-action="Index" id="title-section">Management Area</a></div>
+                </div>
+            </div>
+            <div class="card my-3" style="width:30rem" id="bottom-image-container">
+                <img src="~/img/cafe/sales.jpg" class="card-img" />
+                <div id="img-overlay">
+                    <div id="img-text"><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-area="Cafe" asp-controller="Reports" asp-action="Index" id="title-section">Sales Reports</a></div>
+                </div>
+            </div>
+            <div class="card my-3" style="width:30rem" id="bottom-image-container">
+                <img src="~/img/cafe/api.jpg" class="card-img" />
+                <div id="img-overlay">
+                    <div id="img-text"><a class="link-info link-opacity-50-hover link-underline-opacity-50-hover" asp-area="Cafe" asp-controller="API" asp-action="Index" id="title-section">4th Wall Café API</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row bg-black text-center mt-5">
+    <div class="col-md-4 mt-3">
+        <ul class="cafe-home-list" id="cafe-home-summary">
+            <li class="my-4" id="cafe-home-lt">More Information</li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="" asp-controller="Home" asp-action="Contact">Contact Page</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" href="https://www.github.com/TheCatFather4">GitHub Profile</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" href="https://www.linkedin.com/in/joseph-marcello-dev">LinkedIn Profile</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="" asp-controller="Home" asp-action="Documentation">Documentation</a></li>
+        </ul>
+    </div>
+    <div class="col-md-4 mt-3">
+        <ul class="cafe-home-list" id="cafe-home-summary">
+            <li class="my-4" id="cafe-home-lt">Café Navigation</li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Cafe" asp-controller="Management" asp-action="Index">Management Area</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Cafe" asp-controller="Menu" asp-action="Index">Café Menu</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Cafe" asp-controller="Reports" asp-action="Index">Sales Reports</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Cafe" asp-controller="ShoppingCart" asp-action="Index">Shopping Cart</a></li>
+        </ul>
+    </div>
+    <div class="col-md-4 mt-3">
+        <ul class="cafe-home-list" id="cafe-home-summary">
+            <li class="my-4" id="cafe-home-lt">Other Applications</li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Academy" asp-controller="Home" asp-action="Index">4th Wall Academy</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Cafe" asp-controller="API" asp-action="Index">4th Wall Café API</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Airport" asp-controller="Home" asp-action="Index">Airport Locker Rental</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" asp-area="Battleship" asp-controller="Home" asp-action="Index">Battleship</a></li>
+            <li class="my-2"><a class="link-light link-opacity-50-hover link-underline link-underline-opacity-0" href="~/cat-poker/index.html">Cat Poker</a></li>
+        </ul>
+    </div>
+</div>

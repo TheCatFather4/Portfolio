@@ -1,0 +1,48 @@
+﻿@using Portfolio.Areas.Cafe.Models.Order
+@model List<OrderDetails>
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Order History";
+}
+
+<div class="text-center my-5" id="title-section">
+    <h2>Order History</h2>
+</div>
+<div class="container">
+    @foreach (var o in Model)
+    {
+        <div class="row text-center">
+            <table class="table table-bordered border-primary table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Final Total</th>
+                        <th>Order Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@o.OrderId</td>
+                        @if (o.PaymentStatusId == 2)
+                        {
+                            <td class="text-warning">Pending<a asp-area="Cafe" asp-controller="Payment" asp-action="Process" asp-route-orderId="@o.OrderId" class="ms-3">Go to checkout</a></td>
+                        }
+                        else if (o.PaymentStatusId == 1)
+                        {
+                            <td class="text-success">Paid</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">Declined</td>
+                        }
+                        <td>@o.OrderDate.ToShortDateString()</td>
+                        <td>$@o.FinalTotal</td>
+                        <td><a asp-area="Cafe" asp-controller="Order" asp-action="Details" asp-route-orderId="@o.OrderId">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

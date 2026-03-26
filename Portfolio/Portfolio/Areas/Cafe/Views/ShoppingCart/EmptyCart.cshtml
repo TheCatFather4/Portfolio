@@ -1,0 +1,22 @@
+﻿@using Portfolio.Areas.Cafe.Models.ShoppingCart
+@model EmptyCart
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Empty Cart";
+}
+
+<div class="row">
+    <div class="text-center my-4">
+        <h3 id="title-section">Are you sure you would like to empty your shopping cart?</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="d-flex justify-content-center">
+        <form asp-area="Cafe" asp-controller="ShoppingCart" asp-action="EmptyCart" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="CustomerId" />
+            <button class="btn btn-success me-2" type="submit">Yes</button>
+        </form>
+        <a class="btn btn-danger ms-2" type="submit" asp-area="Cafe" asp-controller="ShoppingCart" asp-action="Index">No</a>
+    </div>
+</div>

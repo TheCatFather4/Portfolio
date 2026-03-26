@@ -1,0 +1,46 @@
+﻿@using Portfolio.Areas.Cafe.Models.Management
+@model List<MenuItem>
+@{
+    Layout = "_CafeLayout";
+    ViewData["Title"] = "Menu Management";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="text-center my-4" id="title-section">
+            <h1>Menu Management</h1>
+            <h4 class="text-info">Want to spice up or cool down the menu?</h4>
+            <a asp-area="Cafe" asp-controller="Management" asp-action="AddItem" class="btn btn-success">Add a New Item</a>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <table class="table table-dark table-striped table-hover table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <td>@i.ItemName</td>
+                            <td>@i.ItemDescription</td>
+                            @foreach (var p in i.Prices)
+                            {
+                                <td>$@p.Price</td>
+                            }
+                            <td>
+                                <a asp-area="Cafe" asp-controller="Management" asp-action="EditItem" asp-route-id="@i.ItemID">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
