@@ -28,11 +28,12 @@
                                     Projects
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="navHoverCafe" asp-controller="Home" asp-action="Cafe">4th Wall Café</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-airport" asp-controller="Airport" asp-action="Menu">Airport Locker Rental</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-battleship" asp-controller="Home" asp-action="Battleship">Battleship</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-cafe-api" asp-controller="Home" asp-action="CafeAPI">Café API</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-cat-poker" href="~/cat-poker/index.html">Cat Poker</a></li>
+                                    <li><a class="dropdown-item" asp-area="Academy" asp-controller="Home" asp-action="Index" id="nav-hover-academy">4th Wall Academy</a></li>
+                                    <li><a class="dropdown-item" asp-area="Cafe" asp-controller="Home" asp-action="Index">4th Wall Café</a></li>
+                                    <li><a class="dropdown-item" asp-area="Cafe" asp-controller="API" asp-action="Index" id="nav-hover-cafe-api">4th Wall Café API</a></li>
+                                    <li><a class="dropdown-item" asp-area="Airport" asp-controller="Home" asp-action="Index" id="nav-hover-airport">Airport Locker Rental</a></li>
+                                    <li><a class="dropdown-item" asp-area="Battleship" asp-controller="Home" asp-action="Index" id="nav-hover-battleship">Battleship</a></li>
+                                    <li><a class="dropdown-item" href="~/cat-poker/index.html" id="nav-hover-cat-poker">Cat Poker</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -40,8 +41,8 @@
                                     Documentation
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" id="nav-hover-docs" asp-controller="Home" asp-action="Documentation">Docs and Diagrams</a></li>
-                                    <li><a class="dropdown-item" id="nav-hover-github" href="https://www.github.com/TheCatFather4">GitHub Repositories</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Documentation" id="nav-hover-docs">Docs and Diagrams</a></li>
+                                    <li><a class="dropdown-item" href="https://www.github.com/TheCatFather4" id="nav-hover-github">GitHub Repositories</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
