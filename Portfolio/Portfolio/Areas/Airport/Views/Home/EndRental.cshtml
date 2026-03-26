@@ -1,5 +1,6 @@
-﻿@using Portfolio.Models.Airport
-@model AirportMenu
+﻿@using Portfolio.Areas.Airport.Models
+@using Portfolio.Models.Airport
+@model EndRentalForm
 @{
     Layout = "_AirportLayout";
     ViewData["Title"] = "Airport Locker Rental";
@@ -16,25 +17,31 @@
             ===============<br />
             | 1. View a Locker<br />
             | 2. Rent a Locker<br />
-            | 3. End Locker Rental<br />
+            | <span class="text-success">3. End Locker Rental</span><br />
             | 4. List All Lockers<br />
             | 5. Exit<br />
             ===============<br />
         </p>
-        <form asp-controller="Airport" asp-action="Menu" asp-method="post">
+        <form asp-area="Airport" asp-controller="Home" asp-action="EndRental" asp-method="post">
             @Html.AntiForgeryToken()
-            <div class="text-white">
-                Enter your choice: <input type="text" asp-for="MenuChoice" />
-            </div>
+            <p class="text-white">
+                ------------------------------------------------<br />
+                Which locker rental would you like to end?<br />
+                Locker numbers range from 1 to 100<br />
+                Enter your choice: <input type="text" asp-for="LockerNumber" class="airport-input" /><br />
+                ------------------------------------------------<br />
+            </p>
             <input type="hidden" asp-for="Message" />
             <div style="display:none">
                 <button type="submit"></button>
             </div>
-            <div><br /></div>
         </form>
         @if (Model.Message != null)
         {
-            <p class="text-white">@Model.Message</p>
+            <p class="text-danger">@Model.Message</p>
         }
+        <div class="mb-2">
+            <<a asp-area="Airport" asp-controller="Home" asp-action="Menu" class="anykey">Press enter to return to the main menu...</a>
+        </div>
     </div>
 </div>

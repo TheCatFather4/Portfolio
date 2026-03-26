@@ -26,9 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Airport\Controllers\" />
-    <Folder Include="Areas\Airport\Models\" />
-    <Folder Include="Areas\Airport\Views\" />
     <Folder Include="Areas\Battleship\Controllers\" />
     <Folder Include="Areas\Battleship\Views\" />
     <Folder Include="Areas\Cafe\Controllers\" />

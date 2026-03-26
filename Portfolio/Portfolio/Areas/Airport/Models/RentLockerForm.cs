@@ -1,4 +1,4 @@
-﻿namespace Portfolio.Models.Airport
+﻿namespace Portfolio.Areas.Airport.Models
 {
     /// <summary>
     /// A model used to select a locker number to rent.

@@ -1,4 +1,4 @@
-﻿namespace Portfolio.Models.Airport
+﻿namespace Portfolio.Areas.Airport.Models
 {
     /// <summary>
     /// A model used to end a locker rental.

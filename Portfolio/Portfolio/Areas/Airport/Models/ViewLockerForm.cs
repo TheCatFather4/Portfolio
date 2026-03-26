@@ -1,6 +1,6 @@
 ﻿using Airport.Core.DTOs;
 
-namespace Portfolio.Models.Airport
+namespace Portfolio.Areas.Airport.Models
 {
     /// <summary>
     /// A model used to display an individual locker's contents.

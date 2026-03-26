@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Portfolio.Areas.Airport.Models;
 using Portfolio.Models.Airport;
 
-namespace Portfolio.Controllers.Airport
+namespace Portfolio.Areas.Airport.Controllers
 {
     /// <summary>
     /// Handles HTTP requests concerning the web version of the Airport Locker Rental application.
     /// </summary>
-    public class AirportController : Controller
+    [Area("Airport")]
+    public class HomeController : Controller
     {
         private readonly LockerManager _lockerManager;
 
@@ -16,9 +17,14 @@ namespace Portfolio.Controllers.Airport
         /// Constructs a controller with the necessary member in order to access lockers.
         /// </summary>
         /// <param name="lockerManager"></param>
-        public AirportController(LockerManager lockerManager)
+        public HomeController(LockerManager lockerManager)
         {
             _lockerManager = lockerManager;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         /// <summary>

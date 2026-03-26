@@ -1,6 +1,6 @@
 ﻿using Airport.Core.DTOs;
 
-namespace Portfolio.Models.Airport
+namespace Portfolio.Areas.Airport.Models
 {
     /// <summary>
     /// A model used to display all rented lockers and their contents.

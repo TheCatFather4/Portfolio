@@ -1,4 +1,5 @@
-﻿@using Portfolio.Models.Airport
+﻿@using Portfolio.Areas.Airport.Models
+@using Portfolio.Models.Airport
 @model AllLockersDisplay
 @{
     Layout = "_AirportLayout";
@@ -41,8 +42,8 @@
         }
         <div class="text-white">--------------------------------------<br /></div>
         <div><br /></div>
+        <div class="mb-2">
+            <a asp-area="Airport" asp-controller="Home" asp-action="Menu" class="anykey">Press enter to return to the main menu...</a>
+        </div>
     </div>
-</div>
-<div class="mt-3">
-    <a asp-controller="Airport" asp-action="Menu" class="btn btn-danger" type="submit">Back to main menu</a>
 </div>
