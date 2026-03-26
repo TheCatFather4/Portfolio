@@ -28,10 +28,8 @@
   <ItemGroup>
     <Folder Include="Areas\Battleship\Controllers\" />
     <Folder Include="Areas\Battleship\Views\" />
-    <Folder Include="Areas\Cafe\Controllers\" />
-    <Folder Include="Areas\Cafe\Models\" />
     <Folder Include="Areas\Cafe\Views\" />
-    <Folder Include="Areas\Cafe\Utilities\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 	<PropertyGroup>
