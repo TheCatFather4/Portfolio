@@ -26,8 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Battleship\Controllers\" />
-    <Folder Include="Areas\Battleship\Views\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
