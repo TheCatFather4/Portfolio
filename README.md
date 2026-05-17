@@ -15,7 +15,7 @@ I am continually updating the site regularly, so check back frequently for new f
 
 ## Featured Software Applications
 
-# :coffee: [The 4th Wall Café](https://www.jmarcello.dev/Home/Cafe) :bagel:
+# :coffee: [The 4th Wall Café](https://www.jmarcello.dev/Cafe) :bagel:
 This is a _full-stack_ web application that utilizes **ASP.NET Core (MVC)** for the _front-end_ portion.<br>
 The _back-end_ is written in **C#** and utilizes both **Entity Framework Core** and **Dapper** (Micro-ORM) for data persistence.<br>
 **ASP.NET Core Identity** is also utilized for authentication and authorization.<br>
@@ -125,7 +125,7 @@ and involves understanding what clients (both human and computer) want out of th
 >Check out my [Docs and Diagrams](https://www.jmarcello.dev/Home/Documentation) page for more!<br>
 ##
 
-# :tea: [Café API](https://www.jmarcello.dev/Home/CafeAPI) :computer:
+# :tea: [Café API](https://www.jmarcello.dev/Cafe/API) :computer:
 This is a REST API that utilizes **ASP.NET Core (Web API)** for its controllers.<br>
 It uses **The 4th Wall Café** [_back-end_](https://github.com/TheCatFather4/Portfolio/blob/main/README.md#layered-architecture) for its business logic and data persistence.<br>
 **ASP.NET Core Identity** is also used for authentication and authorization.
